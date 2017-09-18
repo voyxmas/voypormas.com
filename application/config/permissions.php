@@ -1,11 +1,18 @@
 <?php
 
 // menu lateral
-  $config['perm']['menu_lat']['accounts']                       = TRUE;
-  $config['perm']['menu_lat']['accounts-manager']               = TRUE;
+$config['perm']['menu']['events']                       = TRUE;
+$config['perm']['menu']['events-manager']               = TRUE;
+$config['perm']['menu']['events-new']                   = TRUE;
+$config['perm']['menu']['events-edit']                  = TRUE;
+$config['perm']['menu']['events-delete']                = TRUE;
 
 // controladores
-// login
-  $config['perm']['login']['main']                              = TRUE;
+// admin
+  // login
+$config['perm']['admin']['login']                        = TRUE;
+// app
+  // main
+$config['perm']['app']['main']                          = TRUE;
   
 ?>

@@ -5,10 +5,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	// defino los dominios del entorno
 define('LOCAL_DOMAIN','voypormas.dev');
 define('DEMO_DOMAIN','demo.zigna.com.ar');
+define('DEMO_DIRECOTRY','voypormas');
 define('LIVE_DOMAIN','voypormas.com');
 	// defino el directorio en el que sta la instalacion de CI
 define('LOCAL_DOMAIN_PATH',LOCAL_DOMAIN);
-define('DEMO_DOMAIN_PATH',DEMO_DOMAIN.'/voypormas');
+define('DEMO_DOMAIN_PATH',DEMO_DOMAIN.'/'.DEMO_DIRECOTRY);
 define('LIVE_DOMAIN_PATH',LIVE_DOMAIN);
 
 // constantes propias
@@ -29,8 +30,8 @@ define('APP_AJAX_FOLDER','ajax');
 define('APP_MODALS_FOLDER','modals');
 
 // define sections names
-define('APP_HOME','eventos');
-define('APP_MAIN',APP_RESUMEN);
+define('APP_HOME','app');
+define('APP_MAIN',APP_HOME);
 	// print on screen
 define('APP_DATETIMEFULL_FORMAT','d/m/Y H:i:s');
 define('APP_DATETIME_FORMAT','d/m/Y H:i');

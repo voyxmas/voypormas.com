@@ -12,9 +12,6 @@ function __autoload ($class)
     }
 }
 
-// set timezone
-date_default_timezone_set('America/Argentina/Buenos_Aires');
-
 switch ($_SERVER['SERVER_NAME']) 
 {
 	case LOCAL_DOMAIN:

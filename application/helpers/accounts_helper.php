@@ -14,7 +14,7 @@
     function bouncer ($perm_group, $perm_item, $override = NULL) 
     {
         // definir si la pagina actual es el login para evitar un loop infinito con los redirects y mostrar el 403
-        $is_login   = ($perm_group == 'login' && $perm_item == 'main') ? TRUE : FALSE;
+        $is_login   = ($perm_group == 'admin' && $perm_item == 'login') ? TRUE : FALSE;
         $logged_in  = check_session();
         $allowed_in = check_permissions($perm_group, $perm_item);
 

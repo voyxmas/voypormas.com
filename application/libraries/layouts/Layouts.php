@@ -53,7 +53,6 @@
 
       if (!empty($this->file_includes[$where]))
       {
-
         foreach ($this->file_includes[$where] as $include)
         {
           if (preg_match('/js$/', $include))
@@ -64,9 +63,7 @@
           {
             $final_includes .= '<link href="' . $include . '" rel="stylesheet" type="text/css" />';
           }
-
         }
-
       }
 
       return $final_includes;
