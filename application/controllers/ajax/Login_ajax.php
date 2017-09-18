@@ -48,7 +48,7 @@ class Login_ajax extends My_Controller {
 			case 1:
 				if(isset($_SESSION['go_back_to']))
 				{
-					$do_after['redirect']     = $_SESSION['go_back_to']; 
+					$do_after['redirect']     = base_url().'admin/main'; 
 					unset($_SESSION['go_back_to']);
 				}
 				else

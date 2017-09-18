@@ -54,11 +54,10 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="page-header-inner ">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <a href="index.html">
-                        <img src="../assets/layouts/layout2/img/logo-default.png" alt="logo" class="logo-default" /> </a>
-                    <div class="menu-toggler sidebar-toggler">
+                    
+                        <img src="../assets/layouts/layout2/img/logo-default.png" alt="ADMIN" class="logo-mini" /> </a>
+
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
-                    </div>
                 </div>
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->

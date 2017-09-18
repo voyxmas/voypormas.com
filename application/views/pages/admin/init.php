@@ -1,5 +1,5 @@
 <!-- BEGIN PAGE HEADER-->
-<h3 class="page-title"> Dashboard 3
+<h3 class="page-title">
                         <small>dashboard &amp; statistics</small>
                     </h3>
                     <div class="page-bar">
@@ -21,20 +21,7 @@
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li>
                                         <a href="#">
-                                            <i class="icon-bell"></i> Action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-shield"></i> Another action</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-user"></i> Something else here</a>
-                                    </li>
-                                    <li class="divider"> </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-bag"></i> Separated link</a>
+                                            <i class="icon-plus"></i> Cargar evento nuevo</a>
                                     </li>
                                 </ul>
                             </div>
@@ -47,24 +34,121 @@
                             <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <span class="caption-subject bold uppercase font-dark">Flight Stats</span>
-                                        <span class="caption-helper">flight stats...</span>
-                                    </div>
-                                    <div class="actions">
-                                        <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                                            <i class="icon-cloud-upload"></i>
-                                        </a>
-                                        <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                                            <i class="icon-wrench"></i>
-                                        </a>
-                                        <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                                            <i class="icon-trash"></i>
-                                        </a>
-                                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#"> </a>
+                                        <span class="caption-subject bold uppercase font-dark">Eventos nuevos</span>
+                                        <span class="caption-helper">Eventos que aún no fueron moderados</span>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <div id="dashboard_amchart_2" class="mapChart"></div>
+                                    <div>
+                                    <table class="table table-hover table-light">
+                                            <thead>
+                                                <tr>
+                                                    <th> # </th>
+                                                    <th> First Name </th>
+                                                    <th> Last Name </th>
+                                                    <th> Username </th>
+                                                    <th> Status </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> 1 </td>
+                                                    <td> Mark </td>
+                                                    <td> Otto </td>
+                                                    <td> makr124 </td>
+                                                    <td>
+                                                        <span class="label label-sm label-success"> Approved </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 2 </td>
+                                                    <td> Jacob </td>
+                                                    <td> Nilson </td>
+                                                    <td> jac123 </td>
+                                                    <td>
+                                                        <span class="label label-sm label-info"> Pending </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 3 </td>
+                                                    <td> Larry </td>
+                                                    <td> Cooper </td>
+                                                    <td> lar </td>
+                                                    <td>
+                                                        <span class="label label-sm label-warning"> Suspended </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 4 </td>
+                                                    <td> Sandy </td>
+                                                    <td> Lim </td>
+                                                    <td> sanlim </td>
+                                                    <td>
+                                                        <span class="label label-sm label-danger"> Blocked </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <span class="caption-subject bold uppercase font-dark">Ultimos eventos aprobados</span>
+                                        <span class="caption-helper">Publicaciones activas en la web</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div>
+                                    <table class="table table-hover table-light">
+                                            <thead>
+                                                <tr>
+                                                    <th> # </th>
+                                                    <th> First Name </th>
+                                                    <th> Last Name </th>
+                                                    <th> Username </th>
+                                                    <th> Status </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> 1 </td>
+                                                    <td> Mark </td>
+                                                    <td> Otto </td>
+                                                    <td> makr124 </td>
+                                                    <td>
+                                                        <span class="label label-sm label-success"> Approved </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 2 </td>
+                                                    <td> Jacob </td>
+                                                    <td> Nilson </td>
+                                                    <td> jac123 </td>
+                                                    <td>
+                                                        <span class="label label-sm label-info"> Pending </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 3 </td>
+                                                    <td> Larry </td>
+                                                    <td> Cooper </td>
+                                                    <td> lar </td>
+                                                    <td>
+                                                        <span class="label label-sm label-warning"> Suspended </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> 4 </td>
+                                                    <td> Sandy </td>
+                                                    <td> Lim </td>
+                                                    <td> sanlim </td>
+                                                    <td>
+                                                        <span class="label label-sm label-danger"> Blocked </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

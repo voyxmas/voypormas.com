@@ -14,13 +14,42 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item  ">
-                                    <a href="ui_colors.html" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/eventos/ver' ?>" class="nav-link ">
                                         <span class="title">Ver eventos</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="ui_general.html" class="nav-link ">
-                                        <span class="title">Crear</span>
+                                    <a href="<?php echo base_url().'admin/eventos/nuevo' ?>" class="nav-link ">
+                                        <span class="title">Cargar evento nuevo</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="<?php echo base_url().'admin/categorias/ver' ?>" class="nav-link ">
+                                        <span class="title">Administrar categorias</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="<?php echo base_url().'admin/caracteristicas/ver' ?>" class="nav-link ">
+                                        <span class="title">Administrar características</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item  ">
+                            <a href="javascript:;" class="nav-link nav-toggle">
+                                <i class="icon-user"></i>
+                                <span class="title">Organizadores</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li class="nav-item  ">
+                                    <a href="<?php echo base_url().'admin/organizadores/ver' ?>" class="nav-link ">
+                                        <span class="title">Ver organizadores</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
+                                    <a href="<?php echo base_url().'admin/organizadores/nuevo' ?>" class="nav-link ">
+                                        <span class="title">Cargar organizador nuevo</span>
                                     </a>
                                 </li>
                             </ul>

@@ -34,14 +34,12 @@ class Admin extends My_Controller {
 	{
 		// verificar permisos y la sesion para poder continuar
 		$data['CURRENT_SECTION'] 	= 'admin';
-		$data['CURRENT_PAGE'] 		= 'init';
+		$data['CURRENT_PAGE'] 		= 'main';
 
-		session_destroy();
-		
-		// bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// render data
-		$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+		$this->layouts->view($data['CURRENT_SECTION'].'/init',$data,'admin/general');
 	}
 
 }

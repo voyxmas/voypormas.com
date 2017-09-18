@@ -40,6 +40,8 @@
 <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/plugins/excanvas.min.js"></script>
 <![endif]-->
 <!-- BEGIN CORE PLUGINS -->
+<script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/bootstrap.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/plugins/scripts/bootbox.min.js" type="text/javascript"></script>
