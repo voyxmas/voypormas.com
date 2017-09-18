@@ -15,8 +15,6 @@ class Login_ajax extends My_Controller {
 
 	public function index()
 	{
-		// verificar permisos y la sesion para poder continuar
-		//if( !check_permissions()  || !check_session() ){ redirect(base_url());}
 
 		// load models
 		$this->load->model('admins_model');
