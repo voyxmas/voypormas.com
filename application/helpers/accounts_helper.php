@@ -11,38 +11,42 @@
         return substr(str_shuffle(md5(microtime())), 0, $length);
     }
 
-    function bouncer ($perm_group, $perm_item, $override = NULL) 
+    function bouncer ($perm_group, $perm_item) 
     {
         // definir si la pagina actual es el login para evitar un loop infinito con los redirects y mostrar el 403
         $is_login   = ($perm_group == 'admin' && $perm_item == 'login') ? TRUE : FALSE;
         $logged_in  = check_session();
         $allowed_in = check_permissions($perm_group, $perm_item);
 
-        // check if override is set
-        if($override === FALSE)
-        {
-            header('HTTP/1.0 403 Forbidden');
-            exit;
-        }
-
         // permission ok
-        if (!$logged_in) {
-            if (!$is_login) {
+        if (!$logged_in) 
+        {
+            if (!$is_login) 
+            {
                 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 $_SESSION['go_back_to'] = $actual_link;
                 redirect (base_url());
-            }else{
-                if (!$allowed_in) {
+            }
+            else
+            {
+                if (!$allowed_in) 
+                {
                     header('HTTP/1.0 403 Forbidden');
                     exit;
                 }
             }
-        } else {
-            if(!$allowed_in){
+        } 
+        else 
+        {
+            if(!$allowed_in)
+            {
                 redirect (base_url());
-            }else{
-                if ($is_login) {
-                    redirect(base_url().APP_MAIN);
+            }
+            else
+            {
+                if ($is_login) 
+                {
+                    redirect(base_url().$perm_group);
                 }
             }
         }

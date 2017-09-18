@@ -72,7 +72,7 @@
 
     public function view($view_name, $data = array(), $layout_name = FALSE)
     {
-      $layout_name =  $layout_name == 'FALSE' ? $view_name :  $layout_name;
+      $layout_name =  $layout_name === FALSE ? $view_name :  $layout_name;
       // get templates Arrays
       $this->CI->load->config('layouts');
       $layouts_array =  config_item('layouts');

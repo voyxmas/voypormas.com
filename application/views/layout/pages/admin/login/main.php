@@ -5,10 +5,9 @@
 <title><?php echo $layout_title?$layout_title:'';  ?></title>
 <meta name="description" content="<?php echo $layout_description?$layout_description:'';  ?>" />
 
-<script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/jquery.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/bootstrap.min.js" type="text/javascript"></script>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/open-sans.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/font-awesome.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />

@@ -10,7 +10,8 @@ $config['perm']['menu']['events-delete']                = TRUE;
 // controladores
 // admin
   // login
-$config['perm']['admin']['login']                        = TRUE;
+$config['perm']['admin']['login']                       = TRUE;
+$config['perm']['admin']['main']                        = TRUE;
 // app
   // main
 $config['perm']['app']['main']                          = TRUE;

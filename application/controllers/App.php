@@ -14,7 +14,7 @@ class App extends My_Controller {
 		$data['CURRENT_SECTION'] = 'app';
 		$data['CURRENT_PAGE'] = 'main';
 		
-		//bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// set title
 		$this->layouts->set_title('Welcome');
