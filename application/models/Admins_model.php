@@ -7,32 +7,36 @@ class Admins_model extends CI_Model
 			parent::__construct();
 	}
 
-	public function login()
+	public function login($email=NULL,$password=NULL)
 	{
-		// preprar las variables
-	    $cond['nombre'] 	= $this->input->post('user_name');
-	    $cond['password'] 	= md5($this->input->post('user_name'));
+		if($email===NULL OR $password===NULL) 
+			return FALSE;
+		
+			// preprar las variables
+	    $cond['email'] 	= $email;
+	    $cond['password'] 	= md5($password);
 
 		// query
 		$this->db->select('admins.*');
 		$this->db->where($cond);
-		$result = $this->db->get('admins')->result_array();
+		$result = $this->db->get('admins');
+		if($result)
+			$result = $result->result_array();
+		else
+			$result = array();
 
 		// if login ok
 		if (!empty($result)){
 			$result = 	$result[0];
-			$ok = TRUE;
 			// no guardar en la session
 			foreach ($result as $key => $value) {
 				if ($key == 'password') {
 					unset($result[$key]);
 				}
 			}
-		}else{
-			$ok = FALSE;
 		}
 
 		// respuesta
-		return ( $ok === TRUE ? $result : FALSE);
+		return $result;
 	}
 }

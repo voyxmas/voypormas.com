@@ -20,11 +20,11 @@ class Login_ajax extends My_Controller {
 		$this->load->model('admins_model');
 
 		// preparar las variables del input
-		$user_name = $this->input->post('username');
-		$user_password = $this->input->post('password');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
 
 		// actions
-		$respuesta['user'] = $this->admins_model->login($user_name,$user_password);
+		$respuesta['user'] = $this->admins_model->login($email,$password);
 		$token['token'] = build_token($respuesta['user']);
 		$token['expire'] = time()+APP_SESSION_EXPIRE;
 
@@ -58,19 +58,14 @@ class Login_ajax extends My_Controller {
 				$do_after['alert']		= 'Error en el intento de login';
 				break;
 		}
-
-    	$this->ajax_response($data,$do_after);
-
+    $this->ajax_response($data,$do_after);
 	}
 
 	public function logout () 
 	{
 		$this->session->unset_userdata('user');
-
 		$data = array();
-
-		$do_after['redirect']          	= base_url();
-
+		$do_after['redirect'] = base_url();
 		$this->ajax_response($data,$do_after);
 	}
 
