@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine on
+		# agrego el direcotrio en el que esta instalado CI
+    # RewriteBase /hcciv # lo comento para que ande cuando no hace falta
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?$1 [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 /index.php
+</IfModule>
+
+<IfModule mod_speling.c>
+	CheckSpelling On
+</IfModule>
+
+Options All -Indexes 

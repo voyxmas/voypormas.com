@@ -1,0 +1,48 @@
+<?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class My_Controller extends CI_Controller {
+
+	function __construct()
+	{
+		parent::__construct();
+
+		// mostrar el profiler solo en development y solo cuando no son ajax requests
+		if(!$this->input->is_ajax_request())
+			if(ENVIRONMENT != 'production' AND isset($_GET['profiler'])) 
+				$this->output->enable_profiler(TRUE);
+				
+	}
+
+	// preparo el json
+	protected function ajax_response($data = NULL, $do_after = NULL)
+	{
+		$return['data']=$data;
+		$return['do_after']=$do_after;
+		echo json_encode($return);
+	}
+
+	// preparo los callback apra interactuar con js y reaccionar a la respuesta del llamado ajax
+	protected function ajax_clean_do_after($do_after)
+	{
+		foreach($do_after as $key => $value) 
+		{
+			switch ($key) 
+			{
+				// aciones que se tienen que corresponder con las definidas en assets/custom/scripts/ajaxforms.js en el metodo do_response
+				case 'callback': // ejecutar una funcion por el nombre
+				case 'redirect': // redirecciona a otra pagina
+				case 'reload': // recarga la pagina actual
+				case 'popup': // carga un popup con un mensaje
+				// miscelaneos
+				case 'action_delay': // define el tiempo que se espera para ejecutar la accion
+					$do_after[$key] = $value;
+					break;
+			}
+		}
+
+		return $do_after;
+	}
+
+}
+?>
