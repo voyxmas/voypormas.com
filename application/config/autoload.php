@@ -7,7 +7,7 @@ $autoload['libraries'] = array('layouts/layouts','seo/seo','session','database')
 
 $autoload['drivers'] = array();
 
-$autoload['helper'] = array('accounts','url','date');
+$autoload['helper'] = array('accounts','form_builder','url','date');
 
 $autoload['config'] = array('permissions');
 

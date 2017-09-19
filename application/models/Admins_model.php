@@ -1,10 +1,14 @@
 <?php
-class Admins_model extends CI_Model
+class Admins_model extends MY_Model
 {
 
 	public function __construct()
 	{
 			parent::__construct();
+			$this->primary_id 	= 'admin_id';
+			$this->primary_field= 'nombre';
+			$this->table_CRUD 	= 'admins';
+			$this->table_read 	= 'admins';
 	}
 
 	public function login($email=NULL,$password=NULL)

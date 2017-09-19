@@ -83,9 +83,9 @@
 
       // intentar cargar archivos css y js especificos de cada view si existen
       $path_to_current_page = $view_name;
-      $path = APP_ASSETS_FOLDER.'/custom/pages/js/'.$path_to_current_page.'.js';
+      $path = APP_ASSETS_FOLDER.'/pages/scripts/'.$path_to_current_page.'.js';
       if (is_file(FCPATH.$path) === TRUE) $this->add_include(base_url().$path, 'foot');
-      $path = APP_ASSETS_FOLDER.'/custom/pages/css/'.$path_to_current_page.'.css';
+      $path = APP_ASSETS_FOLDER.'/pages/css/'.$path_to_current_page.'.css';
       if (is_file(FCPATH.$path) === TRUE) $this->add_include(base_url().$path, 'head');
 
       // render content
@@ -93,6 +93,7 @@
       $data['content'] = $this->CI->load->view('pages/'.$view_name.$main,$data, TRUE);
 
       $this->CI->load->view('layout/pages/'.$layout_name.'/main',$data);
+
     }
   }
 ?>

@@ -1,135 +1,31 @@
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('../fonts/fontawesome-webfont.eot?v=4.4.0');
-  src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.4.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.4.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.4.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.4.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
+@media (min-width: 990px) {
+  .logo-admin {
+    max-width: 100%;
+    max-height: 80%;
+    margin-top: 14px;
+  }
 }
-body {
-	background: #eff3f8;
-}
-.top-menu .btn {
-  padding: 12px;
-}
-
- .list-group-item .btn { margin: -5px 0;}
-
-
-.page-logo a {
-	padding: 10px 0;
-    color: #FFF;
-    font-size: 20px;
-    font-weight: 300;
+@media (max-width: 990px) {
+  .logo-admin {
+    max-height: 45px;
+    margin-top: 10px;
+  }
 }
 
-.portlet.no-padding > .portlet-body {
-	padding-left: 0;
-	padding-right: 0; 
+.input-group-z {
+  display: table;
+  width: 100%;
+  margin-bottom: 3px;
 }
-
-.page-content {
-	overflow: auto;
-}
-
-.historia-clinica .panel-title {
-	font-size: 14px
-}
-
-.tallerrows > tbody > tr > td {
-	line-height: 30px;
-}
-
-.hor-menu .mega-menu-content > .nav-link {
-	padding: 10px 20px;
-    display: inline-block;
-    color: #fff;
-}
-
-.tallerrows > tbody > tr.old > td { color: #999 }
-
-/* tables feature test feature/pacientes-ajax-form*/
-/* tablas clickeables */
-table > tbody > tr { cursor: pointer; }
-
-/*
-Steps
-*/
-.steps > .step {
-	padding: 0
-}
-.steps > .step > .step-id {
-	position: relative;
-	overflow: visible;
-	text-align: center;
-	margin: 0 auto;
-}
-.steps > .step > .step-id > span {
-	display: inline-block;
-	height: 60px;
-	width: 60px;
-	padding: 10px;
-	font-size: 28px;
-	box-sizing: border-box;
-	border: 2px solid #000;
-	border-radius: 50% !important;
-	background-color: #FFF;
-	z-index: 4;
-}
-.steps > .step:not(:first-child)  > .step-id > span:before,
-.steps > .step:not(:last-child) > .step-id > span:after 
+.input-group-z > input,
+.input-group-z > label
 {
-	content: '';
-    height: 3px;
-    width: calc(50% - 30px);
-    position: absolute;
-    background-color: #eee;
-    top: 50%;
-    z-index: 0;
+  display: table-cell;
+} 
+.input-group-z > label {
+  text-align: center;
+  background-color: #c2cad8;
 }
-.steps > .step> .step-id > span:before {left: 0;}
-.steps > .step > .step-id > span:after {right: 0;}
-
-.steps > .step > .step-titl,
-.steps > .step > .step-subt {
-	text-align: center;
+.control-label {
+  display: block;
 }
-.steps > .step > .step-titl {
-	font-size: 1.5em;
-}
-	/* estados */	
-	.steps > .step.done > .step-id > span {
-		border-color: green;
-		color: green;
-	}
-	.steps > .step.done > .step-id > span:before,
-	.steps > .step.done > .step-id > span:after {
-		background-color: green;
-	}
-
-	.steps > .step.error > .step-id > span {
-		border-color:red;
-		color:red;
-	}
-	.steps > .step.error > .step-id > span:before,
-	.steps > .step.error > .step-id > span:after {
-		background-color:red;
-	}
-
-	.steps > .step.warning > .step-id > span {
-		border-color: orange;
-		color: orange;
-	}
-	.steps > .step.warning > .step-id > span:before,
-	.steps > .step.warning > .step-id > span:after {
-		background-color: orange;
-	}
-
-	tr.sobreturno > td:nth-child(3):after {
-		content: "\f271";
-		font-family: 'FontAwesome';
-	}
-
-	.nopadding {
-		padding: 0 !important;
-		margin: 0 !important;
- }

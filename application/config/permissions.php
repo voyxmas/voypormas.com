@@ -9,9 +9,14 @@ $config['perm']['menu']['events-delete']                = TRUE;
 
 // controladores
 // admin
-  // login
 $config['perm']['admin']['login']                       = TRUE;
 $config['perm']['admin']['main']                        = TRUE;
+  // eventos
+  $config['perm']['admin']['events_listar']             = TRUE;
+  $config['perm']['admin']['events_nuevo']              = TRUE;
+  $config['perm']['admin']['events_ver']                = TRUE;
+  $config['perm']['admin']['events_editar']             = TRUE;
+  $config['perm']['admin']['events_borrar']             = TRUE;
 // app
   // main
 $config['perm']['app']['main']                          = TRUE;

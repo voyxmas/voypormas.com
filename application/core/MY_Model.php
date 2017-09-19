@@ -9,7 +9,8 @@ class MY_Model extends CI_Model
 {
     public $table_CRUD;
     public $table_read;
-    public $primary_id;
+    public $primary_id; // el campo que se toma como id unico
+    public $primary_field; // el campo que se tomo como descriptivo del cada registro, para forms
     public $primary_order_by;
 
 	function __construct()
@@ -134,17 +135,17 @@ class MY_Model extends CI_Model
         if ($id === FALSE) 
         {    
             // se creae el registro cuando no se define un id
-            if (!isAssoc($data)) 
+            if (!$this->isAssoc($data)) 
             {
                 // si es un array de arrays hacer el batch
-                // agregar capo creado
+                // agregar campo creado y autor
                 foreach ($data as $key => $value) 
                 {
                     $data[$key]['creado'] = date(SYS_DATETIMEFULL_FORMAT);
-                    $data[$key]['autor'] = $_SESSION['user']['admin_id'];
+                    $data[$key]['autor_admin_id'] = $_SESSION['user']['admin_id'];
                 }
 
-                // ejecutar elcoando insert
+                // ejecutar el insert
                 $this->db->insert_batch($this->table_CRUD, $data);
                 
                 // cargar los ids creados para devolverlos
@@ -157,7 +158,7 @@ class MY_Model extends CI_Model
             else
             {
                 $data['creado'] = date(SYS_DATETIMEFULL_FORMAT);
-                $data['autor'] = $_SESSION['user']['admin_id'];
+                $data['autor_admin_id'] = $_SESSION['user']['admin_id'];
                 $this->db->set($data)->insert($this->table_CRUD);
                 $return_id = $this->db->insert_id();
             }
@@ -209,6 +210,22 @@ class MY_Model extends CI_Model
         $this->db->where(htmlentities($key), htmlentities($value))->set($data)->update($this->table_CRUD);
     }
 
+    // tomar datos apra inputs key primery_key => primery_text
+    public function get_for_input($attr = array())
+    {
+        $registros = $this->get($attr);
+
+        if(empty($registros)) return FALSE;
+
+        // looperar y asociar de cada registro solo el primery text con su id
+        foreach ($registros as $registro) 
+        {
+            $return[$registro[$this->primary_id]] = $registro[$this->primary_field];
+        }
+
+        return $return;
+    }
+
     // helpers
     private function switch_output ($array, $output, $unique = FALSE)
     {
@@ -225,6 +242,12 @@ class MY_Model extends CI_Model
                 return $array;
                 break;
         }
+    }
+
+    private function isAssoc(array $arr)
+    {
+        if (array() === $arr) return false;
+        return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }
 ?>
