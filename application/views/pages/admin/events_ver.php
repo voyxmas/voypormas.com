@@ -29,7 +29,9 @@
                                         <a href="<?php echo base_url() ?>ajax/eventos_ajax/desactivar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline blue btn-sm <?php echo $evento['estado'] == 0 ? 'active' : NULL ?>">Nuevo</a>
                                         <a href="<?php echo base_url() ?>ajax/eventos_ajax/rechazar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline red btn-sm <?php echo $evento['estado'] == 2 ? 'active' : NULL ?>">Rechazado</a>
                                       </div>
+                                      <?php if(check_permissions('admin', 'events/editar')): ?>
                                       <a href="<?php echo base_url() ?>admin/eventos/editar/<?php echo $evento['evento_id'] ?>" class="btn btn-outline btn-circle blue btn-sm">Editar</a>
+                                      <?php endif ?>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
@@ -45,8 +47,10 @@
                                     <?php $i=0; foreach($precios as $precio): $i++?>
                                     <div class="col-sm-12 col-md-6 col-lg-3 margin-top-20"> 
                                       <div class="bg-blue-madison bg-font-blue-madison head">
+                                        <?php if(check_permissions('admin','events_editar_precio')): ?>
                                         <button type="button" class="btn btn-info btn-xs">Editar</button>
-                                        <div class="pull-right">$<?php echo $precio['monto'] ?></div>
+                                        <?php endif ?>
+                                        <div style="text-align:right">$<?php echo $precio['monto'] ?></div>
                                       </div>
                                       <small><?php echo date(APP_DATE_FORMAT,strtotime($precio['desde'])) ?> - <?php echo date(APP_DATE_FORMAT,strtotime($precio['hasta'])) ?></small>
                                     </div>

@@ -14,7 +14,7 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/eventos/listar' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/eventos' ?>" class="nav-link ">
                                         <span class="title">Ver eventos</span>
                                     </a>
                                 </li>

@@ -94,7 +94,7 @@ class Eventos_ajax extends My_Controller {
 		// trato de editar el evento
 		$attr['estado'] = 1;
 		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
-		if($respuesta == FALSE) $e[] = 'No se pudo arpobar el evento' ;
+		if($respuesta == FALSE) $e[] = 'No se pudo aprobar el evento' ;
 
 		$data = array();
 		switch ($respuesta) {
@@ -107,6 +107,68 @@ class Eventos_ajax extends My_Controller {
 				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
 				$do_after['action_delay'] = 1000;
 				$do_after['toastr'] 			= 'Evento aprobado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function rechazar($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+    // check permission
+    $data['CURRENT_SECTION'] 	= 'admin';
+    $data['CURRENT_PAGE'] 		= 'events_aprobar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		
+		// trato de editar el evento
+		$attr['estado'] = 2;
+		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
+		if($respuesta == FALSE) $e[] = 'No se pudo rechazar el evento' ;
+
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 			= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
+				$do_after['action_delay'] = 1000;
+				$do_after['toastr'] 			= 'Evento rechazado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function desactivar($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+    // check permission
+    $data['CURRENT_SECTION'] 	= 'admin';
+    $data['CURRENT_PAGE'] 		= 'events_aprobar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		
+		// trato de editar el evento
+		$attr['estado'] = 0;
+		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
+		if($respuesta == FALSE) $e[] = 'No se pudo desactivar el evento' ;
+
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 			= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
+				$do_after['action_delay'] = 500;
+				$do_after['toastr'] 			= 'Evento desactivado';
 				$do_after['toastr_type'] 	= 'success';
 				break;
 		}
