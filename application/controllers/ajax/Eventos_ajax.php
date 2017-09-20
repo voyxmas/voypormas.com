@@ -14,7 +14,7 @@ class Eventos_ajax extends My_Controller {
 		$this->load->model('eventos_model');
 		$this->load->model('caracteristicas_model');
 		$this->load->model('eventos_caracteristicas_model');
-		$this->load->model('precios_eventos_model');
+		$this->load->model('eventos_precios_model');
 	}
 
 	public function nuevo ()
@@ -61,7 +61,7 @@ class Eventos_ajax extends My_Controller {
 			{
 				$save[] = array('monto'=>$precio, 'evento_id'=>$evento_id, 'desde'=>$precio_desde[$key], 'hasta'=>$precio_hasta[$key]);
 			}
-			$precios_id = $this->precios_eventos_model->save($save); unset($save);
+			$precios_id = $this->eventos_precios_model->save($save); unset($save);
 			if(!$caracteristicas_id) $e[] = 'No se pudieron asignar las tarifas';
 		}
 

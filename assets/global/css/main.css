@@ -4,28 +4,46 @@
     max-height: 80%;
     margin-top: 14px;
   }
+  .input-group-z {
+    display: table;
+    width: 100%;
+    margin-bottom: 3px;
+  }
+  .input-group-z > input,
+  .input-group-z > label
+  {
+    display: table-cell;
+  } 
+  .input-group-z > label {
+    text-align: center;
+    background-color: #c2cad8;
+  }
+  .control-label {
+    display: block;
+    padding: 5px 0;
+  }
 }
 @media (max-width: 990px) {
   .logo-admin {
     max-height: 45px;
     margin-top: 10px;
   }
+  .input-group-z {
+    margin-bottom: 10px;
+  }
+  .input-group-z > label,
+  .input-group-z > input {
+    display: inline-block;
+  }
+  .input-group-z > label {
+    width:30%;
+  } 
+  .input-group-z > input {
+    width:70%;
+  }
 }
 
-.input-group-z {
-  display: table;
-  width: 100%;
-  margin-bottom: 3px;
-}
-.input-group-z > input,
-.input-group-z > label
-{
-  display: table-cell;
-} 
-.input-group-z > label {
-  text-align: center;
-  background-color: #c2cad8;
-}
-.control-label {
-  display: block;
+.form-group > label:not(.checkbox-inline):not(.radio-inline) {
+  font-weight: bold;
+  color: #578EBE;
 }

@@ -89,11 +89,12 @@ function echo_input($input,$group = FALSE)
   $input["value"] = isset($input["value"]) ? $input["value"] : NULL;
   $input["placeholder"] = isset($input["placeholder"]) ? $input["placeholder"] : NULL;
   $input["class"] = isset($input["class"]) ? $input["class"] : NULL;
+  $input["required"] = isset($input["required"]) ? ($input["required"] ? 'required' : NULL ) : NULL;
     
   // labels
   if(isset($input["label"]))
   {
-    echo '<label class="control-label">'.$input["label"];
+    echo '<label class="control-label">'.$input["label"].' '.($input["required"] ? '*' : '');
     // si se permite agregar otro elemento del mismo tipo, cargar el boton
     echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn green btn-xs" data-name="'.$input["name"].'">+</a>' : '';
 
@@ -109,10 +110,10 @@ function echo_input($input,$group = FALSE)
     case 'datetime-local':
     case 'time':
     case 'hidden':
-      echo '<input type="'.$input["type"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$input["required"].' type="'.$input["type"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'textarea':
-      echo '<textarea name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
+      echo '<textarea '.$input["required"].' name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
       break;
     case 'select':
     case 'radio':
@@ -123,7 +124,7 @@ function echo_input($input,$group = FALSE)
       // si es un select
       if($input["type"] === "select")
       {
-        echo '<select name="'.$input["name"].'" class="form-control input-group-z-element">';
+        echo '<select '.$input["required"].' name="'.$input["name"].'" class="form-control input-group-z-element">';
         // placehoder select
         echo '<option value="">'.$input["placeholder"].'</option>';
         foreach ($input["options"] as $value => $text) 
@@ -144,7 +145,7 @@ function echo_input($input,$group = FALSE)
           {
             $selected = $value == $input['value'] ? 'checked' : NULL;
             echo '<label class="'.$input['class'].' '.$input["type"].'-inline">';
-            echo '<input '.$selected.' type="'.$input['type'].'" name="'.$input['name'].'" value="'.$value.'"> '.$text;
+            echo '<input '.$input["required"].' '.$selected.' type="'.$input['type'].'" name="'.$input['name'].'" value="'.$value.'"> '.$text;
             echo '</label>';
           }
         }

@@ -1,5 +1,5 @@
 <?php
-class Precios_eventos_model extends MY_Model
+class Eventos_precios_model extends MY_Model
 {
 
 	public function __construct()
