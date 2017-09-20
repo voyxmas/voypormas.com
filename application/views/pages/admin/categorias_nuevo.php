@@ -1,6 +1,4 @@
 <!-- BEGIN PAGE HEADER-->
-<h3 class="page-title"><?php echo $layout_title ?>
-                    </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
@@ -18,10 +16,9 @@
                                     <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-plus"></i> Cargar evento nuevo</a>
-                                    </li>
+                                    <li><a href="<?php echo base_url().'admin/categorias' ?>">Ver Categorias</a></li>
+                                    <li><a href="<?php echo base_url().'admin/categorias/nuevo' ?>">Cargar Categoria</a></li>
+                                    <li><a href="javascript:history.go(-1)">Volver</a></li>
                                 </ul>
                             </div>
                         </div>

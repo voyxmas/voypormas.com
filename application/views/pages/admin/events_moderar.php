@@ -1,6 +1,4 @@
 <!-- BEGIN PAGE HEADER-->
-<h3 class="page-title"><?php echo $layout_title ?>
-                    </h3>
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
@@ -12,6 +10,19 @@
                                 <a href="#">Moderar</a>
                             </li>
                         </ul>
+                        <div class="page-toolbar">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true"> Actions
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li><a href="<?php echo base_url().'admin/eventos' ?>">Ver eventos</a></li>
+                                    <li><a href="<?php echo base_url().'admin/eventos/moderar' ?>">Moderar eventos</a></li>
+                                    <li><a href="<?php echo base_url().'admin/eventos/nuevo' ?>">Cargar eventos</a></li>
+                                    <li><a href="javascript:history.go(-1)">Volver</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- END PAGE HEADER-->
 
