@@ -7,7 +7,6 @@ class Admin extends My_Controller {
 	{
 			parent::__construct();
 			$this->load->model('eventos_model');
-			$this->output->enable_profiler(TRUE);
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
 	}
@@ -57,7 +56,7 @@ class Admin extends My_Controller {
 	{
 		// cargar modelos para eventos
 		$this->load->model('eventos_model');
-		$this->load->model('eventos_tipos_model');
+		$this->load->model('categorias_model');
 		$this->load->model('caracteristicas_model');
 		$this->load->model('eventos_caracteristicas_model');
 		$this->load->model('eventos_precios_model');
@@ -79,6 +78,9 @@ class Admin extends My_Controller {
 			case 'eliminar':
 				$this->events_eliminar($evento_id);
 				break;
+			case 'moderar':
+				$this->events_moderar();
+				break;
 		}
 	}
 	// metodos de eventos
@@ -86,9 +88,31 @@ class Admin extends My_Controller {
 		{
 			$data['CURRENT_SECTION'] 	= 'admin';
 			$data['CURRENT_PAGE'] 		= 'events_listar';
+
+			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+			// buscar los eventos y ordenarlos por fecha de publicacion
+			$attr['order_by'] = 'creado DESC';
+
+			$data['eventos_nuevos'] = $this->eventos_model->get($attr); unset($attr);
+
+			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+		}
+
+		private function events_moderar ()
+		{
+			$data['CURRENT_SECTION'] 	= 'admin';
+			$data['CURRENT_PAGE'] 		= 'events_moderar';
 	
 			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
-			
+
+			// buscar los eventos y ordenarlos por fecha de publicacion
+			$attr['order_by'] = 'creado DESC';
+			$attr['cond']['estado'] = 0;
+
+			$data['eventos_nuevos'] = $this->eventos_model->get($attr); unset($attr);
+
+			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
 		}
 
 		private function events_nuevo ()
@@ -121,6 +145,11 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][8]['type'] = 'number';
 				$data['form']['inputs'][8]['required'] = TRUE;
 
+				$data['form']['inputs'][8]['name'] = 'fecha';
+				$data['form']['inputs'][8]['label'] = 'Fecha y hora del evento';
+				$data['form']['inputs'][8]['type'] = 'datetime-local';
+				$data['form']['inputs'][8]['required'] = TRUE;
+
 				$data['form']['inputs'][2]['name']	= 'publicar_desde';
 				$data['form']['inputs'][2]['label'] = 'Publicar desde';
 				$data['form']['inputs'][2]['type'] 	= 'date';
@@ -150,7 +179,7 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][6]['type'] = 'select';
 				$data['form']['inputs'][6]['placeholder'] = 'Tipo de evento';
 				$data['form']['inputs'][6]['label'] = 'Tipo de evento';
-				$data['form']['inputs'][6]['options'] = $this->eventos_tipos_model->get_for_input();
+				$data['form']['inputs'][6]['options'] = $this->categorias_model->get_for_input();
 				$data['form']['inputs'][6]['required'] = TRUE;
 				
 				$data['form']['inputs'][5]['name'] = 'caracteristica_id[]';
@@ -211,9 +240,112 @@ class Admin extends My_Controller {
 	
 	// metodos de organizadores
 
-	// metodos de caracteristicas
+	public function caracteristicas ($method = NULL, $caracteristica_id = NULL)
+	{
+		// cargar modelos para eventos
+		$this->load->model('caracteristicas_model');
 
+		// cargar controladores para eventos
+		switch ($method) {
+			case NULL:
+				$this->caracteristicas_listar();
+				break;
+			case 'nuevo':
+				$this->caracteristicas_nuevo();
+				break;
+		}
+	}
+		// metodos de caracteristicas
+		private function caracteristicas_listar ()
+		{
+			$data['CURRENT_SECTION'] 	= 'admin';
+			$data['CURRENT_PAGE'] 		= 'caracteristicas_listar';
+
+			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+			// buscar los eventos y ordenarlos por fecha de publicacion
+			$attr['order_by'] = 'creado DESC';
+
+			$data['caracteristicas'] = $this->caracteristicas_model->get($attr); unset($attr);
+
+			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+		}
+
+		private function caracteristicas_nuevo ()
+		{
+			$data['CURRENT_SECTION'] 	= 'admin';
+			$data['CURRENT_PAGE'] 		= 'caracteristicas_nuevo';
+			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+			
+			// definir titulos y crumbs
+			$this->layouts->set_title('Cargar un evento nuevo');
+			
+			// definir el formulario
+				$data['form']['action'] = base_url().'ajax/caracteristicas_ajax/nuevo';
+				$data['form']['ajax_call'] = 1;
+				// inputs
+				$data['form']['inputs'][0]['name'] = 'nombre';
+				$data['form']['inputs'][0]['placeholder'] = 'Caracteristica';
+				$data['form']['inputs'][0]['required'] = TRUE;
+
+			// cargar la pagina y pasar los datos al view
+			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+
+		}
+	
 	// metodos de tipo de eventos
+	public function categorias ($method = NULL, $categoria_id = NULL)
+	{
+		// cargar modelos para eventos
+		$this->load->model('categorias_model');
+
+		// cargar controladores para eventos
+		switch ($method) {
+			case NULL:
+				$this->categorias_listar();
+				break;
+			case 'nuevo':
+				$this->categorias_nuevo();
+				break;
+		}
+	}
+		// metodos de categorias
+		private function categorias_listar ()
+		{
+			$data['CURRENT_SECTION'] 	= 'admin';
+			$data['CURRENT_PAGE'] 		= 'categorias_listar';
+
+			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+			// buscar los eventos y ordenarlos por fecha de publicacion
+			$attr['order_by'] = 'creado DESC';
+
+			$data['categorias'] = $this->categorias_model->get($attr); unset($attr);
+
+			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+		}
+
+		private function categorias_nuevo ()
+		{
+			$data['CURRENT_SECTION'] 	= 'admin';
+			$data['CURRENT_PAGE'] 		= 'categorias_nuevo';
+			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+			
+			// definir titulos y crumbs
+			$this->layouts->set_title('Cargar un evento nuevo');
+			
+			// definir el formulario
+				$data['form']['action'] = base_url().'ajax/categorias_ajax/nuevo';
+				$data['form']['ajax_call'] = 1;
+				// inputs
+				$data['form']['inputs'][0]['name'] = 'nombre';
+				$data['form']['inputs'][0]['placeholder'] = 'categoria';
+				$data['form']['inputs'][0]['required'] = TRUE;
+
+			// cargar la pagina y pasar los datos al view
+			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+
+		}
 
 }
 ?>

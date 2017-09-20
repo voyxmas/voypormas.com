@@ -1,5 +1,5 @@
 <?php
-class Eventos_tipos_model extends MY_Model
+class Categorias_model extends MY_Model
 {
 
 	public function __construct()

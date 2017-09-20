@@ -7,7 +7,7 @@
                                 <i class="icon-home"></i>
                                 <a href="<?php echo base_url().'admin' ?>">Inicio</a>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="<?php echo base_url().'admin/eventos' ?>">Events</a>
+                                <a href="<?php echo base_url().'admin/categorias' ?>">Categorias</a>
                                 <i class="fa fa-angle-right"></i>
                                 <a href="#">Nuevo</a>
                             </li>

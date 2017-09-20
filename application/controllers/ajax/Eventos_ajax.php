@@ -104,8 +104,8 @@ class Eventos_ajax extends My_Controller {
 				break;
 			
 			default:
-				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
-				$do_after['action_delay'] = 1000;
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] = 500;
 				$do_after['toastr'] 			= 'Evento aprobado';
 				$do_after['toastr_type'] 	= 'success';
 				break;
@@ -135,8 +135,8 @@ class Eventos_ajax extends My_Controller {
 				break;
 			
 			default:
-				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
-				$do_after['action_delay'] = 1000;
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] = 500;
 				$do_after['toastr'] 			= 'Evento rechazado';
 				$do_after['toastr_type'] 	= 'success';
 				break;
@@ -166,7 +166,7 @@ class Eventos_ajax extends My_Controller {
 				break;
 			
 			default:
-				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
+				$do_after['reload'] 		= 1;
 				$do_after['action_delay'] = 500;
 				$do_after['toastr'] 			= 'Evento desactivado';
 				$do_after['toastr_type'] 	= 'success';

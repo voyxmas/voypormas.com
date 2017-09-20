@@ -8,6 +8,8 @@
                                 <a href="<?php echo base_url().'admin' ?>">Inicio</a>
                                 <i class="fa fa-angle-right"></i>
                                 <a href="<?php echo base_url().'admin/eventos' ?>">Events</a>
+                                <i class="fa fa-angle-right"></i>
+                                <a href="#">Moderar</a>
                             </li>
                         </ul>
                     </div>
@@ -18,7 +20,7 @@
                             <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                      <span class="caption-subject bold uppercase font-dark">Eventos</span> 
+                                      <span class="caption-subject bold uppercase font-dark">Eventos esperando moderacion</span> 
                                     </div>
                                 </div>
                                 <div class="portlet-body">

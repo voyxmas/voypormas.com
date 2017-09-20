@@ -14,6 +14,11 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item  ">
+                                    <a href="<?php echo base_url().'admin/eventos/moderar' ?>" class="nav-link ">
+                                        <span class="title">Moderar</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item  ">
                                     <a href="<?php echo base_url().'admin/eventos' ?>" class="nav-link ">
                                         <span class="title">Ver eventos</span>
                                     </a>
@@ -24,12 +29,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/categorias/ver' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/categorias' ?>" class="nav-link ">
                                         <span class="title">Administrar categorias</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/caracteristicas/ver' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/caracteristicas' ?>" class="nav-link ">
                                         <span class="title">Administrar características</span>
                                     </a>
                                 </li>
@@ -43,12 +48,12 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/organizadores/ver' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/organizadores' ?>" class="nav-link ">
                                         <span class="title">Ver organizadores</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/organizadores/nuevo' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/organizadores' ?>" class="nav-link ">
                                         <span class="title">Cargar organizador nuevo</span>
                                     </a>
                                 </li>
