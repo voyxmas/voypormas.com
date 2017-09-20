@@ -36,20 +36,7 @@ class Admin extends My_Controller {
 	public function main()
 	{
 		// verificar permisos y la sesion para poder continuar
-		$data['CURRENT_SECTION'] 	= 'admin';
-		$data['CURRENT_PAGE'] 		= 'main';
-
-		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
-
-		// set title
-		$this->layouts->set_title('Administrador del sitio');
-
-		// tomar eventos nuevos
-
-		// tomar eventos aprovados recientemente
-
-		// render data
-		$this->layouts->view($data['CURRENT_SECTION'].'/init',$data,'admin/general');
+		$this->eventos('moderar');
 	}
 
 	public function eventos ($method = NULL, $evento_id = NULL)
