@@ -5,9 +5,9 @@
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="icon-home"></i>
-                                <a href="<?php echo base_url().'/admin' ?>">Inicio</a>
+                                <a href="<?php echo base_url().'admin' ?>">Inicio</a>
                                 <i class="fa fa-angle-right"></i>
-                                <a href="<?php echo base_url().'/admin/eventos' ?>">Events</a>
+                                <a href="<?php echo base_url().'admin/eventos' ?>">Events</a>
                                 <i class="fa fa-angle-right"></i>
                                 <a href="index.html"># 1</a>
                             </li>
@@ -25,11 +25,11 @@
                                     </div>
                                     <div class="actions">
                                       <div class="btn-group btn-group-circle">
-                                        <a href="<?php echo base_url() ?>/admin/ajax/eventos_ajax/aprobar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline green btn-sm <?php echo $evento['estado'] == 1 ? 'active' : NULL ?>">Publico</a>
-                                        <a href="<?php echo base_url() ?>/admin/ajax/eventos_ajax/desactivar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline blue btn-sm <?php echo $evento['estado'] == 0 ? 'active' : NULL ?>">Nuevo</a>
-                                        <a href="<?php echo base_url() ?>/admin/ajax/eventos_ajax/rechazar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline red btn-sm <?php echo $evento['estado'] == 2 ? 'active' : NULL ?>">Rechazado</a>
+                                        <a href="<?php echo base_url() ?>ajax/eventos_ajax/aprobar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline green btn-sm <?php echo $evento['estado'] == 1 ? 'active' : NULL ?>">Publico</a>
+                                        <a href="<?php echo base_url() ?>ajax/eventos_ajax/desactivar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline blue btn-sm <?php echo $evento['estado'] == 0 ? 'active' : NULL ?>">Nuevo</a>
+                                        <a href="<?php echo base_url() ?>ajax/eventos_ajax/rechazar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline red btn-sm <?php echo $evento['estado'] == 2 ? 'active' : NULL ?>">Rechazado</a>
                                       </div>
-                                      <a href="<?php echo base_url() ?>/admin/eventos/editar/<?php echo $evento['evento_id'] ?>" class="btn btn-outline btn-circle blue btn-sm">Editar</a>
+                                      <a href="<?php echo base_url() ?>admin/eventos/editar/<?php echo $evento['evento_id'] ?>" class="btn btn-outline btn-circle blue btn-sm">Editar</a>
                                     </div>
                                 </div>
                                 <div class="portlet-body">

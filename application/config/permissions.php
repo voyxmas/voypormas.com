@@ -16,6 +16,9 @@ $config['perm']['admin']['main']                        = TRUE;
   $config['perm']['admin']['events_nuevo']              = TRUE;
   $config['perm']['admin']['events_ver']                = TRUE;
   $config['perm']['admin']['events_editar']             = TRUE;
+  $config['perm']['admin']['events_aprobar']            = TRUE;
+  $config['perm']['admin']['events_rechazar']           = TRUE;
+  $config['perm']['admin']['events_desactivar']         = TRUE;
   $config['perm']['admin']['events_borrar']             = TRUE;
 // app
   // main
