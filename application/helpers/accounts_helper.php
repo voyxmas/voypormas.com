@@ -123,6 +123,13 @@
 
     }
 
+    function loggedin_username()
+    {
+        $CI =& get_instance();
+        $user = $CI->session->get_userdata('user');
+        return $user['user']['nombre'];
+    }
+
     function build_token ($data) {
         if (is_array($data)) {
         ksort($data);
