@@ -59,14 +59,14 @@ class Eventos_ajax extends My_Controller {
 		{
 			foreach ($precios as $key => $precio) 
 			{
-				// si el precio no esta vacio guardarlo
+				// si el precio no esta vacio guardarlo 
 				if($precio != "")
 					$save[] = array('monto'=>$precio, 'evento_id'=>$evento_id, 'desde'=>$precio_desde[$key], 'hasta'=>$precio_hasta[$key]);
 			}
 			$precios_id = $this->eventos_precios_model->save($save); unset($save);
 			if(!$caracteristicas_id) $e[] = 'No se pudieron asignar las tarifas';
 		}
-
+ 
 		$data = array();
 		switch ($evento_id) {
 			case FALSE:
