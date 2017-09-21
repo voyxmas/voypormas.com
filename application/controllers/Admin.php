@@ -140,12 +140,10 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][2]['name']	= 'publicar_desde';
 				$data['form']['inputs'][2]['label'] = 'Publicar desde';
 				$data['form']['inputs'][2]['type'] 	= 'date';
-				$data['form']['inputs'][2]['required'] = TRUE;
 
 				$data['form']['inputs'][3]['name'] 	= 'publicar_hasta';
 				$data['form']['inputs'][3]['label'] = 'Publicar hasta';
 				$data['form']['inputs'][3]['type'] 	= 'date';
-				$data['form']['inputs'][3]['required'] = TRUE;
 
 				$data['form']['inputs'][4]['add_one_more'] = TRUE;
 				$data['form']['inputs'][4]['label'] = 'Precio';
