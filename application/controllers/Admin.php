@@ -179,6 +179,9 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][7]['required'] = TRUE;
 				$data['form']['inputs'][7]['options'] = array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' );
 
+			// definir titulos y crumbs
+			$this->layouts->set_title($data['CURRENT_SECTION'].' '.$data['CURRENT_PAGE']);
+
 			// cargar la pagina y pasar los datos al view
 			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
 	

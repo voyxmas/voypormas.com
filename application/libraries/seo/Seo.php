@@ -5,6 +5,7 @@ class Seo
   
   function __construct()
   {
+    
     // defaults
     $CI =& get_instance();    
       // main

@@ -4,16 +4,34 @@
   {
     // hold CI instance and variables
     private $CI;
-    private $layout_title = NUll;
-    private $layout_description = NUll;
 
     public function __construct()
     {
+
       $this->CI =& get_instance();
+
+      $this->metas['charset'] = config_item('charset');
+      $this->metas['title'] = LIVE_DOMAIN_PATH;
+      $this->metas['site'] = LIVE_DOMAIN_PATH;
+      $this->metas['description'] = '';
+      $this->metas['keywords'] = '';
+      $this->metas['favicon'] = base_url().'assets/global/imgs/iconos/favicon.png';
+      // mobile
+      $this->metas['format-detection'] = 'telephone=no';
+      $this->metas['apple-mobile-web-app-capable'] = 'yes';
+      $this->metas['viewport'] = 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui';
+      // social
+      $this->metas['og:type'] = 'website';
+      if(defined('FB_APP_ID')) $this->metas['fb:app_id'] = $CI->lang->line(FB_APP_ID);
+
+        // verifications
+      if(defined('GOOGLE_SITE_VERIFICATION')) $this->metas['google-site-verification'] = GOOGLE_SITE_VERIFICATION;
+      if(defined('BING_SITE_VERIFICATION')) $this->metas['msvalidate.01'] = BING_SITE_VERIFICATION;
     }
 
-    public function set_title($title){$this->layout_title = $title;}
-    public function set_description($description){$this->layout_description = $description;}
+    public function set_title($title){$this->metas['title'] = $title;}
+    public function set_description($description){$this->metas['description'] = $description;}
+    public function set_favicon($description){$this->metas['favicon'] = $description;}
 
     // public function set_language(){} lang & og:locale
     // public function set_icon(){}
@@ -78,8 +96,6 @@
       $layouts_array =  config_item('layouts');
 
       $data['body_class'] = str_replace('/','_', $view_name);
-      $data['layout_title'] = $this->layout_title;
-      $data['layout_description'] = $this->layout_description;
 
       // intentar cargar archivos css y js especificos de cada view si existen
       $path_to_current_page = $view_name;
@@ -94,6 +110,61 @@
 
       $this->CI->load->view('layout/pages/'.$layout_name.'/main',$data);
 
+    }
+
+    public function define($parameter = NULL, $value=NULL)
+    {
+      if($parameter === NULL OR $value === NULL) return FALSE;
+      $value = strip_tags(preg_replace( "/\r|\n/", "",$value));
+      // defino tags especiales
+      switch ($parameter){
+        case 'title':
+          $this->metas['og:title'] = $value;
+          $this->metas['twitter:title'] = $value;
+          $this->metas['itemprop:name'] = $value;
+          $this->metas[$parameter] = $value;
+          break;
+        case 'description':
+          $this->metas['og:description'] = substr($value,0,200);
+          $this->metas['twitter:description'] = substr($value,0,200);
+          $this->metas[$parameter] = $value;
+          break;
+        case 'thumb':
+          $dimensiones = @getimagesize($value);
+          $this->metas['og:image'] = $value;
+          $this->metas['og:image:width'] = $dimensiones[0];
+          $this->metas['og:image:height'] = $dimensiones[1];
+          $this->metas['twitter:image:width'] = $dimensiones[0];
+          $this->metas['twitter:image:height'] = $dimensiones[1];
+          $this->metas['twitter:image'] = $value;
+          $this->metas['twitter:card'] = 'summary_large_image';
+          break;
+        case 'site':
+          $this->metas['twitter:site'] = $value;
+          $this->metas['twitter:creator'] = $value;
+          break;
+        case 'canonical':
+        $this->metas['canonical'] = $value;
+        $this->metas['og:url'] = $value;
+          break;
+      }
+    }
+
+    public function printSeo() 
+    {
+      foreach($this->metas as $meta => $value)
+      {
+        if      ($meta === 'title') echo '<title>'.$value.'</title>';
+        elseif  ($meta === 'charset')  echo '<meta charset="'.$value.'">';
+        elseif  ($meta === 'canonical')  echo '<link rel="canonical" href="'.$value.'">';
+        elseif  ($meta === 'favicon')  echo '<link rel="shortcut icon" href="'.$value.'" type="image/x-icon"><link rel="icon" href="'.$value.'" type="image/x-icon">';
+        elseif  (preg_match('/(^og:)|(^fb:)/',$meta)) echo '<meta property="'.$meta.'" content="'.$value.'" />';
+        elseif  (preg_match('/(^itemprop:)/',$meta)) echo '<meta itemprop="'.$meta.'" content="'.preg_replace('/(^itemprop:)/','',$mvalueeta).'" />';
+        else echo '<meta name="'.$meta.'" content="'.$value.'" />';
+        echo "\r\n";
+      }
+      // si no se define en metas el favicon y si el archvio existe en el root mostrar el favicon
+      echo file_exists(__DIR__.'favicon.ico') AND !array_key_exists(base_url().'favicon',$metas) ? '<link rel="shortcut icon" href="'.base_url().'favicon.ico" type="image/x-icon"><link rel="icon" href="'.base_url().'favicon.ico" type="image/x-icon">' : NULL;
     }
   }
 ?>

@@ -22,11 +22,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
     <head>
         <meta charset="utf-8" />
-        <title>Voy por mas</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta content="" name="description" />
-        <meta content="" name="author" />
+        <?php $this->layouts->printSeo() ?>
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/open-sans.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -46,7 +43,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/main.css" rel="stylesheet" type="text/css" id="style_color" />
         <!-- END THEME LAYOUT STYLES -->
         <?php echo $this->layouts->print_includes('head'); ?>
-        <link rel="shortcut icon" href="favicon.ico" /> </head>
+    </head>
     <!-- END HEAD -->
 
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">

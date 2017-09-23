@@ -177,5 +177,27 @@ class Eventos_ajax extends My_Controller {
 		$this->ajax_response($data,$do_after);
 	}
 
+	public function editar($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+		// check permission
+    $data['CURRENT_SECTION'] 	= 'admin';
+    $data['CURRENT_PAGE'] 		= 'events_editar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		// get $_POST
+		$attr['nombre'] 					= $this->input->post('nombre');
+		$attr['descripcion'] 			= $this->input->post('descripcion');
+		$attr['distancia'] 				= $this->input->post('distancia');
+		$attr['fecha'] 						= $this->input->post('fecha');
+		$attr['publicar_desde'] 	= $this->input->post('publicar_desde');
+		$attr['publicar_hasta'] 	= $this->input->post('publicar_hasta');
+		$attr['estado'] 					= $this->input->post('estado');
+		
+		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
+		if($respuesta == FALSE) $e[] = 'No se pudo editar el evento' ;
+	}
+
 }
 ?>
