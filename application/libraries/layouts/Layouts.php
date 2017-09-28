@@ -22,11 +22,11 @@
       $this->metas['viewport'] = 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui';
       // social
       $this->metas['og:type'] = 'website';
-      if(define_tagd('FB_APP_ID')) $this->metas['fb:app_id'] = $CI->lang->line(FB_APP_ID);
+      if(defined('FB_APP_ID')) $this->metas['fb:app_id'] = $CI->lang->line(FB_APP_ID);
 
         // verifications
-      if(define_tagd('GOOGLE_SITE_VERIFICATION')) $this->metas['google-site-verification'] = GOOGLE_SITE_VERIFICATION;
-      if(define_tagd('BING_SITE_VERIFICATION')) $this->metas['msvalidate.01'] = BING_SITE_VERIFICATION;
+      if(defined('GOOGLE_SITE_VERIFICATION')) $this->metas['google-site-verification'] = GOOGLE_SITE_VERIFICATION;
+      if(defined('BING_SITE_VERIFICATION')) $this->metas['msvalidate.01'] = BING_SITE_VERIFICATION;
     }
 
     public function set_title($title){$this->metas['title'] = $title;}
