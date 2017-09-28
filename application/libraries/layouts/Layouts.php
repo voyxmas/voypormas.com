@@ -22,11 +22,11 @@
       $this->metas['viewport'] = 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui';
       // social
       $this->metas['og:type'] = 'website';
-      if(defined('FB_APP_ID')) $this->metas['fb:app_id'] = $CI->lang->line(FB_APP_ID);
+      if(define_tagd('FB_APP_ID')) $this->metas['fb:app_id'] = $CI->lang->line(FB_APP_ID);
 
         // verifications
-      if(defined('GOOGLE_SITE_VERIFICATION')) $this->metas['google-site-verification'] = GOOGLE_SITE_VERIFICATION;
-      if(defined('BING_SITE_VERIFICATION')) $this->metas['msvalidate.01'] = BING_SITE_VERIFICATION;
+      if(define_tagd('GOOGLE_SITE_VERIFICATION')) $this->metas['google-site-verification'] = GOOGLE_SITE_VERIFICATION;
+      if(define_tagd('BING_SITE_VERIFICATION')) $this->metas['msvalidate.01'] = BING_SITE_VERIFICATION;
     }
 
     public function set_title($title){$this->metas['title'] = $title;}
@@ -88,31 +88,7 @@
 
     }
 
-    public function view($view_name, $data = array(), $layout_name = FALSE)
-    {
-      $layout_name =  $layout_name === FALSE ? $view_name :  $layout_name;
-      // get templates Arrays
-      $this->CI->load->config('layouts');
-      $layouts_array =  config_item('layouts');
-
-      $data['body_class'] = str_replace('/','_', $view_name);
-
-      // intentar cargar archivos css y js especificos de cada view si existen
-      $path_to_current_page = $view_name;
-      $path = APP_ASSETS_FOLDER.'/pages/scripts/'.$path_to_current_page.'.js';
-      if (is_file(FCPATH.$path) === TRUE) $this->add_include(base_url().$path, 'foot');
-      $path = APP_ASSETS_FOLDER.'/pages/css/'.$path_to_current_page.'.css';
-      if (is_file(FCPATH.$path) === TRUE) $this->add_include(base_url().$path, 'head');
-
-      // render content
-      $main = preg_match('/\/$/',$view_name)? 'main' : ''; // add or remove main dependiendo si es un archivo o un directorio
-      $data['content'] = $this->CI->load->view('pages/'.$view_name.$main,$data, TRUE);
-
-      $this->CI->load->view('layout/pages/'.$layout_name.'/main',$data);
-
-    }
-
-    public function define($parameter = NULL, $value=NULL)
+    public function define_tag($parameter = NULL, $value=NULL)
     {
       if($parameter === NULL OR $value === NULL) return FALSE;
       $value = strip_tags(preg_replace( "/\r|\n/", "",$value));
@@ -150,7 +126,7 @@
       }
     }
 
-    public function printSeo() 
+    public function print_tags() 
     {
       foreach($this->metas as $meta => $value)
       {
@@ -163,8 +139,33 @@
         else echo '<meta name="'.$meta.'" content="'.$value.'" />';
         echo "\r\n";
       }
-      // si no se define en metas el favicon y si el archvio existe en el root mostrar el favicon
+      // si no se define_tag en metas el favicon y si el archvio existe en el root mostrar el favicon
       echo file_exists(__DIR__.'favicon.ico') AND !array_key_exists(base_url().'favicon',$metas) ? '<link rel="shortcut icon" href="'.base_url().'favicon.ico" type="image/x-icon"><link rel="icon" href="'.base_url().'favicon.ico" type="image/x-icon">' : NULL;
+    }
+
+    
+    public function view($view_name, $data = array(), $layout_name = FALSE)
+    {
+      $layout_name =  $layout_name === FALSE ? $view_name :  $layout_name;
+      // get templates Arrays
+      $this->CI->load->config('layouts');
+      $layouts_array =  config_item('layouts');
+
+      $data['body_class'] = str_replace('/','_', $view_name);
+
+      // intentar cargar archivos css y js especificos de cada view si existen
+      $path_to_current_page = $view_name;
+      $path = APP_ASSETS_FOLDER.'/pages/scripts/'.$path_to_current_page.'.js';
+      if (is_file(FCPATH.$path) === TRUE) $this->add_include(base_url().$path, 'foot');
+      $path = APP_ASSETS_FOLDER.'/pages/css/'.$path_to_current_page.'.css';
+      if (is_file(FCPATH.$path) === TRUE) $this->add_include(base_url().$path, 'head');
+
+      // render content
+      $main = preg_match('/\/$/',$view_name)? 'main' : ''; // add or remove main dependiendo si es un archivo o un directorio
+      $data['content'] = $this->CI->load->view('pages/'.$view_name.$main,$data, TRUE);
+
+      $this->CI->load->view('layout/pages/'.$layout_name.'/main',$data);
+
     }
   }
 ?>
