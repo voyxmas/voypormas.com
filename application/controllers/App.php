@@ -12,7 +12,7 @@ class App extends My_Controller {
 	{
 		// verificar permisos y la sesion para poder continuar
 		$data['CURRENT_SECTION'] = 'app';
-		$data['CURRENT_PAGE'] = 'main';
+		$data['CURRENT_PAGE'] = 'soon';
 		
 		// bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
@@ -26,6 +26,19 @@ class App extends My_Controller {
 
 		// render data
 		$this->load->view('pages/app/soon');
+
+	}
+
+	public function home()
+	{
+		$data['CURRENT_SECTION'] = 'app';
+		$data['CURRENT_PAGE'] = 'home';
+
+		$this->layouts->set_title('Welcome');
+		$this->layouts->set_description('Welcome');
+
+		$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'app/general');
+
 
 	}
 

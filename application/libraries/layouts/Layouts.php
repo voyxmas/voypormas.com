@@ -88,7 +88,7 @@
 
     }
 
-    public function define_tag($parameter = NULL, $value=NULL)
+    public function define_meta($parameter = NULL, $value=NULL)
     {
       if($parameter === NULL OR $value === NULL) return FALSE;
       $value = strip_tags(preg_replace( "/\r|\n/", "",$value));
@@ -139,11 +139,10 @@
         else echo '<meta name="'.$meta.'" content="'.$value.'" />';
         echo "\r\n";
       }
-      // si no se define_tag en metas el favicon y si el archvio existe en el root mostrar el favicon
+      // si no se define_meta en metas el favicon y si el archvio existe en el root mostrar el favicon
       echo file_exists(__DIR__.'favicon.ico') AND !array_key_exists(base_url().'favicon',$metas) ? '<link rel="shortcut icon" href="'.base_url().'favicon.ico" type="image/x-icon"><link rel="icon" href="'.base_url().'favicon.ico" type="image/x-icon">' : NULL;
     }
 
-    
     public function view($view_name, $data = array(), $layout_name = FALSE)
     {
       $layout_name =  $layout_name === FALSE ? $view_name :  $layout_name;
@@ -164,8 +163,17 @@
       $main = preg_match('/\/$/',$view_name)? 'main' : ''; // add or remove main dependiendo si es un archivo o un directorio
       $data['content'] = $this->CI->load->view('pages/'.$view_name.$main,$data, TRUE);
 
+      // print metas
+
+      // print includes head
+
+      // print view
+
+      // prtin inucludes footer
+
       $this->CI->load->view('layout/pages/'.$layout_name.'/main',$data);
 
     }
+
   }
 ?>
