@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <title><?php echo $layout_title?$layout_title:'';  ?></title>
-<meta name="description" content="<?php echo $layout_description?$layout_description:'';  ?>" />
 
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/open-sans.css" rel="stylesheet" type="text/css" />

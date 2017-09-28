@@ -23,7 +23,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <?php $this->layouts->printSeo() ?>
+        <?php $this->layouts->print_tags() ?>
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/open-sans.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/font-awesome.css" rel="stylesheet" type="text/css" />
