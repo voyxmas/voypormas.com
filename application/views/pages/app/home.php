@@ -1,120 +1,96 @@
 <div class="col-md-12">
     <div class="portlet light ">
         <div class="portlet-title tabbable-line">
-            <div class="caption">
-                <i class="icon-bubbles font-dark hide"></i>
-                <span class="caption-subject font-dark bold uppercase">Comments</span>
+            <div class="">
+                <div class="col-lg-12 logo"><img src="<?php echo base_url().APP_ASSETS_FOLDER?>/global/imgs/logos/logo-full.png" alt="voypormas.com" class="logo-voypormas.com" /></div>
+                <form id="main_search" action="<?php echo base_url().'app/home' ?>" method="get">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input name="name" type="text" class="selectpicker form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select name="evento_tipo_id" class="selectpicker form-control" data-live-search="true">
+                            <option value="-1">Todos</option>
+                            <?php foreach($categorias as $key => $categoria): ?>
+                            <option value="<?php echo $key ?>"><?php echo $categoria ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha</label>
+                        <input name="fecha" type="date" class="date-picker form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Distancia</label>
+                        <div>
+                            <input name="distancia1" type="hidden" >
+                            <div id="distancia1" class="input col-xs-3"></div>
+                            <div data-min="<?php echo $distancialimits['distancia_min'] ?>" data-mininput="distancia1" data-max="<?php echo $distancialimits['distancia_max'] ?>" data-maxinput="distancia2" data-name="distancia" data-sufix="km" class='col-xs-6 nouislider'></div>
+                            <input name="distancia2" type="hidden" >
+                            <div id="distancia2" class="input col-xs-3"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lugar</label>
+                        <select id="lugar" class="selectpicker form-control" data-live-search="true">
+                            <option>Todos</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                            <option>Option 4</option>
+                            <option>Option 5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio</label>
+                        <div>
+                            <input name="precio1" type="hidden" >
+                            <div id="precio1" class="input col-xs-3"></div>
+                            <div precio data-min="<?php echo $pricelimits['precio_min'] ?>" data-minInput="precio1" data-max="<?php echo $pricelimits['precio_max'] ?>" data-maxInput="precio2" data-name="precio" data-prefix="$" class='col-xs-6 nouislider'></div>
+                            <input name="precio2" type="hidden" >
+                            <div id="precio2" class="input col-xs-3"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <div>
+                            <button type="submit" class="col-xs-12 btn btn-square todo-bold">Buscar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="portlet-body">
-            <div class="tab-content">
-                <div class="tab-pane" id="portlet_comments_2">
-                    <!-- BEGIN: Comments -->
-                    <div class="mt-comments">
-                        <div class="mt-comment">
-                            <div class="mt-comment-img">
-                                <img src="../assets/pages/media/users/avatar4.jpg"> </div>
-                            <div class="mt-comment-body">
-                                <div class="mt-comment-info">
-                                    <span class="mt-comment-author">Michael Baker</span>
-                                    <span class="mt-comment-date">26 Feb, 10:30AM</span>
-                                </div>
-                                <div class="mt-comment-text"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy. </div>
-                                <div class="mt-comment-details">
-                                    <span class="mt-comment-status mt-comment-status-approved">Approved</span>
-                                    <ul class="mt-comment-actions">
-                                        <li>
-                                            <a href="#">Quick Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">View</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-comment">
-                            <div class="mt-comment-img">
-                                <img src="../assets/pages/media/users/avatar8.jpg"> </div>
-                            <div class="mt-comment-body">
-                                <div class="mt-comment-info">
-                                    <span class="mt-comment-author">Larisa Maskalyova</span>
-                                    <span class="mt-comment-date">12 Feb, 08:30AM</span>
-                                </div>
-                                <div class="mt-comment-text"> It is a long established fact that a reader will be distracted by. </div>
-                                <div class="mt-comment-details">
-                                    <span class="mt-comment-status mt-comment-status-approved">Approved</span>
-                                    <ul class="mt-comment-actions">
-                                        <li>
-                                            <a href="#">Quick Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">View</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-comment">
-                            <div class="mt-comment-img">
-                                <img src="../assets/pages/media/users/avatar6.jpg"> </div>
-                            <div class="mt-comment-body">
-                                <div class="mt-comment-info">
-                                    <span class="mt-comment-author">Natasha Kim</span>
-                                    <span class="mt-comment-date">19 Dec,09:50 AM</span>
-                                </div>
-                                <div class="mt-comment-text"> The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. </div>
-                                <div class="mt-comment-details">
-                                    <span class="mt-comment-status mt-comment-status-approved">Approved</span>
-                                    <ul class="mt-comment-actions">
-                                        <li>
-                                            <a href="#">Quick Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">View</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-comment">
-                            <div class="mt-comment-img">
-                                <img src="../assets/pages/media/users/avatar1.jpg"> </div>
-                            <div class="mt-comment-body">
-                                <div class="mt-comment-info">
-                                    <span class="mt-comment-author">Sebastian Davidson</span>
-                                    <span class="mt-comment-date">10 Dec, 09:20 AM</span>
-                                </div>
-                                <div class="mt-comment-text"> The standard chunk of Lorem Ipsum used since the 1500s </div>
-                                <div class="mt-comment-details">
-                                    <span class="mt-comment-status mt-comment-status-approved">Approved</span>
-                                    <ul class="mt-comment-actions">
-                                        <li>
-                                            <a href="#">Quick Edit</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">View</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Delete</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+        <div class="todo-container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="todo-head">
+                        <h3><span class="todo-grey">Eventos:</span> <span class="font-blue-madison"><?php echo $count ?></span></h3>
+                            <button class="btn btn-square btn-sm todo-bold">Publicar mi evento</button>
                     </div>
-                    <!-- END: Comments -->
-                </div>
+                    <ul class="todo-tasks-content alternatefill">
+                        <?php foreach($eventos as $evento_id => $evento) : ?>
+                        <li class="todo-tasks-item">
+                            <h4 class="todo-inline">
+                                <a data-toggle="modal" href="#todo-task-modal"><?php echo $evento['nombre'] ?></a>
+                            </h4>
+                            <p class="todo-inline todo-float-r font-blue-madison"><?php /*echo $evento['ubicacion']*/ ?>
+                                <span class=""><?php echo $evento['fecha'] ?></span>
+                            </p>
+                            <div>
+                                <?php echo $evento['descripcion'] ?>
+                            </div>
+                            <div>
+                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                            </div>
+                        </li>
+                        <?php endforeach ?>
+                    </ul>
+
+                    <?php echo $this->layouts->paginacion($eventos) ?>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 </div>

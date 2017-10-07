@@ -31,45 +31,83 @@
                             <div class="portlet light ">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                      <span class="caption-subject bold uppercase font-dark"><?php echo $evento['nombre'] ?></span> 
-                                      <small class="caption-helper">Publico entre <?php echo date(APP_DATE_FORMAT,strtotime($evento['publicar_desde'])) ?> y <?php echo date(APP_DATE_FORMAT,strtotime($evento['publicar_hasta'])) ?></small>
+                                        <span class="caption-subject bold uppercase font-dark"><?php echo $evento['nombre'] ?></span> 
                                     </div>
                                     <div class="actions">
-                                      <div class="btn-group btn-group-circle">
-                                        <a href="<?php echo base_url() ?>ajax/eventos_ajax/aprobar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline green btn-sm <?php echo $evento['estado'] == 1 ? 'active' : NULL ?>">Publico</a>
-                                        <a href="<?php echo base_url() ?>ajax/eventos_ajax/desactivar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline blue btn-sm <?php echo $evento['estado'] == 0 ? 'active' : NULL ?>">Nuevo</a>
-                                        <a href="<?php echo base_url() ?>ajax/eventos_ajax/rechazar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline red btn-sm <?php echo $evento['estado'] == 2 ? 'active' : NULL ?>">Rechazado</a>
-                                      </div>
-                                      <?php if(check_permissions('admin', 'events/editar')): ?>
-                                      <a href="<?php echo base_url() ?>admin/eventos/editar/<?php echo $evento['evento_id'] ?>" class="btn btn-outline btn-circle blue btn-sm">Editar</a>
-                                      <?php endif ?>
+                                        <div class="btn-group btn-group-circle">
+                                            <a href="<?php echo base_url() ?>ajax/eventos_ajax/aprobar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline green btn-sm <?php echo $evento['estado'] == 1 ? 'active' : NULL ?>">Publico</a>
+                                            <a href="<?php echo base_url() ?>ajax/eventos_ajax/desactivar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline blue btn-sm <?php echo $evento['estado'] == 0 ? 'active' : NULL ?>">Nuevo</a>
+                                            <a href="<?php echo base_url() ?>ajax/eventos_ajax/rechazar/<?php echo $evento['evento_id'] ?>" class="ajax_call btn btn-outline red btn-sm <?php echo $evento['estado'] == 2 ? 'active' : NULL ?>">Rechazado</a>
+                                        </div>
+                                        <?php if(check_permissions('admin', 'events/editar')): ?>
+                                        <a href="<?php echo base_url() ?>admin/eventos/editar/<?php echo $evento['evento_id'] ?>" class="btn btn-outline btn-circle blue btn-sm">Editar</a>
+                                        <?php endif ?>
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                  <p class="margin-top-20"><?php echo nl2br($evento['descripcion']) ?></p>
-
-                                  <ul class="list-unstyled margin-top-10 margin-bottom-10 row">
-                                    <?php foreach($caracteristicas as $caracteristica): ?>
-                                    <li class="col-sm-6 col-md-4 col-xl-3"><i class="fa fa-check"></i> <?php echo $caracteristica['caracteristica_nombre'] ?> </li>
-                                    <?php endforeach ?>
-                                  </ul>
-
-                                  <div class="pricing row margin-top-20">   
-                                    <?php $i=0; foreach($precios as $precio): $i++?>
-                                    <div class="col-sm-12 col-md-6 col-lg-3 margin-top-20"> 
-                                      <div class="bg-blue-madison bg-font-blue-madison head">
-                                        <?php if(check_permissions('admin','events_editar_precio')): ?>
-                                        <button type="button" class="btn btn-info btn-xs">Editar</button>
-                                        <?php endif ?>
-                                        <div style="text-align:right">$<?php echo $precio['monto'] ?></div>
-                                      </div>
-                                      <small><?php echo date(APP_DATE_FORMAT,strtotime($precio['desde'])) ?> - <?php echo date(APP_DATE_FORMAT,strtotime($precio['hasta'])) ?></small>
+                                    <div class="row">
+                                        <?php array2form($form) ?>
                                     </div>
-                                    <?php endforeach ?>
-                                  </div>
+                                    
+                                    <h4 class="margintop">Caracteriticas</h4>
+                                    <ul class="list-unstyled list-inline margin-top-10 margin-bottom-10">
+                                        <li class="list-inline-item" style="display:block;">
+                                            <div class="input-group input-group-sm">
+                                                <form action="<?php echo base_url().'ajax/eventos_ajax/add_caracteristica_a_evento/'.$evento['evento_id'] ?>"  method="post" class="ajax_call">
+                                                    <select name="caracteristica_id" class="form-control">
+                                                        <?php foreach($caracteristicas_options as $item) : ?>
+                                                        <option value="<?php echo $item['caracteristica_id'] ?>"><?php echo $item['nombre'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                    <button type="submit" class="btn">Agregar caracteristica al evento</button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                        <?php foreach($caracteristicas as $caracteristica): ?>
+                                        <li class="list-inline-item"><i class="fa fa-check"></i> <?php echo $caracteristica['caracteristica_nombre'] ?> </li>
+                                        <?php endforeach ?>
+                                    </ul>
 
+                                    <div class="pricing margin-top-20">   
+                                        <h4 class="margintop">Aranceles</h4>
+                                        <form action="<?php echo base_url().'ajax/eventos_ajax/agregar_precios/'.$evento['evento_id'] ?>" class="ajax_call" method="post">
+                                            <table class="table table-hover"> 
+                                                <thead>
+                                                    <tr>
+                                                        <th>Monto</th>
+                                                        <th>Inicio</th>
+                                                        <th>fin</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php $i=0; foreach($precios as $precio): $i++?>
+                                                    <tr>
+                                                        <td>$<?php echo $precio['monto'] ?></td>
+                                                        <td><?php echo date(APP_DATE_FORMAT,strtotime($precio['desde'])) ?></td>
+                                                        <td><?php echo date(APP_DATE_FORMAT,strtotime($precio['hasta'])) ?></td>
+                                                        <td>
+                                                            <?php if(check_permissions('admin','events_eliminar_tarifa')): ?>
+                                                            <a href="<?php echo base_url().'ajax/eventos_ajax/eliminar_precio/'.$precio['precio_evento_id'] ?>" class="btn btn-info btn-xs ajax_call">Eliminar</a>
+                                                            <?php endif ?>
+                                                        </td>
+                                                    </tr>
+                                                    <?php endforeach ?>
+                                                    <tr>
+                                                        <td><input class="form-control " required name="monto" type="number"></td>           
+                                                        <td><input class="form-control " required name="desde" type="date"></td>           
+                                                        <td><input class="form-control " required name="hasta" type="date"></td>
+                                                        <td>
+                                                            <?php if(check_permissions('admin','events_agregar_tarifa')): ?>
+                                                            <button type="submit" class="btn btn-info">Agregar</button>
+                                                            <?php endif ?>
+                                                        </td>        
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>

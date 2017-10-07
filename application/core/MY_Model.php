@@ -32,19 +32,31 @@ class MY_Model extends CI_Model
             $output_unique  = TRUE;
         }   
         else
+        {
             $cond       = !empty($attr['cond']) ? $attr['cond'] : NULL;
             // definir si las condiciones son AND o OR
-        $orwhere        = !empty($attr['orwhere']) ? $attr['orwhere'] : MODEL_DEFAULT_ORWHERE;
+            $orwhere        = !empty($attr['orwhere']) ? $attr['orwhere'] : MODEL_DEFAULT_ORWHERE;
             // definir el campo por el cual ordener
-        $order_by       = !empty($attr['order_by']) ? $attr['order_by'] : $this->primary_order_by;
+            $order_by       = !empty($attr['order_by']) ? $attr['order_by'] : $this->primary_order_by;
             // numero de resultados para mostrar
-        $results        = !empty($attr['results']) ? $attr['results'] : MODEL_DEFAULT_RESULTS_PER_PAGE;
-            // mostrar a partir de que elemento, para paginacion
-        $limit_offset   = !empty($attr['limit_offset']) ? $attr['limit_offset'] : 0;
+            $results        = !empty($attr['results']) ? $attr['results'] : MODEL_DEFAULT_RESULTS_PER_PAGE;
+            if (!empty($attr['page']))
+            {
+                // si defino page $page definir el offset en base a ese valor
+                // mostrar a partir de que elemento, para paginacion
+                $limit_offset   = $results * $attr['page'] - $results;
+            }
+            else
+            {
+                // si defino offset lo defino con esa variable
+                // mostrar a partir de que elemento, para paginacion
+                $limit_offset   = !empty($attr['limit_offset']) ? $attr['limit_offset'] : 0;
+            }
             // select
-        $select         = !empty($attr['select']) ? is_array($attr['select']) ? implode(',', $attr['select']) : $attr['select'] : NULL;
+            $select         = !empty($attr['select']) ? is_array($attr['select']) ? implode(',', $attr['select']) : $attr['select'] : NULL;
             // definir como se devuelven los datos
-        $output         = !empty($attr['output']) ? $attr['output'] : MODEL_DEFAULT_OUTPUT;
+            $output         = !empty($attr['output']) ? $attr['output'] : MODEL_DEFAULT_OUTPUT;
+        }
 
         if ($cond)
         {   
@@ -62,7 +74,7 @@ class MY_Model extends CI_Model
                 if (isset($cond[0])) 
                 {
                     // si el primer elemento del array es 0 asumo que no es multidemsional y estoy buscando ids
-                   $this->db->where_in($this->primary_id, $cond);
+                    $this->db->where_in($this->primary_id, $cond);
                 }
                 else
                 {
@@ -78,9 +90,17 @@ class MY_Model extends CI_Model
                         }
                         else
                         {
+                            // pregunto si uso el operador ~ para definir que busco un like
+                            if(preg_match('/\s~$/',$campo))
+                            {
+                                $eval = 'like';
+                                $campo = preg_replace('/\s~$/','',$campo);
+                            }
+                            else
+                                $eval = 'where';
                             // si valor es un no es array estoy buscando un solo valor para ese campo
                             // si orwhere es true la opcione se adjunta con OR, si no con AND
-                            $metodo = $orwhere ? 'or_where' : 'where';
+                            $metodo = $orwhere ? 'or_'.$eval : $eval;
                             $this->db->$metodo($campo, $valor);
                         }
                     }
@@ -93,8 +113,17 @@ class MY_Model extends CI_Model
         $this->db->where($active);
 
         // select
+        $this->db->select('SQL_CALC_FOUND_ROWS null as total_items ',FALSE);
+
         if ($select)
+        {
             $this->db->select($select);
+        }
+        else
+        {
+            $this->db->select($this->table_read.'.*');
+        }
+
 
         // definir orderby
         $this->db->order_by($order_by);
@@ -103,6 +132,18 @@ class MY_Model extends CI_Model
         $this->db->limit($results, $limit_offset);
 
         $result = $this->db->get($this->table_read);
+
+        $paginacion = $this->db->query('SELECT FOUND_ROWS() total_items')->result_array();
+        
+        if ($result->num_rows() > 0)
+        {
+            $result = $result->result_array();
+            foreach ($result as $key => $value) 
+            {
+                $result[$key]['total_results'] = $paginacion[0]['total_items'];
+            }
+            return $result;
+        }
         
         // Return results
         if($result)
@@ -186,17 +227,16 @@ class MY_Model extends CI_Model
 	// borrar un registro por id o multiples ids
 	public function delete($ids)
 	{    
-        $filter = $this->primaryFilter; 
         $ids = ! is_array($ids) ? array($ids) : $ids;
         $data['borrado'] = date(SYS_DATETIMEFULL_FORMAT);
         foreach ($ids as $id) 
         {
-            $id = $filter($id);
             if ($id) 
             {
-                $this->db->where($this->primary_id, $id)->set($data)->update($this->table_CRUD);
+                return $this->db->where($this->primary_id, $id)->set($data)->update($this->table_CRUD);
             }
         }
+        return false;
     }
 
     /// agregar un creiterio al cuando no se borra por id
@@ -224,6 +264,43 @@ class MY_Model extends CI_Model
         }
 
         return $return;
+    }
+
+    // get min and max values for a column in de table
+    /*
+        returns: array($campo_min = min, $campo_max = max)
+    */
+    public function minmax($fields = NULL)
+    {
+        if($fields === NULL) return FALSE;
+
+        // definir como se devuelven los datos
+        $output         = !empty($attr['output']) ? $attr['output'] : MODEL_DEFAULT_OUTPUT;
+        if(is_array($fields))
+        {
+            foreach($fields as $field)
+            {
+                $this->db->select_max($field,$field.'_max'); 
+                $this->db->select_min($field,$field.'_min');
+            }
+        }
+        else
+        {
+            $this->db->select_max($fields,$fields.'_max'); 
+            $this->db->select_min($fields,$fields.'_min');
+        }
+        $result = $this->db->get($this->table_read); 
+
+        // Return results
+        if($result)
+        {
+            $result_array = $result->result_array();
+            return $this->switch_output($result_array[0], $output);
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
     // helpers

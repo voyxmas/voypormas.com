@@ -38,7 +38,7 @@ function array2form($form = array())
     // write form inputs
     $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
     
-    echo '<div class="form-group">'; // input wraper
+    echo '<div class="form-group '. (isset($input['class'])? $input['class'] : NULL) .'">'; // input wraper
     if(isset($input['group']))
     {
       if(is_array($input['group']) AND !empty($input['group']))
@@ -71,8 +71,8 @@ function array2form($form = array())
     // defaults
   $form['submit_button_text'] = isset($form['submit_button_text']) ? $form['submit_button_text'] : 'Aceptar';
   $form['submit_button_class'] = isset($form['submit_button_class']) ? $form['submit_button_class'] : NULL;
-  echo '<div class="row"><div class="col-sm-12">';
-  echo '<button type="submit" class="'.$form['submit_button_class'].' btn green">'.$form['submit_button_text'].'</button>';
+  echo '<div><div class="col-sm-12">';
+  echo '<button type="submit" class="'.$form['submit_button_class'].' btn btn-info">'.$form['submit_button_text'].'</button>';
   echo '</div></div>';
   
   echo '</form>';
@@ -103,12 +103,15 @@ function echo_input($input,$group = FALSE)
 
   switch ($input["type"]) 
   {
+    case 'datetime-local':
+      $input['value'] = date("Y-m-d\TH:i",strtotime($input['value']));
+      echo '<input '.$input["required"].' type="'.$input["type"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      break;
+    case 'time':
+    case 'date':
     case 'text':
     case 'number':
     case 'email':
-    case 'date':
-    case 'datetime-local':
-    case 'time':
     case 'hidden':
       echo '<input '.$input["required"].' type="'.$input["type"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
@@ -144,7 +147,7 @@ function echo_input($input,$group = FALSE)
           foreach ($input["options"] as $value => $text) 
           {
             $selected = $value == $input['value'] ? 'checked' : NULL;
-            echo '<label class="'.$input['class'].' '.$input["type"].'-inline">';
+            echo '<label class="'.$input["type"].'-inline">';
             echo '<input '.$input["required"].' '.$selected.' type="'.$input['type'].'" name="'.$input['name'].'" value="'.$value.'"> '.$text;
             echo '</label>';
           }

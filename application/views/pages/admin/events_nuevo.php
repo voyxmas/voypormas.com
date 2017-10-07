@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="portlet light ">
-                                <div class="portlet-body">
+                                <div class="portlet-body row">
                                     <?php array2form($form) ?>
                                 </div>
                             </div>

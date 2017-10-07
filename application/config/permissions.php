@@ -13,15 +13,17 @@ $config['perm']['admin']['login']                       = TRUE;
 $config['perm']['admin']['main']                        = TRUE;
   // eventos
   $config['perm']['admin']['events_listar']             = TRUE;
-  $config['perm']['admin']['events_moderar']             = TRUE;
+  $config['perm']['admin']['events_moderar']            = TRUE;
   $config['perm']['admin']['events_nuevo']              = TRUE;
   $config['perm']['admin']['events_ver']                = TRUE;
-  $config['perm']['admin']['events_editar']             = FALSE;
-  $config['perm']['admin']['events_editar_precio']      = FALSE;
+  $config['perm']['admin']['events_editar']             = TRUE;
   $config['perm']['admin']['events_aprobar']            = TRUE;
   $config['perm']['admin']['events_rechazar']           = TRUE;
   $config['perm']['admin']['events_desactivar']         = TRUE;
   $config['perm']['admin']['events_borrar']             = TRUE;
+  $config['perm']['admin']['events_agregar_tarifa']     = TRUE;
+  $config['perm']['admin']['events_eliminar_tarifa']    = TRUE;
+  $config['perm']['admin']['events_add_categoria_a_evento']     = TRUE;
   // caracteristicas
   $config['perm']['admin']['caracteristicas_listar']             = TRUE;
   $config['perm']['admin']['caracteristicas_nuevo']              = TRUE;

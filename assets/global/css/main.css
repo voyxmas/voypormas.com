@@ -47,3 +47,8 @@
   font-weight: bold;
   color: #578EBE;
 }
+
+.input-group .form-control,
+.input-group-addon, .input-group-btn { width: auto;}
+
+.margintop { margin-top: 50px;}

@@ -255,7 +255,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <?php echo $this->layouts->print_includes('foot'); ?>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/ajaxforms.js" type="text/javascript"></script>
+        <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/librerias/AjaxForms/ajaxforms.js" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <!-- END PAGE LEVEL SCRIPTS -->

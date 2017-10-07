@@ -31,7 +31,7 @@ define('APP_MODALS_FOLDER','modals');
 
 // define sections names
 define('APP_HOME','app');
-define('APP_MAIN',APP_HOME);
+define('APP_MAIN',APP_HOME.'/main');
 define('ADMIN_MAIN',APP_HOME);
 	// print on screen
 define('APP_DATETIMEFULL_FORMAT','d/m/Y H:i:s');

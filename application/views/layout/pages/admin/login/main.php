@@ -52,7 +52,7 @@
 <?php echo $this->layouts->print_includes('foot'); ?>
 <!-- END PAGE LEVEL PLUGINS -->
 
-<script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/ajaxforms.js" > </script>
+<script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/librerias/AjaxForms/ajaxforms.js" > </script>
 
 </body>
 </html>

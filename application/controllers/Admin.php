@@ -78,8 +78,10 @@ class Admin extends My_Controller {
 
 			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
+
 			// buscar los eventos y ordenarlos por fecha de publicacion
 			$attr['order_by'] = 'creado DESC';
+			$attr['page'] = $this->input->get('p');
 
 			$data['eventos_nuevos'] = $this->eventos_model->get($attr); unset($attr);
 
@@ -115,38 +117,46 @@ class Admin extends My_Controller {
 				$data['form']['action'] = base_url().'ajax/eventos_ajax/nuevo';
 				$data['form']['ajax_call'] = 1;
 				// inputs
+				$data['form']['inputs'][0]['class'] = 'col-sm-12';
 				$data['form']['inputs'][0]['name'] = 'nombre';
 				$data['form']['inputs'][0]['placeholder'] = 'Titulo';
 				$data['form']['inputs'][0]['label'] = 'Titulo';
 				$data['form']['inputs'][0]['required'] = TRUE;
 
+				$data['form']['inputs'][1]['class'] = 'col-sm-12';
 				$data['form']['inputs'][1]['name'] = 'descripcion';
 				$data['form']['inputs'][1]['placeholder'] = 'Descripcion';
 				$data['form']['inputs'][1]['label'] = 'Descripcion';
 				$data['form']['inputs'][1]['type'] = 'textarea';
 				$data['form']['inputs'][1]['required'] = TRUE;
 
-				$data['form']['inputs'][8]['name'] = 'distancia';
-				$data['form']['inputs'][8]['placeholder'] = 'Km';
-				$data['form']['inputs'][8]['label'] = 'Distancia';
-				$data['form']['inputs'][8]['type'] = 'number';
-				$data['form']['inputs'][8]['required'] = TRUE;
+				$data['form']['inputs'][9]['class'] = 'col-sm-12';
+				$data['form']['inputs'][9]['name'] = 'distancia';
+				$data['form']['inputs'][9]['placeholder'] = 'Km';
+				$data['form']['inputs'][9]['label'] = 'Distancia';
+				$data['form']['inputs'][9]['type'] = 'number';
+				$data['form']['inputs'][9]['required'] = TRUE;
 
+				$data['form']['inputs'][8]['class']	= 'col-md-4';
 				$data['form']['inputs'][8]['name'] = 'fecha';
 				$data['form']['inputs'][8]['label'] = 'Fecha y hora del evento';
 				$data['form']['inputs'][8]['type'] = 'datetime-local';
 				$data['form']['inputs'][8]['required'] = TRUE;
 
+
+				$data['form']['inputs'][2]['class']	= 'col-md-4';
 				$data['form']['inputs'][2]['name']	= 'publicar_desde';
 				$data['form']['inputs'][2]['label'] = 'Publicar desde';
 				$data['form']['inputs'][2]['type'] 	= 'date';
 
+				$data['form']['inputs'][3]['class'] = 'col-md-4';
 				$data['form']['inputs'][3]['name'] 	= 'publicar_hasta';
 				$data['form']['inputs'][3]['label'] = 'Publicar hasta';
 				$data['form']['inputs'][3]['type'] 	= 'date';
 
 				$data['form']['inputs'][4]['add_one_more'] = TRUE;
 				$data['form']['inputs'][4]['label'] = 'Precio';
+				$data['form']['inputs'][4]['class'] = 'col-sm-12';
 				$data['form']['inputs'][4]['group'][0]['name'] = 'precio[]';
 				$data['form']['inputs'][4]['group'][0]['label'] = 'Monto';
 				$data['form']['inputs'][4]['group'][0]['placeholder'] = 'Monto';
@@ -155,11 +165,12 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][4]['group'][1]['name'] = 'precio_desde[]';
 				$data['form']['inputs'][4]['group'][1]['label'] = 'Desde';
 				$data['form']['inputs'][4]['group'][1]['type'] = 'datetime-local';
-
+				
 				$data['form']['inputs'][4]['group'][2]['name'] = 'precio_hasta[]';
 				$data['form']['inputs'][4]['group'][2]['label'] = 'Hasta';
 				$data['form']['inputs'][4]['group'][2]['type'] = 'datetime-local';
-
+				
+				$data['form']['inputs'][6]['class'] = 'col-sm-12';
 				$data['form']['inputs'][6]['name'] = 'evento_tipo_id';
 				$data['form']['inputs'][6]['type'] = 'select';
 				$data['form']['inputs'][6]['placeholder'] = 'Tipo de evento';
@@ -167,12 +178,14 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][6]['options'] = $this->categorias_model->get_for_input();
 				$data['form']['inputs'][6]['required'] = TRUE;
 				
+				$data['form']['inputs'][5]['class'] = 'col-sm-12';
 				$data['form']['inputs'][5]['name'] = 'caracteristica_id[]';
 				$data['form']['inputs'][5]['type'] = 'checkbox';
 				$data['form']['inputs'][5]['label'] = 'Caracteristicas';
 				$data['form']['inputs'][5]['placeholder'] = 'Caracteristicas';
 				$data['form']['inputs'][5]['options'] = $this->caracteristicas_model->get_for_input();
 				
+				$data['form']['inputs'][7]['class'] = 'col-sm-12';
 				$data['form']['inputs'][7]['name'] = 'estado';
 				$data['form']['inputs'][7]['label'] = 'Estado';
 				$data['form']['inputs'][7]['type'] = 'radio';
@@ -186,6 +199,7 @@ class Admin extends My_Controller {
 			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
 	
 		}
+
 		private function events_ver($evento_id)
 		{
 			$data['CURRENT_SECTION'] 	= 'admin';
@@ -199,9 +213,68 @@ class Admin extends My_Controller {
 			// cargar el evento
 			$data['evento'] = $this->eventos_model->get($evento_id);
 
+			// definir el formulario de edicion
+				$data['form']['action'] = base_url().'ajax/eventos_ajax/editar/'.$evento_id;
+				$data['form']['ajax_call'] = 1;
+				// inputs
+				$data['form']['inputs'][0]['class'] = 'col-sm-8';
+				$data['form']['inputs'][0]['name'] = 'nombre';
+				$data['form']['inputs'][0]['value'] = $data['evento']['nombre'];
+				$data['form']['inputs'][0]['placeholder'] = 'Titulo';
+				$data['form']['inputs'][0]['label'] = 'Titulo';
+				$data['form']['inputs'][0]['required'] = TRUE;
+
+				$data['form']['inputs'][5]['class'] = 'col-sm-4';
+				$data['form']['inputs'][5]['name'] = 'evento_tipo_id';
+				$data['form']['inputs'][5]['type'] = 'select';
+				$data['form']['inputs'][5]['placeholder'] = 'Tipo de evento';
+				$data['form']['inputs'][5]['label'] = 'Tipo de evento';
+				$data['form']['inputs'][5]['options'] = $this->categorias_model->get_for_input();
+				$data['form']['inputs'][5]['required'] = TRUE;
+				$data['form']['inputs'][5]['value'] = $data['evento']['evento_tipo_id'];
+
+				$data['form']['inputs'][4]['class'] = 'col-sm-12';
+				$data['form']['inputs'][4]['name'] = 'descripcion';
+				$data['form']['inputs'][4]['value'] = $data['evento']['descripcion'];
+				$data['form']['inputs'][4]['placeholder'] = 'Descripcion';
+				$data['form']['inputs'][4]['label'] = 'Descripcion';
+				$data['form']['inputs'][4]['required'] = TRUE;
+				$data['form']['inputs'][4]['type'] = 'textarea';
+
+				$data['form']['inputs'][6]['class'] = 'col-md-3 col-sm-6 col-xs-12';
+				$data['form']['inputs'][6]['name'] = 'distancia';
+				$data['form']['inputs'][6]['value'] = $data['evento']['distancia'];
+				$data['form']['inputs'][6]['placeholder'] = 'Distancia';
+				$data['form']['inputs'][6]['label'] = 'Distancia';
+				$data['form']['inputs'][6]['required'] = TRUE;
+				$data['form']['inputs'][6]['type'] = 'number';
+
+				$data['form']['inputs'][1]['class'] = 'col-md-3 col-sm-6 col-xs-12';
+				$data['form']['inputs'][1]['name'] = 'fecha';
+				$data['form']['inputs'][1]['value'] = $data['evento']['fecha'];
+				$data['form']['inputs'][1]['placeholder'] = 'Fecha del evento';
+				$data['form']['inputs'][1]['label'] = 'Fecha';
+				$data['form']['inputs'][1]['required'] = TRUE;
+				$data['form']['inputs'][1]['type'] = 'datetime-local';
+
+				$data['form']['inputs'][2]['class'] = 'col-md-3 col-sm-6 col-xs-12';
+				$data['form']['inputs'][2]['name'] = 'publicar_desde';
+				$data['form']['inputs'][2]['value'] = $data['evento']['publicar_desde'];
+				$data['form']['inputs'][2]['placeholder'] = 'Visible desde';
+				$data['form']['inputs'][2]['label'] = 'Publicar desde';
+				$data['form']['inputs'][2]['type'] = 'datetime-local';
+
+				$data['form']['inputs'][3]['class'] = 'col-md-3 col-sm-6 col-xs-12';
+				$data['form']['inputs'][3]['name'] = 'publicar_hasta';
+				$data['form']['inputs'][3]['value'] = $data['evento']['publicar_hasta'];
+				$data['form']['inputs'][3]['placeholder'] = 'Visible hasta';
+				$data['form']['inputs'][3]['label'] = 'Publicar hasta';
+				$data['form']['inputs'][3]['type'] = 'datetime-local';
+
 			// cargar caracteristicas
-			$attr['cond']['evento_id'] = $evento_id;
-			$data['caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
+				$attr['cond']['evento_id'] = $evento_id;
+				$data['caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
+				$data['caracteristicas_options'] = $this->caracteristicas_model->get();
 
 			// cargar precios
 			$attr['cond']['evento_id'] = $evento_id;

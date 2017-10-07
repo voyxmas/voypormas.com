@@ -175,5 +175,139 @@
 
     }
 
+    public function paginacion($resultados = NULL, $current_page = NULL, $settings = array())
+    {
+      if($resultados === NULL || !is_array($resultados)) return FALSE;
+
+      // attr default settigns
+        // agrego botones next y prev BOOL
+        $per_page = isset($settings['per_page']) ? $settings['per_page'] : count($resultados) ? count($resultados) : 1 ;
+        // agrego botones next y prev BOOL
+        $prevnext = isset($settings['prevnext']) ? $settings['prevnext'] : TRUE;
+        // agrego botones con el numero de pagina si defino una cantidad para mostrar INT
+        $pagebuttons = isset($settings['pagebuttons']) ? $settings['pagebuttons'] : 1;
+        // UL class
+        $ulclass = isset($settings['ulclass']) ? $settings['ulclass'] : 'pagination';
+        // li class
+        $liclass = isset($settings['liclass']) ? $settings['liclass'] : NULL;
+        // a class
+        $aclass = isset($settings['aclass']) ? $settings['aclass'] : NULL;
+        
+        // FALTA
+          // FALTA agrego dropdown con las paginas posibles BOOL (jump to page menu)
+        $pagedropdown = isset($settings['pagedropdown']) AND !empty($settings['pagedropdown']) ? TRUE : FALSE;
+          // FALTA muetro o no la pagina 1 la ultima en el rango de paginas totales BOOL
+        $showpagerange = isset($settings['showpagerange']) AND !empty($settings['showpagerange']) ? TRUE : FALSE;
+
+      // tamar la url de base
+      $url_base = str_replace($this->CI->config->item('index_page').'/','',current_url());
+      
+      // tomar el query_string actual
+      $query_string = $_SERVER['QUERY_STRING'];
+
+      // ver si es associativo
+        if(isset($resultados[0]['total_results'])) 
+          $resultados_total = $resultados[0]['total_results'];
+        elseif(isset($resultados['total_results'])) 
+          $resultados_total = 1;
+        else
+          $resultados_total = 0;
+
+      // definir el numero de paginas
+      $page_total_number = ceil($resultados_total / $per_page);
+
+      // tomar page
+        if($current_page === NULL)
+          if(isset($_GET['p']) AND !empty($_GET['p']))
+            $current_page = $_GET['p'];
+          else
+            $current_page = 1;
+        else
+          $current_page = $current_page;
+        
+        $html = "<ul class='$ulclass'>";
+      // mostrar pagina anterior
+        if($current_page > 1 AND $prevnext)
+          $html ."<li>Prev</li>";
+        
+        if($pagebuttons)
+        {
+          // mostrar los botnones de las paginas
+          for($p = 1 ; $p <= $page_total_number ; $p++ )
+          {
+            // mostrar el boton de la pagina actual como activo
+            if($current_page === $p) $active_class = 'active'; else $active_class = ''; 
+            // mostrar el resto de los bontones
+              // cambiar el numero de pagina en el query_string
+            $set_get['p'] = $p ;
+            $url = $this->set_query_string($query_string,$set_get);
+            $html .= "<li class='$active_class $liclass'><a href='$url_base?$url'>$p</a></li>";
+          }
+
+        }
+        
+      // mostrar pagina siguiente
+      if($current_page < $resultados_total AND $prevnext)
+        $html ."<li>Next</li>";
+
+      $html .= "</ul>";
+      
+      /*
+      <ul class="pagination" style="visibility: visible;">
+          <li class="prev disabled"><a href="#" title="First"><i class="fa fa-angle-double-left"></i></a></li>
+          <li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a></li>
+          <li class="active"><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li>
+          <li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li>
+      </ul>
+      */
+      
+      return $html;
+
+    }
+
+    private function set_query_string($string = NULL, $variables = array())
+    {
+      if($string === NULL) return FALSE;
+
+      // seetings
+      $regex_base = "/variable=([a-zA-Z0-9\-_]+)(&)?/";
+
+      if (!empty($variables))
+      {
+        foreach($variables as $variable => $valor)
+        {
+          $regex  = str_replace('variable',$variable,$regex_base);
+
+          if(!preg_match($regex,$string))
+          {
+            // no esta la variable la tengo que agregar
+            if(strlen($string)>=3)
+            {
+              // si ya existe la agrego &
+              $string .= "&$variable=$valor";
+            }
+            else
+            {
+              // si no existe la agrego ?
+              $string = "$variable=$valor";
+            }
+          }
+          else
+          {
+            // la reemplazo
+            $string = preg_replace($regex,"$variable=$valor",$string);
+          }
+
+        }
+      }
+      else
+      {
+        $string = "4";
+      }
+      return $string;
+    }
+
   }
 ?>
