@@ -30,6 +30,7 @@ class Eventos_ajax extends My_Controller {
 		$save['evento_tipo_id'] = $this->input->post('evento_tipo_id');
 		$save['nombre'] = $this->input->post('nombre');
 		$save['fecha'] = $this->input->post('fecha');
+		$save['hora'] = $this->input->post('hora');
 		$save['descripcion'] = $this->input->post('descripcion');
 		$save['distancia'] = $this->input->post('distancia');
 		$save['publicar_desde'] = $this->input->post('publicar_desde');

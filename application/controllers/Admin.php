@@ -117,80 +117,117 @@ class Admin extends My_Controller {
 				$data['form']['action'] = base_url().'ajax/eventos_ajax/nuevo';
 				$data['form']['ajax_call'] = 1;
 				// inputs
-				$data['form']['inputs'][0]['class'] = 'col-sm-12';
-				$data['form']['inputs'][0]['name'] = 'nombre';
-				$data['form']['inputs'][0]['placeholder'] = 'Titulo';
-				$data['form']['inputs'][0]['label'] = 'Titulo';
-				$data['form']['inputs'][0]['required'] = TRUE;
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'nombre',
+					'placeholder' 	=> 'Titulo',
+					'label' 		=> 'Titulo',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][1]['class'] = 'col-sm-12';
-				$data['form']['inputs'][1]['name'] = 'descripcion';
-				$data['form']['inputs'][1]['placeholder'] = 'Descripcion';
-				$data['form']['inputs'][1]['label'] = 'Descripcion';
-				$data['form']['inputs'][1]['type'] = 'textarea';
-				$data['form']['inputs'][1]['required'] = TRUE;
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'descripcion',
+					'placeholder' 	=> 'Descripcion',
+					'label' 		=> 'Descripcion',
+					'type' 			=> 'textarea',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][9]['class'] = 'col-sm-12';
-				$data['form']['inputs'][9]['name'] = 'distancia';
-				$data['form']['inputs'][9]['placeholder'] = 'Km';
-				$data['form']['inputs'][9]['label'] = 'Distancia';
-				$data['form']['inputs'][9]['type'] = 'number';
-				$data['form']['inputs'][9]['required'] = TRUE;
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'distancia',
+					'placeholder' 	=> 'Km',
+					'label' 		=> 'Distancia',
+					'type' 			=> 'number',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][8]['class']	= 'col-md-4';
-				$data['form']['inputs'][8]['name'] = 'fecha';
-				$data['form']['inputs'][8]['label'] = 'Fecha y hora del evento';
-				$data['form']['inputs'][8]['type'] = 'datetime-local';
-				$data['form']['inputs'][8]['required'] = TRUE;
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'fecha',
+					'placeholder' 	=> 'Fecha del evento',
+					'label' 		=> 'Fecha del evento',
+					'type' 			=> 'date',
+					'required' 		=> TRUE,
+				);
 
-
-				$data['form']['inputs'][2]['class']	= 'col-md-4';
-				$data['form']['inputs'][2]['name']	= 'publicar_desde';
-				$data['form']['inputs'][2]['label'] = 'Publicar desde';
-				$data['form']['inputs'][2]['type'] 	= 'date';
-
-				$data['form']['inputs'][3]['class'] = 'col-md-4';
-				$data['form']['inputs'][3]['name'] 	= 'publicar_hasta';
-				$data['form']['inputs'][3]['label'] = 'Publicar hasta';
-				$data['form']['inputs'][3]['type'] 	= 'date';
-
-				$data['form']['inputs'][4]['add_one_more'] = TRUE;
-				$data['form']['inputs'][4]['label'] = 'Precio';
-				$data['form']['inputs'][4]['class'] = 'col-sm-12';
-				$data['form']['inputs'][4]['group'][0]['name'] = 'precio[]';
-				$data['form']['inputs'][4]['group'][0]['label'] = 'Monto';
-				$data['form']['inputs'][4]['group'][0]['placeholder'] = 'Monto';
-				$data['form']['inputs'][4]['group'][0]['type'] = 'number';
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'hora',
+					'placeholder' 	=> 'Hora del evento',
+					'label' 		=> 'Hora del evento',
+					'type' 			=> 'time',
+					'required' 		=> TRUE,
+				);
 				
-				$data['form']['inputs'][4]['group'][1]['name'] = 'precio_desde[]';
-				$data['form']['inputs'][4]['group'][1]['label'] = 'Desde';
-				$data['form']['inputs'][4]['group'][1]['type'] = 'datetime-local';
-				
-				$data['form']['inputs'][4]['group'][2]['name'] = 'precio_hasta[]';
-				$data['form']['inputs'][4]['group'][2]['label'] = 'Hasta';
-				$data['form']['inputs'][4]['group'][2]['type'] = 'datetime-local';
-				
-				$data['form']['inputs'][6]['class'] = 'col-sm-12';
-				$data['form']['inputs'][6]['name'] = 'evento_tipo_id';
-				$data['form']['inputs'][6]['type'] = 'select';
-				$data['form']['inputs'][6]['placeholder'] = 'Tipo de evento';
-				$data['form']['inputs'][6]['label'] = 'Tipo de evento';
-				$data['form']['inputs'][6]['options'] = $this->categorias_model->get_for_input();
-				$data['form']['inputs'][6]['required'] = TRUE;
-				
-				$data['form']['inputs'][5]['class'] = 'col-sm-12';
-				$data['form']['inputs'][5]['name'] = 'caracteristica_id[]';
-				$data['form']['inputs'][5]['type'] = 'checkbox';
-				$data['form']['inputs'][5]['label'] = 'Caracteristicas';
-				$data['form']['inputs'][5]['placeholder'] = 'Caracteristicas';
-				$data['form']['inputs'][5]['options'] = $this->caracteristicas_model->get_for_input();
-				
-				$data['form']['inputs'][7]['class'] = 'col-sm-12';
-				$data['form']['inputs'][7]['name'] = 'estado';
-				$data['form']['inputs'][7]['label'] = 'Estado';
-				$data['form']['inputs'][7]['type'] = 'radio';
-				$data['form']['inputs'][7]['required'] = TRUE;
-				$data['form']['inputs'][7]['options'] = array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' );
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'publicar_desde',
+					'label' 		=> 'Publicar desde',
+					'type' 			=> 'date',
+					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'publicar_hasta',
+					'label' 		=> 'Publicar hasta',
+					'type' 			=> 'date',
+					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'label' 		=> 'Precio',
+					'add_one_more' 	=> TRUE,
+					'group'			=> array(
+						array(
+							'name' 			=> 'precio[]',
+							'label' 		=> 'Monto',
+							'type' 			=> 'number',
+						),
+						array(
+							'name' 			=> 'precio_desde[]',
+							'label' 		=> 'Desde',
+							'type' 			=> 'datetime-local',
+						),
+						array(
+							'name' 			=> 'precio_hasta[]',
+							'label' 		=> 'Hasta',
+							'type' 			=> 'datetime-local',
+						),
+					)
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'evento_tipo_id',
+					'label' 		=> 'Tipo de evento',
+					'placeholder' 	=> 'Tipo de evento',
+					'type' 			=> 'select',
+					'options'		=> $this->categorias_model->get_for_input(),
+					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'caracteristica_id[]',
+					'label' 		=> 'Caracteristicas',
+					'placeholder' 	=> 'Caracteristicas',
+					'type' 			=> 'checkbox',
+					'options'		=> $this->caracteristicas_model->get_for_input(),
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'estado',
+					'label' 		=> 'Estado',
+					'placeholder' 	=> 'Estado',
+					'type' 			=> 'radio',
+					'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
+					'required' 		=> TRUE,
+				);
 
 			// definir titulos y crumbs
 			$this->layouts->set_title($data['CURRENT_SECTION'].' '.$data['CURRENT_PAGE']);
@@ -211,65 +248,93 @@ class Admin extends My_Controller {
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/components.min.css','head');
 
 			// cargar el evento
-			$data['evento'] = $this->eventos_model->get($evento_id);
+			$data['evento'] = $this->eventos_model->get($evento_id)[0];
 
 			// definir el formulario de edicion
 				$data['form']['action'] = base_url().'ajax/eventos_ajax/editar/'.$evento_id;
 				$data['form']['ajax_call'] = 1;
 				// inputs
-				$data['form']['inputs'][0]['class'] = 'col-sm-8';
-				$data['form']['inputs'][0]['name'] = 'nombre';
-				$data['form']['inputs'][0]['value'] = $data['evento']['nombre'];
-				$data['form']['inputs'][0]['placeholder'] = 'Titulo';
-				$data['form']['inputs'][0]['label'] = 'Titulo';
-				$data['form']['inputs'][0]['required'] = TRUE;
+				// inputs
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'nombre',
+					'placeholder' 	=> 'Titulo',
+					'label' 		=> 'Titulo',
+					'value' 		=> $data['evento']['nombre'],
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][5]['class'] = 'col-sm-4';
-				$data['form']['inputs'][5]['name'] = 'evento_tipo_id';
-				$data['form']['inputs'][5]['type'] = 'select';
-				$data['form']['inputs'][5]['placeholder'] = 'Tipo de evento';
-				$data['form']['inputs'][5]['label'] = 'Tipo de evento';
-				$data['form']['inputs'][5]['options'] = $this->categorias_model->get_for_input();
-				$data['form']['inputs'][5]['required'] = TRUE;
-				$data['form']['inputs'][5]['value'] = $data['evento']['evento_tipo_id'];
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'descripcion',
+					'value' 		=> $data['evento']['descripcion'],
+					'placeholder' 	=> 'Descripcion',
+					'label' 		=> 'Descripcion',
+					'type' 			=> 'textarea',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][4]['class'] = 'col-sm-12';
-				$data['form']['inputs'][4]['name'] = 'descripcion';
-				$data['form']['inputs'][4]['value'] = $data['evento']['descripcion'];
-				$data['form']['inputs'][4]['placeholder'] = 'Descripcion';
-				$data['form']['inputs'][4]['label'] = 'Descripcion';
-				$data['form']['inputs'][4]['required'] = TRUE;
-				$data['form']['inputs'][4]['type'] = 'textarea';
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'distancia',
+					'value' 		=> $data['evento']['distancia'],
+					'placeholder' 	=> 'Km',
+					'label' 		=> 'Distancia',
+					'type' 			=> 'number',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][6]['class'] = 'col-md-3 col-sm-6 col-xs-12';
-				$data['form']['inputs'][6]['name'] = 'distancia';
-				$data['form']['inputs'][6]['value'] = $data['evento']['distancia'];
-				$data['form']['inputs'][6]['placeholder'] = 'Distancia';
-				$data['form']['inputs'][6]['label'] = 'Distancia';
-				$data['form']['inputs'][6]['required'] = TRUE;
-				$data['form']['inputs'][6]['type'] = 'number';
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'fecha',
+					'value' 		=> $data['evento']['fecha'],
+					'placeholder' 	=> 'Fecha del evento',
+					'label' 		=> 'Fecha del evento',
+					'type' 			=> 'date',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][1]['class'] = 'col-md-3 col-sm-6 col-xs-12';
-				$data['form']['inputs'][1]['name'] = 'fecha';
-				$data['form']['inputs'][1]['value'] = $data['evento']['fecha'];
-				$data['form']['inputs'][1]['placeholder'] = 'Fecha del evento';
-				$data['form']['inputs'][1]['label'] = 'Fecha';
-				$data['form']['inputs'][1]['required'] = TRUE;
-				$data['form']['inputs'][1]['type'] = 'datetime-local';
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'hora',
+					'value' 		=> $data['evento']['hora'],
+					'placeholder' 	=> 'Hora del evento',
+					'label' 		=> 'Hora del evento',
+					'type' 			=> 'time',
+					'required' 		=> TRUE,
+				);
+				
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'publicar_desde',
+					'value' 		=> $data['evento']['publicar_desde'],
+					'label' 		=> 'Publicar desde',
+					'type' 			=> 'date',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][2]['class'] = 'col-md-3 col-sm-6 col-xs-12';
-				$data['form']['inputs'][2]['name'] = 'publicar_desde';
-				$data['form']['inputs'][2]['value'] = $data['evento']['publicar_desde'];
-				$data['form']['inputs'][2]['placeholder'] = 'Visible desde';
-				$data['form']['inputs'][2]['label'] = 'Publicar desde';
-				$data['form']['inputs'][2]['type'] = 'datetime-local';
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-3',
+					'name' 			=> 'publicar_hasta',
+					'value' 		=> $data['evento']['publicar_hasta'],
+					'label' 		=> 'Publicar hasta',
+					'type' 			=> 'date',
+					'required' 		=> TRUE,
+				);
 
-				$data['form']['inputs'][3]['class'] = 'col-md-3 col-sm-6 col-xs-12';
-				$data['form']['inputs'][3]['name'] = 'publicar_hasta';
-				$data['form']['inputs'][3]['value'] = $data['evento']['publicar_hasta'];
-				$data['form']['inputs'][3]['placeholder'] = 'Visible hasta';
-				$data['form']['inputs'][3]['label'] = 'Publicar hasta';
-				$data['form']['inputs'][3]['type'] = 'datetime-local';
+
+
+
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'estado',
+					'label' 		=> 'Estado',
+					'placeholder' 	=> 'Estado',
+					'type' 			=> 'radio',
+					'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
+					'required' 		=> TRUE,
+				);
 
 			// cargar caracteristicas
 				$attr['cond']['evento_id'] = $evento_id;

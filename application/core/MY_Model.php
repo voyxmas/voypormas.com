@@ -28,8 +28,20 @@ class MY_Model extends CI_Model
             // condiciones
         if(is_numeric($attr))  // si paso solo un id, defino el cond
         {
-            $cond       = $attr;
+            $cond           = $attr;
             $output_unique  = TRUE;
+            // definir si las condiciones son AND o OR
+            $orwhere        = MODEL_DEFAULT_ORWHERE;
+            // definir el campo por el cual ordener
+            $order_by       = $this->primary_order_by;
+            // numero de resultados para mostrar
+            $results        = MODEL_DEFAULT_RESULTS_PER_PAGE;
+            // limit offset
+            $limit_offset   = 0;
+            // select
+            $select         = NULL;
+            // definir como se devuelven los datos
+            $output         = MODEL_DEFAULT_OUTPUT;
         }   
         else
         {
