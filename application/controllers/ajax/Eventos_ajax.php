@@ -36,6 +36,13 @@ class Eventos_ajax extends My_Controller {
 		$save['publicar_desde'] = $this->input->post('publicar_desde');
 		$save['publicar_hasta'] = $this->input->post('publicar_hasta');
 		$save['estado'] = $this->input->post('estado');
+		$save['lugar'] = $this->input->post('lugar');
+		$save['pais'] = $this->input->post('pais');
+		$save['provincia'] = $this->input->post('provincia');
+		$save['departamento'] = $this->input->post('departamento');
+		$save['ciudad'] = $this->input->post('ciudad');
+		$save['calle'] = $this->input->post('calle');
+		$save['numero_casa'] = $this->input->post('numero_casa');
 			// crear el registro
 		$evento_id = $this->eventos_model->save($save); unset($save);
 		$debug=$this->db->last_query();
@@ -65,8 +72,9 @@ class Eventos_ajax extends My_Controller {
 				if($precio != "")
 				$save[] = array('monto'=>$precio, 'evento_id'=>$evento_id, 'desde'=>$precio_desde[$key], 'hasta'=>$precio_hasta[$key]);
 			}
-			$precios_id = $this->agregar_precios($evento_id, $save); unset($save);
-			if(!$precios_id) $e[] = 'No se pudieron asignar las tarifas';
+			if(isset($save))
+				$precios_id = $this->agregar_precios($evento_id, $save); unset($save);
+			if(!isset($precios_id) OR !$precios_id) $e[] = 'No se pudieron asignar las tarifas';
 		}
  
 		$data = array();

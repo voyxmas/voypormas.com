@@ -78,6 +78,8 @@ class Admin extends My_Controller {
 
 			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
+			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 
 			// buscar los eventos y ordenarlos por fecha de publicacion
 			$attr['order_by'] = 'creado DESC';
@@ -113,6 +115,9 @@ class Admin extends My_Controller {
 			// definir titulos y crumbs
 			$this->layouts->set_title('Cargar un evento nuevo');
 			
+			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
+			
 			// definir el formulario
 				$data['form']['action'] = base_url().'ajax/eventos_ajax/nuevo';
 				$data['form']['ajax_call'] = 1;
@@ -132,6 +137,44 @@ class Admin extends My_Controller {
 					'label' 		=> 'Descripcion',
 					'type' 			=> 'textarea',
 					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'label' 		=> 'Lugar',
+					'name' 			=> 'lugar',
+					'type' 			=> 'text',
+					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'numero_casa',
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'calle',
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'ciudad',
+					'type' 			=> 'hidden'
+				);
+				
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'departamento',
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'provincia',
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'pais',
+					'type' 			=> 'hidden'
 				);
 
 				$data['form']['inputs'][] = array(
@@ -250,6 +293,8 @@ class Admin extends My_Controller {
 			// cargar el evento
 			$data['evento'] = $this->eventos_model->get($evento_id)[0];
 
+			if(empty($data['evento'])) redirect(base_url().'admin/');
+
 			// definir el formulario de edicion
 				$data['form']['action'] = base_url().'ajax/eventos_ajax/editar/'.$evento_id;
 				$data['form']['ajax_call'] = 1;
@@ -272,6 +317,50 @@ class Admin extends My_Controller {
 					'label' 		=> 'Descripcion',
 					'type' 			=> 'textarea',
 					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'class' 		=> 'col-sm-12',
+					'name' 			=> 'lugar',
+					'value' 		=> $data['evento']['lugar'],
+					'type' 			=> 'text',
+					'required' 		=> TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'numero_casa',
+					'value' 		=> $data['evento']['numero_casa'],
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'calle',
+					'value' 		=> $data['evento']['calle'],
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'ciudad',
+					'value' 		=> $data['evento']['ciudad'],
+					'type' 			=> 'hidden'
+				);
+				
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'departamento',
+					'value' 		=> $data['evento']['departamento'],
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'provincia',
+					'value' 		=> $data['evento']['provincia'],
+					'type' 			=> 'hidden'
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' 			=> 'pais',
+					'value' 		=> $data['evento']['pais'],
+					'type' 			=> 'hidden'
 				);
 
 				$data['form']['inputs'][] = array(
@@ -307,7 +396,7 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][] = array(
 					'class' 		=> 'col-sm-3',
 					'name' 			=> 'publicar_desde',
-					'value' 		=> $data['evento']['publicar_desde'],
+					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_desde'])),
 					'label' 		=> 'Publicar desde',
 					'type' 			=> 'date',
 					'required' 		=> TRUE,
@@ -316,15 +405,11 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][] = array(
 					'class' 		=> 'col-sm-3',
 					'name' 			=> 'publicar_hasta',
-					'value' 		=> $data['evento']['publicar_hasta'],
+					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_hasta'])),
 					'label' 		=> 'Publicar hasta',
 					'type' 			=> 'date',
 					'required' 		=> TRUE,
 				);
-
-
-
-
 
 				$data['form']['inputs'][] = array(
 					'class' 		=> 'col-sm-12',
@@ -346,14 +431,6 @@ class Admin extends My_Controller {
 			$data['precios'] = $this->eventos_precios_model->get($attr); unset($attr);
 
 			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
-		}
-
-		private function events_editar ()
-		{
-			$data['CURRENT_SECTION'] 	= 'admin';
-			$data['CURRENT_PAGE'] 		= 'events_editar';
-	
-			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 		}
 
 		private function events_eliminar ()

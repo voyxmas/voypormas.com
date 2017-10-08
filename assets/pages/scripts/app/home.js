@@ -18,14 +18,12 @@ for (var i = 0; i < sliders.length; i++)
   // tomo los valores de data
   data[i] = {};
   data[i].min = $(sliders[i]).data('min');
-  data[i].max = $(sliders[i]).data('max');
+  data[i].max = $(sliders[i]).data('max') == $(sliders[i]).data('max') ? $(sliders[i]).data('max')+1 : $(sliders[i]).data('max');
   data[i].name = $(sliders[i]).data('name');
   data[i].prefix = $(sliders[i]).data('prefix') != undefined ? $(sliders[i]).data('prefix') : '';
   data[i].sufix = $(sliders[i]).data('sufix') != undefined ? $(sliders[i]).data('sufix') : '';
   data[i].maxinput = $(sliders[i]).data('maxinput');
   data[i].mininput = $(sliders[i]).data('mininput');
-
-  console.log(data);
   
   // set defaults a los inputs
   $('[name="'+data[i].mininput+'"]').val(data[i].min);
@@ -52,7 +50,6 @@ for (var i = 0; i < sliders.length; i++)
     prefix = $($(this)[0].target).data('prefix') != undefined ? $($(this)[0].target).data('prefix') : '';
     sufix = $($(this)[0].target).data('sufix') != undefined ? $($(this)[0].target).data('sufix') : '';
     $('#'+name).text(prefix+''+values[handle]+''+sufix);
-    consol.log(name);
   });
 
 }

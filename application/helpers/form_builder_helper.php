@@ -105,7 +105,7 @@ function echo_input($input,$group = FALSE)
   {
     case 'datetime-local':
       $input['value'] = date("Y-m-d\TH:i",strtotime($input['value']));
-      echo '<input '.$input["required"].' type="'.$input["type"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$input["required"].' type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'time':
     case 'date':
@@ -113,10 +113,10 @@ function echo_input($input,$group = FALSE)
     case 'number':
     case 'email':
     case 'hidden':
-      echo '<input '.$input["required"].' type="'.$input["type"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$input["required"].' type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'textarea':
-      echo '<textarea '.$input["required"].' name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
+      echo '<textarea '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
       break;
     case 'select':
     case 'radio':
@@ -127,7 +127,7 @@ function echo_input($input,$group = FALSE)
       // si es un select
       if($input["type"] === "select")
       {
-        echo '<select '.$input["required"].' name="'.$input["name"].'" class="form-control input-group-z-element">';
+        echo '<select '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element">';
         // placehoder select
         echo '<option value="">'.$input["placeholder"].'</option>';
         foreach ($input["options"] as $value => $text) 

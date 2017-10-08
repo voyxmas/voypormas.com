@@ -42,6 +42,8 @@ class App extends My_Controller {
 
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
+		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 
 		// get categorias
 		$data['categorias'] = $this->categorias_model->get_for_input();
@@ -52,9 +54,9 @@ class App extends My_Controller {
 		$attr['cond']['publicar_hasta >'] = date(SYS_DATETIMEFULL_FORMAT);
 		// filtrar por las condiciones
 		if($this->input->get('fecha'))
-			$attr['cond']['fecha >'] = $this->input->get('fecha');
+			$attr['cond']['fecha'] = $this->input->get('fecha');
 		else
-			$attr['cond']['fecha >'] = date(SYS_DATETIMEFULL_FORMAT);
+			$attr['cond']['fecha >='] = date(SYS_DATE_FORMAT);
 		
 		if($this->input->get('nombre'))
 			$attr['cond']['nombre ~'] = $this->input->get('nombre');
@@ -74,6 +76,21 @@ class App extends My_Controller {
 		if($this->input->get('precio2'))
 			$attr['cond']['precio <='] = $this->input->get('precio2');
 		
+		/* trabajo con las variables de ubicacion */
+		if($this->input->get('numero_casa'))
+			$attr['cond']['numero_casa'] = $this->input->get('numero_casa');
+		if($this->input->get('calle'))
+			$attr['cond']['calle'] = $this->input->get('calle');
+		if($this->input->get('ciudad'))
+			$attr['cond']['ciudad'] = $this->input->get('ciudad');
+		if($this->input->get('departamento'))
+			$attr['cond']['departamento'] = $this->input->get('departamento');
+		if($this->input->get('provincia'))
+			$attr['cond']['provincia'] = $this->input->get('provincia');
+		if($this->input->get('pais'))
+			$attr['cond']['pais'] = $this->input->get('pais');
+
+		// paginacion
 		if($this->input->get('p'))
 			$attr['page'] = $this->input->get('p');
 		

@@ -53,12 +53,21 @@
     // public function set_datos_institucion(){}
     // public function set_datos_profecional(){}
 
-    public function add_include($path, $where = 'head')
+    public function add_include($path, $where = 'head', $type = NULL)
     {
+      //defino si es js o css
+      if($type === NULL)
+      {
+        if (preg_match('/js$/', $path))
+          $type = 'js';
+        else
+          $type = 'css';
+      }
+
       if (!preg_match('/^http/',$path)){
-        $this->file_includes[$where][] = base_url() . $path;
+        $this->file_includes[$where][$type][] = base_url() . $path;
       }else{
-        $this->file_includes[$where][] = $path;
+        $this->file_includes[$where][$type][]= $path;
       }
 
       return $this; // This allows chain-methods
@@ -71,17 +80,13 @@
 
       if (!empty($this->file_includes[$where]))
       {
-        foreach ($this->file_includes[$where] as $include)
-        {
-          if (preg_match('/js$/', $include))
-          {
-            $final_includes .= '<script type="text/javascript" src="' . $include . '"></script>';
-          }
-          elseif (preg_match('/css$/', $include))
-          {
-            $final_includes .= '<link href="' . $include . '" rel="stylesheet" type="text/css" />';
-          }
-        }
+        if(isset($this->file_includes[$where]['js']))
+          foreach ($this->file_includes[$where]['js'] as $js)
+            $final_includes .= '<script type="text/javascript" src="' . $js . '"></script>';
+        
+        elseif(isset($this->file_includes[$where]['css']))
+          foreach ($this->file_includes[$where]['css'] as $css)
+            $final_includes .= '<link href="' . $css . '" rel="stylesheet" type="text/css" />';
       }
 
       return $final_includes;
