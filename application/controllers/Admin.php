@@ -123,7 +123,6 @@ class Admin extends My_Controller {
 				$data['form']['ajax_call'] = 1;
 				// inputs
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'nombre',
 					'placeholder' 	=> 'Titulo',
 					'label' 		=> 'Titulo',
@@ -131,7 +130,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'descripcion',
 					'placeholder' 	=> 'Descripcion',
 					'label' 		=> 'Descripcion',
@@ -140,7 +138,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'label' 		=> 'Lugar',
 					'name' 			=> 'lugar',
 					'type' 			=> 'text',
@@ -178,7 +175,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'distancia',
 					'placeholder' 	=> 'Km',
 					'label' 		=> 'Distancia',
@@ -187,7 +183,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'fecha',
 					'placeholder' 	=> 'Fecha del evento',
 					'label' 		=> 'Fecha del evento',
@@ -196,7 +191,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'hora',
 					'placeholder' 	=> 'Hora del evento',
 					'label' 		=> 'Hora del evento',
@@ -205,7 +199,6 @@ class Admin extends My_Controller {
 				);
 				
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'publicar_desde',
 					'label' 		=> 'Publicar desde',
 					'type' 			=> 'date',
@@ -213,7 +206,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'publicar_hasta',
 					'label' 		=> 'Publicar hasta',
 					'type' 			=> 'date',
@@ -221,7 +213,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'label' 		=> 'Precio',
 					'add_one_more' 	=> TRUE,
 					'group'			=> array(
@@ -244,7 +235,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'evento_tipo_id',
 					'label' 		=> 'Tipo de evento',
 					'placeholder' 	=> 'Tipo de evento',
@@ -254,7 +244,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'caracteristica_id[]',
 					'label' 		=> 'Caracteristicas',
 					'placeholder' 	=> 'Caracteristicas',
@@ -263,7 +252,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'estado',
 					'label' 		=> 'Estado',
 					'placeholder' 	=> 'Estado',
@@ -301,16 +289,6 @@ class Admin extends My_Controller {
 				// inputs
 				// inputs
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
-					'name' 			=> 'nombre',
-					'placeholder' 	=> 'Titulo',
-					'label' 		=> 'Titulo',
-					'value' 		=> $data['evento']['nombre'],
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
 					'name' 			=> 'descripcion',
 					'value' 		=> $data['evento']['descripcion'],
 					'placeholder' 	=> 'Descripcion',
@@ -374,7 +352,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'fecha',
 					'value' 		=> $data['evento']['fecha'],
 					'placeholder' 	=> 'Fecha del evento',
@@ -384,7 +361,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'hora',
 					'value' 		=> $data['evento']['hora'],
 					'placeholder' 	=> 'Hora del evento',
@@ -394,7 +370,6 @@ class Admin extends My_Controller {
 				);
 				
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'publicar_desde',
 					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_desde'])),
 					'label' 		=> 'Publicar desde',
@@ -403,7 +378,6 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-3',
 					'name' 			=> 'publicar_hasta',
 					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_hasta'])),
 					'label' 		=> 'Publicar hasta',

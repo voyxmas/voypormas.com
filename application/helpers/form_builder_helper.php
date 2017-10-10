@@ -71,7 +71,7 @@ function array2form($form = array())
     // defaults
   $form['submit_button_text'] = isset($form['submit_button_text']) ? $form['submit_button_text'] : 'Aceptar';
   $form['submit_button_class'] = isset($form['submit_button_class']) ? $form['submit_button_class'] : NULL;
-  echo '<div><div class="col-sm-12">';
+  echo '<div class="row"><div class="col-sm-12">';
   echo '<button type="submit" class="'.$form['submit_button_class'].' btn btn-info">'.$form['submit_button_text'].'</button>';
   echo '</div></div>';
   
