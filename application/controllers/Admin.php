@@ -535,6 +535,8 @@ class Admin extends My_Controller {
 			bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 			
 			// definir titulos y crumbs
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/fileUpload.js','foot');			
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/fileUpload.css','head');			
 			$this->layouts->set_title('Cargar un evento nuevo');
 			
 			// definir el formulario
