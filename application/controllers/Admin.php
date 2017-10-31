@@ -116,6 +116,7 @@ class Admin extends My_Controller {
 			$this->layouts->set_title('Cargar un evento nuevo');
 			
 			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 			
 			// definir el formulario
@@ -126,7 +127,7 @@ class Admin extends My_Controller {
 					'name' 			=> 'nombre',
 					'placeholder' 	=> 'Titulo',
 					'label' 		=> 'Titulo',
-					'required' 		=> TRUE,
+					
 				);
 
 				$data['form']['inputs'][] = array(
@@ -134,14 +135,14 @@ class Admin extends My_Controller {
 					'placeholder' 	=> 'Descripcion',
 					'label' 		=> 'Descripcion',
 					'type' 			=> 'textarea',
-					'required' 		=> TRUE,
+					
 				);
 
 				$data['form']['inputs'][] = array(
 					'label' 		=> 'Lugar',
 					'name' 			=> 'lugar',
 					'type' 			=> 'text',
-					'required' 		=> TRUE,
+					
 				);
 
 				$data['form']['inputs'][] = array(
@@ -175,19 +176,11 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'name' 			=> 'distancia',
-					'placeholder' 	=> 'Km',
-					'label' 		=> 'Distancia',
-					'type' 			=> 'number',
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
 					'name' 			=> 'fecha',
 					'placeholder' 	=> 'Fecha del evento',
 					'label' 		=> 'Fecha del evento',
 					'type' 			=> 'date',
-					'required' 		=> TRUE,
+					
 				);
 
 				$data['form']['inputs'][] = array(
@@ -195,42 +188,58 @@ class Admin extends My_Controller {
 					'placeholder' 	=> 'Hora del evento',
 					'label' 		=> 'Hora del evento',
 					'type' 			=> 'time',
-					'required' 		=> TRUE,
+					
 				);
 				
 				$data['form']['inputs'][] = array(
 					'name' 			=> 'publicar_desde',
 					'label' 		=> 'Publicar desde',
-					'type' 			=> 'date',
-					'required' 		=> TRUE,
+					'type' 			=> 'date'
 				);
 
 				$data['form']['inputs'][] = array(
 					'name' 			=> 'publicar_hasta',
 					'label' 		=> 'Publicar hasta',
-					'type' 			=> 'date',
-					'required' 		=> TRUE,
+					'type' 			=> 'date'
 				);
 
 				$data['form']['inputs'][] = array(
-					'label' 		=> 'Precio',
-					'add_one_more' 	=> TRUE,
-					'group'			=> array(
-						array(
-							'name' 			=> 'precio[]',
-							'label' 		=> 'Monto',
+					'label' 		=> 'Tabla Precios',
+					'id' 			=> 'price-schedule',
+					'inputtable'	=> array(
+						'xy_label'		 => 'Distancia/Fecha' ,
+						// header fields for x
+						'x' => array(
+							array(
+								'name' 			=> 'fecha[]',
+								'placeholder'	=> 'fecha',
+								'type' 			=> 'date',
+								'required' 		=> TRUE
+							)
+						),
+						// header fields for y
+						'y' => array(
+							array(
+								'name' 			=> 'distancia[]',
+								'placeholder'	=> 'Distancia (Km)',
+								'type' 			=> 'number',
+								'sufixbox' 		=> 'kms',
+								'required' 		=> TRUE
+							),
+							array(
+								'name' 			=> 'info[]',
+								'placeholder'	=> 'Requisitos',
+								'type'			=> 'textarea',
+								'required' 		=> TRUE
+							)
+						),
+						'values' => array(
+							'name' 			=> 'monto[]',
+							'placeholder' 	=> '$ Monto',
 							'type' 			=> 'number',
-						),
-						array(
-							'name' 			=> 'precio_desde[]',
-							'label' 		=> 'Desde',
-							'type' 			=> 'datetime-local',
-						),
-						array(
-							'name' 			=> 'precio_hasta[]',
-							'label' 		=> 'Hasta',
-							'type' 			=> 'datetime-local',
-						),
+							'prefixbox' 	=> '$',
+							'required' 		=> TRUE
+						)
 					)
 				);
 
@@ -239,8 +248,7 @@ class Admin extends My_Controller {
 					'label' 		=> 'Tipo de evento',
 					'placeholder' 	=> 'Tipo de evento',
 					'type' 			=> 'select',
-					'options'		=> $this->categorias_model->get_for_input(),
-					'required' 		=> TRUE,
+					'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
 				);
 
 				$data['form']['inputs'][] = array(
@@ -252,12 +260,18 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
+					'name' 			=> 'corredor[]',
+					'label' 		=> 'Corredores',
+					'placeholder' 	=> 'Nombre del corredor destacado',
+					'add_one_more'	=> TRUE
+				);
+
+				$data['form']['inputs'][] = array(
 					'name' 			=> 'estado',
 					'label' 		=> 'Estado',
 					'placeholder' 	=> 'Estado',
 					'type' 			=> 'radio',
 					'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
-					'required' 		=> TRUE,
 				);
 
 			// definir titulos y crumbs
@@ -461,9 +475,19 @@ class Admin extends My_Controller {
 				$data['form']['action'] = base_url().'ajax/caracteristicas_ajax/nuevo';
 				$data['form']['ajax_call'] = 1;
 				// inputs
-				$data['form']['inputs'][0]['name'] = 'nombre';
-				$data['form']['inputs'][0]['placeholder'] = 'Caracteristica';
-				$data['form']['inputs'][0]['required'] = TRUE;
+				$data['form']['inputs'][] = array(
+					'name' => 'nombre',
+					'placeholder' => 'Caracteristica',
+					'required' => TRUE,
+				);
+
+				$data['form']['inputs'][] = array(
+					'name' => 'icono',
+					'placeholder' => 'Icono',
+					'type' => 'file',
+					'required' => TRUE,
+					'multiple' => TRUE,
+				);
 
 			// cargar la pagina y pasar los datos al view
 			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
@@ -475,6 +499,7 @@ class Admin extends My_Controller {
 	{
 		// cargar modelos para eventos
 		$this->load->model('categorias_model');
+		$this->load->model('categorias_grupos_model');
 
 		// cargar controladores para eventos
 		switch ($method) {
@@ -517,9 +542,23 @@ class Admin extends My_Controller {
 				$data['form']['action'] = base_url().'ajax/categorias_ajax/nuevo';
 				$data['form']['ajax_call'] = 1;
 				// inputs
+				$data['form']['inputs'][0]['label'] = 'Nombre';
 				$data['form']['inputs'][0]['name'] = 'nombre';
-				$data['form']['inputs'][0]['placeholder'] = 'categoria';
+				$data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
 				$data['form']['inputs'][0]['required'] = TRUE;
+
+				$data['form']['inputs'][1]['label'] 		= 'Grupo';
+				$data['form']['inputs'][1]['name'] 			= 'evento_tipo_grupo_id';
+				$data['form']['inputs'][1]['placeholder'] 	= 'Grupo';
+				$data['form']['inputs'][1]['required'] 		= TRUE;
+				$data['form']['inputs'][1]['type'] 	   		= 'select';
+				$data['form']['inputs'][1]['options']		= $this->categorias_grupos_model->get_for_input();
+
+				$data['form']['inputs'][2]['name'] 			= 'evento_tipo_grupo_nombre';
+				$data['form']['inputs'][2]['placeholder'] 	= 'Nombre del nuevo grupo';
+				$data['form']['inputs'][2]['class'] 		= 'hidden';
+
+			print_r($data['form']['inputs'][1]['options']);
 
 			// cargar la pagina y pasar los datos al view
 			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');

@@ -46,6 +46,11 @@ define('SYS_DATE_FORMAT','Y-m-d');
 define('SYS_TIME_FORMAT','H:i');
 define('SYS_TIME_FORMATFULL','H:i:s');
 
+// constantes configuracion general defaults
+	// form helper
+define('ADMIN_FORM_ADD_ONE_MORE_LIMIT',0); // 0 = ilimitado
+define('APP_FORM_ADD_ONE_MORE_LIMIT',0); // 0 = ilimitado
+
 
 /*
 |--------------------------------------------------------------------------

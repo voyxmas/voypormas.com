@@ -12,22 +12,40 @@ class Categorias_ajax extends My_Controller {
 		   exit('No direct script access allowed');
 		}
 		$this->load->model('categorias_model');
+		$this->load->model('categorias_grupos_model');
 	}
 
 	public function nuevo ()
 	{
-    // check permission
-    $data['CURRENT_SECTION'] 	= 'admin';
-    $data['CURRENT_PAGE'] 		= 'categorias_nuevo';
-    bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		// check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'categorias_nuevo';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
-		// get post data					
-			// tomar os datos del categoria
-		$save['nombre'] = $this->input->post('nombre');
-			// crear el registro
-		$categoria_id = $this->categorias_model->save($save); unset($save);
-		$debug=$this->db->last_query();
-		if(!$categoria_id) $e[] = 'No se pudo crear la categoria';
+			// ver si se intenta crear un grupo nuevo de categorias
+		$save_evento_tipo_grupo['nombre'] = $this->input->post('evento_tipo_grupo_nombre');
+		$save_evento_tipo['evento_tipo_grupo_id'] = $this->input->post('evento_tipo_grupo_id');
+		
+		if(!empty($save_evento_tipo_grupo['nombre']))
+		{
+			// creo el grupo y sobreescrivo la referencia del post con el id recien creado
+			$save_evento_tipo['evento_tipo_grupo_id'] = $this->categorias_grupos_model->save($save_evento_tipo_grupo);
+		}
+
+		if (!$save_evento_tipo['evento_tipo_grupo_id']) $e[] = 'No se pudo crear el grupo para la catergoria y no se creó la categoria';
+
+		$save_evento_tipo['nombre'] = $this->input->post('nombre');
+			// crear el registro si se creao o no hace falta creat la categoria
+		if(empty($e))
+		{
+			$categoria_id = $this->categorias_model->save($save_evento_tipo); unset($save_evento_tipo);
+			if(!$categoria_id) $e[] = 'No se pudo crear la categoria';
+		}
+		else
+		{
+			$categoria_id = FALSE;
+		}
+
 
 		$data = array();
 		switch ($categoria_id) {

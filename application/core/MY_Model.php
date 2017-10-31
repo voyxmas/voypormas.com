@@ -265,15 +265,31 @@ class MY_Model extends CI_Model
     // tomar datos apra inputs key primery_key => primery_text
     public function get_for_input($attr = array())
     {
-        $registros = $this->get($attr);
+        // tomar los atributos de getforinput y sacarlos del array que paso al modelo get
+            // el caso de inputgroup que espera un campo
+        if (isset($attr['inputgroup']) AND is_string($attr['inputgroup']))
+        {
+            $inputgroup = (isset($attr['inputgroup']) AND is_string($attr['inputgroup'])) ? $attr['inputgroup'] : NULL;
+            unset($attr['inputgroup']);
+        }
+        else
+        {
+            $inputgroup = FALSE;
+        }
 
+        $registros = $this->get($attr);
+        
         if(empty($registros)) return FALSE;
 
         // looperar y asociar de cada registro solo el primery text con su id
         foreach ($registros as $registro) 
         {
-            $return[$registro[$this->primary_id]] = $registro[$this->primary_field];
+            if($inputgroup)
+                $return[$registro[$inputgroup]][$registro[$this->primary_id]] = $registro[$this->primary_field];
+            else
+                $return[$registro[$this->primary_id]] = $registro[$this->primary_field];
         }
+
 
         return $return;
     }

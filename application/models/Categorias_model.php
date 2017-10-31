@@ -8,7 +8,7 @@ class Categorias_model extends MY_Model
 			$this->primary_id 	= 'evento_tipo_id';
 			$this->primary_field= 'nombre';
 			$this->table_CRUD 	= 'eventos_tipos';
-			$this->table_read 	= 'eventos_tipos';
+			$this->table_read 	= 'categorias_view';
 	}
 
 }

@@ -1,54 +1,95 @@
-@media (min-width: 990px) {
-  .logo-admin {
-    max-width: 100%;
-    max-height: 80%;
-    margin-top: 14px;
+/* DINAMIC FORM */
+  @media (min-width: 990px) {
+    .logo-admin {
+      max-width: 100%;
+      max-height: 80%;
+      margin-top: 14px;
+    }
+    .input-group-z {
+      display: table;
+      width: 100%;
+      margin-bottom: 3px;
+    }
+    .input-group-z > input,
+    .input-group-z > label
+    {
+      display: table-cell;
+    } 
+    .input-group-z > label {
+      text-align: center;
+      background-color: #c2cad8;
+    }
+    .control-label {
+      display: block;
+      padding: 5px 0;
+    }
   }
-  .input-group-z {
+  @media (max-width: 990px) {
+    .logo-admin {
+      max-height: 45px;
+      margin-top: 10px;
+    }
+    .input-group-z {
+      margin-bottom: 10px;
+    }
+    .input-group-z > label,
+    .input-group-z > input {
+      display: inline-block;
+    }
+    .input-group-z > label {
+      width:30%;
+    } 
+    .input-group-z > input {
+      width:70%;
+    }
+  }
+
+  .form-group > label:not(.checkbox-inline):not(.radio-inline) {
+    font-weight: bold;
+    color: #578EBE;
+  }
+
+  .input-group .form-control,
+  .input-group-addon, .input-group-btn { width: auto;}
+
+  .margintop { margin-top: 50px;}
+
+/* TABLE WITH DIVS */
+  .table,
+  .table.gridinput * {
+    box-sizing: border-box;
+    width: auto !important;
+    margin: 0 !important;
+  }
+  .table.gridinput,
+  .table.gridinput .table {
     display: table;
-    width: 100%;
-    margin-bottom: 3px;
+    background: #FFF;
   }
-  .input-group-z > input,
-  .input-group-z > label
-  {
+
+  .table.gridinput .table-row {
+    display: table-row;
+  }
+  .table.gridinput .table-cell {
     display: table-cell;
-  } 
-  .input-group-z > label {
-    text-align: center;
-    background-color: #c2cad8;
+    padding: 10px 10px 0 0;
+    min-width: 80px;
   }
-  .control-label {
-    display: block;
-    padding: 5px 0;
-  }
-}
-@media (max-width: 990px) {
-  .logo-admin {
-    max-height: 45px;
-    margin-top: 10px;
-  }
-  .input-group-z {
-    margin-bottom: 10px;
-  }
-  .input-group-z > label,
-  .input-group-z > input {
-    display: inline-block;
-  }
-  .input-group-z > label {
-    width:30%;
-  } 
-  .input-group-z > input {
-    width:70%;
-  }
-}
 
-.form-group > label:not(.checkbox-inline):not(.radio-inline) {
-  font-weight: bold;
-  color: #578EBE;
+  .table.gridinput input,
+  .table.gridinput a {
+    padding: 5px;
+    width: 100% !important;
+    display: block; 
+  }
+    .table.gridinput a {
+      margin: 10px 0 !important;
+    }
+
+.table-cell {
+  vertical-align: top;
 }
-
-.input-group .form-control,
-.input-group-addon, .input-group-btn { width: auto;}
-
-.margintop { margin-top: 50px;}
+.table-cell textarea {
+  height: 34px;
+}
+/**/

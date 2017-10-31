@@ -85,8 +85,8 @@ class Eventos_ajax extends My_Controller {
 				break;
 			
 			default:
-				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
-				$do_after['action_delay'] = 1000;
+				// $do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
+				// $do_after['action_delay'] = 1000;
 				$do_after['toastr'] 			= 'Evento creado';
 				$do_after['toastr_type'] 	= 'success';
 				break;
