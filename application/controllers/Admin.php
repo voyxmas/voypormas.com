@@ -197,14 +197,9 @@ class Admin extends My_Controller {
 					'type' 			=> 'date'
 				);
 
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'publicar_hasta',
-					'label' 		=> 'Publicar hasta',
-					'type' 			=> 'date'
-				);
 
 				$data['form']['inputs'][] = array(
-					'label' 		=> 'Tabla Precios',
+					'label' 		=> 'Variantes del evento',
 					'id' 			=> 'price-schedule',
 					'inputtable'	=> array(
 						'xy_label'		 => 'Distancia/Fecha' ,
@@ -232,10 +227,17 @@ class Admin extends My_Controller {
 								'type'			=> 'textarea',
 								'required' 		=> TRUE
 							)
+							,
+							array(
+								'name' 			=> 'premio[]',
+								'placeholder'	=> 'Premio',
+								'type'			=> 'number',
+								'prefixbox' 	=> '$',
+							)
 						),
 						'values' => array(
 							'name' 			=> 'monto[]',
-							'placeholder' 	=> '$ Monto',
+							'placeholder' 	=> 'Monto inscripcion',
 							'type' 			=> 'number',
 							'prefixbox' 	=> '$',
 							'required' 		=> TRUE
@@ -387,14 +389,6 @@ class Admin extends My_Controller {
 					'name' 			=> 'publicar_desde',
 					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_desde'])),
 					'label' 		=> 'Publicar desde',
-					'type' 			=> 'date',
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'publicar_hasta',
-					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_hasta'])),
-					'label' 		=> 'Publicar hasta',
 					'type' 			=> 'date',
 					'required' 		=> TRUE,
 				);
