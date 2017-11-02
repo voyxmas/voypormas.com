@@ -46,7 +46,8 @@ class Admin extends My_Controller {
 		$this->load->model('categorias_model');
 		$this->load->model('caracteristicas_model');
 		$this->load->model('eventos_caracteristicas_model');
-		$this->load->model('eventos_precios_model');
+		$this->load->model('variantes_eventos_model');
+		$this->load->model('variantes_eventos_precios_model');
 
 		// cargar controladores para eventos
 		switch ($method) {
@@ -127,7 +128,7 @@ class Admin extends My_Controller {
 					'name' 			=> 'nombre',
 					'placeholder' 	=> 'Titulo',
 					'label' 		=> 'Titulo',
-					
+					'help'			=> 'Nombre con el que aparece listado el evento'					
 				);
 
 				$data['form']['inputs'][] = array(
@@ -201,45 +202,50 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][] = array(
 					'label' 		=> 'Variantes del evento',
 					'id' 			=> 'price-schedule',
+					'help'			=> 'Variantes del evento y respectivos costos de inscripcion',
 					'inputtable'	=> array(
 						'xy_label'		 => 'Distancia/Fecha' ,
 						// header fields for x
 						'x' => array(
 							array(
-								'name' 			=> 'fecha[]',
+								'name' 			=> 'vfecha[]',
 								'placeholder'	=> 'fecha',
 								'type' 			=> 'date',
-								'required' 		=> TRUE
+								'required' 		=> TRUE,
+								'help'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
 							)
 						),
 						// header fields for y
 						'y' => array(
 							array(
-								'name' 			=> 'distancia[]',
+								'name' 			=> 'vdistancia[]',
 								'placeholder'	=> 'Distancia (Km)',
 								'type' 			=> 'number',
 								'sufixbox' 		=> 'kms',
-								'required' 		=> TRUE
+								'required' 		=> TRUE,
+								'help'			=> 'Distancia en Km de esta variacion del evento'
 							),
 							array(
-								'name' 			=> 'info[]',
+								'name' 			=> 'vinfo[]',
 								'placeholder'	=> 'Requisitos',
 								'type'			=> 'textarea',
-								'required' 		=> TRUE
+								'required' 		=> TRUE,
+								'help'			=> 'Requisitos que se deben cumplir para poder participar'
 							)
 							,
 							array(
-								'name' 			=> 'premio[]',
+								'name' 			=> 'vpremio[]',
 								'placeholder'	=> 'Premio',
 								'type'			=> 'number',
 								'prefixbox' 	=> '$',
 							)
 						),
 						'values' => array(
-							'name' 			=> 'monto[]',
+							'name' 			=> 'vmonto[]',
 							'placeholder' 	=> 'Monto inscripcion',
 							'type' 			=> 'number',
 							'prefixbox' 	=> '$',
+							'help'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
 							'required' 		=> TRUE
 						)
 					)

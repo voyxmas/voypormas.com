@@ -189,6 +189,11 @@ function echo_input($input,$group = FALSE)
   $input["sufixbox"] = isset($input["sufixbox"]) ? $input["sufixbox"] : NULL;
   $input["required"] = isset($input["required"]) ? ($input["required"] ? 'required' : NULL ) : NULL;
   $input["multiple"] = isset($input["multiple"]) ? ($input["multiple"] ? 'multiple' : NULL ) : NULL;
+  $input["help"] = isset($input["help"]) ? $input["help"] : NULL;
+
+  // defino el valor title para help
+  $title = $input["help"] ? 'data-toggle="tooltip" title="'.$input["help"].'"' : '';
+
     
   // labels
   if(isset($input["label"]))
@@ -212,7 +217,7 @@ function echo_input($input,$group = FALSE)
   {
     case 'datetime-local':
       $input['value'] = date("Y-m-d\TH:i",strtotime($input['value']));
-      echo '<input '.$input["required"].' type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$input["required"].' $title type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'file':
       echo '<div id="'.$input["name"].'_preview" class="preview"></div>';
@@ -222,10 +227,10 @@ function echo_input($input,$group = FALSE)
     case 'number':
     case 'email':
     case 'hidden':
-      echo '<input '.$input["required"].' '.$input["multiple"].' type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$title.' '.$input["required"].' '.$input["multiple"].' type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'textarea':
-      echo '<textarea '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
+      echo '<textarea '.$title.' '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
       break;
     case 'select':
     case 'radio':
@@ -236,7 +241,7 @@ function echo_input($input,$group = FALSE)
       // si es un select
       if($input["type"] === "select")
       {
-        echo '<select '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element">';
+        echo '<select '.$title.' '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element">';
         // placehoder select
         echo '<option value="">'.$input["placeholder"].'</option>';
         foreach ($input["options"] as $value => $text) 
@@ -272,7 +277,7 @@ function echo_input($input,$group = FALSE)
           {
             $selected = $value == $input['value'] ? 'checked' : NULL;
             echo '<label class="'.$input["type"].'-inline">';
-            echo '<input '.$input["required"].' '.$selected.' type="'.$input['type'].'" name="'.$input['name'].'" value="'.$value.'"> '.$text;
+            echo '<input '.$title.' '.$input["required"].' '.$selected.' type="'.$input['type'].'" name="'.$input['name'].'" value="'.$value.'"> '.$text;
             echo '</label>';
           }
         }

@@ -21,6 +21,8 @@ function textAreaAdjust(o)
     row.find('textarea').val('');
     // agregar
     table.append(row);
+
+    $('[data-toggle="tooltip"]').tooltip(); 
   }
 
   function addColumn(selector)
@@ -35,6 +37,8 @@ function textAreaAdjust(o)
       col.find('textarea').val('');
       // append
       $(this).append(col);
+
+      $('[data-toggle="tooltip"]').tooltip(); 
     });
   }
 
@@ -77,4 +81,7 @@ function textAreaAdjust(o)
     $(document).on('change','.input-fecha',function(){
       // verificar los datos
     });
+
+    $('[data-toggle="tooltip"]').tooltip(); 
+    
   });
