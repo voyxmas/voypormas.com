@@ -10,7 +10,7 @@ $(document).on('click','.rem-row',function(){
 
 $(document).on('click','.add-row',function(){
   // cargar un nuevo grupo de premios
-  var otro_grupo_de_premios = $('.form-group.premios').clone();
+  var otro_grupo_de_premios = $('.form-group.premios').last().clone();
   otro_grupo_de_premios.children('label').children('span').text('Premios');
   // insertar el elemento despues del ultio de este tipo
   otro_grupo_de_premios.insertAfter($('.form-group.premios').last());
