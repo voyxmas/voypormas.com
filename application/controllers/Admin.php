@@ -258,13 +258,15 @@ class Admin extends My_Controller {
 						array(
 							'name' 			=> 'premio_descripcion[]',
 							'label' 		=> 'Puesto',
-							'placeholder' 	=> 'Puesto'
+							'placeholder' 	=> 'ej: 1ero Caballero General',
+							'help'			=> 'Critero por el cual se otorga el premio'
 						),
 						array(
 							'name' 			=> 'premio_monto[]',
 							'label' 		=> 'Premio',
-							'placeholder' 	=> 'Premio',
-							'type' 			=> 'number'
+							'placeholder' 	=> 'ej: $1000',
+							'type' 			=> 'text',
+							'help'			=> 'Premio que se entraga'
 						),
 					)
 				);
@@ -286,8 +288,9 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'name' 			=> 'participantes_destacados',
+					'name' 			=> 'participantes_destacados[]',
 					'label' 		=> 'Corredores destacados',
+					'add_one_more' 	=> TRUE,
 					'placeholder' 	=> 'Participantes destacados'
 				);
 

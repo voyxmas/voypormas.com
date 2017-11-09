@@ -206,7 +206,7 @@ function echo_input($input,$group = FALSE)
   {
     echo '<label class="control-label"><span>'.$input["label"].'</span> <span>'.($input["required"] ? '*' : '').'</span>';
     // si se permite agregar otro elemento del mismo tipo, cargar el boton
-    echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn green btn-xs" data-name="'.$input["name"].'"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
+    echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn default btn-sm" data-name="'.$input["name"].'"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
 
     echo '</label>';
   }

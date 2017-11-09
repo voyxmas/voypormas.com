@@ -78,6 +78,7 @@ $(document).ready(function() {
   if(min_y < 2) // oculto el boton qutiar fila
     $('a.rem-row').fadeOut();
 
+  // no mostrar el boton de quitar un elemento por defecto
   $('.form_builder_helper_add_one_less').fadeOut();
 
   $('a.add-row').click(function() {
@@ -145,8 +146,11 @@ $(document).ready(function() {
   });
 
   $(document).on('click', '.form_builder_helper_add_one_less', function(event) {
-    // tomar el grupo siguiente
-    var items = $(this).parent().parent().find('.input-group-z');
+    // tomar el grupo siguiente, buscar por input-group-z si existe o input-group-z-element para asegurar que funcione siempre
+    if($(this).parent().parent().find('.input-group-z').length > 0)
+      var items = $(this).parent().parent().find('.input-group-z');
+    else
+      var items = $(this).parent().parent().find('.input-group-z-element');
     // quito el ultimo elemento
     items.last().remove();
     // veo cuantos quedan en el grupo de elementos
