@@ -27,7 +27,7 @@ class Eventos_ajax extends My_Controller {
 
 		// defaults
 		$e = array();
-		// get post data					
+		// get post data
 			// tomar os datos del evento
 		$save['organizador_id'] = $this->input->post('organizador_id');
 		$save['evento_tipo_id'] = $this->input->post('evento_tipo_id');
@@ -43,6 +43,7 @@ class Eventos_ajax extends My_Controller {
 		$save['ciudad'] = $this->input->post('ciudad');
 		$save['calle'] = $this->input->post('calle');
 		$save['numero_casa'] = $this->input->post('numero_casa');
+		$save['participantes_destacados'] = $this->input->post('participantes_destacados');
 		$save['estado'] = $this->input->post('estado');
 			// crear el registro
 		$evento_id = $this->eventos_model->save($save); unset($save);

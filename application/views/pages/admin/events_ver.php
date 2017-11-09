@@ -45,68 +45,9 @@
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    <div class="row">
-                                        <?php array2form($form) ?>
-                                    </div>
                                     
-                                    <h4 class="margintop">Caracteriticas</h4>
-                                    <ul class="list-unstyled list-inline margin-top-10 margin-bottom-10">
-                                        <li class="list-inline-item" style="display:block;">
-                                            <div class="input-group input-group-sm">
-                                                <form action="<?php echo base_url().'ajax/eventos_ajax/add_caracteristica_a_evento/'.$evento['evento_id'] ?>"  method="post" class="ajax_call">
-                                                    <select name="caracteristica_id" class="form-control">
-                                                        <?php foreach($caracteristicas_options as $item) : ?>
-                                                        <option value="<?php echo $item['caracteristica_id'] ?>"><?php echo $item['nombre'] ?></option>
-                                                        <?php endforeach ?>
-                                                    </select>
-                                                    <button type="submit" class="btn">Agregar caracteristica al evento</button>
-                                                </form>
-                                            </div>
-                                        </li>
-                                        <?php foreach($caracteristicas as $caracteristica): ?>
-                                        <li class="list-inline-item"><i class="fa fa-check"></i> <?php echo $caracteristica['caracteristica_nombre'] ?> </li>
-                                        <?php endforeach ?>
-                                    </ul>
+                                    <?php array2form($form) ?>
 
-                                    <div class="pricing margin-top-20">   
-                                        <h4 class="margintop">Aranceles</h4>
-                                        <form action="<?php echo base_url().'ajax/eventos_ajax/agregar_precios/'.$evento['evento_id'] ?>" class="ajax_call" method="post">
-                                            <table class="table table-hover"> 
-                                                <thead>
-                                                    <tr>
-                                                        <th>Monto</th>
-                                                        <th>Inicio</th>
-                                                        <th>fin</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $i=0; foreach($precios as $precio): $i++?>
-                                                    <tr>
-                                                        <td>$<?php echo $precio['monto'] ?></td>
-                                                        <td><?php echo date(APP_DATE_FORMAT,strtotime($precio['desde'])) ?></td>
-                                                        <td><?php echo date(APP_DATE_FORMAT,strtotime($precio['hasta'])) ?></td>
-                                                        <td>
-                                                            <?php if(check_permissions('admin','events_eliminar_tarifa')): ?>
-                                                            <a href="<?php echo base_url().'ajax/eventos_ajax/eliminar_precio/'.$precio['precio_evento_id'] ?>" class="btn btn-info btn-xs ajax_call">Eliminar</a>
-                                                            <?php endif ?>
-                                                        </td>
-                                                    </tr>
-                                                    <?php endforeach ?>
-                                                    <tr>
-                                                        <td><input class="form-control " required name="monto" type="number"></td>           
-                                                        <td><input class="form-control " required name="desde" type="date"></td>           
-                                                        <td><input class="form-control " required name="hasta" type="date"></td>
-                                                        <td>
-                                                            <?php if(check_permissions('admin','events_agregar_tarifa')): ?>
-                                                            <button type="submit" class="btn btn-info">Agregar</button>
-                                                            <?php endif ?>
-                                                        </td>        
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -27,11 +27,11 @@
                     <!-- END PAGE HEADER-->
 
                     <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="portlet light ">
-                            <div class="portlet-body">
-                                <?php array2form($form) ?>
+                        <div class="col-md-12 col-sm-12">
+                            <div class="portlet light ">
+                                <div class="portlet-body">
+                                    <?php array2form($form) ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>

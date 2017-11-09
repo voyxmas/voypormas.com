@@ -92,4 +92,7 @@
 .table-cell textarea {
   height: 34px;
 }
+.nopadding {
+  padding: 0;
+}
 /**/

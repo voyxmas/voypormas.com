@@ -247,21 +247,25 @@ function echo_input($input,$group = FALSE)
         foreach ($input["options"] as $value => $text) 
         {
           // check selected
-          $selected = $value == $input['value'] ? 'selected' : NULL;
+          
           if(is_array($text))
           {
             // si el key es un array, esoty agrupando
             if(count($text) > 1)
               echo '<optgroup label="'.$value.'">';
+
             foreach ($text as $group_key => $group_text)
             {
+              $selected = $group_key == $input['value'] ? 'selected' : NULL;
               echo '<option '.$selected.' value="'.$group_key.'">'.$group_text.'</option>';
             }
+            
             if(count($text) > 1)
               echo '</optgroup>';
           }
           else
           {
+            $selected = $value == $input['value'] ? 'selected' : NULL;
             echo '<option '.$selected.' value="'.$value.'">'.$text.'</option>';
           }
         }

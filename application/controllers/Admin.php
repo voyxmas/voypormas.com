@@ -126,8 +126,8 @@ class Admin extends My_Controller {
 				// inputs
 				$data['form']['inputs'][] = array(
 					'name' 			=> 'nombre',
-					'placeholder' 	=> 'Titulo',
-					'label' 		=> 'Titulo',
+					'placeholder' 	=> 'Nombre de la carrera',
+					'label' 		=> 'Nombre de la carrera',
 					'help'			=> 'Nombre con el que aparece listado el evento'					
 				);
 
@@ -195,12 +195,13 @@ class Admin extends My_Controller {
 				$data['form']['inputs'][] = array(
 					'name' 			=> 'publicar_desde',
 					'label' 		=> 'Publicar desde',
-					'type' 			=> 'date'
+					'type' 			=> 'date',
+					'value' 		=> date(SYS_DATE_FORMAT)
 				);
 
 
 				$data['form']['inputs'][] = array(
-					'label' 		=> 'Variantes del evento',
+					'label' 		=> 'Información de la carrera',
 					'id' 			=> 'price-schedule',
 					'help'			=> 'Variantes del evento y respectivos costos de inscripcion',
 					'inputtable'	=> array(
@@ -212,6 +213,7 @@ class Admin extends My_Controller {
 								'placeholder'	=> 'fecha',
 								'type' 			=> 'date',
 								'required' 		=> TRUE,
+								'value' 		=> date(SYS_DATE_FORMAT),
 								'help'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
 							)
 						),
@@ -227,7 +229,7 @@ class Admin extends My_Controller {
 							),
 							array(
 								'name' 			=> 'vinfo[]',
-								'placeholder'	=> 'Requisitos',
+								'placeholder'	=> 'Elementos',
 								'type'			=> 'textarea',
 								'required' 		=> TRUE,
 								'help'			=> 'Requisitos que se deben cumplir para poder participar'
@@ -268,10 +270,9 @@ class Admin extends My_Controller {
 				);
 
 				$data['form']['inputs'][] = array(
-					'name' 			=> 'corredor[]',
-					'label' 		=> 'Corredores',
-					'placeholder' 	=> 'Nombre del corredor destacado',
-					'add_one_more'	=> TRUE
+					'name' 			=> 'participantes_destacados',
+					'label' 		=> 'Corredores destacados',
+					'placeholder' 	=> 'Participantes destacados'
 				);
 
 				$data['form']['inputs'][] = array(
@@ -305,120 +306,149 @@ class Admin extends My_Controller {
 
 			if(empty($data['evento'])) redirect(base_url().'admin/');
 
-			// definir el formulario de edicion
-				$data['form']['action'] = base_url().'ajax/eventos_ajax/editar/'.$evento_id;
-				$data['form']['ajax_call'] = 1;
-				// inputs
-				// inputs
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'descripcion',
-					'value' 		=> $data['evento']['descripcion'],
-					'placeholder' 	=> 'Descripcion',
-					'label' 		=> 'Descripcion',
-					'type' 			=> 'textarea',
-					'required' 		=> TRUE,
-				);
+			// tomar datos del evento
+			$data['evento'] = $this->eventos_model->get($evento_id)[0];
 
-				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
-					'name' 			=> 'lugar',
-					'value' 		=> $data['evento']['lugar'],
-					'type' 			=> 'text',
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'numero_casa',
-					'value' 		=> $data['evento']['numero_casa'],
-					'type' 			=> 'hidden'
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'calle',
-					'value' 		=> $data['evento']['calle'],
-					'type' 			=> 'hidden'
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'ciudad',
-					'value' 		=> $data['evento']['ciudad'],
-					'type' 			=> 'hidden'
-				);
-				
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'departamento',
-					'value' 		=> $data['evento']['departamento'],
-					'type' 			=> 'hidden'
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'provincia',
-					'value' 		=> $data['evento']['provincia'],
-					'type' 			=> 'hidden'
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'pais',
-					'value' 		=> $data['evento']['pais'],
-					'type' 			=> 'hidden'
-				);
-
-				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
-					'name' 			=> 'distancia',
-					'value' 		=> $data['evento']['distancia'],
-					'placeholder' 	=> 'Km',
-					'label' 		=> 'Distancia',
-					'type' 			=> 'number',
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'fecha',
-					'value' 		=> $data['evento']['fecha'],
-					'placeholder' 	=> 'Fecha del evento',
-					'label' 		=> 'Fecha del evento',
-					'type' 			=> 'date',
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'hora',
-					'value' 		=> $data['evento']['hora'],
-					'placeholder' 	=> 'Hora del evento',
-					'label' 		=> 'Hora del evento',
-					'type' 			=> 'time',
-					'required' 		=> TRUE,
-				);
-				
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'publicar_desde',
-					'value' 		=> date(SYS_DATE_FORMAT,strtotime($data['evento']['publicar_desde'])),
-					'label' 		=> 'Publicar desde',
-					'type' 			=> 'date',
-					'required' 		=> TRUE,
-				);
-
-				$data['form']['inputs'][] = array(
-					'class' 		=> 'col-sm-12',
-					'name' 			=> 'estado',
-					'label' 		=> 'Estado',
-					'placeholder' 	=> 'Estado',
-					'type' 			=> 'radio',
-					'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
-					'required' 		=> TRUE,
-				);
-
-			// cargar caracteristicas
-				$attr['cond']['evento_id'] = $evento_id;
-				$data['caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
-				$data['caracteristicas_options'] = $this->caracteristicas_model->get();
-
-			// cargar precios
+			// tomar variantes
 			$attr['cond']['evento_id'] = $evento_id;
-			$data['precios'] = $this->eventos_precios_model->get($attr); unset($attr);
+			$data['evento']['evento_variantes'] = $this->variantes_eventos_model->get($attr); unset($attr);
+
+			// tomar precios de las variantes
+			foreach ($data['evento']['evento_variantes'] as $variante_key => $variante) 
+			{
+				$attr['cond']['variante_evento_id'] = $variante['variante_evento_id'];
+				$data['evento']['evento_variantes'][$variante_key]['montos'] = $this->variantes_eventos_precios_model->get($attr); unset($attr);
+			}
+
+			// tomar caracteristicas
+			$attr['cond']['evento_id'] = $evento_id;
+			$data['evento']['evento_caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
+
+			// tomar datos de la categoria
+
+			// armar el formulario
+			$data['form'] = array();
+			
+			// definir el formulario de edicion
+			$data['form']['action'] = base_url().'ajax/eventos_ajax/editar/'.$evento_id;
+			$data['form']['ajax_call'] = 1;
+			// inputs
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'nombre',
+				'placeholder' 	=> 'Nombre de la carrera',
+				'label' 		=> 'Nombre de la carrera',
+				'value'			=> $data['evento']['nombre'],
+				'help'			=> 'Nombre con el que aparece listado el evento'					
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'descripcion',
+				'placeholder' 	=> 'Descripcion',
+				'label' 		=> 'Descripcion',
+				'value'			=> $data['evento']['descripcion'],
+				'type' 			=> 'textarea',
+				
+			);
+
+			$data['form']['inputs'][] = array(
+				'label' 		=> 'Lugar',
+				'name' 			=> 'lugar',
+				'value'			=> $data['evento']['lugar'],
+				'type' 			=> 'text',
+				'class' 		=> 'col-md-4 nopadding',
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'numero_casa',
+				'value' 		=> $data['evento']['numero_casa'],
+				'type' 			=> 'hidden'
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'calle',
+				'value' 		=> $data['evento']['calle'],
+				'type' 			=> 'hidden'
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'ciudad',
+				'value' 		=> $data['evento']['ciudad'],
+				'type' 			=> 'hidden'
+			);
+			
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'departamento',
+				'value' 		=> $data['evento']['departamento'],
+				'type' 			=> 'hidden'
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'provincia',
+				'value' 		=> $data['evento']['provincia'],
+				'type' 			=> 'hidden'
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'pais',
+				'value' 		=> $data['evento']['pais'],
+				'type' 			=> 'hidden'
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'fecha',
+				'value' 		=> $data['evento']['fecha'],
+				'placeholder' 	=> 'Fecha del evento',
+				'label' 		=> 'Fecha del evento',
+				'type' 			=> 'date',
+				'class' 		=> 'col-md-4 nopadding',
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'hora',
+				'value' 		=> $data['evento']['hora'],
+				'placeholder' 	=> 'Hora del evento',
+				'label' 		=> 'Hora del evento',
+				'type' 			=> 'time',
+				'class' 		=> 'col-md-4 nopadding',
+			);
+			
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'publicar_desde',
+				'label' 		=> 'Publicar desde',
+				'value' 		=> $data['evento']['publicar_desde'],
+				'type' 			=> 'date',
+				'value' 		=> date(SYS_DATE_FORMAT),
+				'class' 		=> 'col-md-6 nopadding',
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'evento_tipo_id',
+				'value' 		=> $data['evento']['evento_tipo_id'],
+				'label' 		=> 'Tipo de evento',
+				'placeholder' 	=> 'Tipo de evento',
+				'type' 			=> 'select',
+				'class' 		=> 'col-md-6 nopadding',
+				'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
+			);
+
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'participantes_destacados',
+				'value' 		=> $data['evento']['participantes_destacados'],
+				'label' 		=> 'Corredores destacados',
+				'placeholder' 	=> 'Participantes destacados'
+			);
+			
+			$data['form']['inputs'][] = array(
+				'name' 			=> 'estado',
+				'value' 		=> $data['evento']['estado'],
+				'label' 		=> 'Estado',
+				'placeholder' 	=> 'Estado',
+				'type' 			=> 'radio',
+				'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
+			);
 
 			$this->layouts->view($data['CURRENT_SECTION'].'/'.$data['CURRENT_PAGE'],$data,'admin/general');
+			
 		}
 
 		private function events_eliminar ()
