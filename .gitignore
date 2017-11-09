@@ -26,5 +26,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-workspace
 *.sublime-project
 
-## ignorar todos los directorios que empiezan con un punto
-.*/
+## ignorar todos los directorios que empiezan con un punto y su contenido
+.*/*
