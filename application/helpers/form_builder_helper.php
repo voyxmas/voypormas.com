@@ -141,7 +141,7 @@ function array2form($form = array())
         {
           echo '</div> <!-- fin .table-cell -->';
             // agrego el boton de agregar columan si hace falta
-            echo '<div class="table-cell"><a data-addtoid="price-schedule" class="add-column btn btn-xs default">+</a></div> <!-- fin .table-cell boton -->';
+            echo '<div class="table-cell"><a data-addtoid="price-schedule" class="add-column btn btn-lg default"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a data-remtoid="price-schedule" class="rem-column btn btn-lg default"><i class="fa fa-minus-circle" aria-hidden="true"></i></a></div> </div> <!-- fin .table-cell boton -->';
           echo '</div> <!-- fin .table-cell -->';
         }
 
@@ -149,7 +149,7 @@ function array2form($form = array())
         if($input['inputtable']['add_one_y'] == TRUE)
         {
           echo '<div clas="table-row">';
-            echo '<div class="table-cell"><a data-addtoid="price-schedule" class="add-row btn btn-xs default">+</a></div>';
+            echo '<div class="table-cell"><a data-addtoid="price-schedule" class="add-row btn btn-lg default"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a data-remtoid="price-schedule" class="rem-row btn btn-lg default"><i class="fa fa-minus-circle" aria-hidden="true"></i></a></div>';
           echo '</div> <!-- fin .table-row -->';
         }
       echo '</div> <!-- fin .table -->';

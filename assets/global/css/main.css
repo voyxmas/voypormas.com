@@ -95,4 +95,8 @@
 .nopadding {
   padding: 0;
 }
+.add-row, .rem-row {
+  margin-top: 10px;
+}
+
 /**/
