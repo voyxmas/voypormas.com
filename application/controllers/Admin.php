@@ -233,14 +233,7 @@ class Admin extends My_Controller {
 								'type'			=> 'textarea',
 								'required' 		=> TRUE,
 								'help'			=> 'Requisitos que se deben cumplir para poder participar'
-							)
-							,
-							array(
-								'name' 			=> 'vpremio[]',
-								'placeholder'	=> 'Premio',
-								'type'			=> 'number',
-								'prefixbox' 	=> '$',
-							)
+							)	
 						),
 						'values' => array(
 							'name' 			=> 'vmonto[]',
@@ -250,6 +243,29 @@ class Admin extends My_Controller {
 							'help'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
 							'required' 		=> TRUE
 						)
+					)
+				);
+
+				$data['form']['inputs'][] = array(
+					'label' 		=> 'Premios',
+					'class' 		=> 'premios',
+					'add_one_more' 	=> TRUE,
+					'group' 		=> array(
+						array(
+							'name' 			=> 'premio_variante[]',
+							'type' 			=> 'hidden'
+						),
+						array(
+							'name' 			=> 'premio_descripcion[]',
+							'label' 		=> 'Puesto',
+							'placeholder' 	=> 'Puesto'
+						),
+						array(
+							'name' 			=> 'premio_monto[]',
+							'label' 		=> 'Premio',
+							'placeholder' 	=> 'Premio',
+							'type' 			=> 'number'
+						),
 					)
 				);
 

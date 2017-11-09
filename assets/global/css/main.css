@@ -44,6 +44,9 @@
     }
   }
 
+  .form-group {
+    margin-bottom: 30px;
+  }
   .form-group > label:not(.checkbox-inline):not(.radio-inline) {
     font-weight: bold;
     color: #578EBE;

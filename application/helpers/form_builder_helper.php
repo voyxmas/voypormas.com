@@ -45,9 +45,9 @@ function array2form($form = array())
       {
         if(isset($input["label"]))
         {
-          echo '<label class="control-label">'.$input["label"];
+          echo '<label class="control-label"><span>'.$input["label"].'</span>';
           // si se permite agregar otro elemento del mismo tipo, cargar el boton
-          echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn green btn-xs">+</a>' : '';
+          echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn default btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
           echo '</label>';
         }
         
@@ -82,6 +82,7 @@ function array2form($form = array())
       {
         echo '<label class="control-label">'.$input["label"].'</label>';
       }
+
       echo '<div class="table gridinput">
         <!-- los datos -->
         <div class="table-row">
@@ -174,17 +175,22 @@ function array2form($form = array())
   echo '</form>';
 }
 
+// input count
+$input_count = 0;
+
 function echo_input($input,$group = FALSE)
 {
-
+  global $input_count;
+  $input_count++;
   // defaults
-  $input["id"] = isset($input["id"]) ? $input["id"] : $input["name"];
+  $input["id"] = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]).$input_count;
   // $group = $group ? 'input-group-addon' : NULL;
   $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
   $input["type"] = isset($input["type"]) ? $input["type"] : 'text';
   $input["value"] = isset($input["value"]) ? $input["value"] : NULL;
   $input["placeholder"] = isset($input["placeholder"]) ? $input["placeholder"] : NULL;
   $input["class"] = isset($input["class"]) ? $input["class"] : NULL;
+  $input["class"] .= ' '.str_replace('[]','',$input["name"]);
   $input["prefixbox"] = isset($input["prefixbox"]) ? $input["prefixbox"] : NULL;
   $input["sufixbox"] = isset($input["sufixbox"]) ? $input["sufixbox"] : NULL;
   $input["required"] = isset($input["required"]) ? ($input["required"] ? 'required' : NULL ) : NULL;
@@ -198,9 +204,9 @@ function echo_input($input,$group = FALSE)
   // labels
   if(isset($input["label"]))
   {
-    echo '<label class="control-label">'.$input["label"].' '.($input["required"] ? '*' : '');
+    echo '<label class="control-label"><span>'.$input["label"].'</span> <span>'.($input["required"] ? '*' : '').'</span>';
     // si se permite agregar otro elemento del mismo tipo, cargar el boton
-    echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn green btn-xs" data-name="'.$input["name"].'">+</a>' : '';
+    echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn green btn-xs" data-name="'.$input["name"].'"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
 
     echo '</label>';
   }
@@ -217,20 +223,20 @@ function echo_input($input,$group = FALSE)
   {
     case 'datetime-local':
       $input['value'] = date("Y-m-d\TH:i",strtotime($input['value']));
-      echo '<input '.$input["required"].' $title type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$input["required"].' $title type="'.$input["type"].'" id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'file':
-      echo '<div id="'.$input["name"].'_preview" class="preview"></div>';
+      echo '<div id="'.$input["id"].'_preview" class="preview"></div>';
     case 'time':
     case 'date':
     case 'text':
     case 'number':
     case 'email':
     case 'hidden':
-      echo '<input '.$title.' '.$input["required"].' '.$input["multiple"].' type="'.$input["type"].'" id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$title.' '.$input["required"].' '.$input["multiple"].' type="'.$input["type"].'" id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
       break;
     case 'textarea':
-      echo '<textarea '.$title.' '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
+      echo '<textarea '.$title.' '.$input["required"].' id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
       break;
     case 'select':
     case 'radio':
@@ -241,7 +247,7 @@ function echo_input($input,$group = FALSE)
       // si es un select
       if($input["type"] === "select")
       {
-        echo '<select '.$title.' '.$input["required"].' id="'.$input["name"].'" name="'.$input["name"].'" class="form-control input-group-z-element">';
+        echo '<select '.$title.' '.$input["required"].' id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'">';
         // placehoder select
         echo '<option value="">'.$input["placeholder"].'</option>';
         foreach ($input["options"] as $value => $text) 

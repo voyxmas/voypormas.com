@@ -78,6 +78,8 @@ $(document).ready(function() {
   if(min_y < 2) // oculto el boton qutiar fila
     $('a.rem-row').fadeOut();
 
+  $('.form_builder_helper_add_one_less').fadeOut();
+
   $('a.add-row').click(function() {
     num_y++;
     if(num_y <= max_y || max_y == 0) // ver si se alcanzo l maximo de lemento o si es infinito
@@ -130,6 +132,28 @@ $(document).ready(function() {
       if(num_x == 1) // si es el ultimo elemmento sacar el boton
         $(this).fadeOut();
     }
+  });
+
+  $(document).on('click', '.form_builder_helper_add_one_more', function(event) {
+    // tomar el grupo siguiente
+    var label = $(this).parent();
+    var parent = label.parent();
+    var next = label.next();
+    var clone = next.clone();
+    parent.append(clone);
+    $(this).siblings('.form_builder_helper_add_one_less').fadeIn();
+  });
+
+  $(document).on('click', '.form_builder_helper_add_one_less', function(event) {
+    // tomar el grupo siguiente
+    var items = $(this).parent().parent().find('.input-group-z');
+    // quito el ultimo elemento
+    items.last().remove();
+    // veo cuantos quedan en el grupo de elementos
+    var number_b = $(this).parent().parent().find('.input-group-z').size();
+    // si es el último, saco el botón
+    if(number_b < 2)
+      $(this).fadeOut();
   });
 
   $('[data-toggle="tooltip"]').tooltip(); 
