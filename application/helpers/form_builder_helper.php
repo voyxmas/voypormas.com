@@ -183,6 +183,7 @@ function echo_input($input,$group = FALSE)
   global $input_count;
   $input_count++;
   // defaults
+  $input["name"] = isset($input["name"]) ? $input["name"] : $input["type"].$input_count;
   $input["id"] = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]).$input_count;
   // $group = $group ? 'input-group-addon' : NULL;
   $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
@@ -196,6 +197,8 @@ function echo_input($input,$group = FALSE)
   $input["required"] = isset($input["required"]) ? ($input["required"] ? 'required' : NULL ) : NULL;
   $input["multiple"] = isset($input["multiple"]) ? ($input["multiple"] ? 'multiple' : NULL ) : NULL;
   $input["help"] = isset($input["help"]) ? $input["help"] : NULL;
+  $input["data"] = isset($input["data"]) ? $input["data"] : array();
+  $input["style"] = isset($input["style"]) ? 'style="'.$input["style"].'"' : NULL;
 
   // defino el valor title para help
   $title = $input["help"] ? 'data-toggle="tooltip" title="'.$input["help"].'"' : '';
@@ -218,12 +221,18 @@ function echo_input($input,$group = FALSE)
   if($input['prefixbox'])
     echo '<div class="input-group-addon">'.$input['prefixbox'].'</div>';
   
-
+  // los atributos comunes a todos los imputs
+  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element '.$input['class'].'" '.$input["style"].' '.prepare_data($input["data"]);
+  // los atributos comues a todos los inputs
+  $common_attr_TextArea    = $common_attr_minimal . ' ' . $input["required"] . ' type="'.$input["type"].'" placeholder="'.$input["placeholder"].'"';
+  // los atributos propios del textarea
+  $common_attr_notTextArea = $common_attr_TextArea . ' name="'.$input["name"].'" value="'.$input["value"].'"';
+  
   switch ($input["type"]) 
   {
     case 'datetime-local':
       $input['value'] = date("Y-m-d\TH:i",strtotime($input['value']));
-      echo '<input '.$input["required"].' $title type="'.$input["type"].'" id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$common_attr_notTextArea.'>';
       break;
     case 'file':
       echo '<div id="'.$input["id"].'_preview" class="preview"></div>';
@@ -233,10 +242,13 @@ function echo_input($input,$group = FALSE)
     case 'number':
     case 'email':
     case 'hidden':
-      echo '<input '.$title.' '.$input["required"].' '.$input["multiple"].' type="'.$input["type"].'" id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'" placeholder="'.$input["placeholder"].'" value="'.$input["value"].'">';
+      echo '<input '.$input["multiple"].' '.$common_attr_notTextArea.'>';
       break;
     case 'textarea':
-      echo '<textarea '.$title.' '.$input["required"].' id="'.$input["id"].'" name="'.$input["name"].'" class="form-control input-group-z-element '.$input['class'].'" placeholder="'.$input["placeholder"].'">'.$input["value"].'</textarea>';
+      echo '<textarea  id="'.$input["id"].'" '.$common_attr_TextArea.'>'.$input["value"].'</textarea>';
+      break;
+    case 'button':
+      echo '<a '.$common_attr_minimal.'>'.$input["placeholder"].'</a>';
       break;
     case 'select':
     case 'radio':
@@ -302,6 +314,17 @@ function echo_input($input,$group = FALSE)
   
   if($input['prefixbox'] OR $input['sufixbox'])
     echo '</div> <!-- fin prefixbox -->';
+}
+
+function prepare_data($data)
+{
+  if(!is_array($data)) return FALSE;
+  $return = "";
+  foreach ($data as $data_key => $data_value) 
+  {
+    $return .= "data-$data_key=\"$data_value\" ";
+  }
+  return $return;
 }
 
 ?>

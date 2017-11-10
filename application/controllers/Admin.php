@@ -116,9 +116,9 @@ class Admin extends My_Controller {
 			// definir titulos y crumbs
 			$this->layouts->set_title('Cargar un evento nuevo');
 			
-			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
+			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 			
 			// definir el formulario
 				$data['form']['action'] = base_url().'ajax/eventos_ajax/nuevo';
@@ -233,7 +233,14 @@ class Admin extends My_Controller {
 								'type'			=> 'textarea',
 								'required' 		=> TRUE,
 								'help'			=> 'Requisitos que se deben cumplir para poder participar'
-							)	
+							),
+							array(
+								'type'			=> 'button',
+								'placeholder'	=> 'button',
+								'class'			=> 'btn default btn-sm add-premio',
+								'style'			=> 'margin:0 !important',
+								'help'			=> 'Agregar premios para este evento'
+							)		
 						),
 						'values' => array(
 							'name' 			=> 'vmonto[]',
@@ -248,7 +255,7 @@ class Admin extends My_Controller {
 
 				$data['form']['inputs'][] = array(
 					'label' 		=> 'Premios',
-					'class' 		=> 'premios',
+					'class' 		=> 'premios hide popup',
 					'add_one_more' 	=> TRUE,
 					'group' 		=> array(
 						array(
