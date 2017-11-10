@@ -1,21 +1,26 @@
 .popup {
     display: block;
     position: fixed;
-    top: calc(50% - 200px);
-    bottom: calc(50% - 200px);
-    left: calc(10%);
-    right: calc(10%);
+    top: 10%;
+    left: 10%;
+    right: 10%;
     padding: 30px;
     background: #FFF;
     box-shadow: 0 0 20px #000;
     z-index: 99;
     overflow: auto;
 }
-.popup > .closebtn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
+.popup > label {
+    display: block;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 0;
+}
+.popup > label > .closebtn {
+    float: right;
+}
+
+.popup .input_bag-z {
+    max-height: 272px;
+    overflow: auto;
+    padding-top: 15px;
 }

@@ -136,28 +136,47 @@ $(document).ready(function() {
   });
 
   $(document).on('click', '.form_builder_helper_add_one_more', function(event) {
-    // tomar el grupo siguiente
-    var label = $(this).parent();
-    var parent = label.parent();
-    var next = label.next();
-    var clone = next.clone();
-    parent.append(clone);
+
+    var contenedor = $(this).parent().parent(); // busco seleccional el formgroup que contiene este campo del formulario
+    var items = contenedor.find('.input-group-z');
+    if(items.length == 0) // si los inputs no estan organizados en input-group-z, busco por input-group-z-element
+      items = contenedor.find('.input-group-z-element');  
+    var inputcontendor = items.last().parent(); // busco el elemento contenedor de los inputs para agregar el nuevo
+    var new_item = items.last().clone(); // creo una copia del elemento
+    inputcontendor.append(new_item); // lo agrego al contenedor
+
+    // si es el último, saco el botón
     $(this).siblings('.form_builder_helper_add_one_less').fadeIn();
+
   });
 
   $(document).on('click', '.form_builder_helper_add_one_less', function(event) {
     // tomar el grupo siguiente, buscar por input-group-z si existe o input-group-z-element para asegurar que funcione siempre
-    if($(this).parent().parent().find('.input-group-z').length > 0)
-      var items = $(this).parent().parent().find('.input-group-z');
+    var numero_elementos = $(this).parent().parent().find('.input-group-z').length;
+    var items;
+    var itemslenght;
+
+    if(numero_elementos > 0)
+    {
+      items = $(this).parent().parent().find('.input-group-z');
+      itemslenght = items.length;
+    }
     else
-      var items = $(this).parent().parent().find('.input-group-z-element');
-    // quito el ultimo elemento
-    items.last().remove();
+    {
+      items = $(this).parent().parent().find('.input-group-z-element');
+      itemslenght = items.length;
+    }
+
+    if(itemslenght > 1)
+      items.last().remove(); 
+    
     // veo cuantos quedan en el grupo de elementos
     var number_b = $(this).parent().parent().find('.input-group-z').size();
     // si es el último, saco el botón
+    
     if(number_b < 2)
       $(this).fadeOut();
+
   });
 
   $('[data-toggle="tooltip"]').tooltip(); 

@@ -19,18 +19,20 @@ $(document).on('click','.add-row',function(){
 $(document).on('click','.add-premio',function(){
   // mostrar el pop up
   var index = $(this).index('.add-premio');
-  var popup = $(".form-group.premios").eq(index);
+  var popup = $(".popup.premios").eq(index);
+  // cierro los pop ups que esten abiertos antes
+  $(".form-group.premios").addClass('hide');
+  // hago visible el que intento abrir
   popup.removeClass('hide');
   // si no tiene ya el boton para cerrar agregarlo
-  if(popup.children('.close').length == 0)
+  if(popup.find('.closebtn').length == 0)
   {
-    console.log('x');
     // creo el el boton
-    popup.append('<div class="closebtn btn default btn-sm">x</div>');
+    popup.children('label').append('<div class="closebtn btn green btn-sm">Gurdar</div>');
   }
 });
 
-// cuando cambia el nombre de una variante llevarla al label de los premios en timepo real keyUp()
+// cuando cambia el nombre de una varian  te llevarla al label de los premios en timepo real keyUp()
 $(document).on('keyup','.vdistancia',function(){
   // tomo el valor de la distancia y el numero de indice para asociar el elemento correcto de premio
   var value = $(this).val();
@@ -39,9 +41,8 @@ $(document).on('keyup','.vdistancia',function(){
   $('.form-group.premios').eq(index).children('label').children('span').text('Premios: '+value+'kms');
 });
 
-// close popup
-$(document).on('click','.form-group.premios > .closebtn ',function(){
-  console.log('click before');
-  $(this).parent().addClass('hide');
+// close popupclosebtn
+$(document).on('click','.form-group.premios > label > .closebtn ',function(){
+  $(this).parent().parent().addClass('hide');
 
 });

@@ -236,10 +236,11 @@ class Admin extends My_Controller {
 							),
 							array(
 								'type'			=> 'button',
-								'placeholder'	=> 'button',
+								'placeholder'	=> 'Premios',
 								'class'			=> 'btn default btn-sm add-premio',
 								'style'			=> 'margin:0 !important',
-								'help'			=> 'Agregar premios para este evento'
+								'help'			=> 'Agregar premios para este evento',
+								'data'			=> array('popup'=>'premios')
 							)		
 						),
 						'values' => array(
@@ -255,7 +256,7 @@ class Admin extends My_Controller {
 
 				$data['form']['inputs'][] = array(
 					'label' 		=> 'Premios',
-					'class' 		=> 'premios hide popup',
+					'class' 		=> 'premios hide popup portlet light ',
 					'add_one_more' 	=> TRUE,
 					'group' 		=> array(
 						array(

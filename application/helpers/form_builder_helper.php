@@ -51,12 +51,12 @@ function array2form($form = array())
           echo '</label>';
         }
         
-        echo '<div class="input-group-z">';
+        echo '<div class="input_bag-z"><div class="input-group-z">';
         foreach($input['group'] as $input)
         {
           echo_input($input,TRUE);
         }
-        echo '</div>';
+        echo '</div></div>';
       }
     }
     elseif(isset($input['inputtable']))
@@ -184,7 +184,7 @@ function echo_input($input,$group = FALSE)
   $input_count++;
   // defaults
   $input["name"] = isset($input["name"]) ? $input["name"] : $input["type"].$input_count;
-  $input["id"] = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]).$input_count;
+  $input["id"] = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]);
   // $group = $group ? 'input-group-addon' : NULL;
   $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
   $input["type"] = isset($input["type"]) ? $input["type"] : 'text';
