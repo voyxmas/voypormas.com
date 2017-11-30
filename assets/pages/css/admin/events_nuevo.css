@@ -24,3 +24,13 @@
     overflow: auto;
     padding-top: 15px;
 }
+input[type=text].badge.badge-success {
+    width: 25px !important;
+    display: inline-block;
+    border: none;
+}
+.table.gridinput {
+    width: 100% !important;
+    display: block;
+    overflow: auto;
+}

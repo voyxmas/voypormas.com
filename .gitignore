@@ -28,3 +28,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 ## ignorar todos los directorios que empiezan con un punto y su contenido
 .*/*
+/node_modules/*

@@ -9,6 +9,7 @@ class Admin extends My_Controller {
 			$this->load->model('eventos_model');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
 	}
 
 	public function index()
@@ -212,7 +213,6 @@ class Admin extends My_Controller {
 								'name' 			=> 'vfecha[]',
 								'placeholder'	=> 'fecha',
 								'type' 			=> 'date',
-								'required' 		=> TRUE,
 								'value' 		=> date(SYS_DATE_FORMAT),
 								'help'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
 							)
@@ -224,14 +224,19 @@ class Admin extends My_Controller {
 								'placeholder'	=> 'Distancia (Km)',
 								'type' 			=> 'number',
 								'sufixbox' 		=> 'kms',
-								'required' 		=> TRUE,
 								'help'			=> 'Distancia en Km de esta variacion del evento'
+							),
+							array(
+								'name' 			=> 'vhora[]',
+								'placeholder'	=> 'Hora de largada',
+								'type' 			=> 'time',
+								'prefixbox' 		=> 'Hora',
+								'help'			=> 'Hora de largada para esta variante del evento'
 							),
 							array(
 								'name' 			=> 'vinfo[]',
 								'placeholder'	=> 'Elementos',
 								'type'			=> 'textarea',
-								'required' 		=> TRUE,
 								'help'			=> 'Requisitos que se deben cumplir para poder participar'
 							),
 							array(
@@ -249,14 +254,14 @@ class Admin extends My_Controller {
 							'type' 			=> 'number',
 							'prefixbox' 	=> '$',
 							'help'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
-							'required' 		=> TRUE
 						)
 					)
 				);
 
 				$data['form']['inputs'][] = array(
 					'label' 		=> 'Premios',
-					'class' 		=> 'premios hide popup portlet light ',
+					'class' 		=> 'premios hide popup portlet light animated',
+					'draggable' 	=> TRUE,
 					'add_one_more' 	=> TRUE,
 					'group' 		=> array(
 						array(
@@ -374,7 +379,6 @@ class Admin extends My_Controller {
 				'label' 		=> 'Descripcion',
 				'value'			=> $data['evento']['descripcion'],
 				'type' 			=> 'textarea',
-				
 			);
 
 			$data['form']['inputs'][] = array(

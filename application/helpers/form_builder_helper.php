@@ -136,22 +136,35 @@ function array2form($form = array())
           echo '</div><!-- fin .body.table-row -->';
 
         }
-        echo '</div> <!-- fin .table.gridinput -->';
+        echo '</div> <!-- fin .table -->';
 
         if($input['inputtable']['add_one_x'] == TRUE)
         {
-          echo '</div> <!-- fin .table-cell -->';
-            // agrego el boton de agregar columan si hace falta
-            echo '<div class="table-cell"><a data-addtoid="price-schedule" class="add-column btn btn-lg default"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a data-remtoid="price-schedule" class="rem-column btn btn-lg default"><i class="fa fa-minus-circle" aria-hidden="true"></i></a></div> </div> <!-- fin .table-cell boton -->';
-          echo '</div> <!-- fin .table-cell -->';
+          echo '</div> <!-- fin .table-cell -->
+          <div class="table-cell">
+              <a data-addtoid="price-schedule" class="add-column btn btn-lg default">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              </a> 
+              <a data-remtoid="price-schedule" class="rem-column btn btn-lg default">
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              </a>
+            </div> <!-- fin .table-cell boton -->
+          </div> <!-- fin .table-cell -->';
         }
 
         // agrego el boton de agregar una fila si hace falta
         if($input['inputtable']['add_one_y'] == TRUE)
         {
-          echo '<div clas="table-row">';
-            echo '<div class="table-cell"><a data-addtoid="price-schedule" class="add-row btn btn-lg default"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a data-remtoid="price-schedule" class="rem-row btn btn-lg default"><i class="fa fa-minus-circle" aria-hidden="true"></i></a></div>';
-          echo '</div> <!-- fin .table-row -->';
+          echo '<div clas="table-row">
+            <div class="table-cell">
+              <a data-addtoid="price-schedule" class="add-row btn btn-lg default">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              </a> 
+              <a data-remtoid="price-schedule" class="rem-row btn btn-lg default">
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div> <!-- fin .table-row -->';
         }
       echo '</div> <!-- fin .table -->';
 
@@ -196,6 +209,7 @@ function echo_input($input,$group = FALSE)
   $input["sufixbox"] = isset($input["sufixbox"]) ? $input["sufixbox"] : NULL;
   $input["required"] = isset($input["required"]) ? ($input["required"] ? 'required' : NULL ) : NULL;
   $input["multiple"] = isset($input["multiple"]) ? ($input["multiple"] ? 'multiple' : NULL ) : NULL;
+  $input["draggable"] = isset($input["draggable"]) ? ($input["draggable"] ? 'draggable' : NULL ) : NULL;
   $input["help"] = isset($input["help"]) ? $input["help"] : NULL;
   $input["data"] = isset($input["data"]) ? $input["data"] : array();
   $input["style"] = isset($input["style"]) ? 'style="'.$input["style"].'"' : NULL;
@@ -216,10 +230,14 @@ function echo_input($input,$group = FALSE)
 
   // si tiene el rpefix box
   if($input['prefixbox'] OR $input['sufixbox'])
+  {
     echo '<div class="input-group">';
+  }
   
   if($input['prefixbox'])
+  {
     echo '<div class="input-group-addon">'.$input['prefixbox'].'</div>';
+  }
   
   // los atributos comunes a todos los imputs
   $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element '.$input['class'].'" '.$input["style"].' '.prepare_data($input["data"]);
@@ -309,11 +327,15 @@ function echo_input($input,$group = FALSE)
   }
 
   if($input['sufixbox'])
+  {
     echo '<div class="input-group-addon">'.$input['sufixbox'].'</div>';
+  }
 
   
   if($input['prefixbox'] OR $input['sufixbox'])
+  {
     echo '</div> <!-- fin prefixbox -->';
+  }
 }
 
 function prepare_data($data)

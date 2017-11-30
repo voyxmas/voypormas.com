@@ -15,7 +15,7 @@ $(document).on('keyup','textarea',function(){
   {
     var table = $(selector);
     // clonar la ultima fila
-    var row = table.find('.body.table-row').first().clone();
+    var row = table.find('.body.table-row').last().clone();
     // reset values
     row.find('input').val('');
     row.find('textarea').val('');
@@ -152,18 +152,19 @@ $(document).ready(function() {
 
   $(document).on('click', '.form_builder_helper_add_one_less', function(event) {
     // tomar el grupo siguiente, buscar por input-group-z si existe o input-group-z-element para asegurar que funcione siempre
-    var numero_elementos = $(this).parent().parent().find('.input-group-z').length;
+    var numero_elementos = $(this).parents('.form-group').find('.input-group-z').length;
     var items;
     var itemslenght;
+    var tipo;
 
     if(numero_elementos > 0)
     {
-      items = $(this).parent().parent().find('.input-group-z');
+      items = $(this).parents('.form-group').find('.input-group-z');
       itemslenght = items.length;
     }
     else
     {
-      items = $(this).parent().parent().find('.input-group-z-element');
+      items = $(this).parents('.form-group').find('.input-group-z-element');
       itemslenght = items.length;
     }
 
@@ -171,11 +172,11 @@ $(document).ready(function() {
       items.last().remove(); 
     
     // veo cuantos quedan en el grupo de elementos
-    var number_b = $(this).parent().parent().find('.input-group-z').size();
-    // si es el último, saco el botón
     
-    if(number_b < 2)
+    if(itemslenght - 1 == 1)
       $(this).fadeOut();
+    
+    console.log(itemslenght-1);
 
   });
 
