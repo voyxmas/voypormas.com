@@ -16,6 +16,7 @@ class Eventos_ajax extends My_Controller {
 		$this->load->model('eventos_caracteristicas_model');
 		$this->load->model('variantes_eventos_model');
 		$this->load->model('variantes_eventos_precios_model');
+		$this->load->model('variantes_eventos_premios_model');
 	}
 
 	public function nuevo ()
@@ -33,7 +34,6 @@ class Eventos_ajax extends My_Controller {
 		$save['evento_tipo_id'] = $this->input->post('evento_tipo_id');
 		$save['nombre'] = $this->input->post('nombre');
 		$save['fecha'] = $this->input->post('fecha');
-		$save['hora'] = $this->input->post('hora');
 		$save['descripcion'] = $this->input->post('descripcion');
 		$save['publicar_desde'] = $this->input->post('publicar_desde');
 		$save['lugar'] = $this->input->post('lugar');
@@ -43,10 +43,11 @@ class Eventos_ajax extends My_Controller {
 		$save['ciudad'] = $this->input->post('ciudad');
 		$save['calle'] = $this->input->post('calle');
 		$save['numero_casa'] = $this->input->post('numero_casa');
-		$save['participantes_destacados'] = $this->input->post('participantes_destacados');
+		$save['participantes_destacados'] = implode(',',$this->input->post('participantes_destacados'));
 		$save['estado'] = $this->input->post('estado');
 			// crear el registro
 		$evento_id = $this->eventos_model->save($save); unset($save);
+
 
 		if(!$evento_id) $e[] = 'No se pudo crear el evento: ' ;
 			
@@ -62,13 +63,13 @@ class Eventos_ajax extends My_Controller {
 			if(!$caracteristicas_id) $e[] = 'No se pudieron asignar las caracteristicas';
 		}
 			
-		// asignar detalles de las variantes
+			// asignar detalles de las variantes
 		$vdistancia 	= $this->input->post('vdistancia');
 		$vinfo 			= $this->input->post('vinfo');
-		$vpremio 		= $this->input->post('vpremio');
+		$vhora	 		= $this->input->post('vhora');
 		$vfecha 		= $this->input->post('vfecha');
 		$vmonto 		= $this->input->post('vmonto');
-
+		
 		if(!empty($vdistancia) AND !empty($vfecha) AND !empty($vmonto))
 		{
 			// si el precio no esta vacio guardarlo 
@@ -81,6 +82,7 @@ class Eventos_ajax extends My_Controller {
 				$save_variantes['evento_id'] 	= $evento_id; 
 				$save_variantes['distancia'] 	= $vdistancia[$key_variante]; 
 				$save_variantes['info'] 		= $vinfo[$key_variante]; 
+				$save_variantes['fechahora'] 	= $vhora[$key_variante]; 
 				
 				$variante_evento_id = $this->variantes_eventos_model->save($save_variantes); // aca guardo la variante
 
@@ -104,6 +106,7 @@ class Eventos_ajax extends My_Controller {
 					$e[] = 'El split de los montos no resulto en un array como era esperado o no esta seteado';
 					continue;
 				}
+
 				// loppeo por cada precio para esta variante
 				foreach ($vmonto_split[$key_variante] as $key_fecha => $monto) 
 				{
@@ -117,6 +120,55 @@ class Eventos_ajax extends My_Controller {
 					{
 						$e[] = 'No se pudo asociar una tarifa: '.$this->db->last_query() ;
 						continue;
+					}
+				}
+
+				// asignar los premios a cada variante
+				/*
+				premios_cnt
+				premio_descripcion
+				premio_monto
+				*/
+				// veo si hay premios asociados a esta variante
+				$premios_cnt 		= $this->input->post('premios_cnt');
+				$premio_descripcion = $this->input->post('premio_descripcion');
+				$premio_monto 		= $this->input->post('premio_monto');
+
+				if(isset($premios_cnt[$key_variante]) AND !empty($premios_cnt[$key_variante]))
+				{
+					// cuento los premios anteriores para definir el key de la primer premio de esta variante
+					$offset = 0;
+					for($pre_offset = 0 ; $pre_offset < $key_variante ; $pre_offset++)
+					{
+						$offset += (int)$premios_cnt[$pre_offset];
+					}
+					// numero de premios de esta variante
+					$lenght = $premios_cnt[$key_variante];
+
+					// extraigo el array de premios para esta variante
+					$premios_desc 		= array_slice($premio_descripcion,$offset,$lenght);
+					$premios_premios 	= array_slice($premio_monto,$offset,$lenght);
+					
+					// armo el array para guardar los datos
+					foreach ($premios_desc as $key_premios_desc => $premio_desc) 
+					{
+						// si se pasan datos del premio guardarlos, si no, no
+						if(!empty($premios_desc[$key_premios_desc]) AND !empty($premios_premios[$key_premios_desc]) )
+						{
+
+							$save_premios_variantes = array(
+								'variante_evento_id' => $variante_evento_id,
+								'descripcion' => $premios_desc[$key_premios_desc],
+								'premio' => $premios_premios[$key_premios_desc]
+							);
+							// guardo cada premio de esta variante
+							$save_premios_variantes_return = $this->variantes_eventos_premios_model->save($save_premios_variantes);
+							if(!$save_premios_variantes_return) 
+							{
+								$e[] = 'No se pudo asociar un premio' ;
+								continue;
+							}
+						}
 					}
 				}
 			}

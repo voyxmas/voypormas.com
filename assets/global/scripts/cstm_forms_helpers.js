@@ -17,8 +17,8 @@ $(document).on('keyup','textarea',function(){
     // clonar la ultima fila
     var row = table.find('.body.table-row').last().clone();
     // reset values
-    row.find('input').val('');
-    row.find('textarea').val('');
+    //row.find('input').val('');
+    //row.find('textarea').val('');
     // agregar
     table.append(row);
 
@@ -40,8 +40,8 @@ $(document).on('keyup','textarea',function(){
       // tomar la columna a clonar en header
       var col = $(this).find('.table-cell').last().clone();
       //reset value
-      col.find('input').val('');
-      col.find('textarea').val('');
+      //col.find('input').val('');
+      //col.find('textarea').val('');
       // append
       $(this).append(col);
 

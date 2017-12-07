@@ -8,8 +8,9 @@ $(document).ready(function(){
     google.maps.event.addListener(ubicacion, 'place_changed', function () {
         
         var address_components = ubicacion.getPlace().address_components;
-    
-        for(i=0;address_components.length;i++)
+        
+
+        for(i=0; i < address_components.length ;i++)
         {
             var elemento  = address_components[i].types[0];
             var valor     = address_components[i].long_name;

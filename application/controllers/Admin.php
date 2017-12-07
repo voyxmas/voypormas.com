@@ -184,14 +184,6 @@ class Admin extends My_Controller {
 					'type' 			=> 'date',
 					
 				);
-
-				$data['form']['inputs'][] = array(
-					'name' 			=> 'hora',
-					'placeholder' 	=> 'Hora del evento',
-					'label' 		=> 'Hora del evento',
-					'type' 			=> 'time',
-					
-				);
 				
 				$data['form']['inputs'][] = array(
 					'name' 			=> 'publicar_desde',
@@ -264,10 +256,6 @@ class Admin extends My_Controller {
 					'draggable' 	=> TRUE,
 					'add_one_more' 	=> TRUE,
 					'group' 		=> array(
-						array(
-							'name' 			=> 'premio_variante[]',
-							'type' 			=> 'hidden'
-						),
 						array(
 							'name' 			=> 'premio_descripcion[]',
 							'label' 		=> 'Puesto',

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title><?php echo $layout_title?$layout_title:'';  ?></title>
+<title><?php echo isset($layout_title) ? $layout_title : 'Login';  ?></title>
 
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/open-sans.css" rel="stylesheet" type="text/css" />

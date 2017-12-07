@@ -13,7 +13,7 @@ $(document).on('click','.add-row',function(){
   var otro_grupo_de_premios = $('.form-group.premios').last().clone();
   otro_grupo_de_premios.children('label').children('span').text('Premios');
   // saco los valores al formulario
-  otro_grupo_de_premios.find('.form-control').val('');
+  // otro_grupo_de_premios.find('.form-control').val('');
   // saco todos menos el primer input-group-z
   otro_grupo_de_premios.find('.input_bag-z > .input-group-z:not(:first-child)');
   // insertar el elemento despues del ultio de este tipo
@@ -50,25 +50,15 @@ $(document).on('keyup','.vdistancia',function(){
 
 // close popupclosebtn
 $(document).on('click','.form-group.premios > label > .closebtn ',function(){
-  var parent = $(this).parent().parent();
-  var premios = parent.find('.input-group-z'); 
+  var contenedor = $(this).parent().parent();
+  var premios = contenedor.find('.input-group-z'); 
   var numero = premios.length;
 
-  // verificar que los campos hayan sido llenados
-  /*
-  var stop = 0;
-  for (var i = 0; i < premios.length; i++) {
-    var element = $(premios[i]);
-    if(element.find('.premio_descripcion').val() == "") stop++; 
-    if(element.find('.premio_monto').val() == "") stop++;
-    alert('Por favor no deje cmapos vacíos');
-    return false; 
-  }
-  */
-
-  setHideState(parent); // cierro el pop up
+  setHideState(contenedor); // cierro el pop up
   // tomar el indice
-  var index = parent.index()-1;
+  var index = contenedor.index('.form-group.premios') ;
+  console.log('Add premio index: '+index);
+  console.log('Add premio count: '+numero);
 
   // cambiar el numero
   $('.add-premio').eq(index).html('Premios <input name="premios_cnt[]" type="text" readonly class="badge badge-success" value="'+numero+'">');
