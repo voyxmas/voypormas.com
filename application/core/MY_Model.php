@@ -42,6 +42,8 @@ class MY_Model extends CI_Model
             $select         = NULL;
             // definir como se devuelven los datos
             $output         = MODEL_DEFAULT_OUTPUT;
+            // group_by
+            $group_by         = !empty($attr['group_by']) ? $attr['group_by'] : FALSE;
         }   
         else
         {
@@ -66,6 +68,8 @@ class MY_Model extends CI_Model
             }
             // select
             $select         = !empty($attr['select']) ? is_array($attr['select']) ? implode(',', $attr['select']) : $attr['select'] : NULL;
+            // group_by
+            $group_by         = !empty($attr['group_by']) ? $attr['group_by'] : FALSE;
             // definir como se devuelven los datos
             $output         = !empty($attr['output']) ? $attr['output'] : MODEL_DEFAULT_OUTPUT;
         }
@@ -139,6 +143,12 @@ class MY_Model extends CI_Model
 
         // definir orderby
         $this->db->order_by($order_by);
+
+        // definir group_by
+        if($group_by)
+        {
+            $this->db->group_by($group_by);
+        }
 
         // definir los limites del query
         $this->db->limit($results, $limit_offset);

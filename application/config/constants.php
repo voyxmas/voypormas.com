@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // URLS
 	// defino los dominios del entorno
-define('LOCAL_DOMAIN','voypormas.dev');
+define('LOCAL_DOMAIN','voypormas.zigna');
 define('DEMO_DOMAIN','demo.zigna.com.ar');
 define('DEMO_DIRECOTRY','voypormas');
 define('LIVE_DOMAIN','voypormas.com');

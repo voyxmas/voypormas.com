@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="portlet-body">
                                     
-                                    <?php array2form($form) ?>
+                                    <?php if(isset($form)) array2form($form) ?>
 
                                 </div>
                             </div>

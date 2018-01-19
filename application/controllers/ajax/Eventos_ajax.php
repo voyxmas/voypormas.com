@@ -24,36 +24,36 @@ class Eventos_ajax extends My_Controller {
 		// check permission
 		$data['CURRENT_SECTION'] 	= 'admin';
 		$data['CURRENT_PAGE'] 		= 'events_nuevo';
-		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		// bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// defaults
 		$e = array();
 		// get post data
 			// tomar os datos del evento
-		$save['organizador_id'] = $this->input->post('organizador_id');
-		$save['evento_tipo_id'] = $this->input->post('evento_tipo_id');
-		$save['nombre'] = $this->input->post('nombre');
-		$save['fecha'] = $this->input->post('fecha');
-		$save['descripcion'] = $this->input->post('descripcion');
-		$save['publicar_desde'] = $this->input->post('publicar_desde');
-		$save['lugar'] = $this->input->post('lugar');
-		$save['pais'] = $this->input->post('pais');
-		$save['provincia'] = $this->input->post('provincia');
-		$save['departamento'] = $this->input->post('departamento');
-		$save['ciudad'] = $this->input->post('ciudad');
-		$save['calle'] = $this->input->post('calle');
-		$save['numero_casa'] = $this->input->post('numero_casa');
-		$save['participantes_destacados'] = implode(',',$this->input->post('participantes_destacados'));
-		$save['estado'] = $this->input->post('estado');
+		$save['organizador_id'] 			= $this->input->post('organizador_id');
+		$save['evento_tipo_id'] 			= $this->input->post('evento_tipo_id');
+		$save['nombre'] 					= $this->input->post('nombre');
+		$save['fecha'] 						= $this->input->post('fecha');
+		$save['descripcion'] 				= $this->input->post('descripcion');
+		$save['publicar_desde'] 			= $this->input->post('publicar_desde');
+		$save['lugar'] 						= $this->input->post('lugar');
+		$save['pais'] 						= $this->input->post('pais');
+		$save['provincia'] 					= $this->input->post('provincia');
+		$save['departamento'] 				= $this->input->post('departamento');
+		$save['ciudad'] 					= $this->input->post('ciudad');
+		$save['calle'] 						= $this->input->post('calle');
+		$save['numero_casa'] 				= $this->input->post('numero_casa');
+		$save['participantes_destacados'] 	= implode(',',$this->input->post('participantes_destacados'));
+		$save['estado'] 					= $this->input->post('estado');
 			// crear el registro
-		$evento_id = $this->eventos_model->save($save); unset($save);
+		$evento_id 							= $this->eventos_model->save($save); unset($save);
 
 
 		if(!$evento_id) $e[] = 'No se pudo crear el evento: ' ;
 			
 			// asignar caracteristicas
 		$caracteristicas = $this->input->post('caracteristica_id');
-		if(!empty($caracteristicas))
+		if(!empty($caracteristicas) AND $evento_id)
 		{
 			foreach ($caracteristicas as $caracteristica) 
 			{
@@ -70,7 +70,7 @@ class Eventos_ajax extends My_Controller {
 		$vfecha 		= $this->input->post('vfecha');
 		$vmonto 		= $this->input->post('vmonto');
 		
-		if(!empty($vdistancia) AND !empty($vfecha) AND !empty($vmonto))
+		if(!empty($vdistancia) AND !empty($vfecha) AND !empty($vmonto) AND $evento_id)
 		{
 			// si el precio no esta vacio guardarlo 
 				// tengo que hacer un array_chunk del array de los montos, los grupos tendran el tamaño de count(montos)/count(variantes) el key resultante se corresponde con el key de vinfo, vpremio y vfecha

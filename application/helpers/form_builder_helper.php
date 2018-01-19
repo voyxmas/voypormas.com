@@ -31,150 +31,152 @@ function array2form($form = array())
   }
 
   echo '<form action="'.$form['action'].'" method="'.$form['method'].'" class="'.$form['class'].'">';
-  
-  foreach ($form['inputs'] as $input) 
+  if(isset($form['inputs']))
   {
-    
-    // write form inputs
-    $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
-    
-    echo '<div class="form-group '. (isset($input['class'])? $input['class'] : NULL) .'">'; // input wraper
-    if(isset($input['group']))
+    foreach ($form['inputs'] as $input) 
     {
-      if(is_array($input['group']) AND !empty($input['group']))
+      
+      // write form inputs
+      $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
+      
+      echo '<div class="form-group '. (isset($input['class'])? $input['class'] : NULL) .'">'; // input wraper
+      if(isset($input['group']))
       {
+        if(is_array($input['group']) AND !empty($input['group']))
+        {
+          if(isset($input["label"]))
+          {
+            echo '<label class="control-label"><span>'.$input["label"].'</span>';
+            // si se permite agregar otro elemento del mismo tipo, cargar el boton
+            echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn default btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
+            echo '</label>';
+          }
+          
+          echo '<div class="input_bag-z"><div class="input-group-z">';
+          foreach($input['group'] as $input)
+          {
+            echo_input($input,TRUE);
+          }
+          echo '</div></div>';
+        }
+      }
+      elseif(isset($input['inputtable']))
+      {
+        // espero una variable en x, otra en y y los campos con los datos que se corresponden con esas coordenadas
+        /* OPCIONES */
+        // add_one_x: bool default true
+        $input['inputtable']['add_one_x'] = ( isset($input['inputtable']['add_one_x']) AND is_bool($input['inputtable']['add_one_x']) ) ? $input['inputtable']['add_one_x'] : TRUE;
+        // add_one_y: bool default true
+        $input['inputtable']['add_one_y'] = ( isset($input['inputtable']['add_one_y']) AND is_bool($input['inputtable']['add_one_y']) ) ? $input['inputtable']['add_one_y'] : TRUE;
+        // min_x_elements: casilleros para mostrar inicialmente,  default 1
+        $input['inputtable']['min_x_elements'] = ( isset($input['inputtable']['min_x_elements']) AND is_integer($input['inputtable']['min_x_elements']) ) ? $input['inputtable']['min_x_elements'] : 1;
+        // min_y_elements: casilleros para mostrar inicialmente,  default 1
+        $input['inputtable']['min_y_elements'] = ( isset($input['inputtable']['min_y_elements']) AND is_integer($input['inputtable']['min_y_elements']) ) ? $input['inputtable']['min_y_elements'] : 1;
+        // max_x_elements: numero maximo de elementos para aregragar, default 0 = ilimitado
+        $input['inputtable']['max_x_elements'] = ( isset($input['inputtable']['max_x_elements']) AND is_integer($input['inputtable']['max_x_elements']) ) ? $input['inputtable']['max_x_elements'] : 0;
+        // max_y_elements: numero maximo de elementos para aregragar, default 0 = ilimitado
+        $input['inputtable']['max_y_elements'] = ( isset($input['inputtable']['max_y_elements']) AND is_integer($input['inputtable']['max_y_elements']) ) ? $input['inputtable']['max_y_elements'] : 0;
+        // xy_label: label en la esquina de la tabla, default NULL
+        $input['inputtable']['xy_label'] = ( isset($input['inputtable']['xy_label']) AND is_string($input['inputtable']['xy_label']) ) ? $input['inputtable']['xy_label'] : NULL;
+        
         if(isset($input["label"]))
         {
-          echo '<label class="control-label"><span>'.$input["label"].'</span>';
-          // si se permite agregar otro elemento del mismo tipo, cargar el boton
-          echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn default btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
-          echo '</label>';
+          echo '<label class="control-label">'.$input["label"].'</label>';
         }
-        
-        echo '<div class="input_bag-z"><div class="input-group-z">';
-        foreach($input['group'] as $input)
-        {
-          echo_input($input,TRUE);
-        }
-        echo '</div></div>';
-      }
-    }
-    elseif(isset($input['inputtable']))
-    {
-      // espero una variable en x, otra en y y los campos con los datos que se corresponden con esas coordenadas
-      /* OPCIONES */
-      // add_one_x: bool default true
-      $input['inputtable']['add_one_x'] = ( isset($input['inputtable']['add_one_x']) AND is_bool($input['inputtable']['add_one_x']) ) ? $input['inputtable']['add_one_x'] : TRUE;
-      // add_one_y: bool default true
-      $input['inputtable']['add_one_y'] = ( isset($input['inputtable']['add_one_y']) AND is_bool($input['inputtable']['add_one_y']) ) ? $input['inputtable']['add_one_y'] : TRUE;
-		  // min_x_elements: casilleros para mostrar inicialmente,  default 1
-      $input['inputtable']['min_x_elements'] = ( isset($input['inputtable']['min_x_elements']) AND is_integer($input['inputtable']['min_x_elements']) ) ? $input['inputtable']['min_x_elements'] : 1;
-			// min_y_elements: casilleros para mostrar inicialmente,  default 1
-      $input['inputtable']['min_y_elements'] = ( isset($input['inputtable']['min_y_elements']) AND is_integer($input['inputtable']['min_y_elements']) ) ? $input['inputtable']['min_y_elements'] : 1;
-			// max_x_elements: numero maximo de elementos para aregragar, default 0 = ilimitado
-      $input['inputtable']['max_x_elements'] = ( isset($input['inputtable']['max_x_elements']) AND is_integer($input['inputtable']['max_x_elements']) ) ? $input['inputtable']['max_x_elements'] : 0;
-			// max_y_elements: numero maximo de elementos para aregragar, default 0 = ilimitado
-      $input['inputtable']['max_y_elements'] = ( isset($input['inputtable']['max_y_elements']) AND is_integer($input['inputtable']['max_y_elements']) ) ? $input['inputtable']['max_y_elements'] : 0;
-      // xy_label: label en la esquina de la tabla, default NULL
-      $input['inputtable']['xy_label'] = ( isset($input['inputtable']['xy_label']) AND is_string($input['inputtable']['xy_label']) ) ? $input['inputtable']['xy_label'] : NULL;
-      
-      if(isset($input["label"]))
-      {
-        echo '<label class="control-label">'.$input["label"].'</label>';
-      }
 
-      echo '<div class="table gridinput">
-        <!-- los datos -->
-        <div class="table-row">
-          <div class="table-cell">
-            <div 
-              data-maxyelements="'.$input['inputtable']['max_y_elements'].'" 
-              data-maxxelements="'.$input['inputtable']['max_x_elements'].'" 
-              data-minyelements="'.$input['inputtable']['min_y_elements'].'" 
-              data-minxelements="'.$input['inputtable']['min_x_elements'].'"
-              class="table" '.(isset($input["id"]) ? 'id="'.$input["id"].'"' : '' ).'>';
-        // eje y, files de la tabla
-        for ($inputtableycount=0; $inputtableycount < $input['inputtable']['min_y_elements']; $inputtableycount++) 
-        { 
-          // imprimo las filas del header
-          echo '<div class="header table-row">';
-          // imprimo el label para y
-         
-          // cargo columanas vacias tomar la columan de los datos adicionales
-          foreach($input['inputtable']['y'] as $y)
-            echo '<div class="table-cell"></div>';
-
-          for ($inputtablexcount=0; $inputtablexcount < $input['inputtable']['min_x_elements']; $inputtablexcount++) 
+        echo '<div class="table gridinput">
+          <!-- los datos -->
+          <div class="table-row">
+            <div class="table-cell">
+              <div 
+                data-maxyelements="'.$input['inputtable']['max_y_elements'].'" 
+                data-maxxelements="'.$input['inputtable']['max_x_elements'].'" 
+                data-minyelements="'.$input['inputtable']['min_y_elements'].'" 
+                data-minxelements="'.$input['inputtable']['min_x_elements'].'"
+                class="table" '.(isset($input["id"]) ? 'id="'.$input["id"].'"' : '' ).'>';
+          // eje y, files de la tabla
+          for ($inputtableycount=0; $inputtableycount < $input['inputtable']['min_y_elements']; $inputtableycount++) 
           { 
-            // imprimo las columanas del header
-            echo '<div class="table-cell">';
-            foreach($input['inputtable']['x'] as $x)
-            {
-                echo_input($x);
+            // imprimo las filas del header
+            echo '<div class="header table-row">';
+            // imprimo el label para y
+          
+            // cargo columanas vacias tomar la columan de los datos adicionales
+            foreach($input['inputtable']['y'] as $y)
+              echo '<div class="table-cell"></div>';
+
+            for ($inputtablexcount=0; $inputtablexcount < $input['inputtable']['min_x_elements']; $inputtablexcount++) 
+            { 
+              // imprimo las columanas del header
+              echo '<div class="table-cell">';
+              foreach($input['inputtable']['x'] as $x)
+              {
+                  echo_input($x);
+              }
+              echo '</div>';
             }
-            echo '</div>';
-          }
-          echo '</div><!-- fin .header.table-row -->';
+            echo '</div><!-- fin .header.table-row -->';
 
-          // imprimo las filas del body
-          echo '<div class="body table-row">';
-          // imprimo el label para y
-          foreach($input['inputtable']['y'] as $y)
+            // imprimo las filas del body
+            echo '<div class="body table-row">';
+            // imprimo el label para y
+            foreach($input['inputtable']['y'] as $y)
+            {
+              echo '  <div class="table-cell">';
+                echo_input($y);
+              echo '  </div>';
+            }
+
+            for ($inputtablexcount=0; $inputtablexcount < $input['inputtable']['min_x_elements']; $inputtablexcount++) 
+            { 
+              // imprimo las columanas del body
+              echo '<div class="table-cell">';
+              echo_input($input['inputtable']['values']);
+              echo '</div>';
+            }
+            echo '</div><!-- fin .body.table-row -->';
+
+          }
+          echo '</div> <!-- fin .table -->';
+
+          if($input['inputtable']['add_one_x'] == TRUE)
           {
-            echo '  <div class="table-cell">';
-              echo_input($y);
-            echo '  </div>';
+            echo '</div> <!-- fin .table-cell -->
+            <div class="table-cell">
+                <a data-addtoid="price-schedule" class="add-column btn btn-lg default">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </a> 
+                <a data-remtoid="price-schedule" class="rem-column btn btn-lg default">
+                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                </a>
+              </div> <!-- fin .table-cell boton -->
+            </div> <!-- fin .table-cell -->';
           }
 
-          for ($inputtablexcount=0; $inputtablexcount < $input['inputtable']['min_x_elements']; $inputtablexcount++) 
-          { 
-            // imprimo las columanas del body
-            echo '<div class="table-cell">';
-            echo_input($input['inputtable']['values']);
-            echo '</div>';
+          // agrego el boton de agregar una fila si hace falta
+          if($input['inputtable']['add_one_y'] == TRUE)
+          {
+            echo '<div clas="table-row">
+              <div class="table-cell">
+                <a data-addtoid="price-schedule" class="add-row btn btn-lg default">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </a> 
+                <a data-remtoid="price-schedule" class="rem-row btn btn-lg default">
+                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div> <!-- fin .table-row -->';
           }
-          echo '</div><!-- fin .body.table-row -->';
-
-        }
         echo '</div> <!-- fin .table -->';
 
-        if($input['inputtable']['add_one_x'] == TRUE)
-        {
-          echo '</div> <!-- fin .table-cell -->
-          <div class="table-cell">
-              <a data-addtoid="price-schedule" class="add-column btn btn-lg default">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-              </a> 
-              <a data-remtoid="price-schedule" class="rem-column btn btn-lg default">
-                <i class="fa fa-minus-circle" aria-hidden="true"></i>
-              </a>
-            </div> <!-- fin .table-cell boton -->
-          </div> <!-- fin .table-cell -->';
-        }
-
-        // agrego el boton de agregar una fila si hace falta
-        if($input['inputtable']['add_one_y'] == TRUE)
-        {
-          echo '<div clas="table-row">
-            <div class="table-cell">
-              <a data-addtoid="price-schedule" class="add-row btn btn-lg default">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i>
-              </a> 
-              <a data-remtoid="price-schedule" class="rem-row btn btn-lg default">
-                <i class="fa fa-minus-circle" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div> <!-- fin .table-row -->';
-        }
-      echo '</div> <!-- fin .table -->';
+      }
+      else
+      {
+        echo_input($input,FALSE);
+      }
+      echo '</div>'; // end input wraper
 
     }
-    else
-    {
-      echo_input($input,FALSE);
-    }
-    echo '</div>'; // end input wraper
-
   }
   
   // botones
