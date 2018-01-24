@@ -35,3 +35,6 @@ input[type=text].badge.badge-success {
     overflow-x: auto;
     overflow-y: visible;
 }
+a.form-control {
+    border: none;
+}

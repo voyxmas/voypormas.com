@@ -140,55 +140,98 @@ class App extends My_Controller {
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
 
-		// definir el formulario
-			$this->data['form']['action'] = base_url().'ajax/eventos_ajax/nuevo';
-			$this->data['form']['ajax_call'] = 1;
+		// definir si el organizador esta logueado
+		if(isset($this->session->organizador))
+		{
+			$this->data['organizador_is_logged_in'] = (bool)$this->session->organizador;
+			$this->data['organizador'] = $this->session->organizador;
+		}
+		else
+		{
+			$this->data['organizador_is_logged_in'] = FALSE;
+		}
+		
+		// organizador
+			// tomar los datos para el login o para crear un organizador nuevo
+		$this->data['form_organizador']['action'] = base_url().'ajax/organizadores_ajax/identify';
+		$this->data['form_organizador']['ajax_call'] = 1;
+		// inputs
+		$this->data['form_organizador']['inputs'][] = array(
+			'name' 			=> 'email',
+			'placeholder' 	=> 'Email',
+			'label' 		=> 'Email',
+			'class' 		=> 'col-md-6 col-lg-4 no-gutters first',			
+			'help'			=> 'Direccion de correo electrónico a la que tengas acceso para verificar la publicación.'					
+		);
+
+		$this->data['form_organizador']['inputs'][] = array(
+			'name' 			=> 'password',
+			'placeholder' 	=> 'Contraseña',
+			'label' 		=> 'Contraseña',
+			'class' 		=> 'col-md-6 col-lg-4 no-gutters',
+			'help'			=> 'Eleje una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
+		);
+
+		$this->data['form_organizador']['inputs'][] = array(
+			'type'			=> 'a',
+			'placeholder'	=> 'Recuperar contraseña',
+			'style'			=> 'margin:0 !important',
+			'class' 		=> 'col-md-6 col-lg-4 no-gutters last',
+			'label' 		=> '¿Olvidaste tu contraseña?',
+			'help'			=> 'Si ya te registraste y no recuerdas tu contraseña, puedes recuperarla haciendo click aqui.',
+			'attr'			=> array('href'=>base_url().'ajax/organizadores/recuperar'),
+			'ajax_call' 	=> 1
+		);
+
+		// definir el formulario del evento
+			$this->data['form_evento']['action'] = base_url().'ajax/eventos_ajax/nuevo';
+			$this->data['form_evento']['ajax_call'] = 1;
 			// inputs
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'nombre',
 				'placeholder' 	=> 'Nombre de la carrera',
 				'label' 		=> 'Nombre de la carrera',
 				'help'			=> 'Nombre con el que aparece listado el evento'					
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Lugar',
 				'name' 			=> 'lugar',
 				'type' 			=> 'text',
 				'class' 		=> 'col-md-6 col-lg-4 no-gutters first'				
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'numero_casa',
 				'type' 			=> 'hidden'
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'calle',
 				'type' 			=> 'hidden'
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'ciudad',
 				'type' 			=> 'hidden'
 			);
 			
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'departamento',
 				'type' 			=> 'hidden'
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'provincia',
 				'type' 			=> 'hidden'
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'pais',
 				'type' 			=> 'hidden'
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'fecha',
 				'placeholder' 	=> 'Fecha del evento',
 				'label' 		=> 'Fecha del evento',
@@ -197,7 +240,7 @@ class App extends My_Controller {
 				
 			);
 			
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'publicar_desde',
 				'label' 		=> 'Publicar desde',
 				'type' 			=> 'date',
@@ -206,7 +249,7 @@ class App extends My_Controller {
 			);
 
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Información de la carrera',
 				'id' 			=> 'price-schedule',
 				'help'			=> 'Variantes del evento y respectivos costos de inscripcion',
@@ -263,7 +306,7 @@ class App extends My_Controller {
 				)
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Premios',
 				'class' 		=> 'premios hide popup portlet light animated',
 				'draggable' 	=> TRUE,
@@ -285,7 +328,7 @@ class App extends My_Controller {
 				)
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'evento_tipo_id',
 				'label' 		=> 'Tipo de evento',
 				'placeholder' 	=> 'Tipo de evento',
@@ -293,7 +336,7 @@ class App extends My_Controller {
 				'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'caracteristica_id[]',
 				'label' 		=> 'Caracteristicas',
 				'placeholder' 	=> 'Caracteristicas',
@@ -301,7 +344,7 @@ class App extends My_Controller {
 				'options'		=> $this->caracteristicas_model->get_for_input(),
 			);
 
-			$this->data['form']['inputs'][] = array(
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'participantes_destacados[]',
 				'label' 		=> 'Corredores destacados',
 				'add_one_more' 	=> TRUE,

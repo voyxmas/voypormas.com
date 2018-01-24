@@ -241,8 +241,10 @@ function echo_input($input,$group = FALSE)
     echo '<div class="input-group-addon">'.$input['prefixbox'].'</div>';
   }
   
+  // tomar otras atributos si se definieron
+  $custom_attr = ( isset($input["attr"]) AND is_array($input["attr"]) ) ? prepare_attr($input["attr"]) : '';
   // los atributos comunes a todos los imputs
-  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element '.$input['class'].'" '.$input["style"].' '.prepare_data($input["data"]);
+  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element" '.$input["style"].' '.prepare_data($input["data"]).' '.$custom_attr ;
   // los atributos comues a todos los inputs
   $common_attr_TextArea    = $common_attr_minimal . ' ' . $input["required"] . ' type="'.$input["type"].'" placeholder="'.$input["placeholder"].'"';
   // los atributos propios del textarea
@@ -326,6 +328,8 @@ function echo_input($input,$group = FALSE)
       }
 
       break;
+    default:
+      echo '<'.$input["type"].' '.$common_attr_minimal.'>'.$input["placeholder"].'</a>';
   }
 
   if($input['sufixbox'])
@@ -340,14 +344,22 @@ function echo_input($input,$group = FALSE)
   }
 }
 
-function prepare_data($data)
+function prepare_data($data = NULL)
+{
+  return  prepare_attr($data, $prefix = 'data'); 
+}
+
+function prepare_attr($data = NULL, $prefix = NULL)
 {
   if(!is_array($data)) return FALSE;
+  
+  if($prefix !== NULL ) $prefix.='-';
+
   $return = "";
+
   foreach ($data as $data_key => $data_value) 
-  {
-    $return .= "data-$data_key=\"$data_value\" ";
-  }
+    $return .= "$prefix$data_key=\"$data_value\" ";
+
   return $return;
 }
 

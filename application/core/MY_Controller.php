@@ -7,10 +7,27 @@ class My_Controller extends CI_Controller {
 	{
 		parent::__construct();
 
-		// mostrar el profiler solo en development y solo cuando no son ajax requests
+		// ayuda, mostrar el profiler solo en development y solo cuando no son ajax requests
 		if(!$this->input->is_ajax_request())
-			if(ENVIRONMENT != 'production' AND isset($_GET['profiler'])) 
+		{
+			if(ENVIRONMENT != 'production' AND isset($_GET['profiler']))
+			{
 				$this->output->enable_profiler(TRUE);
+			} 
+		}
+		
+		// ayuda, borrar sessiones mediante comando get
+		if(isset($_GET['clear_session']))
+		{
+			if(empty($_GET['clear_session']))
+			{
+				$this->session->sess_destroy();
+			}
+			if(isset($_SESSION[$_GET['clear_session']]))	
+			{
+				$this->session->unset_userdata($_GET['clear_session']);
+			}
+		}
 				
 	}
 
