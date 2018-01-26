@@ -30,15 +30,15 @@ class Organizadores_ajax extends My_Controller {
         if(!empty($this->input->post('email')) AND !empty($this->input->post('password')))
         {
             // actions
-            $respuesta['organizador'] = $this->organizadores_model->get($check); unset($check);
+            $logincheck = $this->organizadores_model->get($check); unset($check);
 
-            if (!empty($respuesta['organizador'])) 
+            if (!empty($logincheck)) 
             {
                 // limpio metadata
-                unset($respuesta['organizador'][0]['total_items']);
-                unset($respuesta['organizador'][0]['total_results']);
-                $respuesta['organizador'] = $respuesta['organizador'][0];
-                $this->session->set_userdata($respuesta);
+                unset($logincheck[0]['total_items']);
+                unset($logincheck[0]['total_results']);
+                $tosession['organizador'] = $logincheck[0];
+                $this->session->set_userdata($tosession);
                 $loged_in = 1;
             }
             else
@@ -46,28 +46,24 @@ class Organizadores_ajax extends My_Controller {
                 // verificar si el email existe
                 $check['cond']['email'] = $this->input->post('email');
                 $check['select'][] = 'email';
+                $check['select'][] = 'nombre';
                 $check['select'][] = 'organizador_id';
-                $e[] = print_r($check,TRUE);
-                $respuesta['organizador'] = $this->organizadores_model->get($check); unset($check);
-                if (empty($respuesta['organizador'])) 
+                $emailcheck = $this->organizadores_model->get($check); unset($check);
+                if (empty($emailcheck)) 
                 {
                     // si no existe creo la cuenta con el password enviado
                     $save['email'] = $this->input->post('email');
                     $save['password'] = $this->input->post('password');
-                    $respuesta['organizador'] = $this->organizadores_model->save($save); unset($save);
+                    $newaccount = $this->organizadores_model->save($save); 
                     
-                    if(!empty($respuesta['organizador']))
+                    if(!empty($newaccount))
                     {
                         // tomo el id del registro generado
-                        if (is_array($respuesta['organizador']))
-                            $session_organizador['organizador']['organizador_id'] = $respuesta['organizador'][0];
-                        elseif (is_int($respuesta['organizador']))
-                            $session_organizador['organizador'] = $respuesta['organizador'];
-
-                        $session_organizador['email'] = $this->input->post('email');
+                        $newaccounttosession['organizador'] = $save;
+                        $newaccounttosession['organizador']['organizador_id'] = $newaccount;
 
                         // si se pudo generar el organizador lo logueo - signup
-                        $this->session->set_userdata(array('organizador'=>$session_organizador));
+                        $this->session->set_userdata($newaccounttosession);
                         $loged_in = 1;
                     }
                     else
@@ -80,7 +76,7 @@ class Organizadores_ajax extends My_Controller {
                 else
                 {
                     $loged_in = 0;
-                    $e[] = 'Ese email esta registrado pero la contaseña ingresada no es correcta. Recuerda que peudes recupara esa con';
+                    $e[] = 'Ese email esta registrado pero la contaseña ingresada no es correcta.';
                 }
 
             }
@@ -119,7 +115,7 @@ class Organizadores_ajax extends My_Controller {
     }
     
     public function recuperar () {
-        
+
     }
 
 }

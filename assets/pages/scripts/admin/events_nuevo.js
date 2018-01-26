@@ -2,7 +2,6 @@
 
 /* Cuando agrego una variante del evento, agragar un gurpo de inputos para los premios */
   /* Usar un modelo para clonar el elemento en el dom */
-$('.add-row').click();
 $(document).on('click','.rem-row',function(){
   // borro el ultimo elemento si quito la fila
   $('.form-group.premios').last().remove();
@@ -26,6 +25,7 @@ $(document).on('click','.add-row',function(){
 
 $(document).on('click','.add-premio',function(){
   // mostrar el pop up
+  console.log('add premio');
   var index = $(this).index('.add-premio');
   var popup = $(".popup.premios").eq(index);
   // hago visible el que intento abrir

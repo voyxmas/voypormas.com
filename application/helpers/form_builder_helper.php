@@ -244,7 +244,7 @@ function echo_input($input,$group = FALSE)
   // tomar otras atributos si se definieron
   $custom_attr = ( isset($input["attr"]) AND is_array($input["attr"]) ) ? prepare_attr($input["attr"]) : '';
   // los atributos comunes a todos los imputs
-  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element" '.$input["style"].' '.prepare_data($input["data"]).' '.$custom_attr ;
+  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element '.$input["class"].'" '.$input["style"].' '.prepare_data($input["data"]).' '.$custom_attr ;
   // los atributos comues a todos los inputs
   $common_attr_TextArea    = $common_attr_minimal . ' ' . $input["required"] . ' type="'.$input["type"].'" placeholder="'.$input["placeholder"].'"';
   // los atributos propios del textarea

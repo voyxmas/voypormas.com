@@ -12,6 +12,7 @@ class App extends My_Controller {
 		$this->load->model('eventos_model');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
 
 		// setear usuario para el cliente web, cuando no hay naie logueado
 		$session['user']['admin_id'] = 0;

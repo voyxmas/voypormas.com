@@ -130,7 +130,8 @@
         return $user['user']['nombre'];
     }
 
-    function build_token ($data) {
+    function build_token ($data) 
+    {
         if (is_array($data)) {
         ksort($data);
         $token = '';
