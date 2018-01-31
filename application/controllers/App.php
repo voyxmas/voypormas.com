@@ -128,7 +128,9 @@ class App extends My_Controller {
 
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
 
 		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
@@ -187,6 +189,22 @@ class App extends My_Controller {
 			$this->data['form_evento']['action'] = base_url().'ajax/eventos_ajax/nuevo';
 			$this->data['form_evento']['ajax_call'] = 1;
 			// inputs
+				// si el organizador esta logeado cargo los datos en el form como un hidden field
+			if($this->data['organizador_is_logged_in'])
+			{
+				$this->data['form_evento']['inputs'][] = array(
+					'name' 			=> 'organizador_id',
+					'type' 			=> 'hidden',
+					'value'			=> $this->data['organizador']['organizador_id']					
+				);
+			}
+				//defino el estado del evento como borraor
+			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'estado',
+				'type' 			=> 'hidden',
+				'value'			=> 0					
+			);
+
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'nombre',
 				'placeholder' 	=> 'Nombre de la carrera',
@@ -350,6 +368,59 @@ class App extends My_Controller {
 				'add_one_more' 	=> TRUE,
 				'placeholder' 	=> 'Participantes destacados'
 			);
+		
+		// get maxs and mins
+			// price
+		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
+				
+			// distancia
+		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
+
+		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
+	}
+
+	public function evento()
+	{
+		$this->data['CURRENT_SECTION'] = 'app';
+		$this->data['CURRENT_PAGE'] = 'evento';
+
+		// load models
+		$this->load->model('eventos_model');
+
+		$this->layouts->set_title('Welcome');
+		$this->layouts->set_description('Welcome');
+
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
+
+		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
+
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
+
+		// get categorias
+		$this->data['categorias'] = $this->categorias_model->get_for_input();
+
+		// get event
+		$evento_id = $this->input->get('id');
+		$evento = $this->eventos_model->get($evento_id)[0];
+
+		// definir si el organizador esta logueado
+		if(isset($this->session->organizador))
+		{
+			$this->data['organizador_is_logged_in'] = (bool)$this->session->organizador;
+			$this->data['organizador'] = $this->session->organizador;
+			$this->data['is_organizador_author_of_this'] = $this->data['organizador'] === $evento['organizador_id'] ? TRUE : FALSE;
+		}
+		else
+		{
+			$this->data['organizador_is_logged_in'] = FALSE;
+		}
 		
 		// get maxs and mins
 			// price

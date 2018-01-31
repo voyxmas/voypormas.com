@@ -40,13 +40,6 @@
                     <h3><span class="todo-grey">Datos del organizador:</span> <span class="font-blue-madison"></span></h3>
                 </div>
                 <div id="formContainer" >
-                    <div class="form-group ">
-                        <label class="control-label">
-                            <span>Ya tienes unacuenta con nosotros?</span> 
-                        </label>
-                        <label class="radio-inline"><input type="radio" name="caracteristica_id[]" value="1">Si, quiero loguearme</label>
-                        <label class="radio-inline"><input type="radio" name="caracteristica_id[]" value="1">No, quiero crear una cuenta</label>
-                    </div>
                     <?php array2form($form_organizador) ?>
                 </div><!-- Close div#formContainer -->
             </div>
