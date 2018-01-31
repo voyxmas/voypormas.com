@@ -20,7 +20,7 @@
                         <?php foreach($eventos as $evento_id => $evento) : ?>
                         <li class="todo-tasks-item">
                             <h4 class="todo-inline">
-                                <a data-toggle="modal" href="#todo-task-modal"><?php echo $evento['nombre'] ?></a>
+                                <a data-toggle="modal" href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>"><?php echo $evento['nombre'] ?></a>
                             </h4>
                             <p class="todo-inline todo-float-r font-blue-madison"><?php /*echo $evento['ubicacion']*/ ?>
                                 <span class=""><?php echo $evento['fecha'] ?></span>
