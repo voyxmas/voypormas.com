@@ -15,8 +15,6 @@
                         <h4 class="media-heading">Cuál es tu nombre? <a href="#" class="btn btn-defaul">editar</a></h4>
                         */
                         ?>
-                        <pre><?php print_r($this->session->organizador) ?></pre>
-                        <pre><?php print_r($organizador) ?></pre>
                         <p><?php echo $organizador['email'] ?></p>
                 		<?php
                         /*
