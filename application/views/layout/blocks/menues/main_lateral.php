@@ -59,4 +59,11 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item  ">
+                            <a href="<?php echo base_url().'admin/settings' ?>" class="nav-link ">
+                                <i class="fa fa-cogs"></i>
+                                <span class="title">Settings</span>
+                                <span class="arrow"></span>
+                            </a>
+                        </li>
                     </ul>

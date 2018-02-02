@@ -2,12 +2,18 @@
 $(document).on('keyup','textarea',function(){
 	textAreaAdjust(this);
 });
+$(window).load(function(){
+  console.log('onload');
+  $('textarea').each(function(){
+    textAreaAdjust(this);
+  });
+});
 
 // ajusta la altura de un textarea a su contenido
   function textAreaAdjust(o) 
   {
     o.style.height = "1px";
-    o.style.height = (3+ o.scrollHeight)+"px";
+    o.style.height = (2+ o.scrollHeight)+"px";
   }
 
 // formbuilderhelper

@@ -32,8 +32,10 @@ input[type=text].badge.badge-success {
 .table.gridinput {
     width: 100% !important;
     display: block;
+    /* genera un problema con otros campos, no dejar hacer el input, como su tubiera el tooltip ensima con opacity 0 en lugar de display none
     overflow-x: auto;
     overflow-y: visible;
+    */
 }
 a.form-control {
     border: none;

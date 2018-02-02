@@ -43,6 +43,8 @@ class Eventos_ajax extends My_Controller {
 		$save['ciudad'] 					= $this->input->post('ciudad');
 		$save['calle'] 						= $this->input->post('calle');
 		$save['numero_casa'] 				= $this->input->post('numero_casa');
+		$save['latitud'] 					= $this->input->post('latitud');
+		$save['longitud'] 					= $this->input->post('longitud');
 		$save['participantes_destacados'] 	= implode(',',$this->input->post('participantes_destacados'));
 		$save['estado'] 					= $this->input->post('estado');
 			// crear el registro
@@ -69,6 +71,7 @@ class Eventos_ajax extends My_Controller {
 		$vhora	 		= $this->input->post('vhora');
 		$vfecha 		= $this->input->post('vfecha');
 		$vmonto 		= $this->input->post('vmonto');
+		$vlugar 		= $this->input->post('vlugar');
 		
 		if(!empty($vdistancia) AND !empty($vfecha) AND !empty($vmonto) AND $evento_id)
 		{
@@ -83,6 +86,7 @@ class Eventos_ajax extends My_Controller {
 				$save_variantes['distancia'] 	= $vdistancia[$key_variante]; 
 				$save_variantes['info'] 		= $vinfo[$key_variante]; 
 				$save_variantes['fechahora'] 	= $vhora[$key_variante]; 
+				$save_variantes['lugar_largada']= $vlugar[$key_variante]; 
 				
 				$variante_evento_id = $this->variantes_eventos_model->save($save_variantes); // aca guardo la variante
 
@@ -112,6 +116,7 @@ class Eventos_ajax extends My_Controller {
 				{
 					$save_variantes_eventos_precios['variante_evento_id'] = $variante_evento_id;
 					$save_variantes_eventos_precios['monto'] = $monto;
+					$save_variantes_eventos_precios['info'] = $monto;
 					$save_variantes_eventos_precios['fecha'] = $vfecha[$key_fecha];
 					$variante_evento_monto_id = $this->variantes_eventos_precios_model->save($save_variantes_eventos_precios); // aca guardo los montos apra cada variante
 					
@@ -175,13 +180,17 @@ class Eventos_ajax extends My_Controller {
 		}
 		else
 		{
-			$e[] = "Todo evento debe tener al menos una variante y no se enviaron los datos necesarios apra definir una variante para este evento";
+			$e[] = "Todo evento debe tener al menos una variante y no se enviaron los datos necesarios apra definir una variante para este evento".$this->db->last_query();
 		}
  
 		$data = array();
 		switch (count($e)) {
 			case 0:
-				$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
+				if(!check_session())
+					$do_after['redirect'] 		= base_url().'app/evento/'.$evento_id;
+				else
+					$do_after['redirect'] 		= base_url().'admin/eventos/ver/'.$evento_id;
+
 				$do_after['action_delay'] 	= 1000;
 				$do_after['toastr'] 		= 'Evento creado';
 				$do_after['toastr_type'] 	= 'success';

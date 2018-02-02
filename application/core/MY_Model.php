@@ -195,6 +195,9 @@ class MY_Model extends CI_Model
 	// update / insert un registro por id o multiples ids
 	public function save($data, $id = FALSE) 
 	{
+        // definir el id del admin, para ver si es web o admin
+        $admin_id = $_SESSION['user']['admin_id'] == 0 ? 3 : $_SESSION['user']['admin_id'];
+        
         if ($id === FALSE) 
         {    
             // se creae el registro cuando no se define un id
@@ -205,7 +208,7 @@ class MY_Model extends CI_Model
                 foreach ($data as $key => $value) 
                 {
                     $data[$key]['creado'] = date(SYS_DATETIMEFULL_FORMAT);
-                    $data[$key]['autor_admin_id'] = $_SESSION['user']['admin_id'];
+                    $data[$key]['autor_admin_id'] = $admin_id;
                 }
 
                 // ejecutar el insert
@@ -221,7 +224,7 @@ class MY_Model extends CI_Model
             else
             {
                 $data['creado'] = date(SYS_DATETIMEFULL_FORMAT);
-                $data['autor_admin_id'] = $_SESSION['user']['admin_id'];
+                $data['autor_admin_id'] = $admin_id;
                 $this->db->set($data)->insert($this->table_CRUD);
                 $return_id = $this->db->insert_id();
             }

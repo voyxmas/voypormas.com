@@ -12,6 +12,12 @@ define('LOCAL_DOMAIN_PATH',LOCAL_DOMAIN);
 define('DEMO_DOMAIN_PATH',DEMO_DOMAIN.'/'.DEMO_DIRECOTRY);
 define('LIVE_DOMAIN_PATH',LIVE_DOMAIN);
 
+// settings
+// ids para buscarlo en la base de datos en la tabla settings
+define('CONTACT_ADMIN',1);
+define('SALES_ADMIN',1);
+define('INFO_TERMINOS',2);
+
 // constantes propias
 define('APP_SECRET_TOKEN','9bd6b5ef63e6d92d7e22099a9333bce');
 define('APP_RESULTS_PER_PAGE',20);

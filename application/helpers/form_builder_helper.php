@@ -244,9 +244,9 @@ function echo_input($input,$group = FALSE)
   // tomar otras atributos si se definieron
   $custom_attr = ( isset($input["attr"]) AND is_array($input["attr"]) ) ? prepare_attr($input["attr"]) : '';
   // los atributos comunes a todos los imputs
-  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element '.$input['class'].'" '.$input["style"].' '.prepare_data($input["data"]).' '.$custom_attr ;
+  $common_attr_minimal     = $title . ' id="'.$input["id"].'" class="form-control input-group-z-element '.$input['class'].' '.($input["help"]?' z_tooltip ':NULL).' " '.$input["style"].' '.prepare_data($input["data"]).' '.$custom_attr ;
   // los atributos comues a todos los inputs
-  $common_attr_TextArea    = $common_attr_minimal . ' ' . $input["required"] . ' type="'.$input["type"].'" placeholder="'.$input["placeholder"].'"';
+  $common_attr_TextArea    = $common_attr_minimal . ' name="'.$input["name"].'" ' . $input["required"] . ' type="'.$input["type"].'" placeholder="'.$input["placeholder"].'"';
   // los atributos propios del textarea
   $common_attr_notTextArea = $common_attr_TextArea . ' name="'.$input["name"].'" value="'.$input["value"].'"';
   
@@ -258,6 +258,9 @@ function echo_input($input,$group = FALSE)
       break;
     case 'file':
       echo '<div id="'.$input["id"].'_preview" class="preview"></div>';
+    case 'password':
+      echo '<input '.$input["multiple"].' '.$common_attr_notTextArea.'>';
+      break;
     case 'time':
     case 'date':
     case 'text':

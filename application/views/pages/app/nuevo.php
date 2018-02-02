@@ -48,3 +48,23 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modal_terminos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Terminos y condiciones</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php echo $terminos ?>
+      </div>
+      <div class="modal-footer">
+        <button id="decline_terms" type="button" class="btn btn-danger" data-dismiss="modal">No acepto</button>
+        <button id="accept_terms" type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>
+      </div>
+    </div>
+  </div>
+</div>

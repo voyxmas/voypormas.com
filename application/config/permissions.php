@@ -30,6 +30,17 @@ $config['perm']['admin']['main']                        = TRUE;
   // categorias
   $config['perm']['admin']['categorias_listar']             = TRUE;
   $config['perm']['admin']['categorias_nuevo']              = TRUE;
+
+  // Settings
+  $config['perm']['admin']['settings_nuevo']              = TRUE;
+  $config['perm']['admin']['settings_listar']             = TRUE;
+  $config['perm']['admin']['settings_editar']              = TRUE;
+  $config['perm']['admin']['settings_borrar']              = TRUE;
+  $config['perm']['admin']['settings_groups_nuevo']       = TRUE;
+  $config['perm']['admin']['settings_groups_listar']      = TRUE;
+  $config['perm']['admin']['settings_groups_editar']       = TRUE;
+  $config['perm']['admin']['settings_groups_borrar']       = TRUE;
+  
 // app
   // main
 $config['perm']['app']['main']                          = TRUE;

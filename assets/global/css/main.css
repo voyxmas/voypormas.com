@@ -59,7 +59,6 @@
   .margintop { margin-top: 50px;}
 
 /* TABLE WITH DIVS */
-  .table,
   .table.gridinput * {
     box-sizing: border-box;
     width: auto !important;
@@ -109,4 +108,7 @@
   padding-left: 0;
 }
 
-/**/
+/* tooltip fix */
+.z_tooltip {
+  
+}

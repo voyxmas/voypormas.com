@@ -7,8 +7,12 @@
                         <label>Tipo</label>
                         <select id="evento_tipo_id" name="evento_tipo_id" class="selectpicker form-control" data-live-search="true">
                             <option value="-1">Todos</option>
-                            <?php foreach($categorias as $key => $categoria): ?>
-                            <option value="<?php echo $key ?>"><?php echo $categoria ?></option>
+                            <?php foreach($categorias as $segmento => $categoria_items): ?>
+                            <optgroup label="<?php echo $segmento ?>">
+                                <?php foreach ($categoria_items AS $key => $categoria ) : ?>
+                                <option value="<?php echo $key ?>"><?php echo $categoria ?></option>
+                                <?php endforeach ?>
+                            </optgroup>
                             <?php endforeach ?>
                         </select>
                     </div>
@@ -35,6 +39,8 @@
                         <input type="hidden" id="departamento" name="departamento" class="form-control">
                         <input type="hidden" id="provincia" name="provincia" class="form-control">
                         <input type="hidden" id="pais" name="pais" class="form-control">
+                        <input type="hidden" id="latitud" name="latitud" class="form-control">
+                        <input type="hidden" id="longitud" name="longitud" class="form-control">
                     </div>
                     <div class="form-group">
                         <label>Precio</label>

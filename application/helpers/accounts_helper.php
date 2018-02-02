@@ -25,7 +25,7 @@
             {
                 $actual_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 $_SESSION['go_back_to'] = $actual_link;
-                redirect (base_url());
+                redirect (base_url().'admin/');
             }
             else
             {

@@ -9,10 +9,14 @@ class App extends My_Controller {
 		
 		// load models
 		$this->load->model('categorias_model');
+		$this->load->model('categorias_grupos_model');
 		$this->load->model('eventos_model');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
+
+		// get datos del searchbar
+		$this->data['categorias'] =$this->categorias_model->get_for_input(array('inputgroup'=>'grupo'));
 
 		// setear usuario para el cliente web, cuando no hay naie logueado
 		$session['user']['admin_id'] = 0;
@@ -51,9 +55,6 @@ class App extends My_Controller {
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
 		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
-
-		// get categorias
-		$this->data['categorias'] = $this->categorias_model->get_for_input();
 
 		// get eventos
 		$attr['cond']['estado'] = 1;
@@ -123,6 +124,7 @@ class App extends My_Controller {
 
 		// load models
 		$this->load->model('caracteristicas_model');
+		$this->load->model('settings_model');
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
@@ -136,9 +138,10 @@ class App extends My_Controller {
 		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
-
+		
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/nuevo.js','foot');
 
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
@@ -153,6 +156,9 @@ class App extends My_Controller {
 		{
 			$this->data['organizador_is_logged_in'] = FALSE;
 		}
+
+		// get terminos y condiciones
+		$this->data['terminos'] = $this->settings_model->get(1)[0]['value'];
 		
 		// organizador
 			// tomar los datos para el login o para crear un organizador nuevo
@@ -163,7 +169,8 @@ class App extends My_Controller {
 			'name' 			=> 'email',
 			'placeholder' 	=> 'Email',
 			'label' 		=> 'Email',
-			'class' 		=> 'col-md-6 col-lg-4 no-gutters first',			
+			'class' 		=> 'col-md-6 col-lg-4 no-gutters first',
+			'required'		=> TRUE,			
 			'help'			=> 'Direccion de correo electrónico a la que tengas acceso para verificar la publicación.'					
 		);
 
@@ -171,10 +178,13 @@ class App extends My_Controller {
 			'name' 			=> 'password',
 			'placeholder' 	=> 'Contraseña',
 			'label' 		=> 'Contraseña',
+			'type' 			=> 'password',
+			'required'		=> TRUE,
 			'class' 		=> 'col-md-6 col-lg-4 no-gutters',
 			'help'			=> 'Eleje una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
 		);
 
+		/*
 		$this->data['form_organizador']['inputs'][] = array(
 			'type'			=> 'a',
 			'placeholder'	=> 'Recuperar contraseña',
@@ -185,6 +195,7 @@ class App extends My_Controller {
 			'attr'			=> array('href'=>base_url().'ajax/organizadores/recuperar'),
 			'ajax_call' 	=> 1
 		);
+		*/
 
 		// definir el formulario del evento
 			$this->data['form_evento']['action'] = base_url().'ajax/eventos_ajax/nuevo';
@@ -210,6 +221,7 @@ class App extends My_Controller {
 				'name' 			=> 'nombre',
 				'placeholder' 	=> 'Nombre de la carrera',
 				'label' 		=> 'Nombre de la carrera',
+				'required'		=> TRUE,
 				'help'			=> 'Nombre con el que aparece listado el evento'					
 			);
 
@@ -217,6 +229,7 @@ class App extends My_Controller {
 				'label' 		=> 'Lugar',
 				'name' 			=> 'lugar',
 				'type' 			=> 'text',
+				'required'		=> TRUE,
 				'class' 		=> 'col-md-6 col-lg-4 no-gutters first'				
 			);
 
@@ -251,10 +264,21 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'latitud',
+				'type' 			=> 'hidden'
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'longitud',
+				'type' 			=> 'hidden'
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'fecha',
 				'placeholder' 	=> 'Fecha del evento',
 				'label' 		=> 'Fecha del evento',
 				'type' 			=> 'date',
+				'required'		=> TRUE,
 				'class' 		=> 'col-md-6 col-lg-4 no-gutters'
 				
 			);
@@ -263,6 +287,7 @@ class App extends My_Controller {
 				'name' 			=> 'publicar_desde',
 				'label' 		=> 'Publicar desde',
 				'type' 			=> 'date',
+				'required'		=> TRUE,
 				'value' 		=> date(SYS_DATE_FORMAT),
 				'class' 		=> 'col-md-6 col-lg-4 no-gutters last'
 			);
@@ -278,6 +303,7 @@ class App extends My_Controller {
 					'x' => array(
 						array(
 							'name' 			=> 'vfecha[]',
+							'required'		=> TRUE,
 							'placeholder'	=> 'fecha',
 							'type' 			=> 'date',
 							'value' 		=> date(SYS_DATE_FORMAT),
@@ -288,6 +314,7 @@ class App extends My_Controller {
 					'y' => array(
 						array(
 							'name' 			=> 'vdistancia[]',
+							'required'		=> TRUE,
 							'placeholder'	=> 'Distancia (Km)',
 							'type' 			=> 'number',
 							'sufixbox' 		=> 'kms',
@@ -297,8 +324,14 @@ class App extends My_Controller {
 							'name' 			=> 'vhora[]',
 							'placeholder'	=> 'Hora de largada',
 							'type' 			=> 'time',
-							'prefixbox' 		=> 'Hora',
+							'prefixbox' 	=> 'Hora',
 							'help'			=> 'Hora de largada para esta variante del evento'
+						),
+						array(
+							'name' 			=> 'vlugar[]',
+							'placeholder'	=> 'Lugar de largada',
+							'type' 			=> 'textarea',
+							'attr' 			=> array ('maxlength'=>140)
 						),
 						array(
 							'name' 			=> 'vinfo[]',
@@ -317,6 +350,7 @@ class App extends My_Controller {
 					),
 					'values' => array(
 						'name' 			=> 'vmonto[]',
+						'required'		=> TRUE,
 						'placeholder' 	=> 'Monto inscripcion',
 						'type' 			=> 'number',
 						'prefixbox' 	=> '$',
@@ -349,6 +383,7 @@ class App extends My_Controller {
 
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'evento_tipo_id',
+				'required'		=> TRUE,
 				'label' 		=> 'Tipo de evento',
 				'placeholder' 	=> 'Tipo de evento',
 				'type' 			=> 'select',
@@ -369,6 +404,21 @@ class App extends My_Controller {
 				'add_one_more' 	=> TRUE,
 				'placeholder' 	=> 'Participantes destacados'
 			);
+
+			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'terminos',
+				'required'		=> TRUE,
+				'label' 		=> 'Terminos y condiciones',
+				'type'			=> 'checkbox',
+				'options'		=> array(1=>'Acepto los terminos')
+			);
+			
+			$this->data['form_evento']['inputs'][] = array(
+				'type'			=> 'button',
+				'class'			=> 'btn-default',
+				'placeholder'	=> 'Leer términos y condiciones',
+				'data'			=> array('toggle'=>'modal', 'target'=>'#modal_terminos')
+			);
 		
 		// get maxs and mins
 			// price
@@ -380,13 +430,16 @@ class App extends My_Controller {
 		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
 	}
 
-	public function evento()
+	public function evento($evento_id)
 	{
 		$this->data['CURRENT_SECTION'] = 'app';
 		$this->data['CURRENT_PAGE'] = 'evento';
 
 		// load models
 		$this->load->model('eventos_model');
+		$this->load->model('variantes_eventos_model');
+		$this->load->model('variantes_eventos_precios_model');
+		$this->load->model('variantes_eventos_premios_model');
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
@@ -408,15 +461,30 @@ class App extends My_Controller {
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
 
 		// get event
-		$evento_id = $this->input->get('id');
-		$evento = $this->eventos_model->get($evento_id)[0];
+		$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
+
+		// get variantes
+		$query['cond']['evento_id'] = $this->data['evento']['evento_id'];
+		$this->data['evento']['variantes'] = $this->variantes_eventos_model->get($query); unset($query);
+
+		// get precios para cada variante
+		foreach ($this->data['evento']['variantes'] as $key => $value) {
+			$query['cond']['variante_evento_id'] = $value['variante_evento_id'];
+			$this->data['evento']['variantes'][$key]['inscripcion'] = $this->variantes_eventos_precios_model->get($query); unset($query);
+		}
+
+		// get premios para cada variante
+		foreach ($this->data['evento']['variantes'] as $key => $value) {
+			$query['cond']['variante_evento_id'] = $value['variante_evento_id'];
+			$this->data['evento']['variantes'][$key]['premios'] = $this->variantes_eventos_premios_model->get($query); unset($query);
+		}
 
 		// definir si el organizador esta logueado
 		if(isset($this->session->organizador))
 		{
 			$this->data['organizador_is_logged_in'] = (bool)$this->session->organizador;
 			$this->data['organizador'] = $this->session->organizador;
-			$this->data['is_organizador_author_of_this'] = $this->data['organizador'] === $evento['organizador_id'] ? TRUE : FALSE;
+			$this->data['is_organizador_author_of_this'] = $this->data['organizador'] === $this->data['evento']['organizador_id'] ? TRUE : FALSE;
 		}
 		else
 		{

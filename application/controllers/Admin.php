@@ -180,6 +180,16 @@ class Admin extends My_Controller {
 				);
 
 				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'latitud',
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'longitud',
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form']['inputs'][] = array(
 					'name' 			=> 'fecha',
 					'placeholder' 	=> 'Fecha del evento',
 					'label' 		=> 'Fecha del evento',
@@ -226,6 +236,12 @@ class Admin extends My_Controller {
 								'type' 			=> 'time',
 								'prefixbox' 		=> 'Hora',
 								'help'			=> 'Hora de largada para esta variante del evento'
+							),
+							array(
+								'name' 			=> 'vlugar[]',
+								'placeholder'	=> 'Lugar de largada',
+								'type' 			=> 'textarea',
+								'attr' 			=> array ('maxlength'=>140)
 							),
 							array(
 								'name' 			=> 'vinfo[]',
@@ -497,6 +513,89 @@ class Admin extends My_Controller {
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 
 		}
+	
+		public function settings ($method = NULL, $categoria_id = NULL)
+		{
+			// cargar modelos para eventos
+			$this->load->model('settings_model');
+			$this->load->model('settings_grupos_model');
+	
+			// cargar controladores para eventos
+			switch ($method) {
+				case NULL:
+					$this->settings_listar();
+					break;
+				case 'nuevo':
+					$this->settings_nuevo();
+					break;
+			}
+		}
+			// metodos de settings
+			private function settings_listar ()
+			{
+				$this->data['CURRENT_SECTION'] 		= 'admin';
+				$this->data['CURRENT_PAGE'] 		= 'settings_listar';
+	
+				bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+
+				$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
+	
+				// buscar los eventos y ordenarlos por fecha de publicacion
+				
+				// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
+				$query['order_by'] = 'nombre ASC';
+				$data['settings'] = $this->settings_model->get($query); unset($query);
+
+				$this->data['settings'] = array();
+
+				foreach ($data['settings'] as $setting) 
+				{
+					// definir el key con el nombre del grupo
+					$this->data['settings'][$setting['grupo']][] = $setting;
+				}
+
+				unset($data['settings']);
+	
+				$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+			}
+	
+			private function settings_nuevo ()
+			{
+				$this->data['CURRENT_SECTION'] 	= 'admin';
+				$this->data['CURRENT_PAGE'] 		= 'settings_nuevo';
+				bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+				
+				// definir titulos y crumbs
+				$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/fileUpload.js','foot');			
+				$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/fileUpload.css','head');			
+				$this->layouts->set_title('Cargar un evento nuevo');
+				
+				// definir el formulario
+					$this->data['form']['action'] 					= base_url().'ajax/settings_ajax/nuevo';
+					$this->data['form']['ajax_call'] 				= 1;
+					// inputs
+					$this->data['form']['inputs'][0]['label'] 		= 'Nombre';
+					$this->data['form']['inputs'][0]['name'] 		= 'nombre';
+					$this->data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
+					$this->data['form']['inputs'][0]['required'] 	= TRUE;
+	
+					$this->data['form']['inputs'][1]['label'] 		= 'Grupo';
+					$this->data['form']['inputs'][1]['name'] 		= 'evento_tipo_grupo_id';
+					$this->data['form']['inputs'][1]['placeholder'] = 'Grupo';
+					$this->data['form']['inputs'][1]['required'] 	= TRUE;
+					$this->data['form']['inputs'][1]['type'] 	   	= 'select';
+					$this->data['form']['inputs'][1]['options']		= $this->settings_grupos_model->get_for_input();
+	
+					$this->data['form']['inputs'][2]['name'] 		= 'evento_tipo_grupo_nombre';
+					$this->data['form']['inputs'][2]['placeholder'] = 'Nombre del nuevo grupo';
+					$this->data['form']['inputs'][2]['class'] 		= 'hidden';
+	
+				print_r($this->data['form']['inputs'][1]['options']);
+	
+				// cargar la pagina y pasar los datos al view
+				$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+	
+			}
 
 }
 ?>
