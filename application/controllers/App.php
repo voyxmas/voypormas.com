@@ -12,6 +12,7 @@ class App extends My_Controller {
 		$this->load->model('categorias_grupos_model');
 		$this->load->model('eventos_model');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
+		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a760f272e023d00','foot', 'js');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
 
