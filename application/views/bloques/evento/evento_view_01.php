@@ -30,7 +30,7 @@
                         </tr>
                         <tr>
                             <?php foreach ($variantes[0]['inscripcion'] AS $item ) : ?>
-                            <th><?php echo cstm_get_date($item['fecha']) ?></th>
+                            <th>desde <?php echo cstm_get_date($item['fecha']) ?></th>
                             <?php endforeach ?>
                         </tr>
                     </thead>

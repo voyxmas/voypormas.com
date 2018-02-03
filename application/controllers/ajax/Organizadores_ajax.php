@@ -20,7 +20,7 @@ class Organizadores_ajax extends My_Controller {
 		$this->load->model('organizadores_model');
 
 		// preparar las variables del input
-		$check['cond']['password']  = $this->input->post('password');
+		$check['cond']['password']  = md5($this->input->post('password'));
 		$check['cond']['email']     = $this->input->post('email');
         $check['select'][] = 'organizador_id';
         $check['select'][] = 'email';
@@ -53,7 +53,7 @@ class Organizadores_ajax extends My_Controller {
                 {
                     // si no existe creo la cuenta con el password enviado
                     $save['email'] = $this->input->post('email');
-                    $save['password'] = $this->input->post('password');
+                    $save['password'] = md5($this->input->post('password'));
                     $newaccount = $this->organizadores_model->save($save); 
                     
                     if(!empty($newaccount))
