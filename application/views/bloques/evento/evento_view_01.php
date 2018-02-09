@@ -65,7 +65,7 @@
                                     <?php echo $varriantesItem['distancia'] ?>Km
                                 </td>    
                                 <?php endif ?><td><?php echo $premios['descripcion'] ?></td>
-                                <td>$<?php echo $premios['premio'] ?></td>
+                                <td><?php echo is_numeric($premios['premio']) ? '$' : NULL ?><?php echo $premios['premio'] ?></td>
                             </tr>
                             <?php endforeach ?>
                         <?php endforeach ?> 

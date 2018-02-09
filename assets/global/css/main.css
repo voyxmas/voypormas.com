@@ -112,3 +112,10 @@
 .z_tooltip {
   
 }
+
+body {
+  margin-bottom: 60px !important;
+}
+.modal-dialog {
+  padding-bottom: 60px !important;
+}
