@@ -24,6 +24,31 @@ class Caracteristicas_ajax extends My_Controller {
 		// get post data					
 			// tomar os datos del caracteristica
 		$save['nombre'] = $this->input->post('nombre');
+			// tratar el icono
+		$config['upload_path']          = './assets/uploads/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = 100;
+		$config['max_width']            = 1024;
+		$config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		foreach ($_FILES as $name => $file) {
+			# code...
+			
+			if ( ! $this->upload->do_upload($name))
+			{
+				$e[] = array('error' => $this->upload->display_errors());
+			}
+			else
+			{
+				// tomo los datos cargados
+				$upload_data = $this->upload->data();
+				print_r($upload_data);
+				// agrego el full path a savepara guardar la referencia a la imagen
+				$save['icono']=$upload_data['full_path'];
+			}
+		}             
 			// crear el registro
 		$caracteristica_id = $this->caracteristicas_model->save($save); unset($save);
 		$debug=$this->db->last_query();
@@ -37,8 +62,8 @@ class Caracteristicas_ajax extends My_Controller {
 				break;
 			
 			default:
-				$do_after['reload'] 		  = 1;
-				$do_after['action_delay'] = 500;
+				//$do_after['reload'] 		  = 1;
+				//$do_after['action_delay'] = 500;
 				$do_after['toastr'] 			= 'Caracteristica creada';
 				$do_after['toastr_type'] 	= 'success';
 				break;

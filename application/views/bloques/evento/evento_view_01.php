@@ -1,6 +1,6 @@
-<?php if ($organizador_id == $this->session->organizador['organizador_id'] ) : ?>
+<?php if ($estado == 0 AND $organizador_id == $this->session->organizador['organizador_id'] ) : ?>
             <div id="noAprobadoAlert" class="alert alert-warning">
-                Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión.
+                Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión. <?php echo $organizador_id ?>
             </div><!-- Close div#noAprobadoAlert -->
             <?php endif ?>
 <div class="container">

@@ -434,8 +434,7 @@ class Admin extends My_Controller {
 					'name' => 'icono',
 					'placeholder' => 'Icono',
 					'type' => 'file',
-					'required' => TRUE,
-					'multiple' => TRUE,
+					'required' => TRUE
 				);
 
 			// cargar la pagina y pasar los datos al view
