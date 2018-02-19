@@ -11,6 +11,11 @@ class Eventos_model extends MY_Model
 			$this->table_read 	= 'eventos_view';
 	}
 
+	public function search ()
+	{
+		
+	}
+
 	public function get_full($evento_id = NULL)
 	{
 		if($evento_id === NULL) return FALSE;

@@ -98,8 +98,10 @@ class App extends My_Controller {
 			$attr['cond']['provincia'] = $this->input->get('provincia');
 		if($this->input->get('pais'))
 			$attr['cond']['pais'] = $this->input->get('pais');
+		// hacer los find in set para las caracteristicas
 		if($this->input->get('c'))
-			$attr['cond']['FIND_IN_SET(caracteristicas,'.implode(',',$this->input->get('c')).')'] = TRUE;
+			foreach ($this->input->get('c') as $caracteristica_id )
+				$attr['cond']['FIND_IN_SET('.$caracteristica_id.',caracteristicas) != 0'] = NULL;
 
 		// paginacion
 		if($this->input->get('p'))
