@@ -61,7 +61,7 @@
                                 <span class=""><?php echo $evento['fecha'] ?></span>
                             </p>
                             <div>
-                                <?php echo $evento['descripcion'] ?> <?php echo $evento['distancia'] ?>km
+                                <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km
                             </div>
                             <div class="caracteristicasLista" >
                                 <?php foreach ($evento['caracteristicas'] AS $caracteristicasItem ) : ?>
