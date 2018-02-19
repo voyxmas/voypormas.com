@@ -23,6 +23,9 @@
       display: block;
       padding: 5px 0;
     }
+    body{
+      margin: 0 30px 60px 30px !important;
+    }
   }
   @media (max-width: 990px) {
     .logo-admin {
@@ -43,7 +46,7 @@
       width:70%;
     }
   }
-
+  
   .form-group {
     margin-bottom: 30px;
   }
@@ -118,4 +121,30 @@ body {
 }
 .modal-dialog {
   padding-bottom: 60px !important;
+}
+
+.caracteristicasLista img {
+  width: 30px;
+}
+
+.fitler-item {
+  margin-top: 15px;
+  list-style: none;
+  line-height: 30px;
+  position: relative;
+}
+.fitler-item > img {
+  margin-right: 10px;
+}
+.fitler-item > .badge {
+  position: absolute;
+  left:35px;
+  top:-5px;
+}
+.fitler-item > input {
+  display: none;
+}
+.fitler-item > input:checked ~ label {
+  font-weight: bold;
+  color: #337ab7;
 }

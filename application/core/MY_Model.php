@@ -113,7 +113,9 @@ class MY_Model extends CI_Model
                                 $campo = preg_replace('/\s~$/','',$campo);
                             }
                             else
+                            {
                                 $eval = 'where';
+                            }
                             // si valor es un no es array estoy buscando un solo valor para ese campo
                             // si orwhere es true la opcione se adjunta con OR, si no con AND
                             $metodo = $orwhere ? 'or_'.$eval : $eval;

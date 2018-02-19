@@ -1,6 +1,6 @@
 <?php if ($estado == 0 AND $organizador_id == $this->session->organizador['organizador_id'] ) : ?>
             <div id="noAprobadoAlert" class="alert alert-warning">
-                Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión. <?php echo $organizador_id ?>
+                Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión.
             </div><!-- Close div#noAprobadoAlert -->
             <?php endif ?>
 <div class="container">
@@ -19,6 +19,12 @@
             <small id="lugar" >
                 - <?php echo $lugar ?>
             </small><!-- Close small#lugar -->
+
+            <div class="caracteristicasLista" >
+                <?php foreach ($caracteristicas AS $caracteristicasItem ) : ?>
+                    <img src="<?php echo base_url().$caracteristicasItem['caracteristica_icono'] ?>" alt="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>" title="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>">
+                <?php endforeach ?>
+            </div><!-- Close div.caracteristicasLista -->
             
             <div id="variantes" >
                 <h3>Incripciones</h3>

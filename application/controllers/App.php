@@ -11,6 +11,7 @@ class App extends My_Controller {
 		$this->load->model('categorias_model');
 		$this->load->model('categorias_grupos_model');
 		$this->load->model('eventos_model');
+		$this->load->model('eventos_caracteristicas_model');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
 		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a760f272e023d00','foot', 'js');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
@@ -97,14 +98,39 @@ class App extends My_Controller {
 			$attr['cond']['provincia'] = $this->input->get('provincia');
 		if($this->input->get('pais'))
 			$attr['cond']['pais'] = $this->input->get('pais');
+		if($this->input->get('c'))
+			$attr['cond']['FIND_IN_SET(caracteristicas,'.implode(',',$this->input->get('c')).')'] = TRUE;
 
 		// paginacion
 		if($this->input->get('p'))
 			$attr['page'] = $this->input->get('p');
-		
 
 		$this->data['eventos'] = $this->eventos_model->get($attr); unset($attr);
-		
+
+		// set filters holder
+		$this->data['filters']['caracteristicas'] = array();
+
+		// tomar las caracterisicas
+		foreach ($this->data['eventos'] as $key => $evento) 
+		{
+			// get caracteristicas del evento
+			$query['cond']['evento_id'] = $evento['evento_id'];
+			$this->data['eventos'][$key]['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
+			foreach($this->data['eventos'][$key]['caracteristicas'] as $caracteristica)
+			{
+				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_nombre'] = $caracteristica['caracteristica_nombre'];
+				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_icono'] = $caracteristica['caracteristica_icono'];
+				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_id'] = $caracteristica['caracteristica_id'];
+				if(isset($this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count']))
+				{
+					$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count']++;
+				}
+				else
+				{
+					$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count'] = 1;
+				}
+			}
+		}
 		// get maxs and mins
 			// price
 		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
@@ -441,6 +467,7 @@ class App extends My_Controller {
 		$this->load->model('variantes_eventos_model');
 		$this->load->model('variantes_eventos_precios_model');
 		$this->load->model('variantes_eventos_premios_model');
+		$this->load->model('eventos_caracteristicas_model');
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
@@ -464,6 +491,10 @@ class App extends My_Controller {
 		// get event
 		$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
 
+		// get caracteristicas del evento
+		$query['cond']['evento_id'] = $evento_id;
+		$this->data['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
+
 		// get variantes
 		$query['cond']['evento_id'] = $this->data['evento']['evento_id'];
 		$this->data['evento']['variantes'] = $this->variantes_eventos_model->get($query); unset($query);
@@ -479,6 +510,10 @@ class App extends My_Controller {
 			$query['cond']['variante_evento_id'] = $value['variante_evento_id'];
 			$this->data['evento']['variantes'][$key]['premios'] = $this->variantes_eventos_premios_model->get($query); unset($query);
 		}
+
+		// get caracteristicas
+		$query['cond']['evento_id'] = $evento_id;
+		$this->data['evento']['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
 
 		// definir si el organizador esta logueado
 		if(isset($this->session->organizador))

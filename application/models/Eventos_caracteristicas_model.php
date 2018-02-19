@@ -11,5 +11,15 @@ class Eventos_caracteristicas_model extends MY_Model
 			$this->table_read 	= 'caracteristica_evento_assigns_view';
 	}
 
+	public function get_by_evento_id($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+		$query['cond']['evento_id'] = $evento_id;
+
+		return $this->get($query);
+
+	}
+
 }
 ?>

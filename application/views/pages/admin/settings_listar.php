@@ -47,7 +47,7 @@
                                         <div class="tab-pane <?php echo $i===1 ? 'active' : NULL ?>" id="setting_tab_<?php echo $settingsItem[0]['setting_grupo_id'] ?>">
                                             <?php foreach ($settingsItem AS $settingsItemItem ) : ?>
                                                 <?php
-                                                echo_input($settingsItemIte m);
+                                                echo_input($settingsItemItem);
                                                 ?>
                                             <?php endforeach ?>
                                         </div>

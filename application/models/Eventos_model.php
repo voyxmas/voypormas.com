@@ -11,5 +11,25 @@ class Eventos_model extends MY_Model
 			$this->table_read 	= 'eventos_view';
 	}
 
+	public function get_full($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+		// get evento
+		$evento = $this->get($evento_id);
+
+		// get variantes
+		
+		// get caracteristicas
+		$this->load->model('eventos_caracteristicas_model');
+		$evento['caracteristicas'] = $this->eventos_caracteristicas_model->get_by_evento_id($evento_id);
+
+		// get corredores que asisten
+
+		// get tarifas
+
+		return $evento;
+	}
+
 }
 ?>
