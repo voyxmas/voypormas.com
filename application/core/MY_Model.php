@@ -156,8 +156,9 @@ class MY_Model extends CI_Model
         $this->db->limit($results, $limit_offset);
 
         $result = $this->db->get($this->table_read);
-
+        
         $paginacion = $this->db->query('SELECT FOUND_ROWS() total_items')->result_array();
+
         
         if ($result->num_rows() > 0)
         {

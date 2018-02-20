@@ -66,25 +66,18 @@ class App extends My_Controller {
 			$attr['cond']['fecha'] = $this->input->get('fecha');
 		else
 			$attr['cond']['fecha >='] = date(SYS_DATE_FORMAT);
-		
 		if($this->input->get('nombre'))
 			$attr['cond']['nombre ~'] = $this->input->get('nombre');
-		
 		if($this->input->get('evento_tipo_id') != -1 AND !empty($this->input->get('evento_tipo_id')))
 			$attr['cond']['evento_tipo_id'] = $this->input->get('evento_tipo_id');
-
 		if($this->input->get('distancia1'))
 			$attr['cond']['distancia >='] = $this->input->get('distancia1');
-		
 		if($this->input->get('distancia2'))
 			$attr['cond']['distancia <='] = $this->input->get('distancia2');
-		
 		if($this->input->get('precio1'))
 			$attr['cond']['precio >='] = $this->input->get('precio1');
-		
 		if($this->input->get('precio2'))
 			$attr['cond']['precio <='] = $this->input->get('precio2');
-		
 		/* trabajo con las variables de ubicacion */
 		if($this->input->get('numero_casa'))
 			$attr['cond']['numero_casa'] = $this->input->get('numero_casa');
@@ -102,7 +95,9 @@ class App extends My_Controller {
 		if($this->input->get('c'))
 			foreach ($this->input->get('c') as $caracteristica_id )
 				$attr['cond']['FIND_IN_SET('.$caracteristica_id.',caracteristicas) != 0'] = NULL;
-
+		// procesar order by
+		if($this->input->get('order'))
+			$attr['order_by'] = $this->input->get('order');
 		// paginacion
 		if($this->input->get('p'))
 			$attr['page'] = $this->input->get('p');

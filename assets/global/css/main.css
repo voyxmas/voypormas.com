@@ -148,3 +148,15 @@ body {
   font-weight: bold;
   color: #337ab7;
 }
+
+.sort {
+  margin-left:15px;
+}
+.sort > * { 
+  display: inline-block; 
+  white-space:nowrap; 
+  color: #000; 
+  line-height: 30px;
+  height: 30px !important;
+  box-sizing: border-box;
+}

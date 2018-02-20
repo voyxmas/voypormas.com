@@ -49,6 +49,16 @@
                 <div class="col-md-9">
                     <div class="todo-head">
                         <h3><span class="todo-grey">Eventos:</span> <span class="font-blue-madison"><?php echo $count ?></span></h3>
+                        <div class="sort pull-right">
+                            <span class="label">Ordenar</span><select name="order" form="main_search" id="order_results" class="select">
+                                <option <?php echo $this->input->get('order') == 'nombre ASC' ? 'selected' : NULL ?> value="nombre ASC">Nombre</option>
+                                <option <?php echo $this->input->get('order') == 'tipo ASC' ? 'selected' : NULL ?> value="tipo ASC">Tipo</option>
+                                <option <?php echo $this->input->get('order') == 'fecha ASC' ? 'selected' : NULL ?> value="fecha ASC">Fecha</option>
+                                <option <?php echo $this->input->get('order') == 'distancia ASC' ? 'selected' : NULL ?> value="distancia ASC">Distancia</option>
+                                <option <?php echo $this->input->get('order') == 'lugar ASC' ? 'selected' : NULL ?> value="lugar ASC">Lugar</option>
+                                <option <?php echo $this->input->get('order') == 'precio ASC' ? 'selected' : NULL ?> value="precio ASC">Precio</option>
+                            </select><button type="submit" form="main_search" class="btn btn-outline-secondary" type="button">Ordenar</button>
+                        </div>
                         <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar mi evento</a>
                     </div>
                     <ul class="todo-tasks-content alternatefill">
