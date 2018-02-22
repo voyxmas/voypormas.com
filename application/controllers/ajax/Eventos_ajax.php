@@ -309,14 +309,14 @@ class Eventos_ajax extends My_Controller {
 		// get $_POST
 		$attr['nombre']				= $this->input->post('nombre');
 		$attr['descripcion']		= $this->input->post('descripcion');
-		$attr['distancia']			= $this->input->post('distancia');
 		$attr['evento_tipo_id']		= $this->input->post('evento_tipo_id');
 		$attr['fecha']				= $this->input->post('fecha');
 		$attr['publicar_desde'] 	= $this->input->post('publicar_desde');
-		$attr['publicar_hasta'] 	= $this->input->post('publicar_hasta');
+		$attr['participantes_destacados'] = $this->input->post('participantes_destacados');
 		$attr['estado']				= $this->input->post('estado');
 		
 		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
+
 		if($respuesta == FALSE) $e[] = 'No se pudo editar el evento' ;
 
 		$data = array();
@@ -336,7 +336,7 @@ class Eventos_ajax extends My_Controller {
 		$this->ajax_response($data,$do_after);
 	}
 
-	public function add_caracteristica_a_evento($evento_id)
+	public function add_caracteristica($evento_id)
 	{
 		if($evento_id === NULL) return FALSE;
 		
@@ -386,6 +386,10 @@ class Eventos_ajax extends My_Controller {
 				break;
 		}
 		$this->ajax_response($data,$do_after);
+	}
+
+	public function eliminar_caracteristica(){
+		
 	}
 
 	public function agregar_variante($evento_id = NULL, $variante = NULL)

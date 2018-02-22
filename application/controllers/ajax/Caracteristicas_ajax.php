@@ -12,14 +12,15 @@ class Caracteristicas_ajax extends My_Controller {
 		   exit('No direct script access allowed');
 		}
 		$this->load->model('caracteristicas_model');
+		$this->load->model('eventos_caracteristicas_model');
 	}
 
 	public function nuevo ()
 	{
-    // check permission
-    $data['CURRENT_SECTION'] 	= 'admin';
-    $data['CURRENT_PAGE'] 		= 'caracteristicas_nuevo';
-    bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		// check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'caracteristicas_nuevo';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// get post data					
 			// tomar os datos del caracteristica
@@ -73,6 +74,65 @@ class Caracteristicas_ajax extends My_Controller {
 		$this->ajax_response($data,$do_after);
 	}
 
+	public function asignar($evento_id = NULL, $caracteristica_id = NULL)
+	{
+		$e = array();
+		if( $caracteristica_id === NULL OR $evento_id === NULL) 
+			$e[] = 'No se recivió la información necesaria para generar este registr';
+		
+		if(empty($e))
+		{
+			// asigno la caracteristica al evento
+			$query['evento_id'] 			= $evento_id;
+			$query['caracteristica_id'] 	= $caracteristica_id;
+
+			if(!$this->eventos_caracteristicas_model->save($query))
+				$e[]='No se pudo asignar la caracteritica porque falló el comando save';
+		}
+
+		$data = array();
+		if(!empty($e)) {
+				$do_after['toastr'] 			= implode('<br>',$e);
+				$do_after['toastr_type'] 		= 'error';
+		}else{
+
+				$do_after['reload'] 		  	= 1;
+				$do_after['action_delay'] 		= 500;
+				$do_after['toastr'] 			= 'Caracteristica asignada';
+				$do_after['toastr_type'] 		= 'success';
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function eliminar($evento_id = NULL, $caracteristica_id = NULL)
+	{
+		$e = array();
+		if( $caracteristica_id === NULL OR $evento_id === NULL) 
+			$e[] = 'No se recivió la información necesaria para eliminar este registro';
+		
+		if(empty($e))
+		{
+			// asigno la caracteristica al evento
+			$query['evento_id'] 			= $evento_id;
+			$query['caracteristica_id'] 	= $caracteristica_id;
+
+			if(!$this->eventos_caracteristicas_model->delete($query))
+				$e[]='No se pudo asignar la caracteritica porque falló el comando save';
+		}
+
+		$data = array();
+		if(!empty($e)) {
+				$do_after['toastr'] 			= implode('<br>',$e);
+				$do_after['toastr_type'] 		= 'error';
+		}else{
+
+				$do_after['reload'] 		  	= 1;
+				$do_after['action_delay'] 		= 500;
+				$do_after['toastr'] 			= 'Caracteristica asignada';
+				$do_after['toastr_type'] 		= 'success';
+		}
+		$this->ajax_response($data,$do_after);
+	}
 
 }
 ?>

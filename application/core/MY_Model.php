@@ -253,18 +253,26 @@ class MY_Model extends CI_Model
     }
 
 	// borrar un registro por id o multiples ids
-	public function delete($ids)
-	{    
-        $ids = ! is_array($ids) ? array($ids) : $ids;
+	public function delete($ids = NULL)
+	{   
+        if($ids === NULL) return FALSE;
+
         $data['borrado'] = date(SYS_DATETIMEFULL_FORMAT);
-        foreach ($ids as $id) 
+        
+        // si paso un solo id o un array de ids
+        if(is_numeric($ids) OR isset($ids[0]))
         {
-            if ($id) 
+            $where[][$this->primary_id] = $ids;
+        }
+        elseif(is_array($ids))
+        {
+            // si paso un array aosiciativo para definir el borrado en funcion de otros campos y valores
+            foreach ($ids as $field => $value)
             {
-                return $this->db->where($this->primary_id, $id)->set($data)->update($this->table_CRUD);
+                $where[$field] = $value;
             }
         }
-        return false;
+        return $this->db->where($where)->set($data)->update($this->table_CRUD);
     }
 
     /// agregar un creiterio al cuando no se borra por id

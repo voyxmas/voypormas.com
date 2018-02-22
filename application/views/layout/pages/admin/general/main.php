@@ -46,7 +46,7 @@ License: You must have a valid license purchased only from themeforest(the above
     </head>
     <!-- END HEAD -->
 
-    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid">
+    <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid admin">
         <!-- BEGIN HEADER -->
         <div class="page-header navbar navbar-fixed-top">
             <!-- BEGIN HEADER INNER -->

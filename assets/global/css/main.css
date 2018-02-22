@@ -23,8 +23,8 @@
       display: block;
       padding: 5px 0;
     }
-    body{
-      margin: 0 30px 60px 30px !important;
+    body:not(.admin){
+      margin: 0 auto 60px auto !important;
     }
   }
   @media (max-width: 990px) {
@@ -159,4 +159,11 @@ body {
   line-height: 30px;
   height: 30px !important;
   box-sizing: border-box;
+}
+
+.at-icon-wrapper:not(:hover) {
+  background: initial !important;
+}
+.at-icon-wrapper:not(:hover) svg {
+  fill: #AAA !important;
 }

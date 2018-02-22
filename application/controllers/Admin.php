@@ -338,12 +338,136 @@ class Admin extends My_Controller {
 
 			// cargar includes
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/components.min.css','head');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
+			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 
 			// cargar el evento
 			$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
 
+			// si no se encuentra el evento salir
 			if(empty($this->data['evento'])) redirect(base_url().'admin/');
 
+			// hacer formulario general
+				$this->data['form_general']['action'] = base_url().'ajax/eventos_ajax/editar/'.$evento_id;
+				$this->data['form_general']['ajax_call'] = 1;
+				// inputs
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'nombre',
+					'value'			=> $this->data['evento']['nombre'],
+					'placeholder' 	=> 'Nombre de la carrera',
+					'label' 		=> 'Nombre de la carrera',
+					'help'			=> 'Nombre con el que aparece listado el evento'					
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'label' 		=> 'Lugar',
+					'value'			=> $this->data['evento']['lugar'],
+					'name' 			=> 'lugar',
+					'type' 			=> 'text',
+					
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'numero_casa',
+					'value'			=> $this->data['evento']['numero_casa'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'calle',
+					'value'			=> $this->data['evento']['calle'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'ciudad',
+					'value'			=> $this->data['evento']['ciudad'],
+					'type' 			=> 'hidden'
+				);
+				
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'departamento',
+					'value'			=> $this->data['evento']['departamento'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'provincia',
+					'value'			=> $this->data['evento']['provincia'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'pais',
+					'value'			=> $this->data['evento']['pais'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'latitud',
+					'value'			=> $this->data['evento']['latitud'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'longitud',
+					'value'			=> $this->data['evento']['longitud'],
+					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'fecha',
+					'value'			=> $this->data['evento']['fecha'],
+					'placeholder' 	=> 'Fecha del evento',
+					'label' 		=> 'Fecha del evento',
+					'type' 			=> 'date',
+					
+				);
+				
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'publicar_desde',
+					'value'			=> $this->data['evento']['publicar_desde'],
+					'label' 		=> 'Publicar desde',
+					'type' 			=> 'date',
+					'value' 		=> date(SYS_DATE_FORMAT)
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'evento_tipo_id',
+					'value'			=> $this->data['evento']['evento_tipo_id'],
+					'label' 		=> 'Tipo de evento',
+					'placeholder' 	=> 'Tipo de evento',
+					'type' 			=> 'select',
+					'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'participantes_destacados',
+					'value'			=> $this->data['evento']['participantes_destacados'],
+					'label' 		=> 'Corredores destacados',
+					'placeholder' 	=> 'Participantes destacados'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'estado',
+					'value'			=> $this->data['evento']['estado'],
+					'label' 		=> 'Estado',
+					'placeholder' 	=> 'Estado',
+					'type' 			=> 'radio',
+					'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
+				);
+
+			// tomar caracteristicas del evento
+			$attr['cond']['evento_id'] = $evento_id;
+			$this->data['evento']['evento_caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
+			// tomar caracteristicas del sistema
+			$query['results'] = 1000;
+			$this->data['caracteristicas'] = $this->eventos_caracteristicas_model->get($query);
+				// lopear para ver que caracteristicas ya estan asignadas
+			foreach ($this->data['caracteristicas'] as $key => $caracteristica) {
+				$this->data['caracteristicas'][$key]['estado'] = $this->searchMultiArray($this->data['evento']['evento_caracteristicas'],'caracteristica_id',$caracteristica['caracteristica_id']);
+			}
 			// tomar variantes
 			$attr['cond']['evento_id'] = $evento_id;
 			$this->data['evento']['evento_variantes'] = $this->variantes_eventos_model->get($attr); unset($attr);
@@ -354,18 +478,7 @@ class Admin extends My_Controller {
 				$attr['cond']['variante_evento_id'] = $variante['variante_evento_id'];
 				$this->data['evento']['evento_variantes'][$variante_key]['montos'] = $this->variantes_eventos_precios_model->get($attr); unset($attr);
 			}
-
-			// tomar caracteristicas
-			$attr['cond']['evento_id'] = $evento_id;
-			$this->data['evento']['evento_caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
-
-			// tomar datos de la categoria
-
-			// armar el formulario
 			
-			// debug
-			$this->data['debug'] = $this->data['evento'];
-
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 			
 		}
@@ -405,6 +518,7 @@ class Admin extends My_Controller {
 
 			// buscar los eventos y ordenarlos por fecha de publicacion
 			$attr['order_by'] = 'creado DESC';
+			$attr['results'] = 200;
 
 			$this->data['caracteristicas'] = $this->caracteristicas_model->get($attr); unset($attr);
 
@@ -595,6 +709,16 @@ class Admin extends My_Controller {
 				$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 	
 			}
-
+	
+			
+	private function searchMultiArray($array, $field, $needle)
+	{
+		foreach($array as $key => $value)
+		{
+			if ( $value[$field] === $needle )
+				return $key;
+		}
+		return FALSE;
+	}
 }
 ?>

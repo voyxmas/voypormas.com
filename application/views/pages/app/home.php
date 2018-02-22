@@ -50,7 +50,7 @@
                     <div class="todo-head">
                         <h3><span class="todo-grey">Eventos:</span> <span class="font-blue-madison"><?php echo $count ?></span></h3>
                         <div class="sort pull-right">
-                            <span class="label">Ordenar</span><select name="order" form="main_search" id="order_results" class="select">
+                            <select name="order" form="main_search" id="order_results" class="select">
                                 <option <?php echo $this->input->get('order') == 'nombre ASC' ? 'selected' : NULL ?> value="nombre ASC">Nombre</option>
                                 <option <?php echo $this->input->get('order') == 'tipo ASC' ? 'selected' : NULL ?> value="tipo ASC">Tipo</option>
                                 <option <?php echo $this->input->get('order') == 'fecha ASC' ? 'selected' : NULL ?> value="fecha ASC">Fecha</option>
