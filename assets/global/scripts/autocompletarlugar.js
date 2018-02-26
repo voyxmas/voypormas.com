@@ -9,8 +9,9 @@ $(document).ready(function(){
         
         var place = ubicacion.getPlace();
         var address_components = place.address_components;
-        
-        console.log(place);
+
+        // saco todos los valores para tener el formulario limpioo cuando reemplazo
+        $('[name=numero_casa],[name=calle],[name=ciudad],[name=departamento],[name=provincia],[name=pais]').val('');   
 
         for(i=0; i < address_components.length ;i++)
         {

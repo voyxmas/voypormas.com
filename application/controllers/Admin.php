@@ -336,6 +336,9 @@ class Admin extends My_Controller {
 	
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 
+			// load models
+			$this->load->model('caracteristicas_model');
+			$this->load->model('variantes_eventos_premios_model');
 			// cargar includes
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/components.min.css','head');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
@@ -460,24 +463,36 @@ class Admin extends My_Controller {
 
 			// tomar caracteristicas del evento
 			$attr['cond']['evento_id'] = $evento_id;
+			$attr['results'] = 1000;
 			$this->data['evento']['evento_caracteristicas'] = $this->eventos_caracteristicas_model->get($attr); unset($attr);
+
 			// tomar caracteristicas del sistema
-			$query['results'] = 1000;
-			$this->data['caracteristicas'] = $this->eventos_caracteristicas_model->get($query);
+			$attr['results'] = 1000;
+			$this->data['caracteristicas'] = $this->caracteristicas_model->get($attr);unset($attr);
+			
 				// lopear para ver que caracteristicas ya estan asignadas
-			foreach ($this->data['caracteristicas'] as $key => $caracteristica) {
+			foreach ($this->data['caracteristicas'] as $key => $caracteristica){
 				$this->data['caracteristicas'][$key]['estado'] = $this->searchMultiArray($this->data['evento']['evento_caracteristicas'],'caracteristica_id',$caracteristica['caracteristica_id']);
 			}
+			
 			// tomar variantes
 			$attr['cond']['evento_id'] = $evento_id;
+			$attr['results'] = 1000;
 			$this->data['evento']['evento_variantes'] = $this->variantes_eventos_model->get($attr); unset($attr);
 
-			// tomar precios de las variantes
+			// tomar precios y premios de las variantes
 			foreach ($this->data['evento']['evento_variantes'] as $variante_key => $variante) 
 			{
 				$attr['cond']['variante_evento_id'] = $variante['variante_evento_id'];
+				$attr['results'] = 1000;
 				$this->data['evento']['evento_variantes'][$variante_key]['montos'] = $this->variantes_eventos_precios_model->get($attr); unset($attr);
+
+				// tomo los premios
+				$query['cond']['variante_evento_id'] = $variante['variante_evento_id'];
+				$this->data['evento']['evento_variantes'][$variante_key]['premios'] = $this->variantes_eventos_premios_model->get($query); unset($query);
 			}
+
+			$this->data['debug'] = $this->data['evento'];
 			
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 			

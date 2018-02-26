@@ -24,22 +24,29 @@ $config['perm']['admin']['main']                        = TRUE;
   $config['perm']['admin']['events_agregar_tarifa']     = TRUE;
   $config['perm']['admin']['events_eliminar_tarifa']    = TRUE;
   $config['perm']['admin']['events_add_categoria_a_evento']     = TRUE;
+  $config['perm']['admin']['events_editar_variante']    = TRUE;
+  $config['perm']['admin']['events_nueva_variante']     = TRUE;
+  $config['perm']['admin']['events_eliminar_variante']  = TRUE;
+  $config['perm']['admin']['events_editar_premio']      = TRUE;
+  $config['perm']['admin']['events_eliminar_premio']    = TRUE;
+  $config['perm']['admin']['events_editar_precio']      = TRUE;
+  $config['perm']['admin']['events_eliminar_precio']    = TRUE;
   // caracteristicas
-  $config['perm']['admin']['caracteristicas_listar']             = TRUE;
-  $config['perm']['admin']['caracteristicas_nuevo']              = TRUE;
+  $config['perm']['admin']['caracteristicas_listar']    = TRUE;
+  $config['perm']['admin']['caracteristicas_nuevo']     = TRUE;
   // categorias
-  $config['perm']['admin']['categorias_listar']             = TRUE;
-  $config['perm']['admin']['categorias_nuevo']              = TRUE;
+  $config['perm']['admin']['categorias_listar']         = TRUE;
+  $config['perm']['admin']['categorias_nuevo']          = TRUE;
 
   // Settings
-  $config['perm']['admin']['settings_nuevo']              = TRUE;
-  $config['perm']['admin']['settings_listar']             = TRUE;
-  $config['perm']['admin']['settings_editar']              = TRUE;
-  $config['perm']['admin']['settings_borrar']              = TRUE;
-  $config['perm']['admin']['settings_groups_nuevo']       = TRUE;
-  $config['perm']['admin']['settings_groups_listar']      = TRUE;
-  $config['perm']['admin']['settings_groups_editar']       = TRUE;
-  $config['perm']['admin']['settings_groups_borrar']       = TRUE;
+  $config['perm']['admin']['settings_nuevo']            = TRUE;
+  $config['perm']['admin']['settings_listar']           = TRUE;
+  $config['perm']['admin']['settings_editar']           = TRUE;
+  $config['perm']['admin']['settings_borrar']           = TRUE;
+  $config['perm']['admin']['settings_groups_nuevo']     = TRUE;
+  $config['perm']['admin']['settings_groups_listar']    = TRUE;
+  $config['perm']['admin']['settings_groups_editar']    = TRUE;
+  $config['perm']['admin']['settings_groups_borrar']    = TRUE;
   
 // app
   // main

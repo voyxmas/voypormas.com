@@ -311,6 +311,15 @@ class Eventos_ajax extends My_Controller {
 		$attr['descripcion']		= $this->input->post('descripcion');
 		$attr['evento_tipo_id']		= $this->input->post('evento_tipo_id');
 		$attr['fecha']				= $this->input->post('fecha');
+		$attr['lugar']				= $this->input->post('lugar');
+		$attr['numero_casa']		= $this->input->post('numero_casa');
+		$attr['calle']				= $this->input->post('calle');
+		$attr['ciudad']				= $this->input->post('ciudad');
+		$attr['departamento']		= $this->input->post('departamento');
+		$attr['provincia']			= $this->input->post('provincia');
+		$attr['pais']				= $this->input->post('pais');
+		$attr['latitud']			= $this->input->post('latitud');
+		$attr['longitud']			= $this->input->post('longitud');
 		$attr['publicar_desde'] 	= $this->input->post('publicar_desde');
 		$attr['participantes_destacados'] = $this->input->post('participantes_destacados');
 		$attr['estado']				= $this->input->post('estado');
@@ -327,8 +336,6 @@ class Eventos_ajax extends My_Controller {
 				break;
 			
 			default:
-				$do_after['reload'] 		= 1;
-				$do_after['action_delay'] 	= 500;
 				$do_after['toastr'] 		= 'Evento editado';
 				$do_after['toastr_type'] 	= 'success';
 				break;
@@ -455,13 +462,15 @@ class Eventos_ajax extends My_Controller {
 
 	public function eliminar_variante($evento_variante_id)
 	{
-		if($precio_evento_id === NULL ) return FALSE;
+		if($evento_variante_id === NULL ) return FALSE;
 
 		$data['CURRENT_SECTION'] 	= 'admin';
-		$data['CURRENT_PAGE'] 		= 'events_eliminar_tarifa';
+		$data['CURRENT_PAGE'] 		= 'events_eliminar_variante';
 		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
-		if(!$respuesta) $e[] = 'No se pudo eliminar la tarifa'.$this->db->last_query();;
+		$respuesta = $this->variantes_eventos_model->delete($evento_variante_id);
+
+		if(!$respuesta) $e[] = 'No se pudo eliminar la variante';
 		
 		$data = array();
 		switch ($respuesta) {
@@ -472,13 +481,226 @@ class Eventos_ajax extends My_Controller {
 			
 			default:
 				$do_after['reload'] 		= 1;
-				$do_after['action_delay'] = 500;
-				$do_after['toastr'] 		= 'Tarifa eliminada correctamente';
+				$do_after['action_delay'] 	= 500;
+				$do_after['toastr'] 		= 'Variante eliminada correctamente';
 				$do_after['toastr_type'] 	= 'success';
 				break;
 		}
 		$this->ajax_response($data,$do_after);
 	}
+
+	public function editar_variante($evento_variante_id)
+	{
+		if($evento_variante_id === NULL ) return FALSE;
+
+		
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_editar_variante';
+
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$respuesta = $this->variantes_eventos_model->save($this->input->post(), $evento_variante_id);
+
+		if(!$respuesta) $e[] = 'No se pudo editar la variante';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Variante editada correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function editar_premio($premio_id = NULL)
+	{
+		if($premio_id === NULL) return FALSE;
+
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_editar_premio';
+
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$respuesta = $this->variantes_eventos_premios_model->save($this->input->post(), $premio_id);
+
+		if(!$respuesta) $e[] = 'No se pudo editar el premio';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Premio editado correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+	}
+	
+	public function nuevo_premio($variante_evento_id = NULL)
+	{
+		if(!$this->input->post() OR $variante_evento_id === NULL) return FALSE;
+
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_editar_premio';
+
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$save['premio'] = $this->input->post('premio');
+		$save['descripcion'] = $this->input->post('descripcion');
+		$save['variante_evento_id'] = $variante_evento_id;
+
+		$respuesta = $this->variantes_eventos_premios_model->save($save);
+
+		if(!$respuesta) $e[] = 'No se pudo crear el premio';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e).$this->db->last_query();
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Premio editado correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+	}
+
+	public function eliminar_premio($premio_id = NULL)
+	{
+		if($premio_id === NULL ) return FALSE;
+
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_eliminar_premio';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$respuesta = $this->variantes_eventos_premios_model->delete($premio_id);
+
+		if(!$respuesta) $e[] = 'No se pudo eliminar la premio';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] 	= 500;
+				$do_after['toastr'] 		= 'Premio eliminada correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function editar_precio($precio_id = NULL)
+	{
+		if($precio_id === NULL) return FALSE;
+
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_editar_precio';
+
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$respuesta = $this->variantes_eventos_precios_model->save($this->input->post(), $precio_id);
+
+		if(!$respuesta) $e[] = 'No se pudo editar la inscripcion';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Inripcion editada correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+	}
+
+	public function nuevo_precio($variante_evento_id = NULL)
+	{
+		if(!$this->input->post() OR $variante_evento_id === NULL) return FALSE;
+
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_editar_precio';
+
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$save['monto'] = $this->input->post('monto');
+		$save['fecha'] = $this->input->post('fecha');
+		$save['variante_evento_id'] = $variante_evento_id;
+
+		$respuesta = $this->variantes_eventos_precios_model->save($save);
+
+		if(!$respuesta) $e[] = 'No se pudo agregar la fecha de inscripcion';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e).$this->db->last_query();
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Fecha de inscripcion editada correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+	}
+
+	public function eliminar_precio($precio_id = NULL)
+	{
+		if($precio_id === NULL ) return FALSE;
+
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_eliminar_precio';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+		$respuesta = $this->variantes_eventos_precios_model->delete($precio_id);
+
+		if(!$respuesta) $e[] = 'No se pudo eliminar la precio';
+		
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] 	= 500;
+				$do_after['toastr'] 		= 'Precio eliminada correctamente';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	
 
 }
 ?>

@@ -262,7 +262,7 @@ class MY_Model extends CI_Model
         // si paso un solo id o un array de ids
         if(is_numeric($ids) OR isset($ids[0]))
         {
-            $where[][$this->primary_id] = $ids;
+            $where[$this->primary_id] = $ids;
         }
         elseif(is_array($ids))
         {

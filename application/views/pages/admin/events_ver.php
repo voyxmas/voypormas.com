@@ -47,30 +47,233 @@
 
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#tab_general" data-toggle="tab" aria-expanded="true"> General</a></li>
-                                        <li><a href="#tab_caracteristicas" data-toggle="tab" aria-expanded="false"> Caracteristicas </a></li>
+                                        <li><a href="#tab_variantes" data-toggle="tab" aria-expanded="false"> Variantes </a></li>
                                     </ul>
                                 </div>
                                 <div class="portlet-body">
                                     <div class="tab-content">
                                         <div id="tab_general" class="tab-pane active">
                                             <?php if(isset($form_general)) array2form($form_general) ?>
+                                            
+                                            <div class="caracteristicasLista row" >
+
+                                                <div class="col-sm-12">
+
+                                                    <div class="form-group " style="margin-top:30px;"><label class="control-label"><span>Caracteristicas</span></label>
+                                                        <div>
+                                                        <?php foreach ($caracteristicas AS $caracteristicasItem ) : ?>
+                                                        
+                                                            <?php if ($caracteristicasItem['estado'] !== FALSE )  : ?>
+                                                                
+                                                            <a href="<?php echo base_url().'ajax/caracteristicas_ajax/eliminar/'.$evento['evento_id'].'/'.$caracteristicasItem['caracteristica_id'] ?>" class="ajax_call btn btn-sm btn-info  col-xs-6 col-sm-4 col-md-3">
+                                                            <img src="<?php echo base_url().$caracteristicasItem['icono'] ?>"><br>
+                                                            <?php echo $caracteristicasItem['nombre'] ?></a>
+                                                            
+                                                            <?php else: ?>
+                                                            
+                                                            <a href="<?php echo base_url().'ajax/caracteristicas_ajax/asignar/'.$evento['evento_id'].'/'.$caracteristicasItem['caracteristica_id'] ?>" class="ajax_call btn btn-sm btn-default col-xs-6 col-sm-4 col-md-3">
+                                                            <img src="<?php echo base_url().$caracteristicasItem['icono'] ?>"><br>
+                                                            <?php echo $caracteristicasItem['nombre'] ?></a>
+                                                            
+                                                            <?php endif ?>
+
+                                                        <?php endforeach ?>  
+                                                        </div>
+                                                    </div>   
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div id="tab_caracteristicas" class="tab-pane">
-                                            <ul class="caracteristicasLista row" style="padding:0">
-                                                <?php foreach ($caracteristicas AS $caracteristicasItem ) : ?>
-                                                <li class="fitler-item col-xs-12 col-sm-6 col-md-12">
-                                                    <div style="border-bottom:1px solid #EEE; padding-bottom:15px;">
-                                                        <img src="<?php echo base_url().$caracteristicasItem['caracteristica_icono'] ?>"> 
-                                                        <?php echo $caracteristicasItem['caracteristica_nombre'] ?>
-                                                        <?php if ($caracteristicasItem['estado'] !== FALSE )  : ?>
-                                                            <a href="<?php echo base_url().'ajax/caracteristicas_ajax/eliminar/'.$evento['evento_id'].'/'.$caracteristicasItem['caracteristica_id'] ?>" class="ajax_call btn btn-sm btn-danger pull-right">Quitar</a>
-                                                        <?php else: ?>
-                                                        <a href="<?php echo base_url().'ajax/caracteristicas_ajax/asignar/'.$evento['evento_id'].'/'.$caracteristicasItem['caracteristica_id'] ?>" class="ajax_call btn btn-sm btn-info pull-right">Asignar</a>
-                                                        <?php endif ?>
+                                        <div id="tab_variantes" class="tab-pane">
+                                            <div class="panel-group accordion scrollable" id="accordion2">
+                                            <?php foreach ($evento['evento_variantes'] AS $key => $varianteItem ) : ?>
+
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#variante<?php echo $key?>"><?php echo $varianteItem['distancia'] ?>Kms </a>
+                                                        </h4>
                                                     </div>
-                                                </li>
-                                                <?php endforeach ?>     
-                                            </ul>
+                                                    <div id="variante<?php echo $key?>" class="panel-collapse collapse">
+                                                        <div class="panel-body ">
+                                                            
+                                                            <form 
+                                                                action="<?php echo base_url() ?>ajax/eventos_ajax/editar_variante/<?php echo $varianteItem['variante_evento_id'] ?>"
+                                                                class="ajax_call"
+                                                                method="post"
+                                                                >
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>Distancia</span>
+                                                                    </label>
+                                                                    <input name="distancia" class="form-control input-group-z-element distancia z_tooltip" type="text" value="<?php echo $varianteItem['distancia'] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>Lugar de largada</span>
+                                                                    </label>
+                                                                    <input name="lugar_largada" class="form-control input-group-z-element lugar_largada z_tooltip" type="text" value="<?php echo $varianteItem['lugar_largada'] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>Elementos</span>
+                                                                    </label>
+                                                                    <input name="info" class="form-control input-group-z-element info z_tooltip" type="text" value="<?php echo $varianteItem['info'] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>Hora</span>
+                                                                    </label>
+                                                                    <input name="fechahora" class="form-control input-group-z-element fechahora z_tooltip" type="text" value="<?php echo $varianteItem['fechahora'] ?>">
+                                                                </div>
+                                                                <button class="btn btn-info" type="submit">Guardar Cambios</button>
+                                                            </form>
+                                                            <h2>Premios</h2>
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Pocision</th>
+                                                                        <th>Premio</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input 
+                                                                                form="premio_<?php echo $premio['variante_evento_premio_id'] ?>"
+                                                                                name="descripcion"
+                                                                                class="form-control input-group-z-element"
+                                                                                type="text"
+                                                                                value="<?php echo $premio['descripcion'] ?>">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input
+                                                                                form="premio_<?php echo $premio['variante_evento_premio_id'] ?>"
+                                                                                name="premio"
+                                                                                class="form-control input-group-z-element"
+                                                                                type="text"
+                                                                                value="<?php echo $premio['premio'] ?>">
+                                                                        </td>
+                                                                        <td>
+                                                                            <form 
+                                                                                id="premio_<?php echo $premio['variante_evento_premio_id'] ?>"
+                                                                                action="<?php echo base_url() ?>ajax/eventos_ajax/editar_premio/<?php echo $premio['variante_evento_premio_id'] ?>"
+                                                                                method="post"
+                                                                                class="ajax_call">
+                                                                                <button type="submit" class="btn btn-info">Actualizar</button>
+                                                                                <a 
+                                                                                    href="<?php echo base_url() ?>ajax/eventos_ajax/eliminar_premio/<?php echo $premio['variante_evento_premio_id'] ?>"
+                                                                                    class="btn btn-danger ajax_call">Eliminar</a>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <?php endforeach ?>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input 
+                                                                                name="descripcion"
+                                                                                form="premionew_<?php echo $varianteItem['variante_evento_id'] ?>" 
+                                                                                type="text"
+                                                                                class="form-control input-group-z-element">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input
+                                                                                name="premio"
+                                                                                form="premionew_<?php echo $varianteItem['variante_evento_id'] ?>"
+                                                                                type="text"
+                                                                                class="form-control input-group-z-element">
+                                                                        </td>
+                                                                        <td>
+                                                                            <form 
+                                                                                action="<?php echo base_url() ?>ajax/eventos_ajax/nuevo_premio/<?php echo $varianteItem['variante_evento_id'] ?>"
+                                                                                id="premionew_<?php echo $varianteItem['variante_evento_id'] ?>" 
+                                                                                class="ajax_call" 
+                                                                                method="post">
+                                                                                <button type="submit" class="btn btn-info">Nuevo</button>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+
+                                                            <h2>Incripcion</h2>
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Fecha</th>
+                                                                        <th>Monto</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php foreach ($varianteItem['montos'] AS $monto ) : ?>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input 
+                                                                                form="precio_<?php echo $monto['variante_evento_precio_id'] ?>" 
+                                                                                type="date"
+                                                                                name="fecha"
+                                                                                class="form-control input-group-z-element"
+                                                                                value="<?php echo cstm_get_date($monto['fecha'], SYS_DATE_FORMAT) ?>">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input
+                                                                                form="precio_<?php echo $monto['variante_evento_precio_id'] ?>" 
+                                                                                type="number"
+                                                                                name="monto"
+                                                                                class="form-control input-group-z-element"
+                                                                                value="<?php echo $monto['monto'] ?>">
+                                                                        </td>
+                                                                        <td>
+                                                                            <form 
+                                                                                id="precio_<?php echo $monto['variante_evento_precio_id'] ?>"
+                                                                                action="<?php echo base_url() ?>ajax/eventos_ajax/editar_precio/<?php echo $monto['variante_evento_precio_id'] ?>"
+                                                                                method="post"
+                                                                                class="ajax_call">
+                                                                                <button type="submit" class="btn btn-info">Actualizar</button>
+                                                                                <a 
+                                                                                    class="btn btn-danger ajax_call"
+                                                                                    href="<?php echo base_url() ?>ajax/eventos_ajax/eliminar_precio/<?php echo $monto['variante_evento_precio_id'] ?>">Eliminar</a>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <?php endforeach ?>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input 
+                                                                                form="precionew_<?php echo $varianteItem['variante_evento_id'] ?>" 
+                                                                                type="date"
+                                                                                class="form-control input-group-z-element"
+                                                                                name="fecha">
+                                                                        </td>
+                                                                        <td>
+                                                                            <input
+                                                                                name="monto"
+                                                                                class="form-control input-group-z-element"
+                                                                                form="precionew_<?php echo $varianteItem['variante_evento_id'] ?>"
+                                                                                type="text">
+                                                                        </td>
+                                                                        <td>
+                                                                            <form 
+                                                                                action="<?php echo base_url() ?>ajax/eventos_ajax/nuevo_precio/<?php echo $varianteItem['variante_evento_id'] ?>"
+                                                                                id="precionew_<?php echo $varianteItem['variante_evento_id'] ?>" 
+                                                                                class="ajax_call" 
+                                                                                method="post">
+                                                                                <button type="submit" class="btn btn-info">Nuevo</button>
+                                                                            </form>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <?php endforeach ?>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
