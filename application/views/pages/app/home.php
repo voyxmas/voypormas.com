@@ -59,19 +59,16 @@
                                 <option <?php echo $this->input->get('order') == 'precio ASC' ? 'selected' : NULL ?> value="precio ASC">Precio</option>
                             </select><button type="submit" form="main_search" class="btn btn-outline-secondary" type="button">Ordenar</button>
                         </div>
-                        <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar mi evento</a>
+                        <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
                     </div>
                     <ul class="todo-tasks-content alternatefill">
                         <?php foreach($eventos as $evento_id => $evento) : ?>
-                        <li class="todo-tasks-item">
+                        <li class="todo-tasks-item evento-item">
                             <h4 class="todo-inline">
-                                <a data-toggle="modal" href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>"><?php echo $evento['nombre'] ?></a>
+                                <a class="ajax_modal" href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal"><?php echo $evento['nombre'] ?></a>
                             </h4>
-                            <p class="todo-inline todo-float-r font-blue-madison"><?php /*echo $evento['ubicacion']*/ ?>
-                                <span class=""><?php echo $evento['fecha'] ?></span>
-                            </p>
                             <div>
-                                <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km
+                                <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km - <?php echo $evento['fecha'] ?>
                             </div>
                             <div class="caracteristicasLista" >
                                 <?php foreach ($evento['caracteristicas'] AS $caracteristicasItem ) : ?>
@@ -89,4 +86,3 @@
         </div>
     </div>
 </div>
-

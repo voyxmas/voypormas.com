@@ -168,3 +168,10 @@ body {
 .at-icon-wrapper:not(:hover) svg {
   fill: #AAA !important;
 }
+
+/* modal evento */
+.ajax_modal > .modal-dialog > .modal-content {
+  background: #333;
+  color: #fff;
+  text-align: center;
+}

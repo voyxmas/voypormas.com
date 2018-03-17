@@ -17,7 +17,21 @@
 .todo-tasks-content.alternatefill > .todo-tasks-item:nth-child(2n) {
     /* background: #F5F5F5;*/
 }
-
+.evento-item {
+    background: #333;
+    padding: 10px !important;
+}
+.evento-item > h4 > a {
+    color: #FFF !important;
+    text-transform: uppercase;
+}
+.evento-item > div {
+    color: #FFF;
+    font-size: 12px;
+} 
+.evento-item > .caracteristicasLista {
+    margin-top: 5px;
+}
 .todo-container .todo-head {
     overflow: auto;
 }
@@ -25,6 +39,45 @@
 body > div > .portlet.light > .portlet-body {
     margin-top: 60px;
 }
+input.form-control,
+select.form-control,
+textarea.form-control,
+.bootstrap-select.form-control button {
+    background-color: #333 !important;
+    border: none;
+    color:#FFF;
+}
+.dropdown-menu.open,
+.dropdown-menu.inner {
+    background: #222;
+    color:#FFF;
+}
+.dropdown-menu>li.active:hover>a, .dropdown-menu>li.active>a, .dropdown-menu>li:hover>a{
+    background: #444;
+    color: #FFF;
+}
+.dropdown-menu>li>a {
+    color: #CCC;
+}
+.noUi-horizontal .noUi-handle {
+    width: 28px;
+    height: 28px;
+    left: -14px;
+    top: -6px;
+    border-radius: 14px !important;
+    border: none;
+    background: #333;
+    box-shadow: initial;
+}
+.noUi-horizontal .noUi-handle:after,
+.noUi-horizontal .noUi-handle:before {
+    display: none;
+}
+.noUi-connect {
+    background: #F1C40F;
+    box-shadow: initial;
+}
+
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
 }
@@ -35,7 +88,9 @@ body > div > .portlet.light > .portlet-body {
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
-
+    .hidden-md-up {
+        display: none;
+    }
 }
 
 /* Medium Devices, Desktops */
@@ -63,7 +118,8 @@ body > div > .portlet.light > .portlet-body {
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
-    
+    .hidden-md-down { display: none;}
+    #filtros {display: none}
 }
 
 /* Extra Small Devices, Phones */ 

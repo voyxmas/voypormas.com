@@ -101,13 +101,14 @@ class App extends My_Controller {
 		// paginacion
 		if($this->input->get('p'))
 			$attr['page'] = $this->input->get('p');
-
-		$this->data['eventos'] = $this->eventos_model->get($attr); unset($attr);
+		$query = $this->eventos_model->get($attr); unset($attr);
+		$this->data['eventos'] = $query ? $query : array() ;
 
 		// set filters holder
 		$this->data['filters']['caracteristicas'] = array();
 
 		// tomar las caracterisicas
+		if($this->data['eventos'])
 		foreach ($this->data['eventos'] as $key => $evento) 
 		{
 			// get caracteristicas del evento
@@ -454,7 +455,7 @@ class App extends My_Controller {
 		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
 	}
 
-	public function evento($evento_id)
+	public function evento($evento_id, $modal = 1)
 	{
 		$this->data['CURRENT_SECTION'] = 'app';
 		$this->data['CURRENT_PAGE'] = 'evento';
@@ -531,7 +532,12 @@ class App extends My_Controller {
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
 
-		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
+		// veo se cargo el evento en su pagina o como modal
+		if ($modal == 'modal')
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'].'_modal', $this->data, FALSE);
+		else
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'], $this->data, 'app/general');
+
 	}
 
 	private function getmaxmin($array, $key = NULL)

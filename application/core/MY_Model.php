@@ -160,7 +160,7 @@ class MY_Model extends CI_Model
         $paginacion = $this->db->query('SELECT FOUND_ROWS() total_items')->result_array();
 
         
-        if ($result->num_rows() > 0)
+        if ($result AND $result->num_rows() > 0)
         {
             $result = $result->result_array();
             foreach ($result as $key => $value) 

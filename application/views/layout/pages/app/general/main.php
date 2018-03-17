@@ -4,6 +4,11 @@
     <meta charset="utf-8">
     <?php echo $this->layouts->print_tags(); ?>
 
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/bootstrap.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/wNumb.js" type="text/javascript"></script>
+
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/open-sans.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/css/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -29,10 +34,7 @@
 
     <?php echo $content ?>
            
-    <!-- BEGIN CORE PLUGINS -->
-    <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/jquery.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/bootstrap.min.js" type="text/javascript"></script>
-    <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/scripts/wNumb.js" type="text/javascript"></script>
+    
     <!-- END CORE PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/plugins/scripts/nouislider.min.js" type="text/javascript"></script>
