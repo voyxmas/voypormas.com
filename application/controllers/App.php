@@ -370,7 +370,7 @@ class App extends My_Controller {
 				'name' 			=> 'lugar',
 				'type' 			=> 'text',
 				'required'		=> TRUE,
-				'class' 		=> 'col-md-6 col-lg-4 no-gutters first'				
+				'class' 		=> 'col-md-4 no-gutters first'				
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -419,7 +419,7 @@ class App extends My_Controller {
 				'label' 		=> 'Fecha del evento',
 				'type' 			=> 'date',
 				'required'		=> TRUE,
-				'class' 		=> 'col-md-6 col-lg-4 no-gutters'
+				'class' 		=> 'col-md-4 no-gutters'
 				
 			);
 			
@@ -429,7 +429,7 @@ class App extends My_Controller {
 				'type' 			=> 'date',
 				'required'		=> TRUE,
 				'value' 		=> date(SYS_DATE_FORMAT),
-				'class' 		=> 'col-md-6 col-lg-4 no-gutters last'
+				'class' 		=> 'col-md-4 no-gutters last'
 			);
 
 

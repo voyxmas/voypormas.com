@@ -47,7 +47,7 @@ class Organizadores_ajax extends My_Controller {
                 $check['cond']['email'] = $this->input->post('email');
                 $check['select'][] = 'email';
                 $check['select'][] = 'nombre';
-                $check['select'][] = 'organizador_id';
+                $check['select'][] = 'organizacion_id';
                 $emailcheck = $this->organizaciones_model->get($check); unset($check);
                 if (empty($emailcheck)) 
                 {
@@ -176,8 +176,8 @@ class Organizadores_ajax extends My_Controller {
 
             $do_after['toastr'] 		= 'Perfil actualizado';
 			$do_after['toastr_type'] 	= 'success';
-			// delete $do_after['action_delay'] 	= 500;
-            // delete $do_after['reload']         = TRUE;
+			$do_after['action_delay'] 	= 500;
+            $do_after['reload']         = TRUE;
         }
         else
         {

@@ -1,8 +1,15 @@
 <?php if ($estado == 0 AND $organizador_id == $this->session->organizador['organizacion_id'] ) : ?>
-            <div id="noAprobadoAlert" class="alert alert-warning">
-                Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión.
-            </div><!-- Close div#noAprobadoAlert -->
-            <?php endif ?>
+    <?php if ( !$activo ) : ?>
+        <div id="noAprobadoAlert" class="alert alert-danger">
+            <strong>Recuerda que debes validar tu email para publicar con nosotros</strong>
+            <p>Te enviamos un email a <?php echo $organizacion_email ?> con instrucciones para hacerlo.</p> 
+        </div><!-- Close div#noAprobadoAlert -->
+    <?php endif ?>
+    <div id="noAprobadoAlert" class="alert alert-warning">
+        Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión.
+    </div><!-- Close div#noAprobadoAlert -->
+<?php endif ?>
+
 <div class="container">
 	<?php if ($estado != 2 ) : ?>
         <?php if ($estado == 1 || ($estado == 0 AND $organizador_id == $this->session->organizador['organizacion_id'] ))     : ?>
