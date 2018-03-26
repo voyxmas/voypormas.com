@@ -1,17 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// si CI llama a una clase, se fija en libraries si existe y la carga automaticamente
-function __autoload ($class)
-{
-    $file = APPPATH . 'libraries/' . $class . EXT;
-    if (strpos($class, 'CI_') !== 0) {
-        if (file_exists($file) && is_file($file)) {
-            @include_once (APPPATH . 'libraries/' . $class . '.php');
-        }
-    }
-}
-
 switch ($_SERVER['SERVER_NAME']) 
 {
 	case LOCAL_DOMAIN:
