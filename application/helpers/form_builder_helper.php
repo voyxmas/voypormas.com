@@ -323,7 +323,7 @@ function echo_input($input,$group = FALSE)
           foreach ($input["options"] as $value => $text) 
           {
             $selected = $value == $input['value'] ? 'checked' : NULL;
-            echo '<label class="'.$input["type"].'-inline">';
+            echo '<label class="'.$input["type"].'-inline '.$input["class"].'">';
             echo '<input '.$title.' '.$input["required"].' '.$selected.' type="'.$input['type'].'" name="'.$input['name'].'" value="'.$value.'"> '.$text;
             echo '</label>';
           }

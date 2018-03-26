@@ -3,48 +3,26 @@
         <div class="portlet-title tabbable-line">
             <?php $this->load->view('bloques/logo.php'); ?>
         </div>
+
+        <!-- if not loged in asks for email and pass -->
+        <!-- else if profile not complete show form to compelte profile -->
+        <!-- else (if logged and profile complete) show add event form -->
         
-        <?php if ($organizador_is_logged_in ) : ?>
-
         <div class="portlet-body">
             <div class="todo-container">
-                <div class="todo-head">
-                    <h3><span class="todo-grey">Datos del organizador:</span> <span class="font-blue-madison"></span></h3>
-                </div>
-                <div class="todo-body">
-                    <?php $this->load->view('bloques/perfil/card_01.php',$organizador) ?>
-                </div>
+            <?php if (!$organizador_is_logged_in ) : // si no esta logueado muestro el formulario de logueo ?>
+                <?php $this->load->view('bloques/perfil/login',array('form_organizador'=>$form_organizador)) ?>            
+            <?php elseif (!$profile_ok) : // si esta logueado y el perfil no esta completo, pido los datos del perfil ?>
+                <?php $this->load->view('bloques/perfil/card_01',$organizador) ?>            
+                <?php $this->load->view('bloques/perfil/organizador_add',array('form_organizador'=>$form_organizador_details)) ?>            
+            <?php else : // si esta logueado y el perfil de organizador esta completo, pido los datos del evento ?>
+                <?php $this->load->view('bloques/perfil/card_01',$organizador) ?>            
+                <?php $this->load->view('bloques/evento/evento_add',array('form_evento'=>$form_evento)) ?>            
+            <?php endif ?>
+
             </div>
         </div>
 
-        <div class="portlet-body">
-            <div class="todo-container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="todo-head">
-                            <h3><span class="todo-grey">Cargar un evento nuevo:</span> <span class="font-blue-madison"></span></h3>
-                        </div>
-                        <div id="formContainer" >
-                            <?php array2form($form_evento) ?>
-                        </div><!-- Close div#formContainer -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <?php else: ?>
-
-        <div class="portlet-body">
-            <div class="todo-container">
-                <div class="todo-head">
-                    <h3><span class="todo-grey">Datos del organizador:</span> <span class="font-blue-madison"></span></h3>
-                </div>
-                <div id="formContainer" >
-                    <?php array2form($form_organizador) ?>
-                </div><!-- Close div#formContainer -->
-            </div>
-        </div>
-        <?php endif ?>
     </div>
 </div>
 

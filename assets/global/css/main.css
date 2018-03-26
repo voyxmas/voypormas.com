@@ -8,7 +8,6 @@
     .input-group-z {
       display: table;
       width: 100%;
-      margin-bottom: 3px;
     }
     .input-group-z > input,
     .input-group-z > label
@@ -32,8 +31,12 @@
       max-height: 45px;
       margin-top: 10px;
     }
+    .input-group-z-element { 
+      margin-bottom: 3px;
+    }
     .input-group-z {
       margin-bottom: 10px;
+      display: block;
     }
     .input-group-z > label,
     .input-group-z > input {
@@ -174,4 +177,25 @@ body {
   background: #333;
   color: #fff;
   text-align: center;
+}
+
+/* muteo label del form */
+.label-text-black-regular > label > span {
+  font-weight: normal;
+  color: #000000;
+}
+
+/* dejo espacio para los checkboxes y radio buttons */
+.control-label + .radio-inline {
+  margin-left: 10px;
+}
+
+/* helper classes */
+.no-background {
+  background: none !important;
+}
+
+.dark-background {
+  background: #333 !important;
+  color: #CCC;
 }

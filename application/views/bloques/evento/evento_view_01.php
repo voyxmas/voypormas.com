@@ -1,11 +1,11 @@
-<?php if ($estado == 0 AND $organizador_id == $this->session->organizador['organizador_id'] ) : ?>
+<?php if ($estado == 0 AND $organizador_id == $this->session->organizador['organizacion_id'] ) : ?>
             <div id="noAprobadoAlert" class="alert alert-warning">
                 Este evento aún no se ha aprobado, sólamente vos podés ver esta publicación mientras esté en revisión.
             </div><!-- Close div#noAprobadoAlert -->
             <?php endif ?>
 <div class="container">
 	<?php if ($estado != 2 ) : ?>
-        <?php if ($estado == 1 || ($estado == 0 AND $organizador_id == $this->session->organizador['organizador_id'] ))     : ?>
+        <?php if ($estado == 1 || ($estado == 0 AND $organizador_id == $this->session->organizador['organizacion_id'] ))     : ?>
         <div class="row">
             <h2 id="titulo" >
                 <?php echo $nombre ?>

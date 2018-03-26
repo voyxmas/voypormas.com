@@ -166,7 +166,6 @@ class App extends My_Controller {
 		
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/nuevo.js','foot');
 
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
@@ -174,8 +173,130 @@ class App extends My_Controller {
 		// definir si el organizador esta logueado
 		if(isset($this->session->organizador))
 		{
-			$this->data['organizador_is_logged_in'] = (bool)$this->session->organizador;
+			$this->data['organizador_is_logged_in'] = TRUE;
 			$this->data['organizador'] = $this->session->organizador;
+			
+
+			// veo si el perfil esta completo
+			if (
+				!empty($this->data['organizador']['nombre'])
+				AND !empty($this->data['organizador']['tel'])
+				AND !empty($this->data['organizador']['email'])
+			) // compruebo que tenga la informacion necesaria
+			{
+				$this->data['profile_ok'] = TRUE;
+			}
+			else
+			{
+				$this->data['profile_ok'] = FALSE;
+				$this->data['form_organizador_details']['action'] = base_url().'ajax/organizadores_ajax/add_profile';
+				$this->data['form_organizador_details']['ajax_call'] = 1;
+				// inputs
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'organizador_id',
+					'type' 			=> 'hidden',
+					'value'			=> $this->data['organizador']['organizacion_id']					
+				);
+
+				$this->data['debug'] = $this->data['organizador'];
+
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'nombre',
+					'placeholder' 	=> 'Nombre de la organización',
+					'required'		=> TRUE				
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'tel',
+					'placeholder' 	=> 'Telefono',
+					'required'		=> TRUE				
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'tel_public',
+					'label'			=> 'Mostrar el telefono en el perfil?',
+					'class'			=> 'label-text-black-regular',
+					'type'			=> 'radio',
+					'options'		=> array(
+						1 => 'Publico',
+						0 => 'Privado'
+
+					)				
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'email',
+					'value'			=> $this->session->organizador['email'],
+					'placeholder' 	=> 'Email',
+					'type'			=> 'email',
+					'required'		=> TRUE				
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'email_public',
+					'label'			=> 'Mostrar el email en el perfil?',
+					'class'			=> 'label-text-black-regular',
+					'type'			=> 'radio',
+					'options'		=> array(
+						1 => 'Publico',
+						0 => 'Privado'
+
+					)				
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'provincia',
+					'placeholder' 	=> 'Provincia'
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'ciudad',
+					'placeholder' 	=> 'Ciudad'
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'org_web',
+					'placeholder' 	=> 'webpage',
+					'add_one_more' 	=> TRUE,			
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'inicio_actividades',
+					'placeholder' 	=> 'inicio de actividades',
+					'type'			=> 'date'	
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'label' 		=> 'Representantes',
+					'add_one_more' 	=> TRUE,
+					'group' 		=> array(
+						array(
+							'name' 			=> 'rep_nombre[]',
+							'label' 		=> 'Nombre'
+						),
+						array(
+							'name' 			=> 'rep_tel[]',
+							'label' 		=> 'Telefono'
+						),
+						array(
+							'name' 			=> 'rep_email[]',
+							'label' 		=> 'Email',
+							'type' 			=> 'email'
+						),
+						array(
+							'name' 			=> 'publico_ignore[]',
+							'type'			=> 'checkbox',
+							'value'			=> 1,
+							'class'			=> 'toggle-publico',
+							'options'		=> array(1=>'Publico')
+						),
+						array(
+							'name' 			=> 'rep_publico[]',
+							'value'			=> 1,
+							'type'			=> 'hidden'
+						),
+					)
+				);
+				$this->data['form_organizador_details']['inputs'][] = array(
+					'name' 			=> 'org_social_link[]',
+					'placeholder' 	=> 'Link a red social',
+					'label' 		=> 'Perfil de redes sociales (Facebook, Google+, Twitter, etc)',
+					'add_one_more' 	=> TRUE,			
+				);
+
+			}
+
 		}
 		else
 		{
@@ -187,40 +308,40 @@ class App extends My_Controller {
 		
 		// organizador
 			// tomar los datos para el login o para crear un organizador nuevo
-		$this->data['form_organizador']['action'] = base_url().'ajax/organizadores_ajax/identify';
-		$this->data['form_organizador']['ajax_call'] = 1;
-		// inputs
-		$this->data['form_organizador']['inputs'][] = array(
-			'name' 			=> 'email',
-			'placeholder' 	=> 'Email',
-			'label' 		=> 'Email',
-			'class' 		=> 'col-md-6 col-lg-4 no-gutters first',
-			'required'		=> TRUE,			
-			'help'			=> 'Direccion de correo electrónico a la que tengas acceso para verificar la publicación.'					
-		);
+			$this->data['form_organizador']['action'] = base_url().'ajax/organizadores_ajax/identify';
+			$this->data['form_organizador']['ajax_call'] = 1;
+			// inputs
+			$this->data['form_organizador']['inputs'][] = array(
+				'name' 			=> 'email',
+				'placeholder' 	=> 'Email',
+				'label' 		=> 'Email',
+				'class' 		=> 'col-md-6 col-lg-4 no-gutters first',
+				'required'		=> TRUE,			
+				'help'			=> 'Direccion de correo electrónico a la que tengas acceso para verificar la publicación.'					
+			);
 
-		$this->data['form_organizador']['inputs'][] = array(
-			'name' 			=> 'password',
-			'placeholder' 	=> 'Contraseña',
-			'label' 		=> 'Contraseña',
-			'type' 			=> 'password',
-			'required'		=> TRUE,
-			'class' 		=> 'col-md-6 col-lg-4 no-gutters',
-			'help'			=> 'Eleje una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
-		);
+			$this->data['form_organizador']['inputs'][] = array(
+				'name' 			=> 'password',
+				'placeholder' 	=> 'Contraseña',
+				'label' 		=> 'Contraseña',
+				'type' 			=> 'password',
+				'required'		=> TRUE,
+				'class' 		=> 'col-md-6 col-lg-4 no-gutters',
+				'help'			=> 'Eleje una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
+			);
 
-		/*
-		$this->data['form_organizador']['inputs'][] = array(
-			'type'			=> 'a',
-			'placeholder'	=> 'Recuperar contraseña',
-			'style'			=> 'margin:0 !important',
-			'class' 		=> 'col-md-6 col-lg-4 no-gutters last',
-			'label' 		=> '¿Olvidaste tu contraseña?',
-			'help'			=> 'Si ya te registraste y no recuerdas tu contraseña, puedes recuperarla haciendo click aqui.',
-			'attr'			=> array('href'=>base_url().'ajax/organizadores/recuperar'),
-			'ajax_call' 	=> 1
-		);
-		*/
+			/*
+			$this->data['form_organizador']['inputs'][] = array(
+				'type'			=> 'a',
+				'placeholder'	=> 'Recuperar contraseña',
+				'style'			=> 'margin:0 !important',
+				'class' 		=> 'col-md-6 col-lg-4 no-gutters last',
+				'label' 		=> '¿Olvidaste tu contraseña?',
+				'help'			=> 'Si ya te registraste y no recuerdas tu contraseña, puedes recuperarla haciendo click aqui.',
+				'attr'			=> array('href'=>base_url().'ajax/organizadores/recuperar'),
+				'ajax_call' 	=> 1
+			);
+			*/
 
 		// definir el formulario del evento
 			$this->data['form_evento']['action'] = base_url().'ajax/eventos_ajax/nuevo';
@@ -232,15 +353,9 @@ class App extends My_Controller {
 				$this->data['form_evento']['inputs'][] = array(
 					'name' 			=> 'organizador_id',
 					'type' 			=> 'hidden',
-					'value'			=> $this->data['organizador']['organizador_id']					
+					'value'			=> $this->session->organizador['organizacion_id']					
 				);
 			}
-				//defino el estado del evento como borraor
-			$this->data['form_evento']['inputs'][] = array(
-				'name' 			=> 'estado',
-				'type' 			=> 'hidden',
-				'value'			=> 0					
-			);
 
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'nombre',
