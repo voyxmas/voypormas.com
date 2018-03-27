@@ -32,3 +32,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /node_modules/*
 ## ignorar el directorio de uploads
 /assets/uploads/*
+## ignorar el directorio de emails
+/assets/emails/*

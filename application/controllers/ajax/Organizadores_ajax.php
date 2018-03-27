@@ -22,9 +22,6 @@ class Organizadores_ajax extends My_Controller {
 		// preparar las variables del input
 		$check['cond']['password']  = md5($this->input->post('password'));
 		$check['cond']['email']     = $this->input->post('email');
-        $check['select'][] = 'organizacion_id';
-        $check['select'][] = 'email';
-        $check['select'][] = 'nombre';
 
         // ve si se enviaron todos los datos
         if(!empty($this->input->post('email')) AND !empty($this->input->post('password')))
@@ -59,8 +56,7 @@ class Organizadores_ajax extends My_Controller {
                     if(!empty($newaccount))
                     {
                         // tomo el id del registro generado
-                        $newaccounttosession['organizador'] = $save;
-                        $newaccounttosession['organizador']['organizador_id'] = $newaccount;
+                        $newaccounttosession['organizador'] = $this->organizaciones_model->get($newaccount)[0];
 
                         // si se pudo generar el organizador lo logueo - signup
                         $this->session->set_userdata($newaccounttosession);
@@ -155,7 +151,7 @@ class Organizadores_ajax extends My_Controller {
         // intentar grabar los datos de la organizacion
         if(empty($e))
         {
-            if(!$this->organizaciones_model->save($save_org, 1))
+            if(!$this->organizaciones_model->save($save_org, $this->session->organizador['organizacion_id']))
                 $e[] = 'No se pudo actualizador el perfil de la organiación';
         }
         
@@ -171,13 +167,12 @@ class Organizadores_ajax extends My_Controller {
         if(empty($e))
         {
             // actualizo la session y preparo la respuesta
-
             $this->session->organizador = array_merge($this->session->organizador,$save_org);
 
             $do_after['toastr'] 		= 'Perfil actualizado';
 			$do_after['toastr_type'] 	= 'success';
-			$do_after['action_delay'] 	= 500;
-            $do_after['reload']         = TRUE;
+			//$do_after['action_delay'] 	= 500;
+            //$do_after['reload']         = TRUE;
         }
         else
         {

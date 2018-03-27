@@ -2,7 +2,7 @@
     <?php if ( !$activo ) : ?>
         <div id="noAprobadoAlert" class="alert alert-danger">
             <strong>Recuerda que debes validar tu email para publicar con nosotros</strong>
-            <p>Te enviamos un email a <?php echo $organizacion_email ?> con instrucciones para hacerlo.</p> 
+            <p>Te enviamos un email a <?php echo $organizacion_email ?> con las instrucciones para hacerlo.</p> 
         </div><!-- Close div#noAprobadoAlert -->
     <?php endif ?>
     <div id="noAprobadoAlert" class="alert alert-warning">

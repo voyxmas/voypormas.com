@@ -206,39 +206,46 @@ class App extends My_Controller {
 					'required'		=> TRUE				
 				);
 				$this->data['form_organizador_details']['inputs'][] = array(
-					'name' 			=> 'tel',
-					'placeholder' 	=> 'Telefono',
-					'required'		=> TRUE				
-				);
-				$this->data['form_organizador_details']['inputs'][] = array(
-					'name' 			=> 'tel_public',
-					'label'			=> 'Mostrar el telefono en el perfil?',
-					'class'			=> 'label-text-black-regular',
-					'type'			=> 'radio',
-					'options'		=> array(
-						1 => 'Publico',
-						0 => 'Privado'
 
-					)				
+					'group'		=> 	array(
+						array(
+							'name' 			=> 'tel',
+							'placeholder' 	=> 'Telefono',
+							'required'		=> TRUE,
+						),
+						array(
+							'name' 			=> 'tel_public',
+							'class'			=> 'label-text-black-regular',
+							'type'			=> 'radio',
+							'options'		=> array(
+								1 => 'Publico',
+								0 => 'Privado'
+		
+							)
+						)			
+					)
 				);
 				$this->data['form_organizador_details']['inputs'][] = array(
-					'name' 			=> 'email',
-					'value'			=> $this->session->organizador['email'],
-					'placeholder' 	=> 'Email',
-					'type'			=> 'email',
-					'required'		=> TRUE				
+					'group'			=> array(
+						array(
+							'name' 			=> 'email',
+							'value'			=> $this->session->organizador['email'],
+							'placeholder' 	=> 'Email',
+							'type'			=> 'email',
+							'required'		=> TRUE),
+						array(
+							'name' 			=> 'email_public',
+							'class'			=> 'label-text-black-regular',
+							'type'			=> 'radio',
+							'options'		=> array(
+								1 => 'Publico',
+								0 => 'Privado'
+		
+							)	
+						)			
+					)	
 				);
-				$this->data['form_organizador_details']['inputs'][] = array(
-					'name' 			=> 'email_public',
-					'label'			=> 'Mostrar el email en el perfil?',
-					'class'			=> 'label-text-black-regular',
-					'type'			=> 'radio',
-					'options'		=> array(
-						1 => 'Publico',
-						0 => 'Privado'
 
-					)				
-				);
 				$this->data['form_organizador_details']['inputs'][] = array(
 					'name' 			=> 'provincia',
 					'placeholder' 	=> 'Provincia'
@@ -263,15 +270,18 @@ class App extends My_Controller {
 					'group' 		=> array(
 						array(
 							'name' 			=> 'rep_nombre[]',
-							'label' 		=> 'Nombre'
+							'label'			=> '',
+							'placeholder'	=> 'Nombre'
 						),
 						array(
 							'name' 			=> 'rep_tel[]',
-							'label' 		=> 'Telefono'
+							'label'			=> '',
+							'placeholder'	=> 'Telefono'
 						),
 						array(
 							'name' 			=> 'rep_email[]',
-							'label' 		=> 'Email',
+							'label'			=> '',
+							'placeholder'	=> 'Email',
 							'type' 			=> 'email'
 						),
 						array(
