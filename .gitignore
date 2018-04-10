@@ -33,4 +33,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 ## ignorar el directorio de uploads
 /assets/uploads/*
 ## ignorar el directorio de emails
-/assets/emails/*
+/assets/emails_debug/*
+## ignorar cache
+/system/cache/*

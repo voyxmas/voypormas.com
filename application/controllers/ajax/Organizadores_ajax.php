@@ -171,8 +171,8 @@ class Organizadores_ajax extends My_Controller {
 
             $do_after['toastr'] 		= 'Perfil actualizado';
 			$do_after['toastr_type'] 	= 'success';
-			//$do_after['action_delay'] 	= 500;
-            //$do_after['reload']         = TRUE;
+			$do_after['action_delay'] 	= 500;
+            $do_after['reload']         = TRUE;
         }
         else
         {
