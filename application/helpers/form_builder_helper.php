@@ -197,6 +197,7 @@ function echo_input($input,$group = FALSE)
 {
   global $input_count;
   $input_count++;
+  $extra = array();
   // defaults
   $input["name"] = isset($input["name"]) ? $input["name"] : $input["type"].$input_count;
   $input["id"] = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]);
@@ -240,6 +241,14 @@ function echo_input($input,$group = FALSE)
   {
     echo '<div class="input-group-addon">'.$input['prefixbox'].'</div>';
   }
+
+  // excepciones
+  if($input["type"] == "date")
+  {
+    $input['type'] = 'text';
+    $extra[] = 'onfocus="(this.type=\'date\')"'; // lo hago para mostrar el placeholder y el formato de fecha cuando esta en focus
+    $extra[] = 'onblur="(this.type=\'text\')"'; // lo hago para mostrar el placeholder cuando se saca el cursor
+  }
   
   // tomar otras atributos si se definieron
   $custom_attr = ( isset($input["attr"]) AND is_array($input["attr"]) ) ? prepare_attr($input["attr"]) : '';
@@ -248,7 +257,7 @@ function echo_input($input,$group = FALSE)
   // los atributos comues a todos los inputs
   $common_attr_TextArea    = $common_attr_minimal . ' name="'.$input["name"].'" ' . $input["required"] . ' type="'.$input["type"].'" placeholder="'.$input["placeholder"].'"';
   // los atributos propios del textarea
-  $common_attr_notTextArea = $common_attr_TextArea . ' name="'.$input["name"].'" value="'.$input["value"].'"';
+  $common_attr_notTextArea = $common_attr_TextArea . ' name="'.$input["name"].'" value="'.$input["value"].'" '.implode(' ',$extra);
   
   switch ($input["type"]) 
   {
@@ -261,8 +270,8 @@ function echo_input($input,$group = FALSE)
     case 'password':
       echo '<input '.$input["multiple"].' '.$common_attr_notTextArea.'>';
       break;
-    case 'time':
     case 'date':
+    case 'time':
     case 'text':
     case 'number':
     case 'email':
