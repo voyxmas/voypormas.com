@@ -204,3 +204,7 @@ body {
   line-height: 32px !important;
   color: #000;
 }
+
+li.ajax_modal {
+  cursor: pointer;
+}

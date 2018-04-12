@@ -63,9 +63,9 @@
                     </div>
                     <ul class="todo-tasks-content alternatefill">
                         <?php foreach($eventos as $evento_id => $evento) : ?>
-                        <li class="todo-tasks-item evento-item">
+                        <li class="ajax_modal todo-tasks-item evento-item" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
                             <h4 class="todo-inline">
-                                <a class="ajax_modal" href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal"><?php echo $evento['nombre'] ?></a>
+                                <?php echo $evento['nombre'] ?>
                             </h4>
                             <div>
                                 <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km - <?php echo $evento['fecha'] ?>

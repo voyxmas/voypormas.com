@@ -21,7 +21,7 @@
     background: #333;
     padding: 10px !important;
 }
-.evento-item > h4 > a {
+.evento-item > h4 {
     color: #FFF !important;
     text-transform: uppercase;
 }
