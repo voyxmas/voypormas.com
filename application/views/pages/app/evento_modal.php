@@ -52,6 +52,35 @@
         
     <?php endif ?>
 
+    <h3>Organizador</h3>
+    <div id="Organizacion" class="row">
+        <div class="col-sm-6 col-md4"><span>Organización:</span> <?php echo $evento['organizacion'][0]['nombre'] ?></div>
+        <?php if ($evento['organizacion'][0]['email_public'] == 1 ) : ?>
+        <div class="col-sm-6 col-md4"><span>Email:</span> <?php echo $evento['organizacion'][0]['email'] ?></div>
+        <?php endif ?>
+        <?php if ($evento['organizacion'][0]['tel_public'] == 1 ) : ?>
+        <div class="col-sm-6 col-md4"><span>Teléfono:</span> <?php echo $evento['organizacion'][0]['tel'] ?></div>
+        <?php endif ?>
+        <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo $evento['organizacion'][0]['web'] ?></div>
+        <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
+        <div class="col-sm-12"><span>Redes sociales:</span><br>
+            <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
+                <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
+            <?php endforeach ?>
+        </div>
+    </div><!-- Close div#Organizacion -->
+
+    <h3>Representantes</h3>
+    <?php foreach ($evento['representantes'] AS $representante ) : ?>
+        <?php if ($representante['publico'] == 1 ) : ?>
+        <p>
+            Nombre: <?php echo $representante['nombre'] ?><br>
+            Teléfono: <?php echo $representante['tel'] ?><br>
+            Email: <?php echo $representante['email'] ?><br>
+        </p>
+        <?php endif ?>
+    <?php endforeach ?>
+
 </div>
 <div class="modal-footer">
     <button type="button" class="btn default" data-dismiss="modal">Close</button>

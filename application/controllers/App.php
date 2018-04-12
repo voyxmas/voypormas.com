@@ -591,6 +591,8 @@ class App extends My_Controller {
 		$this->load->model('variantes_eventos_precios_model');
 		$this->load->model('variantes_eventos_premios_model');
 		$this->load->model('eventos_caracteristicas_model');
+		$this->load->model('organizaciones_model');
+		$this->load->model('organizadores_model');
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
@@ -638,6 +640,13 @@ class App extends My_Controller {
 		$query['cond']['evento_id'] = $evento_id;
 		$this->data['evento']['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
 
+		// get organizacion
+		$this->data['evento']['organizacion'] = $this->organizaciones_model->get($this->data['evento']['organizador_id']);
+		$this->data['evento']['organizacion'][0]['redes_sociales'] = $this->print_redes_socailes($this->data['evento']['organizacion'][0]['redes_sociales']); 
+
+		// get representantes
+		$attr['cond']['organizacion_id'] = $this->data['evento']['organizador_id'];
+		$this->data['evento']['representantes'] = $this->organizadores_model->get($attr); unset($attr);	
 		// definir si el organizador esta logueado
 		if(isset($this->session->organizador))
 		{
@@ -688,6 +697,63 @@ class App extends My_Controller {
 		$return['min'] = count($target) > 0 ? min($target)  : 0;
 
 		return $return;
+	}
+
+	private function print_redes_socailes($redes_sociales=NULL)
+	{
+		if($redes_sociales === NULL) return false;
+		
+		if(!is_array($redes_sociales))
+			$redes_sociales = explode(',',$redes_sociales);
+		
+		
+		// check for domain
+		$re = '/(https\:\/\/|http\:\/\/)((\w+)\.)?(((\w+)\.(com|net|org)))/';
+
+		foreach ($redes_sociales as $key => $link) 
+		{
+			$matches;
+			preg_match($re, $link, $matches);
+
+			$redes_sociales_return[$key]['link'] = $link;
+			$redes_sociales_return[$key]['red'] 	= isset($matches[6]) ? $matches[6] : NULL;
+
+			switch ($redes_sociales_return[$key]['red']) 
+			{
+				case 'facebook':
+					$redes_sociales_return[$key]['icono-class'] = "fa-facebook-square";
+					break;
+				case 'google':
+					$redes_sociales_return[$key]['icono-class'] = "fa-google-plus-square";
+					break;
+				case 'pinterest':
+					$redes_sociales_return[$key]['icono-class'] = "fa-pinterest-square";
+					break;
+				case 'twitter':
+					$redes_sociales_return[$key]['icono-class'] = "fa-twitter-square";
+					break;
+				case 'linkedin':
+					$redes_sociales_return[$key]['icono-class'] = "fa-linkedin-square";
+					break;
+				case 'youtube':
+					$redes_sociales_return[$key]['icono-class'] = "fa-youtube-square";
+					break;
+				case 'instagram':
+					$redes_sociales_return[$key]['icono-class'] = "fa-instagram-square";
+					break;
+				case 'tumblr':
+					$redes_sociales_return[$key]['icono-class'] = "fa-tumblr-square";
+					break;
+				case 'flickr':
+					$redes_sociales_return[$key]['icono-class'] = "fa-flickr-square";
+					break;
+				default:
+					$redes_sociales_return[$key]['icono-class'] = NULL;
+					break;
+			}
+		}
+
+		return $redes_sociales_return;
 	}
 
 }
