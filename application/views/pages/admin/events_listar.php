@@ -42,7 +42,6 @@
                                                     <div class="mt-action-info ">
                                                         <div class="mt-action-details ">
                                                             <span class="mt-action-author"><?php echo $evento['nombre'] ?></span>
-                                                            <p class="mt-action-desc"><?php echo $evento['descripcion'] ?></p>
                                                         </div>
                                                     </div>
                                                     <div class="mt-action-datetime ">

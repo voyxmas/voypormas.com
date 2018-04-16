@@ -184,6 +184,68 @@ class Organizadores_ajax extends My_Controller {
         
     }
 
+    public function aprobar($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+		// check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_aprobar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		
+		// trato de editar el evento
+		$attr['estado'] = 1;
+		$respuesta = $this->organizaciones_model->save($attr, $evento_id);unset($attr);
+		if($respuesta == FALSE) $e[] = 'No se pudo aprobar' ;
+
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 			= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] = 500;
+				$do_after['toastr'] 			= 'Aprobado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function rechazar($evento_id = NULL)
+	{
+		if($evento_id === NULL) return FALSE;
+
+		// check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'events_aprobar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		
+		// trato de editar el evento
+		$attr['estado'] = 2;
+		$respuesta = $this->organizaciones_model->save($attr, $evento_id);unset($attr);
+		if($respuesta == FALSE) $e[] = 'No se pudo rechazar' ;
+
+		$data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 			= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] = 500;
+				$do_after['toastr'] 			= 'Rechazado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
 	public function logout () 
 	{
 		$this->session->unset_userdata('organizador');

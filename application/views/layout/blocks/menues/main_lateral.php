@@ -48,12 +48,12 @@
                             </a>
                             <ul class="sub-menu">
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/organizadores' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/organizaciones' ?>" class="nav-link ">
                                         <span class="title">Ver organizadores</span>
                                     </a>
                                 </li>
                                 <li class="nav-item  ">
-                                    <a href="<?php echo base_url().'admin/organizadores' ?>" class="nav-link ">
+                                    <a href="<?php echo base_url().'admin/organizaciones/nuevo' ?>" class="nav-link ">
                                         <span class="title">Cargar organizador nuevo</span>
                                     </a>
                                 </li>

@@ -642,88 +642,274 @@ class Admin extends My_Controller {
 
 		}
 	
-		public function settings ($method = NULL, $categoria_id = NULL)
-		{
-			// cargar modelos para eventos
-			$this->load->model('settings_model');
-			$this->load->model('settings_grupos_model');
-	
-			// cargar controladores para eventos
-			switch ($method) {
-				case NULL:
-					$this->settings_listar();
-					break;
-				case 'nuevo':
-					$this->settings_nuevo();
-					break;
-			}
+	public function settings ($method = NULL, $categoria_id = NULL)
+	{
+		// cargar modelos para eventos
+		$this->load->model('settings_model');
+		$this->load->model('settings_grupos_model');
+
+		// cargar controladores para eventos
+		switch ($method) {
+			case NULL:
+				$this->settings_listar();
+				break;
+			case 'nuevo':
+				$this->settings_nuevo();
+				break;
 		}
-			// metodos de settings
-			private function settings_listar ()
+	}
+		// metodos de settings
+		private function settings_listar ()
+		{
+			$this->data['CURRENT_SECTION'] 		= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'settings_listar';
+
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
+
+			// buscar los eventos y ordenarlos por fecha de publicacion
+			
+			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
+			$query['order_by'] = 'nombre ASC';
+			$data['settings'] = $this->settings_model->get($query); unset($query);
+
+			$this->data['settings'] = array();
+
+			foreach ($data['settings'] as $setting) 
 			{
-				$this->data['CURRENT_SECTION'] 		= 'admin';
-				$this->data['CURRENT_PAGE'] 		= 'settings_listar';
-	
-				bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
-
-				$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
-	
-				// buscar los eventos y ordenarlos por fecha de publicacion
-				
-				// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
-				$query['order_by'] = 'nombre ASC';
-				$data['settings'] = $this->settings_model->get($query); unset($query);
-
-				$this->data['settings'] = array();
-
-				foreach ($data['settings'] as $setting) 
-				{
-					// definir el key con el nombre del grupo
-					$this->data['settings'][$setting['grupo']][] = $setting;
-				}
-
-				unset($data['settings']);
-	
-				$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+				// definir el key con el nombre del grupo
+				$this->data['settings'][$setting['grupo']][] = $setting;
 			}
+
+			unset($data['settings']);
+
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+		}
+
+		private function settings_nuevo ()
+		{
+			$this->data['CURRENT_SECTION'] 	= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'settings_nuevo';
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+			
+			// definir titulos y crumbs
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/fileUpload.js','foot');			
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/fileUpload.css','head');			
+			$this->layouts->set_title('Cargar un evento nuevo');
+			
+			// definir el formulario
+				$this->data['form']['action'] 					= base_url().'ajax/settings_ajax/nuevo';
+				$this->data['form']['ajax_call'] 				= 1;
+				// inputs
+				$this->data['form']['inputs'][0]['label'] 		= 'Nombre';
+				$this->data['form']['inputs'][0]['name'] 		= 'nombre';
+				$this->data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
+				$this->data['form']['inputs'][0]['required'] 	= TRUE;
+
+				$this->data['form']['inputs'][1]['label'] 		= 'Grupo';
+				$this->data['form']['inputs'][1]['name'] 		= 'evento_tipo_grupo_id';
+				$this->data['form']['inputs'][1]['placeholder'] = 'Grupo';
+				$this->data['form']['inputs'][1]['required'] 	= TRUE;
+				$this->data['form']['inputs'][1]['type'] 	   	= 'select';
+				$this->data['form']['inputs'][1]['options']		= $this->settings_grupos_model->get_for_input();
+
+				$this->data['form']['inputs'][2]['name'] 		= 'evento_tipo_grupo_nombre';
+				$this->data['form']['inputs'][2]['placeholder'] = 'Nombre del nuevo grupo';
+				$this->data['form']['inputs'][2]['class'] 		= 'hidden';
+
+			print_r($this->data['form']['inputs'][1]['options']);
+
+			// cargar la pagina y pasar los datos al view
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+
+		}
 	
-			private function settings_nuevo ()
+	public function organizaciones ($method = NULL, $organizacion_id = NULL)
+	{
+		// cargar modelos para eventos
+		$this->load->model('organizaciones_model');
+		$this->load->model('organizadores_model');
+
+		// cargar controladores para eventos
+		switch ($method) {
+			case NULL:
+				$this->organizaciones_listar();
+				break;
+			case 'nuevo':
+				$this->organizaciones_nuevo();
+				break;
+			case 'editar':
+				$this->organizaciones_editar($organizacion_id);
+				break;
+		}
+	}
+		// metodos de organizaciones
+		private function organizaciones_listar ()
+		{
+			$this->data['CURRENT_SECTION'] 		= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'organizaciones_listar';
+
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+
+			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
+			$query['order_by'] = 'nombre ASC';
+			$this->data['organizaciones'] = $this->organizaciones_model->get($query); unset($query);
+
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+		}
+
+		private function organizaciones_editar ($organizacion_id = NULL)
+		{
+			if($organizacion_id===NULL) return FALSE;
+
+			$this->data['CURRENT_SECTION'] 		= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'organizaciones_editar';
+
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+
+			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
+			$query['cond']['organizacion_id'] = $organizacion_id;
+			$this->data['organizacion'] = $this->organizaciones_model->get($query)[0]; unset($query);
+
+			// cargar formulario
+				$this->data['form_organizacion']['action'] = base_url().'ajax/organizadores_ajax/add_profile';
+				$this->data['form_organizacion']['ajax_call'] = 1;
+				// inputs
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'organizador_id',
+					'type' 			=> 'hidden',
+					'value'			=> $this->data['organizacion']['organizacion_id']					
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'nombre',
+					'label' 		=> 'Nombre',
+					'type' 			=> 'text',
+					'value'			=> $this->data['organizacion']['nombre']					
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'inicio_actividades',
+					'label' 		=> 'Inicio de actividades',
+					'type' 			=> 'date',
+					'value'			=> cstm_get_date($this->data['organizacion']['inicio_actividades'],SYS_DATE_FORMAT)				
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'provincia',
+					'label' 		=> 'Provincia',
+					'type' 			=> 'text',
+					'value'			=> $this->data['organizacion']['provincia']			
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'ciudad',
+					'label' 		=> 'Ciudad',
+					'type' 			=> 'text',
+					'value'			=> $this->data['organizacion']['ciudad']			
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'label' 		=> 'Email',
+					'group'			=> array(
+						array(
+							
+							'name' 			=> 'email',
+							'value'			=> $this->data['organizacion']['email'],
+							'placeholder' 	=> 'Email',
+							'type'			=> 'email',
+							'required'		=> TRUE),
+						array(
+							'name' 			=> 'email_public',
+							'class'			=> 'label-text-black-regular',
+							'type'			=> 'radio',
+							'value'			=> $this->data['organizacion']['email_public'],
+							'options'		=> array(
+								1 => 'Publico',
+								0 => 'Privado'
+		
+							)	
+						)			
+					)	
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'label' 		=> 'Telefono',
+					'group'			=> array(
+						array(
+							'name' 			=> 'tel',
+							'value'			=> $this->data['organizacion']['tel'],
+							'placeholder' 	=> 'tel',
+							'type'			=> 'text',
+							'required'		=> TRUE),
+						array(
+							'name' 			=> 'tel_public',
+							'class'			=> 'label-text-black-regular',
+							'type'			=> 'radio',
+							'value'			=> $this->data['organizacion']['tel_public'],
+							'options'		=> array(
+								1 => 'Publico',
+								0 => 'Privado'
+		
+							)	
+						)			
+					)	
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'web',
+					'label' 		=> 'Web',
+					'type' 			=> 'text',
+					'value'			=> $this->data['organizacion']['web']			
+				);
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'redes_sociales',
+					'label' 		=> 'Redes Sociales',
+					'type' 			=> 'text',
+					'value'			=> $this->data['organizacion']['redes_sociales']			
+				);
+
+			// si se encuentra un organizador buscar los representantes
+			if (!empty($this->data['organizacion'])) 
 			{
-				$this->data['CURRENT_SECTION'] 	= 'admin';
-				$this->data['CURRENT_PAGE'] 		= 'settings_nuevo';
-				bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
-				
-				// definir titulos y crumbs
-				$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/fileUpload.js','foot');			
-				$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/fileUpload.css','head');			
-				$this->layouts->set_title('Cargar un evento nuevo');
-				
-				// definir el formulario
-					$this->data['form']['action'] 					= base_url().'ajax/settings_ajax/nuevo';
-					$this->data['form']['ajax_call'] 				= 1;
-					// inputs
-					$this->data['form']['inputs'][0]['label'] 		= 'Nombre';
-					$this->data['form']['inputs'][0]['name'] 		= 'nombre';
-					$this->data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
-					$this->data['form']['inputs'][0]['required'] 	= TRUE;
-	
-					$this->data['form']['inputs'][1]['label'] 		= 'Grupo';
-					$this->data['form']['inputs'][1]['name'] 		= 'evento_tipo_grupo_id';
-					$this->data['form']['inputs'][1]['placeholder'] = 'Grupo';
-					$this->data['form']['inputs'][1]['required'] 	= TRUE;
-					$this->data['form']['inputs'][1]['type'] 	   	= 'select';
-					$this->data['form']['inputs'][1]['options']		= $this->settings_grupos_model->get_for_input();
-	
-					$this->data['form']['inputs'][2]['name'] 		= 'evento_tipo_grupo_nombre';
-					$this->data['form']['inputs'][2]['placeholder'] = 'Nombre del nuevo grupo';
-					$this->data['form']['inputs'][2]['class'] 		= 'hidden';
-	
-				print_r($this->data['form']['inputs'][1]['options']);
-	
-				// cargar la pagina y pasar los datos al view
-				$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
-	
+				$query['cond']['organizacion_id'] = $this->data['organizacion']['organizacion_id'];
+				$this->data['organizacion']['representantes'] = $this->organizadores_model->get($query); unset($query);
 			}
+
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+		}
+
+		private function organizaciones_nuevo ()
+		{
+			$this->data['CURRENT_SECTION'] 		= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'organizaciones_nuevo';
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+			
+			// definir titulos y crumbs
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/fileUpload.js','foot');			
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/fileUpload.css','head');			
+			$this->layouts->set_title('Cargar un evento nuevo');
+			
+			// definir el formulario
+				$this->data['form']['action'] 					= base_url().'ajax/organziaciones_ajax/nuevo';
+				$this->data['form']['ajax_call'] 				= 1;
+				// inputs
+				$this->data['form']['inputs'][0]['label'] 		= 'Nombre';
+				$this->data['form']['inputs'][0]['name'] 		= 'nombre';
+				$this->data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
+				$this->data['form']['inputs'][0]['required'] 	= TRUE;
+
+				$this->data['form']['inputs'][1]['label'] 		= 'Grupo';
+				$this->data['form']['inputs'][1]['name'] 		= 'evento_tipo_grupo_id';
+				$this->data['form']['inputs'][1]['placeholder'] = 'Grupo';
+				$this->data['form']['inputs'][1]['required'] 	= TRUE;
+				$this->data['form']['inputs'][1]['type'] 	   	= 'select';
+				$this->data['form']['inputs'][1]['options']		= $this->organizaciones_model->get_for_input();
+
+				$this->data['form']['inputs'][2]['name'] 		= 'evento_tipo_grupo_nombre';
+				$this->data['form']['inputs'][2]['placeholder'] = 'Nombre del nuevo grupo';
+				$this->data['form']['inputs'][2]['class'] 		= 'hidden';
+
+			print_r($this->data['form']['inputs'][1]['options']);
+
+			// cargar la pagina y pasar los datos al view
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
+
+		}
 	
 			
 	private function searchMultiArray($array, $field, $needle)

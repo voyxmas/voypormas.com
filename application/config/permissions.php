@@ -37,6 +37,13 @@ $config['perm']['admin']['main']                        = TRUE;
   // categorias
   $config['perm']['admin']['categorias_listar']         = TRUE;
   $config['perm']['admin']['categorias_nuevo']          = TRUE;
+  // categorias
+  $config['perm']['admin']['organizaciones_listar']     = TRUE;
+  $config['perm']['admin']['organizaciones_nuevo']      = TRUE;
+  $config['perm']['admin']['organizaciones_editar']     = TRUE;
+  $config['perm']['admin']['organizaciones_borrar']     = TRUE;
+  $config['perm']['admin']['organizaciones_aprobar']     = TRUE;
+  $config['perm']['admin']['organizaciones_rechazar']     = TRUE;
 
   // Settings
   $config['perm']['admin']['settings_nuevo']            = TRUE;

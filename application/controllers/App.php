@@ -197,9 +197,6 @@ class App extends My_Controller {
 					'type' 			=> 'hidden',
 					'value'			=> $this->data['organizador']['organizacion_id']					
 				);
-
-				$this->data['debug'] = $this->data['organizador'];
-
 				$this->data['form_organizador_details']['inputs'][] = array(
 					'name' 			=> 'nombre',
 					'placeholder' 	=> 'Nombre de la organización',
@@ -376,7 +373,14 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
+				'label' 		=> 'Image',
+				'name' 			=> 'image',
+				'type' 			=> 'file'		
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Lugar',
+				'placeholder'	=> 'lugar',
 				'name' 			=> 'lugar',
 				'type' 			=> 'text',
 				'required'		=> TRUE,
