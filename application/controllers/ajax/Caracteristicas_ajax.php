@@ -54,7 +54,7 @@ class Caracteristicas_ajax extends My_Controller {
 		}             
 			// crear el registro
 		$caracteristica_id = $this->caracteristicas_model->save($save); unset($save);
-		$debug=$this->db->last_query();
+
 		if(!$caracteristica_id) $e[] = 'No se pudo crear la caracteristica';
 
 		$data = array();

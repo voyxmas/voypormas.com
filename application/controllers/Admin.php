@@ -491,8 +491,6 @@ class Admin extends My_Controller {
 				$query['cond']['variante_evento_id'] = $variante['variante_evento_id'];
 				$this->data['evento']['evento_variantes'][$variante_key]['premios'] = $this->variantes_eventos_premios_model->get($query); unset($query);
 			}
-
-			$this->data['debug'] = $this->data['evento'];
 			
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 			
