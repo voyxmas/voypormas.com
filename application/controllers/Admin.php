@@ -913,6 +913,8 @@ class Admin extends My_Controller {
 							'options'		=> array( 0 => 'privado', 1 => "Publico")					
 						);
 					}
+				}else{
+					$this->data['representantes_forms'] = null;
 				}
 			}
 			// creo el formulario para cargar otro representante
@@ -924,7 +926,7 @@ class Admin extends My_Controller {
 				$this->data['representante_nuevo_forms']['inputs'][] = array(
 					'name' 			=> 'organizacion_id',
 					'type' 			=> 'hidden',
-					'value'			=> $value['organizacion_id']					
+					'value'			=> $organizacion_id					
 				);
 				$this->data['representante_nuevo_forms']['inputs'][] = array(
 					'name' 			=> 'nombre',
@@ -958,13 +960,12 @@ class Admin extends My_Controller {
 			$this->data['CURRENT_PAGE'] 		= 'organizaciones_nuevo';
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 			
-			// definir titulos y crumbs
-			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/fileUpload.js','foot');			
-			$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/fileUpload.css','head');			
+			// definir titulos y crumbs	
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');	
 			$this->layouts->set_title('Cargar un evento nuevo');
 			
 			// definir el formulario
-				$this->data['form']['action'] 					= base_url().'ajax/organziaciones_ajax/nuevo';
+				$this->data['form']['action'] 					= base_url().'ajax/organizadores_ajax/nuevo_organizador';
 				$this->data['form']['ajax_call'] 				= 1;
 				// inputs
 				$this->data['form']['inputs'][0]['label'] 		= 'Nombre';
@@ -972,18 +973,80 @@ class Admin extends My_Controller {
 				$this->data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
 				$this->data['form']['inputs'][0]['required'] 	= TRUE;
 
-				$this->data['form']['inputs'][1]['label'] 		= 'Grupo';
-				$this->data['form']['inputs'][1]['name'] 		= 'evento_tipo_grupo_id';
-				$this->data['form']['inputs'][1]['placeholder'] = 'Grupo';
+				$this->data['form']['inputs'][1]['label'] 		= 'Inicio de actividades';
+				$this->data['form']['inputs'][1]['name'] 		= 'inicio_actividades';
+				$this->data['form']['inputs'][1]['placeholder'] = 'Inicio de actividades';
 				$this->data['form']['inputs'][1]['required'] 	= TRUE;
-				$this->data['form']['inputs'][1]['type'] 	   	= 'select';
-				$this->data['form']['inputs'][1]['options']		= $this->organizaciones_model->get_for_input();
+				$this->data['form']['inputs'][1]['type'] 	   	= 'date';
 
-				$this->data['form']['inputs'][2]['name'] 		= 'evento_tipo_grupo_nombre';
-				$this->data['form']['inputs'][2]['placeholder'] = 'Nombre del nuevo grupo';
-				$this->data['form']['inputs'][2]['class'] 		= 'hidden';
+				$this->data['form']['inputs'][2]['label'] 		= 'Provincia';
+				$this->data['form']['inputs'][2]['name'] 		= 'provincia';
+				$this->data['form']['inputs'][2]['placeholder'] = 'Provincia';
+				$this->data['form']['inputs'][2]['required'] 	= TRUE;
 
-			print_r($this->data['form']['inputs'][1]['options']);
+				$this->data['form']['inputs'][3]['label'] 		= 'Ciudad';
+				$this->data['form']['inputs'][3]['name'] 		= 'ciudad';
+				$this->data['form']['inputs'][3]['placeholder'] = 'Ciudad';
+				$this->data['form']['inputs'][3]['required'] 	= TRUE;
+
+				$this->data['form']['inputs'][] = array(
+					'label'			=> 'Email',
+					'group'			=> array(
+						array(
+							'name' 			=> 'email',
+							'placeholder' 	=> 'Email',
+							'type'			=> 'email',
+							'required'		=> TRUE),
+						array(
+							'name' 			=> 'email_public',
+							'class'			=> 'label-text-black-regular',
+							'type'			=> 'radio',
+							'options'		=> array(
+								1 => 'Publico',
+								0 => 'Privado'
+		
+							)	
+						)			
+					)	
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'label'			=> 'Telefono',
+					'group'			=> array(
+						array(
+							'name' 			=> 'tel',
+							'placeholder' 	=> 'Teléfono',
+							'type'			=> 'text',
+							'required'		=> TRUE),
+						array(
+							'name' 			=> 'tel_public',
+							'class'			=> 'label-text-black-regular',
+							'type'			=> 'radio',
+							'options'		=> array(
+								1 => 'Publico',
+								0 => 'Privado'
+		
+							)	
+						)			
+					)	
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'label'			=> 'Web',
+					'name' 			=> 'web',
+					'placeholder' 	=> 'Sitio web',
+					'type'			=> 'text',
+					'required'		=> TRUE
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'label'			=> 'Redes_sociales',
+					'name' 			=> 'redes_sociales[]',
+					'placeholder' 	=> 'Perfiles en rede social',
+					'type'			=> 'text',
+					'required'		=> TRUE,
+					'add_one_more'		=> TRUE
+				);
 
 			// cargar la pagina y pasar los datos al view
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');

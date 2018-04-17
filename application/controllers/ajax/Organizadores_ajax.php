@@ -393,6 +393,51 @@ class Organizadores_ajax extends My_Controller {
 
     }
 
+    public function nuevo_organizador()
+    {
+        // check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_nuevo';
+        bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+        // tomo los datos
+        $save['nombre'] = $this->input->post('nombre');
+        $save['email'] = $this->input->post('email');
+        $save['email_public'] = $this->input->post('email_public');
+        $save['tel'] = $this->input->post('tel');
+        $save['tel_public'] = $this->input->post('tel_public');
+        $save['provincia'] = $this->input->post('provincia');
+        $save['ciudad'] = $this->input->post('ciudad');
+        $save['web'] = $this->input->post('web');
+        $save['redes_sociales'] = implode(',',$this->input->post('redes_sociales'));
+        
+        if(empty($save['nombre']) OR empty($save['email']) OR empty($save['tel']) ){
+            $e[]='No se recibieron todos los campos';
+        }else{
+            // creo el registro
+            $respuesta = $this->organizaciones_model->save($save);
+            if(!$respuesta) $e[] = "No se pudo crear el organizador".$this->db->last_query();
+        }
+
+        $data = array();
+        $respuesta = isset($respuesta) ? $respuesta : FALSE;
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+            default:
+                $do_after['redirect'] 		= base_url().'admin/organizaciones/editar/'.$respuesta;
+				$do_after['action_delay']   = 500;
+				$do_after['toastr'] 		= 'Creado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+    }
+
 	public function logout () 
 	{
 		$this->session->unset_userdata('organizador');

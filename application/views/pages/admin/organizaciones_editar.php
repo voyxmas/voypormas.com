@@ -54,9 +54,13 @@
                                         <div id="tab_representantes" class="tab-pane">
                                             <h2>Representantes de la organizacion</h2>
                                             <div class="row">
+                                                <?php if (is_array($representantes_forms) ) : ?>
                                                 <?php foreach ($representantes_forms AS $representante_form ) : ?>
                                                 <?php array2form($representante_form); ?>
                                                 <?php endforeach ?>
+                                                <?php else: ?>
+                                                <p class="col-sm-12">No hay representatnes cargaados para esta organizacion</p>
+                                                <?php endif ?>
                                             </div>
                                             <h2>Nuevo representate</h2>
                                             <div class="row">
