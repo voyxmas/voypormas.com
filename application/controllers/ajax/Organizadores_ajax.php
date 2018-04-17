@@ -184,9 +184,9 @@ class Organizadores_ajax extends My_Controller {
         
     }
 
-    public function aprobar($evento_id = NULL)
+    public function aprobar($organizacion_id = NULL)
 	{
-		if($evento_id === NULL) return FALSE;
+		if($organizacion_id === NULL) return FALSE;
 
 		// check permission
 		$data['CURRENT_SECTION'] 	= 'admin';
@@ -195,7 +195,7 @@ class Organizadores_ajax extends My_Controller {
 		
 		// trato de editar el evento
 		$attr['estado'] = 1;
-		$respuesta = $this->organizaciones_model->save($attr, $evento_id);unset($attr);
+		$respuesta = $this->organizaciones_model->save($attr, $organizacion_id);unset($attr);
 		if($respuesta == FALSE) $e[] = 'No se pudo aprobar' ;
 
 		$data = array();
@@ -213,20 +213,67 @@ class Organizadores_ajax extends My_Controller {
 				break;
 		}
 		$this->ajax_response($data,$do_after);
-	}
+    }
+    
+    public function editar($organizacion_id = NULL)
+    {
+        if($organizacion_id === NULL) $e[] = 'Datos insuficientes';
 
-	public function rechazar($evento_id = NULL)
+        // check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_editar';
+        bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+        
+        // tomo los datos del formulario
+        $edit['nombre']             = $this->input->post('nombre');
+        $edit['inicio_actividades'] = $this->input->post('inicio_actividades');
+        $edit['provincia']          = $this->input->post('provincia');
+        $edit['ciudad']             = $this->input->post('ciudad');
+        $edit['email']              = $this->input->post('email');
+        $edit['email_public']       = $this->input->post('email_public');
+        $edit['tel']                = $this->input->post('tel');
+        $edit['tel_public']         = $this->input->post('tel_public');
+        $edit['web']                = $this->input->post('web');
+        $edit['redes_sociales']     = $this->input->post('redes_sociales');
+
+        // guardar cambios
+        if($organizacion_id)
+            $respuesta = $this->organizaciones_model->save($edit,$organizacion_id);
+        else
+            $respuesta = FALSE;
+
+        // respuesta
+        $data = array();
+		switch ($respuesta) {
+			case NULL:
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay']   = 500;
+				$do_after['toastr'] 		= 'Editado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+    }
+
+	public function rechazar($organizacion_id = NULL)
 	{
-		if($evento_id === NULL) return FALSE;
+		if($organizacion_id === NULL) return FALSE;
 
 		// check permission
 		$data['CURRENT_SECTION'] 	= 'admin';
-		$data['CURRENT_PAGE'] 		= 'events_aprobar';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_aprobar';
 		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 		
 		// trato de editar el evento
 		$attr['estado'] = 2;
-		$respuesta = $this->organizaciones_model->save($attr, $evento_id);unset($attr);
+		$respuesta = $this->organizaciones_model->save($attr, $organizacion_id);unset($attr);
 		if($respuesta == FALSE) $e[] = 'No se pudo rechazar' ;
 
 		$data = array();

@@ -773,7 +773,7 @@ class Admin extends My_Controller {
 			$this->data['organizacion'] = $this->organizaciones_model->get($query)[0]; unset($query);
 
 			// cargar formulario
-				$this->data['form_organizacion']['action'] = base_url().'ajax/organizadores_ajax/add_profile';
+				$this->data['form_organizacion']['action'] = base_url().'ajax/organizadores_ajax/editar/'.$organizacion_id;
 				$this->data['form_organizacion']['ajax_call'] = 1;
 				// inputs
 				$this->data['form_organizacion']['inputs'][] = array(
