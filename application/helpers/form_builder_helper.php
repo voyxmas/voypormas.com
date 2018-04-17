@@ -30,7 +30,7 @@ function array2form($form = array())
     $form['class'].=' no_ajax_call_set';
   }
 
-  echo '<form action="'.$form['action'].'" method="'.$form['method'].'" class="'.$form['class'].'">';
+  echo '<form action="'.$form['action'].'" method="'.$form['method'].'" class="'.$form['class'].'" '. (isset($form['style']) ? 'style="'.$form['style'].'"': NULL) .'>';
   if(isset($form['inputs']))
   {
     foreach ($form['inputs'] as $input) 
@@ -185,6 +185,13 @@ function array2form($form = array())
   $form['submit_button_class'] = isset($form['submit_button_class']) ? $form['submit_button_class'] : NULL;
   echo '<div class="row"><div class="col-sm-12">';
   echo '<button type="submit" class="'.$form['submit_button_class'].' btn btn-info">'.$form['submit_button_text'].'</button>';
+  if(isset($form['buttons']) AND is_array($form['buttons']))
+  {
+    foreach($form['buttons'] as $button){
+      if($button['type'] == 'a')
+        echo '<a href="'.(isset($button['attr']['href']) ? $button['attr']['href'] : NULL).'" class="btn '.$button['class'].'">'.$button['label'].'</a>';
+    }
+  }
   echo '</div></div>';
   
   echo '</form>';

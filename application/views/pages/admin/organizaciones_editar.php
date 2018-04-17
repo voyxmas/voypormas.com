@@ -41,9 +41,29 @@
                                         <a href="<?php echo base_url() ?>admin/organizacions/editar/<?php echo $organizacion['organizacion_id'] ?>" class="btn btn-outline btn-circle blue btn-sm">Editar</a>
                                         <?php endif ?>
                                     </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#tab_general" data-toggle="tab" aria-expanded="true"> General</a></li>
+                                        <li><a href="#tab_representantes" data-toggle="tab" aria-expanded="false"> Representantes </a></li>
+                                    </ul>
                                 </div>
                                 <div class="portlet-body">
-                                    <?php array2form($form_organizacion); ?>
+                                    <div class="tab-content">
+                                        <div id="tab_general" class="tab-pane active">
+                                            <?php array2form($form_organizacion); ?>
+                                        </div>
+                                        <div id="tab_representantes" class="tab-pane">
+                                            <h2>Representantes de la organizacion</h2>
+                                            <div class="row">
+                                                <?php foreach ($representantes_forms AS $representante_form ) : ?>
+                                                <?php array2form($representante_form); ?>
+                                                <?php endforeach ?>
+                                            </div>
+                                            <h2>Nuevo representate</h2>
+                                            <div class="row">
+                                                <?php array2form($representante_nuevo_forms) ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

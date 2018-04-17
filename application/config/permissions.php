@@ -42,8 +42,11 @@ $config['perm']['admin']['main']                        = TRUE;
   $config['perm']['admin']['organizaciones_nuevo']      = TRUE;
   $config['perm']['admin']['organizaciones_editar']     = TRUE;
   $config['perm']['admin']['organizaciones_borrar']     = TRUE;
-  $config['perm']['admin']['organizaciones_aprobar']     = TRUE;
-  $config['perm']['admin']['organizaciones_rechazar']     = TRUE;
+  $config['perm']['admin']['organizaciones_aprobar']    = TRUE;
+  $config['perm']['admin']['organizaciones_rechazar']   = TRUE;
+  $config['perm']['admin']['organizaciones_representantes_editar']  = TRUE;
+  $config['perm']['admin']['organizaciones_representantes_nuevo']   = TRUE;
+  $config['perm']['admin']['organizaciones_representantes_borrar']  = TRUE;
 
   // Settings
   $config['perm']['admin']['settings_nuevo']            = TRUE;

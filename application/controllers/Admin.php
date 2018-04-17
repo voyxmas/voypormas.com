@@ -866,8 +866,89 @@ class Admin extends My_Controller {
 			{
 				$query['cond']['organizacion_id'] = $this->data['organizacion']['organizacion_id'];
 				$this->data['organizacion']['representantes'] = $this->organizadores_model->get($query); unset($query);
+				
+				if($this->data['organizacion']['representantes']){
+					foreach ($this->data['organizacion']['representantes'] as $key => $value) {
+						$this->data['representantes_forms'][$key]['action'] = base_url().'ajax/organizadores_ajax/editar_representante/';
+						$this->data['representantes_forms'][$key]['ajax_call'] = 1;
+						$this->data['representantes_forms'][$key]['class'] = 'card col-sm-12 col-md-6 col-lg-4';
+						$this->data['representantes_forms'][$key]['style'] = 'border: 1px solid #EEE;padding: 15px;';
+						$this->data['representantes_forms'][$key]['buttons'][] = array(
+							'type'			=> 'a',
+							'label'			=> 'Eliminar',
+							'class'			=> 'btn btn-danger ajax_call',
+							'attr'			=> array (
+								'href'		=> base_url().'ajax/organizadores_ajax/eliminar_representante/'.$value['organizador_id']
+							)
+						);
+						// inputs
+						$this->data['representantes_forms'][$key]['inputs'][] = array(
+							'name' 			=> 'organizador_id',
+							'type' 			=> 'hidden',
+							'value'			=> $value['organizador_id']					
+						);
+						$this->data['representantes_forms'][$key]['inputs'][] = array(
+							'name' 			=> 'nombre',
+							'label' 		=> 'Nombre',
+							'type' 			=> 'text',
+							'value'			=> $value['nombre']					
+						);
+						$this->data['representantes_forms'][$key]['inputs'][] = array(
+							'name' 			=> 'email',
+							'label' 		=> 'Email',
+							'type' 			=> 'email',
+							'value'			=> $value['email']					
+						);
+						$this->data['representantes_forms'][$key]['inputs'][] = array(
+							'name' 			=> 'tel',
+							'label' 		=> 'Telefono',
+							'type' 			=> 'text',
+							'value'			=> $value['tel']					
+						);
+						$this->data['representantes_forms'][$key]['inputs'][] = array(
+							'name' 			=> 'publico',
+							'label' 		=> 'Publicar?',
+							'type' 			=> 'radio',
+							'value' 		=> $value['publico'],
+							'options'		=> array( 0 => 'privado', 1 => "Publico")					
+						);
+					}
+				}
 			}
+			// creo el formulario para cargar otro representante
+				$this->data['representante_nuevo_forms']['action'] = base_url().'ajax/organizadores_ajax/nuevo_representante/'.$organizacion_id;
+				$this->data['representante_nuevo_forms']['ajax_call'] = 1;
+				$this->data['representante_nuevo_forms']['class'] = 'col-sm-12';
 
+				// inputs
+				$this->data['representante_nuevo_forms']['inputs'][] = array(
+					'name' 			=> 'organizacion_id',
+					'type' 			=> 'hidden',
+					'value'			=> $value['organizacion_id']					
+				);
+				$this->data['representante_nuevo_forms']['inputs'][] = array(
+					'name' 			=> 'nombre',
+					'label' 		=> 'Nombre',
+					'type' 			=> 'text'				
+				);
+				$this->data['representante_nuevo_forms']['inputs'][] = array(
+					'name' 			=> 'email',
+					'label' 		=> 'Email',
+					'type' 			=> 'email'					
+				);
+				$this->data['representante_nuevo_forms']['inputs'][] = array(
+					'name' 			=> 'tel',
+					'label' 		=> 'Telefono',
+					'type' 			=> 'text'					
+				);
+				$this->data['representante_nuevo_forms']['inputs'][] = array(
+					'name' 			=> 'publico',
+					'label' 		=> 'Publicar?',
+					'type' 			=> 'radio',
+					'options'		=> array( 0 => 'privado', 1 => "Publico")					
+				);
+			
+			// cargo el view
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
 

@@ -291,7 +291,107 @@ class Organizadores_ajax extends My_Controller {
 				break;
 		}
 		$this->ajax_response($data,$do_after);
-	}
+    }
+    
+    /* representantes */
+    public function editar_representante()
+    {
+        // check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_representantes_editar';
+        bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+        
+        /* tomar los datos */
+        $id = $this->input->post('organizador_id');
+        if(!$id) return FALSE; // si no paso organizador_id cancelo la operacion
+
+        $edit['nombre'] = $this->input->post('nombre');
+        $edit['email'] = $this->input->post('email');
+        $edit['tel'] = $this->input->post('tel');
+        $edit['publico'] = $this->input->post('publico');
+
+        // guardar lo datos
+        $respuesta = $this->organizadores_model->save($edit,$id);
+
+        $data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Editado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+    }
+
+    public function eliminar_representante($organizador_id = NULL)
+    {
+        if($organizador_id === NULL) return FALSE;
+        // check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_representantes_editar';
+        bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+        $respuesta = $this->organizadores_model->delete($organizador_id);
+
+        $data = array();
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= 'No se pudo borrar el registro';
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['toastr'] 		= 'Eliminado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+    }
+
+    public function nuevo_representante($organizacion_id = NULL)
+    {
+        if($organizacion_id === NULL) return FALSE;
+        // check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'organizaciones_representantes_nuevo';
+        bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+
+        // tomo los datos
+        $save['organizacion_id'] = $organizacion_id;
+        $save['nombre'] = $this->input->post('nombre');
+        $save['email'] = $this->input->post('email');
+        $save['tel'] = $this->input->post('tel');
+        $save['publico'] = $this->input->post('publico');
+        
+        if(empty($save['organizacion_id']) OR empty($save['nombre']) OR empty($save['email']) OR empty($save['tel']) ){
+            $e[]='No se recibieron todos los campos';
+        }else{
+            // creo el registro
+            $respuesta = $this->organizadores_model->save($save);
+        }
+        $data = array();
+        $respuesta = isset($respuesta) ? $respuesta : FALSE;
+		switch ($respuesta) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+            default:
+                $do_after['reload'] 		= 1;
+				$do_after['action_delay']   = 500;
+				$do_after['toastr'] 		= 'Creado';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+
+    }
 
 	public function logout () 
 	{
