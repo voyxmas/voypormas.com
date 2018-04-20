@@ -970,7 +970,7 @@ class Admin extends My_Controller {
 				// inputs
 				$this->data['form']['inputs'][0]['label'] 		= 'Nombre';
 				$this->data['form']['inputs'][0]['name'] 		= 'nombre';
-				$this->data['form']['inputs'][0]['placeholder'] = 'Nombre de la nueva categoria';
+				$this->data['form']['inputs'][0]['placeholder'] = 'Nombre del organizador';
 				$this->data['form']['inputs'][0]['required'] 	= TRUE;
 
 				$this->data['form']['inputs'][1]['label'] 		= 'Inicio de actividades';

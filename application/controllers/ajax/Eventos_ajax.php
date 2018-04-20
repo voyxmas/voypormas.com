@@ -24,7 +24,7 @@ class Eventos_ajax extends My_Controller {
 		// check permission
 		$data['CURRENT_SECTION'] 	= 'admin';
 		$data['CURRENT_PAGE'] 		= 'events_nuevo';
-		// bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// defaults
 		$e = array();
@@ -129,11 +129,6 @@ class Eventos_ajax extends My_Controller {
 				}
 
 				// asignar los premios a cada variante
-				/*
-				premios_cnt
-				premio_descripcion
-				premio_monto
-				*/
 				// veo si hay premios asociados a esta variante
 				$premios_cnt 		= $this->input->post('premios_cnt');
 				$premio_descripcion = $this->input->post('premio_descripcion');

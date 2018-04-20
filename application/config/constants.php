@@ -57,6 +57,30 @@ define('SYS_TIME_FORMATFULL','H:i:s');
 define('ADMIN_FORM_ADD_ONE_MORE_LIMIT',0); // 0 = ilimitado
 define('APP_FORM_ADD_ONE_MORE_LIMIT',0); // 0 = ilimitado
 
+// Configuraciones estandar, suficientes para el 100% de los hostings:
+define('EMAILS_ADDRESS', 	'sistema');
+define('EMAILS_DOMAIN', 	'voypormas.com');
+
+# ¿otra libreria? Podes elegir a traves de SMTP, o mediante sendmail. Una U otra, no habilitar ambas.
+
+define('ENABLE_SMTP', TRUE);
+// Si se usa SMTP, completar como minimo las requeridas:
+define('EMAILS_SMTP_HOST',	'mail.voypormas.com'); # requerida
+define('EMAILS_SMTP_USER',	'sistema@voypormas.com'); # requerida
+define('EMAILS_SMTP_PASS',	'3qZs7Mb,MAht'); # requerida
+define('EMAILS_SMTP_PORT',	2525); # requerida
+define('EMAILS_SMTP_TIMEOUT',	NULL);
+define('EMAILS_SMTP_KEEPALIVE',	NULL);
+define('EMAILS_SMTP_CRYPTO',	NULL);
+// Fin SMTP
+
+define('ENABLE_SENDMAIL', FALSE);
+// Si se usa sendamil, se deben configurar los siguientes parametros.
+define('EMAILS_MAILPATH', 	'/usr/sbin/sendmail');
+define('EMAILS_CHARSET', 	'iso-8859-1');
+define('EMAILS_WORDWRAP', 	TRUE);
+// Fin sendmail.
+
 
 /*
 |--------------------------------------------------------------------------

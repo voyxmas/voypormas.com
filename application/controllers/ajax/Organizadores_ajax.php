@@ -51,15 +51,20 @@ class Organizadores_ajax extends My_Controller {
                     // si no existe creo la cuenta con el password enviado
                     $save['email'] = $this->input->post('email');
                     $save['password'] = md5($this->input->post('password'));
+                    $save['token'] = md5(str_shuffle(time()));
+                    $save['token_vto'] = cstm_tomorrow(SYS_DATETIME_FORMAT);
                     $newaccount = $this->organizaciones_model->save($save); 
                     
                     if(!empty($newaccount))
                     {
                         // tomo el id del registro generado
                         $newaccounttosession['organizador'] = $this->organizaciones_model->get($newaccount)[0];
-
                         // si se pudo generar el organizador lo logueo - signup
                         $this->session->set_userdata($newaccounttosession);
+                        // Mando la notificacion
+                        $this->load->model('notificaciones_model');
+                        $this->notificaciones_model->nuevo_organizacion($newaccount);
+
                         $loged_in = 1;
                     }
                     else
@@ -90,7 +95,9 @@ class Organizadores_ajax extends My_Controller {
 		switch ($loged_in) 
 		{
 			case 1:
-                $do_after['reload'] = 1;
+                // $do_after['reload'] = 1;
+                $do_after['toastr'] 		= 'Envio la notificacion';
+				$do_after['toastr_type'] 	= 'error';
 				break;
 			default:
                 $do_after['toastr'] 		= implode('<br>',$e);
@@ -400,6 +407,9 @@ class Organizadores_ajax extends My_Controller {
 		$data['CURRENT_PAGE'] 		= 'organizaciones_nuevo';
         bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
+        // load models
+        $this->load->model('notificaciones_model');
+
         // tomo los datos
         $save['nombre'] = $this->input->post('nombre');
         $save['email'] = $this->input->post('email');
@@ -416,7 +426,10 @@ class Organizadores_ajax extends My_Controller {
         }else{
             // creo el registro
             $respuesta = $this->organizaciones_model->save($save);
-            if(!$respuesta) $e[] = "No se pudo crear el organizador".$this->db->last_query();
+            if(!$respuesta) 
+                $e[] = "No se pudo crear el organizador".$this->db->last_query();
+            else
+                $this->notificaciones_model->nuevo_organizacion($respuesta); // envio la notificaion
         }
 
         $data = array();

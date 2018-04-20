@@ -373,7 +373,7 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'Image',
+				'label' 		=> 'Imagen',
 				'name' 			=> 'image',
 				'type' 			=> 'file'		
 			);
@@ -676,6 +676,46 @@ class App extends My_Controller {
 		else
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'], $this->data, 'app/general');
 
+	}
+
+	public function organizaciones($seccion = NULL)
+	{
+		if($seccion === NULL ) return FALSE;
+
+		switch ($seccion) {
+			case 'activar':
+				/// busco el get de token y lo paso
+				$token_del_mail = $this->input->get('token');
+				$organizacion_id = $this->input->get('id');
+				$this->organizaciones_activar($organizacion_id, $token_del_mail);
+				break;
+		}
+	}
+
+	private function organizaciones_activar($organizacion_id = NULL, $token_del_mail = NULL)
+	{
+		if($organizacion_id === NULL OR $token_del_mail === NULL) return FALSE;
+		// tomo el token
+		$this->load->model('organizaciones_model');
+		$organizador = $this->organizaciones_model->get($organizacion_id);
+		$token_del_organizador = $organizador ? $organizador[0]['token'] : FALSE;
+
+		if(md5($token_del_organizador) === $token_del_mail AND date(SYS_DATETIME_FORMAT) < $organizador[0]['token_vto'] ) 
+		{
+			// save activation status
+			if(!$organizador[0]['token_activado']){
+				$save['token_activado'] = date(SYS_DATETIME_FORMAT);
+				$respuesta = $this->organizaciones_model->save($save,$organizacion_id);
+			}else{
+				$respuesta = FALSE;
+			}
+		}else{
+
+			echo $respuesta = FALSE;
+		}
+
+		echo $respuesta ? 'Token activado' : 'Error' ;
+		
 	}
 
 	private function getmaxmin($array, $key = NULL)

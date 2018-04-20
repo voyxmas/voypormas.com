@@ -61,5 +61,43 @@ class My_Controller extends CI_Controller {
 		return $do_after;
 	}
 
+	protected function uploadFile($files = NULL, $folder = NULL, $name = array()) // pasar un folder y name o un array de folders y names
+	{
+		if($files === NULL) return FALSE;
+
+		// check folder
+		if(is_string($folder))
+		{
+			$folder_levels = explode('/',$folder);
+			$loop_current_folder_level = "";
+			foreach ($folder_levels as $folder) {
+				if (!is_dir('./assets/emails')) mkdir('./assets/emails');
+				$loop_current_folder_level = ($loop_current_folder_level) ? "/".$folder : $folder;
+			}
+		}
+		
+		if(isset($_FILES) AND is_array($_FILES))
+		{
+			$filename = $this->security->sanitize_filename($file['name']);
+			foreach ($_FILES as $name => $file) 
+			{
+				$config['file_name'] = $filename;	
+				$this->load->library('upload', $config);
+				if ( ! $this->upload->do_upload($name))
+				{
+					$e[] = array('error' => $this->upload->display_errors());
+				}
+				else
+				{
+					// tomo los datos cargados
+					$upload_data = $this->upload->data();
+					// agrego el full path a savepara guardar la referencia a la imagen
+					$return['icono']=$config['upload_path'].$upload_data['file_name'];
+				}
+			}
+		}
+	}
+
+
 }
 ?>

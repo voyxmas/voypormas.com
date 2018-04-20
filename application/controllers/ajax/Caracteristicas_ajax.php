@@ -32,26 +32,26 @@ class Caracteristicas_ajax extends My_Controller {
 		$config['max_width']            = 1024;
 		$config['max_height']           = 768;
 
-		foreach ($_FILES as $name => $file) {
-			
+		if(isset($_FILES) AND is_array($_FILES))
+		{
 			$filename = $this->security->sanitize_filename($file['name']);
-
-			$config['file_name'] = $filename;
-			
-			$this->load->library('upload', $config);
-
-			if ( ! $this->upload->do_upload($name))
+			foreach ($_FILES as $name => $file) 
 			{
-				$e[] = array('error' => $this->upload->display_errors());
-			}
-			else
-			{
-				// tomo los datos cargados
-				$upload_data = $this->upload->data();
-				// agrego el full path a savepara guardar la referencia a la imagen
-				$save['icono']=$config['upload_path'].$upload_data['file_name'];
-			}
-		}             
+				$config['file_name'] = $filename;	
+				$this->load->library('upload', $config);
+				if ( ! $this->upload->do_upload($name))
+				{
+					$e[] = array('error' => $this->upload->display_errors());
+				}
+				else
+				{
+					// tomo los datos cargados
+					$upload_data = $this->upload->data();
+					// agrego el full path a savepara guardar la referencia a la imagen
+					$save['icono']=$config['upload_path'].$upload_data['file_name'];
+				}
+			} 
+		}            
 			// crear el registro
 		$caracteristica_id = $this->caracteristicas_model->save($save); unset($save);
 
