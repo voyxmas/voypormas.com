@@ -700,8 +700,7 @@ class App extends My_Controller {
 		$organizador = $this->organizaciones_model->get($organizacion_id);
 		$token_del_organizador = $organizador ? $organizador[0]['token'] : FALSE;
 
-		if(md5($token_del_organizador) === $token_del_mail AND date(SYS_DATETIME_FORMAT) < $organizador[0]['token_vto'] ) 
-		{
+		if(md5($token_del_organizador) === $token_del_mail AND date(SYS_DATETIME_FORMAT) < $organizador[0]['token_vto'] ){
 			// save activation status
 			if(!$organizador[0]['token_activado']){
 				$save['token_activado'] = date(SYS_DATETIME_FORMAT);
