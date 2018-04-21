@@ -12,10 +12,19 @@ class App extends My_Controller {
 		$this->load->model('categorias_grupos_model');
 		$this->load->model('eventos_model');
 		$this->load->model('eventos_caracteristicas_model');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
-		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c6fc1f58deed6','foot', 'js');
+
+		// includes
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
+
+		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c6fc1f58deed6','foot', 'js');
+		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
 
 		// get datos del searchbar
 		$this->data['categorias'] =$this->categorias_model->get_for_input(array('inputgroup'=>'grupo'));
@@ -52,11 +61,6 @@ class App extends My_Controller {
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
-
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
-		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 
 		// get eventos
 		$attr['cond']['estado'] = 1;
@@ -154,18 +158,9 @@ class App extends My_Controller {
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
 
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
-
-		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 		
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
 
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
@@ -601,18 +596,9 @@ class App extends My_Controller {
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
 
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
-
-		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
 
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
@@ -694,26 +680,47 @@ class App extends My_Controller {
 
 	private function organizaciones_activar($organizacion_id = NULL, $token_del_mail = NULL)
 	{
-		if($organizacion_id === NULL OR $token_del_mail === NULL) return FALSE;
+		if($organizacion_id === NULL OR $token_del_mail === NULL) $e[] = "No se enviaron los datos para la activacion";;
+
+		$this->data['CURRENT_SECTION'] 	= 'app';
+		$this->data['CURRENT_PAGE'] 	= 'organizacion_confirmar';
+
 		// tomo el token
 		$this->load->model('organizaciones_model');
 		$organizador = $this->organizaciones_model->get($organizacion_id);
 		$token_del_organizador = $organizador ? $organizador[0]['token'] : FALSE;
-
-		if(md5($token_del_organizador) === $token_del_mail AND date(SYS_DATETIME_FORMAT) < $organizador[0]['token_vto'] ){
-			// save activation status
-			if(!$organizador[0]['token_activado']){
-				$save['token_activado'] = date(SYS_DATETIME_FORMAT);
-				$respuesta = $this->organizaciones_model->save($save,$organizacion_id);
-			}else{
+		if(!isset($e))
+		{
+			if (md5($token_del_organizador) === $token_del_mail) {
+				if(date(SYS_DATETIME_FORMAT) < $organizador[0]['token_vto'] ){
+					// save activation status
+					if(!$organizador[0]['token_activado']){
+						$save['token_activado'] = date(SYS_DATETIME_FORMAT);
+						$respuesta = $this->organizaciones_model->save($save,$organizacion_id);
+					}else{
+						$respuesta = FALSE;
+						$e[] = "El token ya fue activado";
+					}
+				}else{
+					$respuesta = FALSE;
+					$e[] = "El token expiró";
+				}
+			} else {
 				$respuesta = FALSE;
+				$e[] = "El token de activación es incorrecto";
 			}
-		}else{
-
-			echo $respuesta = FALSE;
 		}
 
-		echo $respuesta ? 'Token activado' : 'Error' ;
+		// get maxs and mins
+			// price
+			$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
+				
+			// distancia
+		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
+
+		$this->data['respuesta'] = $respuesta ? TRUE : FALSE ;
+		$this->data['e'] = isset($e) ? $e : NULL;
+		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
 		
 	}
 

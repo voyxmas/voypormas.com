@@ -24,7 +24,7 @@ class Eventos_ajax extends My_Controller {
 		// check permission
 		$data['CURRENT_SECTION'] 	= 'admin';
 		$data['CURRENT_PAGE'] 		= 'events_nuevo';
-		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		// bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// defaults
 		$e = array();
@@ -47,11 +47,55 @@ class Eventos_ajax extends My_Controller {
 		$save['longitud'] 					= $this->input->post('longitud');
 		$save['participantes_destacados'] 	= implode(',',$this->input->post('participantes_destacados'));
 		$save['estado'] 					= $this->input->post('estado');
-			// crear el registro
-		$evento_id 							= $this->eventos_model->save($save); unset($save);
+
+		if(isset($_FILES) AND is_array($_FILES) AND !empty($_FILES))
+		{
+			$config['upload_path']          = './assets/uploads/';
+			$config['allowed_types']        = 'gif|jpg|jpeg|png';
+			$config['max_size']             = 800;
+			$config['max_width']            = 3024;
+			$config['max_height']           = 3024;
+			
+
+			foreach ($_FILES as $name => $file) 
+			{
+				if($file['name']){
+
+					$filename = $this->security->sanitize_filename($file['name']);
+					$config['file_name'] = $filename;	
+					$this->load->library('upload', $config);
+					if ( ! $this->upload->do_upload($name))
+					{
+						$e[] = $this->upload->display_errors();
+					}
+					else
+					{
+						// tomo los datos cargados
+						$upload_data = $this->upload->data();
+
+						//resize:
+
+						$config_resize['image_library'] = 'gd2';
+						$config_resize['source_image'] = $upload_data['full_path'];
+						$config_resize['maintain_ratio'] = TRUE;
+						$config_resize['width']     = 200;
+						$config_resize['height']   = 200;
+				
+						$this->load->library('image_lib', $config_resize); 
+				
+						$this->image_lib->resize();
+						// agrego el full path a savepara guardar la referencia a la imagen
+						$save['imagen']=$config['upload_path'].$upload_data['file_name'];
+					}
+				}
+			} 
+		} 
+		// crear el registro
+		if(empty($e))
+			$evento_id = $this->eventos_model->save($save); unset($save);
 
 
-		if(!$evento_id) $e[] = 'No se pudo crear el evento: ' ;
+		if(!isset($evento_id) OR !$evento_id) $e[] = 'No se pudo crear el evento: ' ;
 			
 			// asignar caracteristicas
 		$caracteristicas = $this->input->post('caracteristica_id');

@@ -5,8 +5,9 @@ $(document).ready(function(){
     
     var ubicacion = new google.maps.places.Autocomplete(input);
     
-    google.maps.event.addListener(ubicacion, 'place_changed', function () {
-        
+    google.maps.event.addListener(ubicacion, 'place_changed', function () 
+    {
+    
         var place = ubicacion.getPlace();
         var address_components = place.address_components;
 

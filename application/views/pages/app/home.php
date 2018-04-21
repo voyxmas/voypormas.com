@@ -64,17 +64,19 @@
                     <ul class="todo-tasks-content alternatefill">
                         <?php foreach($eventos as $evento_id => $evento) : ?>
                         <li class="ajax_modal todo-tasks-item evento-item" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
-                            <h4 class="todo-inline">
-                                <?php echo $evento['nombre'] ?>
-                            </h4>
-                            <div>
-                                <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km - <?php echo $evento['fecha'] ?>
-                            </div>
-                            <div class="caracteristicasLista" >
-                                <?php foreach ($evento['caracteristicas'] AS $caracteristicasItem ) : ?>
+                                <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+                                <h4 class="todo-inline">
+                                    <?php echo $evento['nombre'] ?>
+                                </h4>
+                                <div>
+                                    <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km - <?php echo $evento['fecha'] ?>
+                                </div>
+                                <div class="caracteristicasLista" >
+                                    <?php foreach ($evento['caracteristicas'] AS $caracteristicasItem ) : ?>
                                     <img src="<?php echo base_url().$caracteristicasItem['caracteristica_icono'] ?>" alt="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>" title="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>">
-                                <?php endforeach ?>
-                            </div><!-- Close div.caracteristicasLista -->
+                                    <?php endforeach ?>
+                                </div><!-- Close div.caracteristicasLista -->
+   
                         </li>
                         <?php endforeach ?>
                     </ul>

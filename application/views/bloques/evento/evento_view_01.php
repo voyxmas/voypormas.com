@@ -27,6 +27,8 @@
                 - <?php echo $lugar ?>
             </small><!-- Close small#lugar -->
 
+            <img src="<?php echo base_url().$imagen ?>" alt="<?php echo $nombre ?>">
+
             <div class="caracteristicasLista" >
                 <?php foreach ($caracteristicas AS $caracteristicasItem ) : ?>
                     <img src="<?php echo base_url().$caracteristicasItem['caracteristica_icono'] ?>" alt="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>" title="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>">

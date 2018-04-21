@@ -95,9 +95,7 @@ class Organizadores_ajax extends My_Controller {
 		switch ($loged_in) 
 		{
 			case 1:
-                // $do_after['reload'] = 1;
-                $do_after['toastr'] 		= 'Envio la notificacion';
-				$do_after['toastr_type'] 	= 'error';
+                $do_after['reload'] = 1;
 				break;
 			default:
                 $do_after['toastr'] 		= implode('<br>',$e);
