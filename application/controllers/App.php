@@ -441,6 +441,12 @@ class App extends My_Controller {
 				'class' 		=> 'col-md-4 no-gutters last'
 			);
 
+			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'inscripciones',
+				'label' 		=> 'Inscripción',
+				'type' 			=> 'textarea',
+				'required'		=> TRUE
+			);
 
 			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Información de la carrera',
@@ -605,6 +611,7 @@ class App extends My_Controller {
 
 		// get event
 		$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
+		$this->data['evento']['inscripciones_con_links'] = $this->change_urls_to_links($this->data['evento']['inscripciones']);
 
 		// get caracteristicas del evento
 		$query['cond']['evento_id'] = $evento_id;
@@ -804,6 +811,31 @@ class App extends My_Controller {
 		}
 
 		return $redes_sociales_return;
+	}
+
+	private function change_urls_to_links($text_input = NULL)
+	{
+		if($text_input === NULL) return NULL;
+
+		$expresion_regular = "/\S+\.[a-z]{2,}(\.[a-z]{2})?/";
+		// encontrar los links
+		preg_match_all($expresion_regular, $text_input, $links_encontrados);
+		// para cada caso reemplazar el texto de la url por el link html
+		foreach($links_encontrados[0] AS $link_encontrado)
+		{
+			if(!empty($link_encontrado))
+			{
+				// ver si tiene el http
+				$link_http = strpos($link_encontrado,'http') !== FALSE ? $link_encontrado : 'http://'.$link_encontrado;
+				// creo el string de la expresion regular para reemplazar este link
+				$link_marker_regex = '/\b'.str_replace(array('.','/',':'),array('\.','\/','\:'),$link_encontrado).'\b/';
+				// creo el link html
+				$link_market_html = '<a href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info">'.$link_encontrado.'</a>';
+				// reemplazo el texto por el link
+				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
+			}
+		}
+		return $text_input;
 	}
 
 }

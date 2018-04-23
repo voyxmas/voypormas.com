@@ -193,8 +193,14 @@ class Admin extends My_Controller {
 					'name' 			=> 'fecha',
 					'placeholder' 	=> 'Fecha del evento',
 					'label' 		=> 'Fecha del evento',
-					'type' 			=> 'date',
-					
+					'type' 			=> 'date'
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'inscripciones',
+					'label' 		=> 'Inscripción',
+					'type' 			=> 'textarea',
+					'required'		=> TRUE
 				);
 				
 				$this->data['form']['inputs'][] = array(
@@ -417,6 +423,14 @@ class Admin extends My_Controller {
 					'name' 			=> 'longitud',
 					'value'			=> $this->data['evento']['longitud'],
 					'type' 			=> 'hidden'
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'inscripciones',
+					'label' 		=> 'Inscripción',
+					'type' 			=> 'textarea',
+					'value'			=> $this->data['evento']['inscripciones'],
+					'required'		=> TRUE
 				);
 
 				$this->data['form_general']['inputs'][] = array(

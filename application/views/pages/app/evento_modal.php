@@ -8,6 +8,7 @@
     <p><?php echo $evento['lugar'] ?></p>
     <h3>Inscripción</h3>
     <div id="incripiones" >
+        <p><?php echo $evento['inscripciones_con_links'] ?></p>
         <table class="table col-sm-12">
             <thead>
                 <tr>
