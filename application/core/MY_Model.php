@@ -300,7 +300,7 @@ class MY_Model extends CI_Model
         {
             $inputgroup = FALSE;
         }
-
+        $attr['results'] = 1000;
         $registros = $this->get($attr);
         
         if(empty($registros)) return FALSE;

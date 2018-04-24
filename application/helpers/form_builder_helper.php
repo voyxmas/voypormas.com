@@ -221,11 +221,12 @@ function echo_input($input,$group = FALSE)
   $input["multiple"] = isset($input["multiple"]) ? ($input["multiple"] ? 'multiple' : NULL ) : NULL;
   $input["draggable"] = isset($input["draggable"]) ? ($input["draggable"] ? 'draggable' : NULL ) : NULL;
   $input["help"] = isset($input["help"]) ? $input["help"] : NULL;
+  $input["title"] = isset($input["title"]) ? $input["title"] : NULL;
   $input["data"] = isset($input["data"]) ? $input["data"] : array();
   $input["style"] = isset($input["style"]) ? 'style="'.$input["style"].'"' : NULL;
 
-  // defino el valor title para help
-  $title = $input["help"] ? 'data-toggle="tooltip" title="'.$input["help"].'"' : '';
+  // defino el valor title para help si esta definido si no title
+  $title = $input["help"] ? 'data-toggle="tooltip" title="'.$input["help"].'"' :  'title="'.$input["title"].'"';
 
     
   // labels

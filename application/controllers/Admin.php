@@ -214,7 +214,7 @@ class Admin extends My_Controller {
 				$this->data['form']['inputs'][] = array(
 					'label' 		=> 'Información de la carrera',
 					'id' 			=> 'price-schedule',
-					'help'			=> 'Variantes del evento y respectivos costos de inscripcion',
+					'title'			=> 'Variantes del evento y respectivos costos de inscripcion',
 					'inputtable'	=> array(
 						'xy_label'		 => 'Distancia/Fecha' ,
 						// header fields for x
@@ -224,7 +224,7 @@ class Admin extends My_Controller {
 								'placeholder'	=> 'fecha',
 								'type' 			=> 'date',
 								'value' 		=> date(SYS_DATE_FORMAT),
-								'help'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
+								'title'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
 							)
 						),
 						// header fields for y
@@ -234,14 +234,14 @@ class Admin extends My_Controller {
 								'placeholder'	=> 'Distancia (Km)',
 								'type' 			=> 'number',
 								'sufixbox' 		=> 'kms',
-								'help'			=> 'Distancia en Km de esta variacion del evento'
+								'title'			=> 'Distancia en Km de esta variacion del evento'
 							),
 							array(
 								'name' 			=> 'vhora[]',
 								'placeholder'	=> 'Hora de largada',
 								'type' 			=> 'time',
 								'prefixbox' 		=> 'Hora',
-								'help'			=> 'Hora de largada para esta variante del evento'
+								'title'			=> 'Hora de largada para esta variante del evento'
 							),
 							array(
 								'name' 			=> 'vlugar[]',
@@ -253,14 +253,14 @@ class Admin extends My_Controller {
 								'name' 			=> 'vinfo[]',
 								'placeholder'	=> 'Elementos',
 								'type'			=> 'textarea',
-								'help'			=> 'Requisitos que se deben cumplir para poder participar'
+								'title'			=> 'Requisitos que se deben cumplir para poder participar'
 							),
 							array(
 								'type'			=> 'button',
 								'placeholder'	=> 'Premios',
 								'class'			=> 'btn default btn-sm add-premio',
 								'style'			=> 'margin:0 !important',
-								'help'			=> 'Agregar premios para este evento',
+								'title'			=> 'Agregar premios para este evento',
 								'data'			=> array('popup'=>'premios')
 							)		
 						),
@@ -269,7 +269,7 @@ class Admin extends My_Controller {
 							'placeholder' 	=> 'Monto inscripcion',
 							'type' 			=> 'number',
 							'prefixbox' 	=> '$',
-							'help'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
+							'title'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
 						)
 					)
 				);

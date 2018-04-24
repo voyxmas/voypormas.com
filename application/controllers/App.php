@@ -451,7 +451,7 @@ class App extends My_Controller {
 			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Información de la carrera',
 				'id' 			=> 'price-schedule',
-				'help'			=> 'Variantes del evento y respectivos costos de inscripcion',
+				'title'			=> 'Variantes del evento y respectivos costos de inscripcion',
 				'inputtable'	=> array(
 					'xy_label'		 => 'Distancia/Fecha' ,
 					// header fields for x
@@ -462,7 +462,7 @@ class App extends My_Controller {
 							'placeholder'	=> 'fecha',
 							'type' 			=> 'date',
 							'value' 		=> date(SYS_DATE_FORMAT),
-							'help'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
+							'title'			=> 'Fecha apartir de la cual los montos de esta columna tienen vigencia'
 						)
 					),
 					// header fields for y
@@ -473,14 +473,14 @@ class App extends My_Controller {
 							'placeholder'	=> 'Distancia (Km)',
 							'type' 			=> 'number',
 							'sufixbox' 		=> 'kms',
-							'help'			=> 'Distancia en Km de esta variacion del evento'
+							'title'			=> 'Distancia en Km de esta variacion del evento'
 						),
 						array(
 							'name' 			=> 'vhora[]',
 							'placeholder'	=> 'Hora de largada',
 							'type' 			=> 'time',
 							'prefixbox' 	=> 'Hora',
-							'help'			=> 'Hora de largada para esta variante del evento'
+							'title'			=> 'Hora de largada para esta variante del evento'
 						),
 						array(
 							'name' 			=> 'vlugar[]',
@@ -492,14 +492,14 @@ class App extends My_Controller {
 							'name' 			=> 'vinfo[]',
 							'placeholder'	=> 'Elementos',
 							'type'			=> 'textarea',
-							'help'			=> 'Requisitos que se deben cumplir para poder participar'
+							'title'			=> 'Requisitos que se deben cumplir para poder participar'
 						),
 						array(
 							'type'			=> 'button',
 							'placeholder'	=> 'Premios',
 							'class'			=> 'btn default btn-sm add-premio',
 							'style'			=> 'margin:0 !important',
-							'help'			=> 'Agregar premios para este evento',
+							'title'			=> 'Agregar premios para este evento',
 							'data'			=> array('popup'=>'premios')
 						)		
 					),
@@ -509,7 +509,7 @@ class App extends My_Controller {
 						'placeholder' 	=> 'Monto inscripcion',
 						'type' 			=> 'number',
 						'prefixbox' 	=> '$',
-						'help'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
+						'title'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
 					)
 				)
 			);
@@ -532,7 +532,7 @@ class App extends My_Controller {
 						'placeholder' 	=> 'ej: $1000',
 						'type' 			=> 'text',
 						'help'			=> 'Premio que se entraga'
-					),
+					)
 				)
 			);
 
@@ -817,7 +817,25 @@ class App extends My_Controller {
 	{
 		if($text_input === NULL) return NULL;
 
-		$expresion_regular = "/\S+\.[a-z]{2,10}(\.[a-z]{2})?(\S+)?/";
+		$text_output = $this->urltolink($text_input);
+		$text_output = $this->emailtolink($text_output);
+		return $text_output;
+	}
+
+	private function urltolink($text_input = NULL)
+	{
+		if($text_input === NULL) return NULL;
+
+		// \b(http\:\/\/|https\:\/\/)?(?<!@)([a-zA-Z0-9\-\_]+\.)?([a-zA-Z0-9\-\_]+\.)([a-zA-Z]{2,10})(\.[a-zA-Z]{2})\b
+
+		$expresion_regular  = "/\b";
+		$expresion_regular .= "(http\:\/\/|https\:\/\/)?"; // pude o no tener http/s
+		$expresion_regular .= "([a-zA-Z0-9\-\_]+\.)?"; // posible subdominio
+		$expresion_regular .= "(?<!@)"; // filtrar que no sea un email
+		$expresion_regular .= "([a-zA-Z0-9\-\_]+\.)"; // dominio
+		$expresion_regular .= "([a-zA-Z]{2,10})"; // tld
+		$expresion_regular .= "(\.[a-zA-Z]{2})"; // local
+		$expresion_regular .= "\b/";
 		// encontrar los links
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
 		// para cada caso reemplazar el texto de la url por el link html
@@ -828,7 +846,7 @@ class App extends My_Controller {
 				// ver si tiene el http
 				$link_http = strpos($link_encontrado,'http') !== FALSE ? $link_encontrado : 'http://'.$link_encontrado;
 				// creo el string de la expresion regular para reemplazar este link
-				$link_marker_regex = '/\b'.str_replace(array('.','/',':','-','=','?'),array('\.','\/','\:','\-','\=','\?'),$link_encontrado).'\b/';
+				$link_marker_regex = '/\b'.$this->scape_regex_special_chars($link_encontrado).'\b/';
 				// creo el link html
 				$link_market_html = '<a href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info">'.$link_encontrado.'</a>';
 				// reemplazo el texto por el link
@@ -836,6 +854,46 @@ class App extends My_Controller {
 			}
 		}
 		return $text_input;
+	}
+
+	private function emailtolink($text_input = NULL)
+	{
+		if($text_input === NULL) return NULL;
+		$expresion_regular  = "/\b";
+		$expresion_regular .= "(?<!mailto:|>)"; // evitar string que empiezan con mailto: o que vienen de un tag >
+		$expresion_regular .= "([a-zA-Z0-9\-\_\+\.]+)"; // dominio
+		$expresion_regular .= "@"; // dominio
+		$expresion_regular .= "([a-zA-Z0-9]+)"; // dominio
+		$expresion_regular .= "(\.[a-zA-Z]{2,10})"; // tld
+		$expresion_regular .= "(\.[a-zA-Z]{2})?"; // local
+		$expresion_regular .= "\b/";
+
+		// echo htmlentities($expresion_regular).'<br>';
+		// encontrar los links
+		
+		preg_match_all($expresion_regular, $text_input, $links_encontrados);
+
+		foreach(array_unique($links_encontrados[0]) AS $link_encontrado)
+		{
+			if(!empty($link_encontrado))
+			{
+				// creo el string de la expresion regular para reemplazar este link
+				$link_marker_regex = '/(?<!(mailto\:))'.$this->scape_regex_special_chars($link_encontrado).'(?!(<\/a>))/';
+				// creo el link html
+				$link_market_html = '<a href="mailto:'.$link_encontrado.'" target="_blank" class="btn btn-xs btn-info">'.$link_encontrado.'</a>';
+				// reemplazo el texto por el link
+				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
+			}
+		}
+
+		return $text_input;
+	}
+
+	private function scape_regex_special_chars($string)
+	{
+		$find 		= array('.' ,'/' ,':' ,'-' ,'=' ,'?' ,'_' ,'+', '@');
+		$replace 	= array('\.','\/','\:','\-','\=','\?','\_','\+','\@');
+		return str_replace($find, $replace, $string);
 	}
 
 }
