@@ -817,7 +817,7 @@ class App extends My_Controller {
 	{
 		if($text_input === NULL) return NULL;
 
-		$expresion_regular = "/\S+\.[a-z]{2,}(\.[a-z]{2})?([a-z\/]+)?/";
+		$expresion_regular = "/\S+\.[a-z]{2,10}(\.[a-z]{2})?(\S+)?/";
 		// encontrar los links
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
 		// para cada caso reemplazar el texto de la url por el link html
@@ -828,7 +828,7 @@ class App extends My_Controller {
 				// ver si tiene el http
 				$link_http = strpos($link_encontrado,'http') !== FALSE ? $link_encontrado : 'http://'.$link_encontrado;
 				// creo el string de la expresion regular para reemplazar este link
-				$link_marker_regex = '/\b'.str_replace(array('.','/',':'),array('\.','\/','\:'),$link_encontrado).'\b/';
+				$link_marker_regex = '/\b'.str_replace(array('.','/',':','-','=','?'),array('\.','\/','\:','\-','\=','\?'),$link_encontrado).'\b/';
 				// creo el link html
 				$link_market_html = '<a href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info">'.$link_encontrado.'</a>';
 				// reemplazo el texto por el link
