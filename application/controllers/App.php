@@ -817,7 +817,7 @@ class App extends My_Controller {
 	{
 		if($text_input === NULL) return NULL;
 
-		$expresion_regular = "/\S+\.[a-z]{2,}(\.[a-z]{2})?/";
+		$expresion_regular = "/\S+\.[a-z]{2,}(\.[a-z]{2})?([a-z\/]+)?/";
 		// encontrar los links
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
 		// para cada caso reemplazar el texto de la url por el link html

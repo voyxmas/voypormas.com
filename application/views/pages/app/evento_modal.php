@@ -13,16 +13,16 @@
             <thead>
                 <tr>
                     <th rowspan="2">Distancias</th>
-                    <th colspan="<?php echo count($evento['variantes']) ?>">Períodos de inscripción</th>
+                    <th colspan="<?php echo count($evento['variantes'][0]['inscripcion']) ?>">Períodos de inscripción</th>
                 </tr>
                 <tr>
-                    <?php foreach ($evento['variantes'] AS $item ) : ?>
-                    <th>desde <?php echo cstm_get_date($item['inscripcion'][0]['fecha']) ?></th>
+                    <?php foreach ($evento['variantes'][0]['inscripcion'] AS $item ) : ?>
+                    <th>desde <?php echo cstm_get_date($item['fecha']) ?></th>
                     <?php endforeach ?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($evento['variantes'] AS $varriantesItem) : ?>
+                <?php foreach ($evento['variantes'] AS $varriantesItem ) : ?>
                     <tr>
                         <td>
                             <?php echo $varriantesItem['distancia'] ?>Km
