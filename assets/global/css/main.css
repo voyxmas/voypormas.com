@@ -208,3 +208,6 @@ body {
 li.ajax_modal {
   cursor: pointer;
 }
+.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline { /*cambio el lado del marge a la derecha para que no se abandere a la izquierda*/
+  margin: 0 10px 0 0;
+}
