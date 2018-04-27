@@ -11,31 +11,21 @@ function array2form($form = array())
   // defaults
   $form['action'] = isset($form['action']) ? $form['action'] : NULL;
   $form['method'] = isset($form['method']) ? $form['method'] : 'post';
-  $form['class'] = isset($form['class']) ? $form['class'] : '';
+  $form['class'] = isset($form['class']) ? explode_espacios($form['class']) : array();
+  $form['style'] = isset($form['style']) ? $form['style'] : NULL;
   $form['ajax_call'] = isset($form['ajax_call']) ? $form['ajax_call'] : 0;
   
-  if(isset($form['ajax_call']))
-  {
-    if($form['ajax_call'])
-    {
-      $form['class'].=' ajax_call';
-    }
-    else
-    {
-      $form['class'].=' no_ajax_call';
-    }
-  }
+  // agrego la clase para pedidos ajax
+  if($form['ajax_call'])
+    $form['class'][] = 'ajax_call';
   else
-  {
-    $form['class'].=' no_ajax_call_set';
-  }
+    $form['class'][] = 'no_ajax_call';
 
-  echo '<form action="'.$form['action'].'" method="'.$form['method'].'" class="'.$form['class'].'" '. (isset($form['style']) ? 'style="'.$form['style'].'"': NULL) .'>';
+  echo '<form action="'.$form['action'].'" method="'.$form['method'].'" class="'.implode(' ',$form['class']).'" '. (!empty($form['style']) ? 'style="'.$form['style'].'"': NULL) .'>';
   if(isset($form['inputs']))
   {
     foreach ($form['inputs'] as $input) 
     {
-      
       // write form inputs
       $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
       
@@ -71,18 +61,16 @@ function array2form($form = array())
         // min_x_elements: casilleros para mostrar inicialmente,  default 1
         $input['inputtable']['min_x_elements'] = ( isset($input['inputtable']['min_x_elements']) AND is_integer($input['inputtable']['min_x_elements']) ) ? $input['inputtable']['min_x_elements'] : 1;
         // min_y_elements: casilleros para mostrar inicialmente,  default 1
-        $input['inputtable']['min_y_elements'] = ( isset($input['inputtable']['min_y_elements']) AND is_integer($input['inputtable']['min_y_elements']) ) ? $input['inputtable']['min_y_elements'] : 1;
+        $input['inputtable']['min_y_elements'] = ( isset($input['inputtable']['min_y_elements']) AND is_integer($input['inputtable']['min_y_elements']) ) ? $input['inputtable']['min_y_elements'] : 1; // fix: duplica mal los campos, incluye los del header, no debería
         // max_x_elements: numero maximo de elementos para aregragar, default 0 = ilimitado
-        $input['inputtable']['max_x_elements'] = ( isset($input['inputtable']['max_x_elements']) AND is_integer($input['inputtable']['max_x_elements']) ) ? $input['inputtable']['max_x_elements'] : 0;
+        $input['inputtable']['max_x_elements'] = ( isset($input['inputtable']['max_x_elements']) AND is_integer($input['inputtable']['max_x_elements']) ) ? $input['inputtable']['max_x_elements'] : 0; // fix cuando el min es igual max, aun muestra el boton que haria exeder el rango
         // max_y_elements: numero maximo de elementos para aregragar, default 0 = ilimitado
-        $input['inputtable']['max_y_elements'] = ( isset($input['inputtable']['max_y_elements']) AND is_integer($input['inputtable']['max_y_elements']) ) ? $input['inputtable']['max_y_elements'] : 0;
+        $input['inputtable']['max_y_elements'] = ( isset($input['inputtable']['max_y_elements']) AND is_integer($input['inputtable']['max_y_elements']) ) ? $input['inputtable']['max_y_elements'] : 0; // fix cuando el min es igual max, aun muestra el boton que haria exeder el rango
         // xy_label: label en la esquina de la tabla, default NULL
         $input['inputtable']['xy_label'] = ( isset($input['inputtable']['xy_label']) AND is_string($input['inputtable']['xy_label']) ) ? $input['inputtable']['xy_label'] : NULL;
         
         if(isset($input["label"]))
-        {
           echo '<label class="control-label">'.$input["label"].'</label>';
-        }
 
         echo '<div class="table gridinput">
           <!-- los datos -->
@@ -206,11 +194,11 @@ function echo_input($input,$group = FALSE)
   $input_count++;
   $extra = array();
   // defaults
+  $input["type"] = isset($input["type"]) ? $input["type"] : 'text';
   $input["name"] = isset($input["name"]) ? $input["name"] : $input["type"].$input_count;
   $input["id"] = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]);
   // $group = $group ? 'input-group-addon' : NULL;
   $input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
-  $input["type"] = isset($input["type"]) ? $input["type"] : 'text';
   $input["value"] = isset($input["value"]) ? $input["value"] : NULL;
   $input["placeholder"] = isset($input["placeholder"]) ? $input["placeholder"] : NULL;
   $input["class"] = isset($input["class"]) ? $input["class"] : NULL;
@@ -224,10 +212,10 @@ function echo_input($input,$group = FALSE)
   $input["title"] = isset($input["title"]) ? $input["title"] : NULL;
   $input["data"] = isset($input["data"]) ? $input["data"] : array();
   $input["style"] = isset($input["style"]) ? 'style="'.$input["style"].'"' : NULL;
+  $input["inputs"] = isset($input["inputs"]) ? $input["inputs"] : array();
 
   // defino el valor title para help si esta definido si no title
   $title = $input["help"] ? 'data-toggle="tooltip" title="'.$input["help"].'"' :  'title="'.$input["title"].'"';
-
     
   // labels
   if(isset($input["label"]))
@@ -241,14 +229,10 @@ function echo_input($input,$group = FALSE)
 
   // si tiene el rpefix box
   if($input['prefixbox'] OR $input['sufixbox'])
-  {
     echo '<div class="input-group">';
-  }
   
   if($input['prefixbox'])
-  {
     echo '<div class="input-group-addon">'.$input['prefixbox'].'</div>';
-  }
 
   // excepciones
   if($input["type"] == "date")
@@ -362,6 +346,12 @@ function echo_input($input,$group = FALSE)
   {
     echo '</div> <!-- fin prefixbox -->';
   }
+
+  if(isset($input["inputs"]) AND is_array($input["inputs"])){
+    foreach ($input["inputs"] as $input) {
+      echo_input($input);
+    }
+  }
 }
 
 function prepare_data($data = NULL)
@@ -381,6 +371,26 @@ function prepare_attr($data = NULL, $prefix = NULL)
     $return .= "$prefix$data_key=\"$data_value\" ";
 
   return $return;
+}
+
+function explode_espacios($str)
+{
+  if(!is_array($str))
+    $array = explode(' ',$str);
+  else
+    $array = $str;
+    
+  $explodes = array();
+  // veo que cada elemento sea una palabra
+  foreach ($array as $key => $elemento) {
+    if(strpos($elemento,' ')){
+      $explodes = array_merge($explodes,explode(' ',$elemento));
+      // unset this element si ya lo meti en el array explodes
+      unset($array[$key]);
+    }
+  }
+  // agregar las clases explodes al final y devolver
+  return array_merge($array,$explodes);
 }
 
 ?>

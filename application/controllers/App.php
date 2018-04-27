@@ -517,7 +517,6 @@ class App extends My_Controller {
 			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Premios',
 				'class' 		=> 'premios hide popup portlet light animated',
-				'draggable' 	=> TRUE,
 				'add_one_more' 	=> TRUE,
 				'group' 		=> array(
 					array(
