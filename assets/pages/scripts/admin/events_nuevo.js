@@ -25,6 +25,7 @@ $(document).on('click','.add-row',function(){
 
 $(document).on('click','.add-premio',function(){
   // mostrar el pop up
+  console.log('add premio');
   var index = $(this).index('.add-premio');
   var popup = $(".popup.premios").eq(index);
   // hago visible el que intento abrir
@@ -56,6 +57,8 @@ $(document).on('click','.form-group.premios > label > .closebtn ',function(){
   setHideState(contenedor); // cierro el pop up
   // tomar el indice
   var index = contenedor.index('.form-group.premios') ;
+  console.log('Add premio index: '+index);
+  console.log('Add premio count: '+numero);
 
   // cambiar el numero
   $('.add-premio').eq(index).html('Premios <input name="premios_cnt[]" type="text" readonly class="badge badge-success" value="'+numero+'">');
