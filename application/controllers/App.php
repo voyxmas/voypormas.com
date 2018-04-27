@@ -483,20 +483,8 @@ class App extends My_Controller {
 							'title'			=> 'Hora de largada para esta variante del evento'
 						),
 						array(
-							'name' 			=> 'vlugar[]',
-							'placeholder'	=> 'Lugar de largada',
-							'type' 			=> 'textarea',
-							'attr' 			=> array ('maxlength'=>140)
-						),
-						array(
-							'name' 			=> 'vinfo[]',
-							'placeholder'	=> 'Elementos',
-							'type'			=> 'textarea',
-							'title'			=> 'Requisitos que se deben cumplir para poder participar'
-						),
-						array(
 							'type'			=> 'button',
-							'placeholder'	=> 'Premios',
+							'placeholder'	=> '+ INFO',
 							'class'			=> 'btn default btn-sm add-premio',
 							'style'			=> 'margin:0 !important',
 							'title'			=> 'Agregar premios para este evento',
@@ -515,23 +503,55 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'Premios',
 				'class' 		=> 'premios hide popup portlet light animated',
-				'add_one_more' 	=> TRUE,
-				'group' 		=> array(
+				'label' 		=> '+ INFO',
+				'container'		=> array(
 					array(
-						'name' 			=> 'premio_descripcion[]',
-						'label' 		=> 'Puesto',
-						'placeholder' 	=> 'ej: 1ero Caballero General',
-						'help'			=> 'Critero por el cual se otorga el premio'
+						'label' 		=> 'Premios',
+						'draggable' 	=> TRUE,
+						'add_one_more' 	=> TRUE,
+						'group' 		=> array(
+							array(
+								'name' 			=> 'premio_descripcion[]',
+								'label' 		=> 'Puesto',
+								'placeholder' 	=> 'ej: 1ero Caballero General',
+								'help'			=> 'Critero por el cual se otorga el premio'
+							),
+							array(
+								'name' 			=> 'premio_monto[]',
+								'label' 		=> 'Premio',
+								'placeholder' 	=> 'ej: $1000',
+								'type' 			=> 'text',
+								'help'			=> 'Premio que se entraga'
+							)
+						)
 					),
 					array(
-						'name' 			=> 'premio_monto[]',
-						'label' 		=> 'Premio',
-						'placeholder' 	=> 'ej: $1000',
+						'label' 		=> 'Lugar de entrega de kit',
+						'type'			=> 'text',
+						'name'			=> 'kit_lugar',
+						'class'			=> 'col-sm-6'
+					),
+					array(
+						'label' 		=> 'Hora de entrega de kit',
+						'type'			=> 'time',
+						'name'			=> 'kit_hora',
+						'class'			=> 'col-sm-6'
+					),
+					array(
+						'name' 			=> 'vlugar[]',
+						'placeholder'	=> 'Lugar de largada',
+						'label'			=> 'Lugar de largada',
 						'type' 			=> 'text',
-						'help'			=> 'Premio que se entraga'
-					)
+						'attr' 			=> array ('maxlength'=>140)
+					),
+					array(
+						'name' 			=> 'vinfo[]',
+						'placeholder'	=> 'Elementos',
+						'label'	=> 'Elementos',
+						'type'			=> 'text',
+						'title'			=> 'Requisitos que se deben cumplir para poder participar'
+					),
 				)
 			);
 
