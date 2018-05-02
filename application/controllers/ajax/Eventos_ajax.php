@@ -62,7 +62,7 @@ class Eventos_ajax extends My_Controller {
 			{
 				if($file['name']){
 
-					$filename = $this->security->sanitize_filename($file['name']);
+					$filename = clean_special_chars($file['name']);
 					$config['file_name'] = $filename;	
 					$this->load->library('upload', $config);
 					if ( ! $this->upload->do_upload($name))
@@ -86,7 +86,7 @@ class Eventos_ajax extends My_Controller {
 				
 						$this->image_lib->resize();
 						// agrego el full path a savepara guardar la referencia a la imagen
-						$save['imagen']=$config['upload_path'].$upload_data['file_name'];
+						$save['imagen']=$config['upload_path'].clean_special_chars($upload_data['file_name']);
 					}
 				}
 			} 
@@ -117,6 +117,8 @@ class Eventos_ajax extends My_Controller {
 		$vfecha 		= $this->input->post('vfecha');
 		$vmonto 		= $this->input->post('vmonto');
 		$vlugar 		= $this->input->post('vlugar');
+		$vkithora 		= $this->input->post('kit_hora');
+		$vkitlugar 		= $this->input->post('kit_lugar');
 		
 		if(!empty($vdistancia) AND !empty($vfecha) AND !empty($vmonto) AND $evento_id)
 		{
@@ -130,8 +132,10 @@ class Eventos_ajax extends My_Controller {
 				$save_variantes['evento_id'] 	= $evento_id; 
 				$save_variantes['distancia'] 	= $vdistancia[$key_variante]; 
 				$save_variantes['info'] 		= $vinfo[$key_variante]; 
-				$save_variantes['fechahora'] 	= $vhora[$key_variante]; 
+				$save_variantes['fechahora'] 	= cstm_get_datetime($vfecha[$key_variante].' '.$vhora[$key_variante],SYS_DATETIMEFULL_FORMAT); 
 				$save_variantes['lugar_largada']= $vlugar[$key_variante]; 
+				$save_variantes['kit_lugar']	= $vkitlugar[$key_variante]; 
+				$save_variantes['kit_hora']		= $vkithora[$key_variante]; 
 				
 				$variante_evento_id = $this->variantes_eventos_model->save($save_variantes); // aca guardo la variante
 

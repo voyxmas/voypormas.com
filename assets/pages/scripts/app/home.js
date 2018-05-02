@@ -53,3 +53,76 @@ for (var i = 0; i < sliders.length; i++)
   });
 
 }
+
+
+var Daterange = function() {
+
+  return {
+      initDaterange: function() 
+      {
+          $('input#fecha').daterangepicker({
+              "ranges": {
+                  'Hoy': [moment()],
+                  'Mañana': [moment().startOf('month'), moment().endOf('month')],
+                  'Esta semana': [moment().startOf('week'), moment().endOf('week')],
+                  'Este mes': [moment().startOf('month'), moment().endOf('month')],
+                  'Proximo mes': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')]
+              },
+              "locale": {
+                  "format": "MM/DD/YY",
+                  "separator": " - ",
+                  "applyLabel": "Ok",
+                  "cancelLabel": "Cancelar",
+                  "fromLabel": "Desde",
+                  "toLabel": "Hasta",
+                  "customRangeLabel": "Rango",
+                  "daysOfWeek": [
+                      "Dom",
+                      "Lun",
+                      "Mar",
+                      "Mie",
+                      "Jue",
+                      "Vie",
+                      "Sab"
+                  ],
+                  "monthNames": [
+                      "Enero",
+                      "Febrero",
+                      "Marzo",
+                      "Abril",
+                      "Mayo",
+                      "Junio",
+                      "Julio",
+                      "Agosto",
+                      "Septiembre",
+                      "Octubre",
+                      "Noviembre",
+                      "Diciembre"
+                  ],
+                  "firstDay": 1
+              },
+          }, function(start, end, label) {
+              $('input#fecha span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+              $('#start_date').val(start.format('YYYY-MM-DD'));
+              $('#close_date').val(end.format('YYYY-MM-DD'));
+              $('#Daterange-form').submit();
+          });
+
+          $('input#fecha span').html(moment().subtract('years', 1).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+          $('#start_date').val(moment().subtract('years', 1).format('YYYY-MM-DD'));
+          $('#close_date').val(moment().format('YYYY-MM-DD'));
+          $('input#fecha').show();
+      },
+
+      init: function() {
+          this.initDaterange();
+      }
+  };
+
+}();
+
+
+// cargo datepicker para el form de buscqueda
+$(document).ready(function(){
+  Daterange.init();
+});

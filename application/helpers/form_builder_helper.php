@@ -415,4 +415,10 @@ function explode_espacios($str)
   return array_merge($array,$explodes);
 }
 
+function clean_special_chars($string) {
+  $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+ 
+  return preg_replace('/[^A-Za-z0-9\-\.\_]/', '', $string); // Removes special chars.
+}
+
 ?>

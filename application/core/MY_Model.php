@@ -199,7 +199,7 @@ class MY_Model extends CI_Model
 	public function save($data, $id = FALSE) 
 	{
         // definir el id del admin, para ver si es web o admin
-        $admin_id = $_SESSION['user']['admin_id'] == 0 ? 3 : $_SESSION['user']['admin_id'];
+        $admin_id = isset($_SESSION['user']['admin_id']) AND $_SESSION['user']['admin_id'] == 0 ? 3 : $_SESSION['user']['admin_id'];
         
         if ($id === FALSE) 
         {    

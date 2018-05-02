@@ -12,7 +12,7 @@ $(document).on('click','.add-row',function(){
   var otro_grupo_de_premios = $('.popup.premios').last().clone();
   otro_grupo_de_premios.children('label').children('span').text('Premios');
   // saco los valores al formulario
-  // otro_grupo_de_premios.find('.form-control').val('');
+  otro_grupo_de_premios.find('.form-control').val('');
   // saco todos menos el primer input-group-z
   otro_grupo_de_premios.find('.input_bag-z > .input-group-z:not(:first-child)');
   // insertar el elemento despues del ultio de este tipo

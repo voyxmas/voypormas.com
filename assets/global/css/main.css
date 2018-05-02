@@ -216,3 +216,7 @@ li.ajax_modal {
   max-height: calc(100% - 120px);
   overflow: auto;
 }
+
+.ajax_modal.todo-tasks-item.evento-item{
+  height: 93px;
+}

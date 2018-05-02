@@ -14,17 +14,26 @@ class App extends My_Controller {
 		$this->load->model('eventos_caracteristicas_model');
 
 		// includes
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
-
-		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c6fc1f58deed6','foot', 'js');
-		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');		
+		
+		// cargar plugins
+		$this->layouts->add_include('https://cdn.jsdelivr.net/momentjs/latest/moment.min.js','foot');
+		$this->layouts->add_include('https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js','foot');
+		$this->layouts->add_include('https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/toastr.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/scripts/toastr.min.js','foot');
+		
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
+		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c6fc1f58deed6','foot', 'js');
+		
+		
 
 		// get datos del searchbar
 		$this->data['categorias'] =$this->categorias_model->get_for_input(array('inputgroup'=>'grupo'));
@@ -67,7 +76,12 @@ class App extends My_Controller {
 		$attr['cond']['publicar_desde <='] = date(SYS_DATETIMEFULL_FORMAT);
 		// filtrar por las condiciones
 		if($this->input->get('fecha'))
-			$attr['cond']['fecha'] = $this->input->get('fecha');
+		{
+			$date_range = $this->date_range_input_to_db($this->input->get('fecha'));
+			
+			$attr['cond']['fecha >='] = $date_range[0];
+			$attr['cond']['fecha <='] = $date_range[1];
+		}
 		else
 			$attr['cond']['fecha >='] = date(SYS_DATE_FORMAT);
 		if($this->input->get('nombre'))
@@ -158,10 +172,6 @@ class App extends My_Controller {
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
 
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');
-		
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
-
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
 
@@ -171,7 +181,6 @@ class App extends My_Controller {
 			$this->data['organizador_is_logged_in'] = TRUE;
 			$this->data['organizador'] = $this->session->organizador;
 			
-
 			// veo si el perfil esta completo
 			if (
 				!empty($this->data['organizador']['nombre'])
@@ -377,6 +386,7 @@ class App extends My_Controller {
 				'label' 		=> 'Lugar',
 				'placeholder'	=> 'lugar',
 				'name' 			=> 'lugar',
+				'id' 			=> 'lugar',
 				'type' 			=> 'text',
 				'required'		=> TRUE,
 				'class' 		=> 'col-md-4 no-gutters first'				
@@ -529,13 +539,13 @@ class App extends My_Controller {
 					array(
 						'label' 		=> 'Lugar de entrega de kit',
 						'type'			=> 'text',
-						'name'			=> 'kit_lugar',
+						'name'			=> 'kit_lugar[]',
 						'class'			=> 'col-sm-6'
 					),
 					array(
 						'label' 		=> 'Hora de entrega de kit',
 						'type'			=> 'time',
-						'name'			=> 'kit_hora',
+						'name'			=> 'kit_hora[]',
 						'class'			=> 'col-sm-6'
 					),
 					array(
@@ -620,10 +630,6 @@ class App extends My_Controller {
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
-
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');
-
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
@@ -854,6 +860,8 @@ class App extends My_Controller {
 		$expresion_regular .= "([a-zA-Z0-9\-\_]+\.)"; // dominio
 		$expresion_regular .= "([a-zA-Z]{2,10})"; // tld
 		$expresion_regular .= "(\.[a-zA-Z]{2})"; // local
+		$expresion_regular .= "(\/[a-zA-Z0-9\-\_\/]+)?"; // subdirectorios
+		$expresion_regular .= "(\?[a-zA-Z0-9\-\=\%\_&]+)?"; // get atributes
 		$expresion_regular .= "\b/";
 		// encontrar los links
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
@@ -867,7 +875,7 @@ class App extends My_Controller {
 				// creo el string de la expresion regular para reemplazar este link
 				$link_marker_regex = '/\b'.$this->scape_regex_special_chars($link_encontrado).'\b/';
 				// creo el link html
-				$link_market_html = '<a href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info">'.$link_encontrado.'</a>';
+				$link_market_html = '<a title="'.$link_encontrado.'" href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info">'.substr($link_encontrado,0,42).(strlen($link_encontrado) > 42 ? '...':NULL).'</a>';
 				// reemplazo el texto por el link
 				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
 			}
@@ -913,6 +921,16 @@ class App extends My_Controller {
 		$find 		= array('.' ,'/' ,':' ,'-' ,'=' ,'?' ,'_' ,'+', '@');
 		$replace 	= array('\.','\/','\:','\-','\=','\?','\_','\+','\@');
 		return str_replace($find, $replace, $string);
+	}
+
+	private function date_range_input_to_db ($date_range) {
+		$date_range = explode(' - ',$date_range);
+		
+		foreach ($date_range as $key => $date) {
+			$date_range[$key] = cstm_get_date($date,SYS_DATE_FORMAT);
+		}
+
+		return $date_range;
 	}
 
 }

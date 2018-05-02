@@ -207,7 +207,7 @@
         $showpagerange = isset($settings['showpagerange']) AND !empty($settings['showpagerange']) ? TRUE : FALSE;
 
       // tamar la url de base
-      $url_base = str_replace($this->CI->config->item('index_page').'/','',current_url());
+      $url_base = current_url();
       
       // tomar el query_string actual
       $query_string = $_SERVER['QUERY_STRING'];

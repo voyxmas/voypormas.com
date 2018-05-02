@@ -72,10 +72,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ( $variantes AS $varriantesItem ) : ?>
+                        <?php foreach ($variantes AS $varriantesItem ) : ?>
                             <?php $i=0; foreach ($varriantesItem['premios'] AS $premios ) : $i++?>
                             <tr>                        
-                                <?php if ( $i===1 ) : ?>
+                                <?php if ($i===1 ) : ?>
                                 <td rowspan="<?php echo count($varriantesItem['premios']) ?>">
                                     <?php echo $varriantesItem['distancia'] ?>Km
                                 </td>    
