@@ -69,7 +69,7 @@
                                     <?php echo $evento['nombre'] ?>
                                 </h4>
                                 <div>
-                                    <?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?> ● <?php echo $evento['lugar'] ?> ● <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km ● <?php echo $evento['fecha'] ?>
+                                    <?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?> ● <?php echo $evento['lugar'] ?> ● <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km ● <?php echo cstm_get_date($evento['fecha']) ?>
                                 </div>
                                 <div class="caracteristicasLista" >
                                     <?php foreach ($evento['caracteristicas'] AS $caracteristicasItem ) : ?>

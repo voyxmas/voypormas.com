@@ -328,6 +328,7 @@ class MY_Model extends CI_Model
 
         // definir como se devuelven los datos
         $output         = !empty($attr['output']) ? $attr['output'] : MODEL_DEFAULT_OUTPUT;
+        $this->db->where(array('estado'=>1));
         if(is_array($fields))
         {
             foreach($fields as $field)

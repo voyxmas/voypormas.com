@@ -957,7 +957,8 @@ class App extends My_Controller {
 		$date_range = explode(' - ',$date_range);
 		
 		foreach ($date_range as $key => $date) {
-			$date_range[$key] = cstm_get_date($date,SYS_DATE_FORMAT);
+			$date_pieces = explode('/',$date);
+			$date_range[$key] = cstm_get_date('20'.$date_pieces[2].'-'.$date_pieces[1].'-'.$date_pieces[0],SYS_DATE_FORMAT);
 		}
 
 		return $date_range;
