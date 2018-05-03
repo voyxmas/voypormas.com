@@ -42,6 +42,8 @@
                                 data-mininput="distancia1" 
                                 data-max="<?php echo $distancialimits['distancia_max'] ?>" 
                                 data-maxinput="distancia2" 
+                                data-minselected="<?php echo !empty($this->input->get('distancia1')) ? $this->input->get('distancia1') : $distancialimits['distancia_min'] ?>"
+                                data-maxselected="<?php echo !empty($this->input->get('distancia2')) ? $this->input->get('distancia2') : $distancialimits['distancia_max'] ?>" 
                                 data-name="distancia" 
                                 data-sufix="km" 
                                 class='col-xs-6 nouislider'>
@@ -60,6 +62,8 @@
                                 data-minInput="precio1" 
                                 data-max="<?php echo $pricelimits['precio_max'] ?>" 
                                 data-maxInput="precio2" 
+                                data-minselected="<?php echo !empty($this->input->get('precio1')) ? $this->input->get('precio1') : $pricelimits['precio_min'] ?>" 
+                                data-maxselected="<?php echo !empty($this->input->get('precio2')) ? $this->input->get('precio2') : $pricelimits['precio_max'] ?>" 
                                 data-name="precio" 
                                 data-prefix="$" 
                                 class='col-xs-6 nouislider'>

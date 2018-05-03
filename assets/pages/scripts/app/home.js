@@ -59,6 +59,8 @@ $(document).ready(function(){
             data[i] = {};
             data[i].min = $(sliders[i]).data('min');
             data[i].max = $(sliders[i]).data('max') == $(sliders[i]).data('max') ? $(sliders[i]).data('max')+1 : $(sliders[i]).data('max');
+            data[i].minselected = $(sliders[i]).data('minselected') == $(sliders[i]).data('minselected') ? $(sliders[i]).data('minselected')+1 : $(sliders[i]).data('minselected');
+            data[i].maxselected = $(sliders[i]).data('maxselected') == $(sliders[i]).data('maxselected') ? $(sliders[i]).data('maxselected')+1 : $(sliders[i]).data('maxselected');
             data[i].name = $(sliders[i]).data('name');
             data[i].prefix = $(sliders[i]).data('prefix') != undefined ? $(sliders[i]).data('prefix') : '';
             data[i].sufix = $(sliders[i]).data('sufix') != undefined ? $(sliders[i]).data('sufix') : '';
@@ -72,8 +74,9 @@ $(document).ready(function(){
             $('#'+data[i].maxinput).text(data[i].prefix +''+ data[i].max +''+ data[i].sufix);
     
         // creo el slider
+        console.log(data);
         noUiSlider.create(sliders[i], {
-            start: [ data[i].min , data[i].max ],
+            start: [ data[i].minselected , data[i].maxselected ],
             format: wNumb({
                 decimals: 0
             }),
