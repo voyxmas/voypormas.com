@@ -844,6 +844,7 @@ class App extends My_Controller {
 
 		$text_output = $this->urltolink($text_input);
 		$text_output = $this->emailtolink($text_output);
+		$text_output = $this->teltolink($text_output);
 		return $text_output;
 	}
 
@@ -875,7 +876,7 @@ class App extends My_Controller {
 				// creo el string de la expresion regular para reemplazar este link
 				$link_marker_regex = '/\b'.$this->scape_regex_special_chars($link_encontrado).'\b/';
 				// creo el link html
-				$link_market_html = '<a title="'.$link_encontrado.'" href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info">'.substr($link_encontrado,0,42).(strlen($link_encontrado) > 42 ? '...':NULL).'</a>';
+				$link_market_html = '<a title="'.$link_encontrado.'" href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-external-link-square"></i> '.substr($link_encontrado,0,42).(strlen($link_encontrado) > 42 ? '...':NULL).'</a>';
 				// reemplazo el texto por el link
 				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
 			}
@@ -907,7 +908,7 @@ class App extends My_Controller {
 				// creo el string de la expresion regular para reemplazar este link
 				$link_marker_regex = '/(?<!(mailto\:))'.$this->scape_regex_special_chars($link_encontrado).'(?!(<\/a>))/';
 				// creo el link html
-				$link_market_html = '<a href="mailto:'.$link_encontrado.'" target="_blank" class="btn btn-xs btn-info">'.$link_encontrado.'</a>';
+				$link_market_html = '<a href="mailto:'.$link_encontrado.'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-envelope"></i> '.$link_encontrado.'</a>';
 				// reemplazo el texto por el link
 				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
 			}
@@ -916,14 +917,43 @@ class App extends My_Controller {
 		return $text_input;
 	}
 
-	private function scape_regex_special_chars($string)
+	private function teltolink($text_input = NULL)
 	{
-		$find 		= array('.' ,'/' ,':' ,'-' ,'=' ,'?' ,'_' ,'+', '@');
-		$replace 	= array('\.','\/','\:','\-','\=','\?','\_','\+','\@');
+		if($text_input === NULL) return NULL;
+		$expresion_regular  = "/\b";
+		$expresion_regular .= "[0-9\+\-\(\)]{6,}";
+		$expresion_regular .= "\b/";
+
+		// echo htmlentities($expresion_regular).'<br>';
+		// encontrar los links
+		
+		preg_match_all($expresion_regular, $text_input, $links_encontrados);
+
+		foreach(array_unique($links_encontrados[0]) AS $link_encontrado)
+		{
+			if(!empty($link_encontrado))
+			{
+				// creo el string de la expresion regular para reemplazar este link
+				$link_marker_regex = '/(?<!(tel\:))'.$this->scape_regex_special_chars($link_encontrado).'(?!(<\/a>))/';
+				// creo el link html
+				$link_market_html = '<a href="tel:'.str_replace(array('(',')','-'),'',$link_encontrado).'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-phone-square"></i>  '.$link_encontrado.'</a>';
+				// reemplazo el texto por el link
+				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
+			}
+		}
+
+		return $text_input;
+	}
+
+	private function scape_regex_special_chars($string) 
+	{
+		$find 		= array('.' ,'/' ,':' ,'-' ,'=' ,'?' ,'_' ,'+', '@', '(', ')');
+		$replace 	= array('\.','\/','\:','\-','\=','\?','\_','\+','\@','\(','\)');
 		return str_replace($find, $replace, $string);
 	}
 
-	private function date_range_input_to_db ($date_range) {
+	private function date_range_input_to_db ($date_range) 
+	{
 		$date_range = explode(' - ',$date_range);
 		
 		foreach ($date_range as $key => $date) {
