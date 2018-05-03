@@ -12,7 +12,7 @@ var Daterange = function(){
                   'Proximo mes': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')]
               },
               "locale": {
-                  "format": "MM/DD/YY",
+                  "format": "DD/MM/YY",
                   "separator": " - ",
                   "applyLabel": "Ok",
                   "cancelLabel": "Cancelar",
