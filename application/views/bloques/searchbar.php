@@ -38,9 +38,9 @@
                             <input name="distancia1" type="hidden" >
                             <div id="distancia1" class="input col-xs-3"></div>
                             <div 
-                                data-min="<?php echo $this->input->get('distancia1') ? $this->input->get('distancia1') : $distancialimits['distancia_min'] ?>" 
+                                data-min="<?php echo $distancialimits['distancia_min'] ?>" 
                                 data-mininput="distancia1" 
-                                data-max="<?php echo $this->input->get('distancia2') ? $this->input->get('distancia2') : $distancialimits['distancia_max'] ?>" 
+                                data-max="<?php echo $distancialimits['distancia_max'] ?>" 
                                 data-maxinput="distancia2" 
                                 data-name="distancia" 
                                 data-sufix="km" 
@@ -56,9 +56,9 @@
                             <input name="precio1" name="precio1" type="hidden" >
                             <div id="precio1" class="input col-xs-3"></div>
                             <div 
-                                data-min="<?php echo $this->input->get('precio1') ? $this->input->get('precio1') : $pricelimits['precio_min'] ?>" 
+                                data-min="<?php echo $pricelimits['precio_min'] ?>" 
                                 data-minInput="precio1" 
-                                data-max="<?php echo $this->input->get('precio2') ? $this->input->get('precio2') : $pricelimits['precio_max'] ?>" 
+                                data-max="<?php echo $pricelimits['precio_max'] ?>" 
                                 data-maxInput="precio2" 
                                 data-name="precio" 
                                 data-prefix="$" 

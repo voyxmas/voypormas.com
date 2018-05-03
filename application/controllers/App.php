@@ -153,6 +153,8 @@ class App extends My_Controller {
 				
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
+
+		$this->data['debug'] = $this->data;
 		
 		// get number of results to show
 		$this->data['count'] = isset($this->data['eventos'][0]['total_results']) ? $this->data['eventos'][0]['total_results'] : 0;
