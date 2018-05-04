@@ -70,8 +70,8 @@ $(document).ready(function(){
         // set defaults a los inputs
             $('[name="'+data[i].mininput+'"]').val(data[i].min);
             $('[name="'+data[i].maxinput+'"]').val(data[i].max);
-            $('#'+data[i].mininput).text(data[i].prefix +''+ data[i].min +''+ data[i].sufix);
-            $('#'+data[i].maxinput).text(data[i].prefix +''+ data[i].max +''+ data[i].sufix);
+            $('#'+data[i].mininput).text(data[i].prefix +''+ data[i].minselected +''+ data[i].sufix);
+            $('#'+data[i].maxinput).text(data[i].prefix +''+ data[i].maxselected +''+ data[i].sufix);
     
         // creo el slider
         console.log(data);

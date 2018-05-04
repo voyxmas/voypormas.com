@@ -871,18 +871,19 @@ class App extends My_Controller {
 		// para cada caso reemplazar el texto de la url por el link html
 		foreach($links_encontrados[0] AS $key => $link_encontrado)
 		{
+			$crum_to_find[$key] = "[:link$key:]";
 			if(!empty($link_encontrado))
 			{
 				// ver si tiene el http
 				$link_http = strpos($link_encontrado,'http') !== FALSE ? $link_encontrado : 'http://'.$link_encontrado;
-				// creo el string de la expresion regular para reemplazar este link
-				$link_marker_regex = '/\b'.$this->scape_regex_special_chars($link_encontrado).'\b/';
 				// creo el link html
 				$link_market_html = '<a title="'.$link_encontrado.'" href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-external-link-square"></i> '.substr($link_encontrado,0,42).(strlen($link_encontrado) > 42 ? '...' : NULL).'</a>';
 				// reemplazo el texto por el link
-				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
+				$text_input = str_replace($link_encontrado,$crum_to_find[$key],$text_input);
 			}
+			$crum_replacer[$key] = $link_market_html;
 		}
+		$text_input = str_replace($crum_to_find,$crum_replacer,$text_input);
 		return $text_input;
 	}
 
@@ -890,32 +891,33 @@ class App extends My_Controller {
 	{
 		if($text_input === NULL) return NULL;
 		$expresion_regular  = "/\b";
+		$expresion_regular .= "(?<!\\\"|'|\>)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 		$expresion_regular .= "(?<!mailto:|>)"; // evitar string que empiezan con mailto: o que vienen de un tag >
 		$expresion_regular .= "([a-zA-Z0-9\-\_\+\.]+)"; // dominio
 		$expresion_regular .= "@"; // dominio
 		$expresion_regular .= "([a-zA-Z0-9]+)"; // dominio
 		$expresion_regular .= "(\.[a-zA-Z]{2,10})"; // tld
 		$expresion_regular .= "(\.[a-zA-Z]{2})?"; // local
+		$expresion_regular .= "(?!=\\\"|'|\<|\w|\/)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 		$expresion_regular .= "\b/";
 
 		// echo htmlentities($expresion_regular).'<br>';
 		// encontrar los links
 		
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
-
-		foreach(array_unique($links_encontrados[0]) AS $link_encontrado)
+		foreach(array_unique($links_encontrados[0]) AS $key => $link_encontrado)
 		{
+			$crum_to_find[$key] = "[:email$key:]";
 			if(!empty($link_encontrado))
 			{
-				// creo el string de la expresion regular para reemplazar este link
-				$link_marker_regex = '/(?<!(mailto\:))'.$this->scape_regex_special_chars($link_encontrado).'(?!(<\/a>))/';
 				// creo el link html
 				$link_market_html = '<a href="mailto:'.$link_encontrado.'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-envelope"></i> '.$link_encontrado.'</a>';
 				// reemplazo el texto por el link
-				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
+				$text_input = str_replace($link_encontrado,$crum_to_find[$key],$text_input);
 			}
+			$crum_replacer[$key] = $link_market_html;
 		}
-
+		$text_input = str_replace($crum_to_find,$crum_replacer,$text_input);
 		return $text_input;
 	}
 
@@ -928,25 +930,22 @@ class App extends My_Controller {
 		$expresion_regular .= "[0-9\+\-\(\)]{6,})"; // el numero con caracteres especiales
 		$expresion_regular .= "(?!=\&)"; //  que no termine con un & para evitar que lo reconozca en get queries
 		$expresion_regular .= "/";
-
-		// echo htmlentities($expresion_regular).'<br>';
-		// encontrar los links
 		
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
 
-		foreach(array_unique($links_encontrados[0]) AS $link_encontrado)
+		foreach(array_unique($links_encontrados[0]) AS $key => $link_encontrado)
 		{
+			$crum_to_find[$key] = "[:tel$key:]";
 			if(!empty($link_encontrado))
 			{
-				// creo el string de la expresion regular para reemplazar este link
-				$link_marker_regex = '/(?<!(tel\:))'.$this->scape_regex_special_chars($link_encontrado).'(?!(<\/a>))/';
 				// creo el link html
 				$link_market_html = '<a href="tel:'.str_replace(array('(',')','-'),'',$link_encontrado).'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-phone-square"></i>  '.$link_encontrado.'</a>';
 				// reemplazo el texto por el link
-				$text_input = preg_replace( $link_marker_regex, $link_market_html , $text_input);
+				$text_input = str_replace($link_encontrado,$crum_to_find[$key],$text_input);
 			}
+			$crum_replacer[$key] = $link_market_html;
 		}
-
+		$text_input = str_replace($crum_to_find,$crum_replacer,$text_input);
 		return $text_input;
 	}
 
