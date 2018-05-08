@@ -1,35 +1,43 @@
 var Daterange = function(){
 
-  return {
-      initDaterange: function() 
-      {
-          $('input#fecha').daterangepicker({
-              "ranges": {
-                  'Hoy': [moment()],
-                  'Mañana': [moment().add('day',1),moment().add('day',1)],
-                  'Esta semana': [moment().startOf('week'), moment().endOf('week')],
-                  'Este mes': [moment().startOf('monvth'), moment().endOf('month')],
-                  'Proximo mes': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')]
-              },
-              "locale": {
-                  "format": "DD/MM/YY",
-                  "separator": " - ",
-                  "applyLabel": "Ok",
-                  "cancelLabel": "Cancelar",
-                  "fromLabel": "Desde",
-                  "toLabel": "Hasta",
-                  "customRangeLabel": "Rango",
-                  "daysOfWeek": ["Dom","Lun","Mar","Mie","Jue","Vie","Sab"],
-                  "monthNames": ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
-                  "firstDay": 1
-              },
-          });
-      },
-      init: function() 
-      {
-          this.initDaterange();
-      }
-  };
+    return {
+        initDaterange: function() 
+        {
+            $('input#fecha').daterangepicker({
+                "autoUpdateInput": false,
+                "ranges": {
+                    'Hoy': [moment()],
+                    'Mañana': [moment().add('day',1),moment().add('day',1)],
+                    'Esta semana': [moment().startOf('week'), moment().endOf('week')],
+                    'Este mes': [moment().startOf('monvth'), moment().endOf('month')],
+                    'Proximo mes': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')]
+                },
+                "locale": {
+                    "cancelLabel": 'Clear',
+                    "format": "DD/MM/YY",
+                    "separator": " - ",
+                    "applyLabel": "Ok",
+                    "cancelLabel": "Cancelar",
+                    "fromLabel": "Desde",
+                    "toLabel": "Hasta",
+                    "customRangeLabel": "Rango",
+                    "daysOfWeek": ["Dom","Lun","Mar","Mie","Jue","Vie","Sab"],
+                    "monthNames": ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+                    "firstDay": 1
+                }
+            }, function(start, end, label) {
+                $('input#fecha').val(start.format("DD/MM/YY")+' - '+end.format("DD/MM/YY"));
+            });
+
+            $('input#fecha').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            })
+        },
+        init: function() 
+        {
+            this.initDaterange();
+        }
+    };
 
 }();
 
@@ -74,7 +82,6 @@ $(document).ready(function(){
             $('#'+data[i].maxinput).text(data[i].prefix +''+ data[i].maxselected +''+ data[i].sufix);
     
         // creo el slider
-        console.log(data);
         noUiSlider.create(sliders[i], {
             start: [ data[i].minselected , data[i].maxselected ],
             format: wNumb({

@@ -684,10 +684,11 @@ class App extends My_Controller {
 		
 		// get maxs and mins
 			// price
-		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
-				
+		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');		
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
+
+		$this->data['debug'] = $this->data;
 
 		// veo se cargo el evento en su pagina o como modal
 		if ($modal == 'modal')
@@ -798,8 +799,8 @@ class App extends My_Controller {
 			$matches;
 			preg_match($re, $link, $matches);
 
-			$redes_sociales_return[$key]['link'] = $link;
-			$redes_sociales_return[$key]['red'] 	= isset($matches[6]) ? $matches[6] : NULL;
+			$redes_sociales_return[$key]['link'] 	= $link;
+			$redes_sociales_return[$key]['red']		= isset($matches[6]) ? $matches[6] : NULL;
 
 			switch ($redes_sociales_return[$key]['red']) 
 			{
@@ -842,10 +843,10 @@ class App extends My_Controller {
 	private function change_urls_to_links($text_input = NULL)
 	{
 		if($text_input === NULL) return NULL;
-
-		$text_output = $this->urltolink($text_input);
+		$text_output = strip_tags($text_input);
 		$text_output = $this->emailtolink($text_output);
-		$text_output = $this->teltolink($text_output);
+		$text_output = $this->urltolink($text_output);
+		$text_output = $this->teltolink($text_output);		
 		return $text_output;
 	}
 
@@ -853,9 +854,8 @@ class App extends My_Controller {
 	{
 		if($text_input === NULL) return NULL;
 
-		// \b(http\:\/\/|https\:\/\/)?(?<!@)([a-zA-Z0-9\-\_]+\.)?([a-zA-Z0-9\-\_]+\.)([a-zA-Z]{2,10})(\.[a-zA-Z]{2})\b
-
-		$expresion_regular  = "/";
+		$expresion_regular  = "/\b";
+		$expresion_regular .= "(?<!\\\"|'|\>)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 		$expresion_regular .= "(http\:\/\/|https\:\/\/)?"; // pude o no tener http/s
 		$expresion_regular .= "([a-zA-Z0-9\-\_]+\.)?"; // posible subdominio
 		$expresion_regular .= "(?<!@)"; // filtrar que no sea un email
@@ -864,7 +864,8 @@ class App extends My_Controller {
 		$expresion_regular .= "(\.[a-zA-Z]{2})"; // local
 		$expresion_regular .= "(\/[a-zA-Z0-9\-\_\/\.]+)?"; // subdirectorios
 		$expresion_regular .= "(\?[a-zA-Z0-9\-\_\=\%&]+)?"; // get atributes
-		$expresion_regular .= "/";
+		$expresion_regular .= "(?!=\\\"|'|\<|\w|\/)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
+		$expresion_regular .= "\b/";
 		
 		// encontrar los links
 		preg_match_all($expresion_regular, $text_input, $links_encontrados);
@@ -883,22 +884,21 @@ class App extends My_Controller {
 			}
 			$crum_replacer[$key] = $link_market_html;
 		}
-		$text_input = str_replace($crum_to_find,$crum_replacer,$text_input);
+		$text_input = isset($crum_to_find) ? str_replace($crum_to_find,$crum_replacer,$text_input) : $text_input; // si hay algo para reemplazar lo hago
 		return $text_input;
 	}
 
 	private function emailtolink($text_input = NULL)
 	{
 		if($text_input === NULL) return NULL;
+
 		$expresion_regular  = "/\b";
-		$expresion_regular .= "(?<!\\\"|'|\>)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 		$expresion_regular .= "(?<!mailto:|>)"; // evitar string que empiezan con mailto: o que vienen de un tag >
 		$expresion_regular .= "([a-zA-Z0-9\-\_\+\.]+)"; // dominio
 		$expresion_regular .= "@"; // dominio
 		$expresion_regular .= "([a-zA-Z0-9]+)"; // dominio
 		$expresion_regular .= "(\.[a-zA-Z]{2,10})"; // tld
 		$expresion_regular .= "(\.[a-zA-Z]{2})?"; // local
-		$expresion_regular .= "(?!=\\\"|'|\<|\w|\/)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 		$expresion_regular .= "\b/";
 
 		// echo htmlentities($expresion_regular).'<br>';
@@ -917,17 +917,17 @@ class App extends My_Controller {
 			}
 			$crum_replacer[$key] = $link_market_html;
 		}
-		$text_input = str_replace($crum_to_find,$crum_replacer,$text_input);
+		$text_input = isset($crum_to_find) ? str_replace($crum_to_find,$crum_replacer,$text_input) : $text_input; // si hay algo para reemplazar lo hago
 		return $text_input;
 	}
 
 	private function teltolink($text_input = NULL)
 	{
 		if($text_input === NULL) return NULL;
-		
+
 		$expresion_regular  = "/";
-		$expresion_regular .= "((?<!\=|\w)"; // que no tenga antes con un = ni con un caracter de palabra a numero (fuerzo que reconozaca toda la cadena de numeros)
-		$expresion_regular .= "[0-9\+\-\(\)]{6,})"; // el numero con caracteres especiales
+		$expresion_regular .= "(?<!\=|\w)"; // que no tenga antes con un = ni con un caracter de palabra a numero (fuerzo que reconozaca toda la cadena de numeros)
+		$expresion_regular .= "[0-9\+\-\(\)]{6,}"; // el numero con caracteres especiales
 		$expresion_regular .= "(?!=\&)"; //  que no termine con un & para evitar que lo reconozca en get queries
 		$expresion_regular .= "/";
 		
@@ -945,7 +945,7 @@ class App extends My_Controller {
 			}
 			$crum_replacer[$key] = $link_market_html;
 		}
-		$text_input = str_replace($crum_to_find,$crum_replacer,$text_input);
+		$text_input = isset($crum_to_find) ? str_replace($crum_to_find,$crum_replacer,$text_input) : $text_input; // si hay algo para reemplazar lo hago
 		return $text_input;
 	}
 

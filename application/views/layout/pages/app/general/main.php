@@ -47,7 +47,7 @@
     <script src="<?php echo base_url().APP_ASSETS_FOLDER ?>/global/librerias/AjaxForms/ajaxforms.js" > </script>
     <!-- END PAGE LEVEL PLUGINS -->
 
-    <?php if (isset($debug)) : ?>
+    <?php if (isset($debug) AND ENVIRONMENT == "development") : ?>
         <pre><?php print_r($debug) ?></pre>
     <?php endif ?>
 
