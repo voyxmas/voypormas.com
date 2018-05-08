@@ -5,6 +5,7 @@ var Daterange = function(){
         {
             $('input#fecha').daterangepicker({
                 "autoUpdateInput": false,
+                "alwaysShowCalendars": true,
                 "ranges": {
                     'Hoy': [moment()],
                     'Mañana': [moment().add('day',1),moment().add('day',1)],
