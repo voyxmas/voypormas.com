@@ -77,8 +77,8 @@ $(document).ready(function(){
             data[i].mininput = $(sliders[i]).data('mininput');
         
         // set defaults a los inputs
-            $('[name="'+data[i].mininput+'"]').val(data[i].min);
-            $('[name="'+data[i].maxinput+'"]').val(data[i].max);
+            $('[name="'+data[i].mininput+'"]').val(data[i].minselected-1);
+            $('[name="'+data[i].maxinput+'"]').val(data[i].maxselected-1);
             $('#'+data[i].mininput).text(data[i].prefix +''+ data[i].minselected +''+ data[i].sufix);
             $('#'+data[i].maxinput).text(data[i].prefix +''+ data[i].maxselected +''+ data[i].sufix);
     
@@ -102,5 +102,8 @@ $(document).ready(function(){
             sufix = $($(this)[0].target).data('sufix') != undefined ? $($(this)[0].target).data('sufix') : '';
             $('#'+name).text(prefix+''+values[handle]+''+sufix);
         });
+
+        // actualizoel estado actual segun minselected y maxselected
+        
     }
 });
