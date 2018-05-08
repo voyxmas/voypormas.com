@@ -2,6 +2,9 @@
     <button type="button" data-dismiss="modal" aria-hidden="true">x</button>
 </div>
 <div class="modal-body">
+    <?php if ($evento['imagen'] ) : ?>
+    <img src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+    <?php endif ?>
     <h2><?php echo $evento['nombre'] ?></h2>
     <p><?php echo $evento['tipo'] ?></p>
     <p><?php echo cstm_get_date($evento['fecha']) ?></p>
@@ -40,6 +43,7 @@
         <?php foreach ($evento['variantes'] AS $varianteItem ) : ?>
         <h3><?php echo $varianteItem['distancia'] ?>Km</h3>
         <p>Lugar de largada: <?php echo $varianteItem['lugar_largada'] ?></p>
+        <p>Entrega de kit: <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_date($varianteItem['kit_hora']) ?>)</p>
         <?php endforeach ?>
     </div><!-- Close div#variantes -->
 
@@ -57,12 +61,12 @@
     <div id="Organizacion" class="row">
         <div class="col-sm-6 col-md4"><span>Organización:</span> <?php echo $evento['organizacion'][0]['nombre'] ?></div>
         <?php if ($evento['organizacion'][0]['email_public'] == 1 ) : ?>
-        <div class="col-sm-6 col-md4"><span>Email:</span> <?php echo $evento['organizacion'][0]['email'] ?></div>
+        <div class="col-sm-6 col-md4"><span>Email:</span> <?php echo emailtolink($evento['organizacion'][0]['email']) ?></div>
         <?php endif ?>
         <?php if ($evento['organizacion'][0]['tel_public'] == 1 ) : ?>
-        <div class="col-sm-6 col-md4"><span>Teléfono:</span> <?php echo $evento['organizacion'][0]['tel'] ?></div>
+        <div class="col-sm-6 col-md4"><span>Teléfono:</span> <?php echo teltolink($evento['organizacion'][0]['tel']) ?></div>
         <?php endif ?>
-        <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo $evento['organizacion'][0]['web'] ?></div>
+        <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo urltolink($evento['organizacion'][0]['web']) ?></div>
         <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
         <div class="col-sm-12"><span>Redes sociales:</span><br>
             <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
@@ -76,11 +80,16 @@
         <?php if ($representante['publico'] == 1 ) : ?>
         <p>
             Nombre: <?php echo $representante['nombre'] ?><br>
-            Teléfono: <?php echo $representante['tel'] ?><br>
-            Email: <?php echo $representante['email'] ?><br>
+            Teléfono: <?php echo teltolink($representante['tel']) ?><br>
+            Email: <?php echo emailtolink($representante['email']) ?><br>
         </p>
         <?php endif ?>
     <?php endforeach ?>
+
+    <?php if ($evento['participantes_destacados']!="") : ?>
+    <h3>Corredores destacados</h3>
+    <p><?php echo $evento['participantes_destacados'] ?></p>
+    <?php endif ?>
 
 </div>
 <div class="modal-footer">
