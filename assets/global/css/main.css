@@ -208,7 +208,8 @@ body {
 li.ajax_modal {
   cursor: pointer;
 }
-.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline { /*cambio el lado del marge a la derecha para que no se abandere a la izquierda*/
+.checkbox-inline:first-child, .checkbox-inline + .checkbox-inline, .radio-inline + .radio-inline { 
+  /*cambio el lado del marge a la derecha para que no se abandere a la izquierda*/
   margin: 0 10px 0 0;
 }
 
@@ -219,4 +220,10 @@ li.ajax_modal {
 
 .ajax_modal.todo-tasks-item.evento-item{
   height: 93px;
+}
+.no-line-break {
+  white-space: nowrap;
+}
+.clear-both {
+  clear: both;
 }

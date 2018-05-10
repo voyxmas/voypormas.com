@@ -128,8 +128,9 @@ class Admin extends My_Controller {
 			$this->layouts->set_title('Cargar un evento nuevo');
 			
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
-			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 			
 			// definir el formulario
 				$this->data['form']['action'] = base_url().'ajax/eventos_ajax/nuevo';
@@ -143,8 +144,15 @@ class Admin extends My_Controller {
 				);
 
 				$this->data['form']['inputs'][] = array(
+					'label' 		=> 'Imagen',
+					'name' 			=> 'image',
+					'type' 			=> 'file'		
+				);
+
+				$this->data['form']['inputs'][] = array(
 					'label' 		=> 'Lugar',
 					'name' 			=> 'lugar',
+					'id' 			=> 'lugar',
 					'type' 			=> 'text',
 					
 				);
@@ -196,13 +204,7 @@ class Admin extends My_Controller {
 					'type' 			=> 'date'
 				);
 
-				$this->data['form']['inputs'][] = array(
-					'name' 			=> 'inscripciones',
-					'label' 		=> 'Inscripción',
-					'type' 			=> 'textarea',
-					'required'		=> TRUE
-				);
-				
+
 				$this->data['form']['inputs'][] = array(
 					'name' 			=> 'publicar_desde',
 					'label' 		=> 'Publicar desde',
@@ -210,6 +212,28 @@ class Admin extends My_Controller {
 					'value' 		=> date(SYS_DATE_FORMAT)
 				);
 
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'inscripciones',
+					'label' 		=> 'Inscripción',
+					'type' 			=> 'textarea',
+					'required'		=> TRUE
+				);
+	
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'inscripciones_fecha_limite',
+					'label' 		=> 'Fecha Límite',
+					'type' 			=> 'date',
+					'value' 		=> date(SYS_DATE_FORMAT),
+					'required'		=> TRUE
+				);
+	
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'inscripciones_cupo',
+					'label' 		=> 'Cupo',
+					'type' 			=> 'checkbox',
+					'value'			=> 0,
+					'options'		=> array( 1 => 'Hasta agotar cupo')
+				);
 
 				$this->data['form']['inputs'][] = array(
 					'label' 		=> 'Información de la carrera',
@@ -221,6 +245,7 @@ class Admin extends My_Controller {
 						'x' => array(
 							array(
 								'name' 			=> 'vfecha[]',
+								'required'		=> TRUE,
 								'placeholder'	=> 'fecha',
 								'type' 			=> 'date',
 								'value' 		=> date(SYS_DATE_FORMAT),
@@ -231,6 +256,7 @@ class Admin extends My_Controller {
 						'y' => array(
 							array(
 								'name' 			=> 'vdistancia[]',
+								'required'		=> TRUE,
 								'placeholder'	=> 'Distancia (Km)',
 								'type' 			=> 'number',
 								'sufixbox' 		=> 'kms',
@@ -240,24 +266,12 @@ class Admin extends My_Controller {
 								'name' 			=> 'vhora[]',
 								'placeholder'	=> 'Hora de largada',
 								'type' 			=> 'time',
-								'prefixbox' 		=> 'Hora',
+								'prefixbox' 	=> 'Hora',
 								'title'			=> 'Hora de largada para esta variante del evento'
 							),
 							array(
-								'name' 			=> 'vlugar[]',
-								'placeholder'	=> 'Lugar de largada',
-								'type' 			=> 'textarea',
-								'attr' 			=> array ('maxlength'=>140)
-							),
-							array(
-								'name' 			=> 'vinfo[]',
-								'placeholder'	=> 'Elementos',
-								'type'			=> 'textarea',
-								'title'			=> 'Requisitos que se deben cumplir para poder participar'
-							),
-							array(
 								'type'			=> 'button',
-								'placeholder'	=> 'Premios',
+								'placeholder'	=> '+ INFO',
 								'class'			=> 'btn default btn-sm add-premio',
 								'style'			=> 'margin:0 !important',
 								'title'			=> 'Agregar premios para este evento',
@@ -266,32 +280,64 @@ class Admin extends My_Controller {
 						),
 						'values' => array(
 							'name' 			=> 'vmonto[]',
+							'required'		=> TRUE,
 							'placeholder' 	=> 'Monto inscripcion',
 							'type' 			=> 'number',
 							'prefixbox' 	=> '$',
-							'title'			=> 'Costo de la incripción para esta variante del evento en esta fecha',
+							'title'			=> 'Costo de inscripción en este periodo',
 						)
 					)
 				);
-
+	
 				$this->data['form']['inputs'][] = array(
-					'label' 		=> 'Premios',
 					'class' 		=> 'premios hide popup portlet light animated',
-					'draggable' 	=> TRUE,
-					'add_one_more' 	=> TRUE,
-					'group' 		=> array(
+					'label' 		=> '+ INFO',
+					'container'		=> array(
 						array(
-							'name' 			=> 'premio_descripcion[]',
-							'label' 		=> 'Puesto',
-							'placeholder' 	=> 'ej: 1ero Caballero General',
-							'help'			=> 'Critero por el cual se otorga el premio'
+							'label' 		=> 'Premios',
+							'draggable' 	=> TRUE,
+							'add_one_more' 	=> TRUE,
+							'group' 		=> array(
+								array(
+									'name' 			=> 'premio_descripcion[]',
+									'label' 		=> 'Puesto',
+									'placeholder' 	=> 'ej: 1ero Caballero General',
+									'help'			=> 'Critero por el cual se otorga el premio'
+								),
+								array(
+									'name' 			=> 'premio_monto[]',
+									'label' 		=> 'Premio',
+									'placeholder' 	=> 'ej: $1000',
+									'type' 			=> 'text',
+									'help'			=> 'Premio que se entraga'
+								)
+							)
 						),
 						array(
-							'name' 			=> 'premio_monto[]',
-							'label' 		=> 'Premio',
-							'placeholder' 	=> 'ej: $1000',
+							'label' 		=> 'Lugar de entrega de kit',
+							'type'			=> 'text',
+							'name'			=> 'kit_lugar[]',
+							'class'			=> 'col-sm-6'
+						),
+						array(
+							'label' 		=> 'Hora de entrega de kit',
+							'type'			=> 'time',
+							'name'			=> 'kit_hora[]',
+							'class'			=> 'col-sm-6'
+						),
+						array(
+							'name' 			=> 'vlugar[]',
+							'placeholder'	=> 'Lugar de largada',
+							'label'			=> 'Lugar de largada',
 							'type' 			=> 'text',
-							'help'			=> 'Premio que se entraga'
+							'attr' 			=> array ('maxlength'=>140)
+						),
+						array(
+							'name' 			=> 'vinfo[]',
+							'placeholder'	=> 'Elementos',
+							'label'	=> 'Elementos',
+							'type'			=> 'text',
+							'title'			=> 'Requisitos que se deben cumplir para poder participar'
 						),
 					)
 				);
@@ -425,12 +471,29 @@ class Admin extends My_Controller {
 					'type' 			=> 'hidden'
 				);
 
+
 				$this->data['form_general']['inputs'][] = array(
 					'name' 			=> 'inscripciones',
 					'label' 		=> 'Inscripción',
 					'type' 			=> 'textarea',
 					'value'			=> $this->data['evento']['inscripciones'],
 					'required'		=> TRUE
+				);
+	
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'inscripciones_fecha_limite',
+					'label' 		=> 'Fecha Límite',
+					'type' 			=> 'date',
+					'value'			=> cstm_get_date($this->data['evento']['inscripciones_fecha_limite'],SYS_DATE_FORMAT),
+					'required'		=> TRUE
+				);
+	
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'inscripciones_cupo',
+					'label' 		=> 'Cupo',
+					'type' 			=> 'checkbox',
+					'value'			=> $this->data['evento']['inscripciones_cupo'],
+					'options'		=> array( 1 => 'Hasta agotar cupo')
 				);
 
 				$this->data['form_general']['inputs'][] = array(

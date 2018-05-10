@@ -374,8 +374,8 @@ class App extends My_Controller {
 
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'nombre',
-				'placeholder' 	=> 'Nombre de la carrera',
-				'label' 		=> 'Nombre de la carrera',
+				'placeholder' 	=> 'Nombre con el que aparecerá en el listado de resultados',
+				'label' 		=> 'Nombre con el que aparecerá en el listado de resultados',
 				'required'		=> TRUE,
 				'help'			=> 'Nombre con el que aparece listado el evento'					
 			);
@@ -459,15 +459,38 @@ class App extends My_Controller {
 				'name' 			=> 'inscripciones',
 				'label' 		=> 'Inscripción',
 				'type' 			=> 'textarea',
+				'class'			=> 'col-sm-4',
 				'required'		=> TRUE
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'inscripciones_fecha_limite',
+				'label' 		=> 'Fecha Límite',
+				'type' 			=> 'date',
+				'class'			=> 'col-sm-4',
+				'required'		=> TRUE
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'inscripciones_cupo',
+				'label' 		=> 'Cupo',
+				'type' 			=> 'checkbox',
+				'class'			=> 'col-sm-4 no-line-break',
+				'value'			=> 0,
+				'options'		=> array( 1 => 'Hasta agotar cupo')
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Información de la carrera',
+				'class'			=> 'clear-both',
 				'id' 			=> 'price-schedule',
 				'title'			=> 'Variantes del evento y respectivos costos de inscripcion',
 				'inputtable'	=> array(
-					'xy_label'		 => 'Distancia/Fecha' ,
+					'xy_label'		=> 'Distancia/Fecha' ,
+					'plus_y_label'	=> "<small>Agregar distancias</small>",
+					'plus_x_label'	=> "<small>Agregar periodos de pago</small>",
+					'minus_x_label'	=> NULL,
+					'minus_y_label'	=> NULL,
 					// header fields for x
 					'x' => array(
 						array(

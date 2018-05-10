@@ -279,6 +279,17 @@ function inputSwitch ($input) {
     $input['inputtable']['max_y_elements'] = ( isset($input['inputtable']['max_y_elements']) AND is_integer($input['inputtable']['max_y_elements']) ) ? $input['inputtable']['max_y_elements'] : 0; // fix cuando el min es igual max, aun muestra el boton que haria exeder el rango
     // xy_label: label en la esquina de la tabla, default NULL
     $input['inputtable']['xy_label'] = ( isset($input['inputtable']['xy_label']) AND is_string($input['inputtable']['xy_label']) ) ? $input['inputtable']['xy_label'] : NULL;
+    // labels de los botones para gregar o quitar campos
+      // iconos
+    $input['inputtable']['minus_x_icon']	= isset($input['inputtable']['minus_x_icon']) ? $input['inputtable']['minus_x_icon'] : '<i class="fa fa-minus-circle" aria-hidden="true"></i>';
+    $input['inputtable']['plus_x_icon']	  = isset($input['inputtable']['plus_x_icon']) ? $input['inputtable']['plus_x_icon'] : '<i class="fa fa-plus-circle" aria-hidden="true"></i>';
+    $input['inputtable']['minus_y_icon']	= isset($input['inputtable']['minus_y_icon']) ? $input['inputtable']['minus_y_icon'] : '<i class="fa fa-minus-circle" aria-hidden="true"></i>';
+    $input['inputtable']['plus_y_icon']	  = isset($input['inputtable']['plus_y_icon']) ? $input['inputtable']['plus_y_icon'] : '<i class="fa fa-plus-circle" aria-hidden="true"></i>';
+      // textos
+    $input['inputtable']['minus_x_label']	= isset($input['inputtable']['minus_x_label']) ? $input['inputtable']['minus_x_label'] : NULL;
+    $input['inputtable']['plus_x_label']	= isset($input['inputtable']['plus_x_label']) ? $input['inputtable']['plus_x_label'] : NULL;
+    $input['inputtable']['minus_y_label']	= isset($input['inputtable']['minus_y_label']) ? $input['inputtable']['minus_y_label'] : NULL;
+    $input['inputtable']['plus_y_label']	= isset($input['inputtable']['plus_y_label']) ? $input['inputtable']['plus_y_label'] : NULL;
     
     if(isset($input["label"]))
       echo '<label class="control-label">'.$input["label"].'</label>';
@@ -343,10 +354,10 @@ function inputSwitch ($input) {
         echo '</div> <!-- fin .table-cell -->
         <div class="table-cell">
             <a data-addtoid="price-schedule" class="add-column btn btn-lg default">
-              <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              '.$input['inputtable']['plus_x_icon'].' '.$input['inputtable']['plus_x_label'].'
             </a> 
             <a data-remtoid="price-schedule" class="rem-column btn btn-lg default">
-              <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              '.$input['inputtable']['minus_x_icon'].' '.$input['inputtable']['minus_x_label'].'
             </a>
           </div> <!-- fin .table-cell boton -->
         </div> <!-- fin .table-cell -->';
@@ -358,10 +369,10 @@ function inputSwitch ($input) {
         echo '<div clas="table-row">
           <div class="table-cell">
             <a data-addtoid="price-schedule" class="add-row btn btn-lg default">
-              <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              '.$input['inputtable']['plus_y_icon'].' '.$input['inputtable']['plus_y_label'].'
             </a> 
             <a data-remtoid="price-schedule" class="rem-row btn btn-lg default">
-              <i class="fa fa-minus-circle" aria-hidden="true"></i>
+              '.$input['inputtable']['minus_y_icon'].' '.$input['inputtable']['minus_y_label'].'
             </a>
           </div>
         </div> <!-- fin .table-row -->';

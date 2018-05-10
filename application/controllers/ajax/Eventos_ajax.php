@@ -36,6 +36,8 @@ class Eventos_ajax extends My_Controller {
 		$save['fecha'] 						= $this->input->post('fecha');
 		$save['descripcion'] 				= $this->input->post('descripcion');
 		$save['inscripciones'] 				= $this->input->post('inscripciones');
+		$save['inscripciones_fecha_limite'] = $this->input->post('inscripciones_fecha_limite');
+		$save['inscripciones_cupo'] 		= $this->input->post('inscripciones_cupo');
 		$save['publicar_desde'] 			= $this->input->post('publicar_desde');
 		$save['lugar'] 						= $this->input->post('lugar');
 		$save['pais'] 						= $this->input->post('pais');
@@ -92,8 +94,11 @@ class Eventos_ajax extends My_Controller {
 			} 
 		} 
 		// crear el registro
-		if(empty($e))
+		if(empty($e)) {
 			$evento_id = $this->eventos_model->save($save); unset($save);
+		}
+		else
+			$evento_id = FALSE;
 
 
 		if(!isset($evento_id) OR !$evento_id) $e[] = 'No se pudo crear el evento: ' ;
@@ -351,23 +356,26 @@ class Eventos_ajax extends My_Controller {
 		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
 
 		// get $_POST
-		$attr['nombre']				= $this->input->post('nombre');
-		$attr['descripcion']		= $this->input->post('descripcion');
-		$attr['evento_tipo_id']		= $this->input->post('evento_tipo_id');
-		$attr['fecha']				= $this->input->post('fecha');
-		$attr['lugar']				= $this->input->post('lugar');
-		$attr['inscripciones']		= $this->input->post('inscripciones');
-		$attr['numero_casa']		= $this->input->post('numero_casa');
-		$attr['calle']				= $this->input->post('calle');
-		$attr['ciudad']				= $this->input->post('ciudad');
-		$attr['departamento']		= $this->input->post('departamento');
-		$attr['provincia']			= $this->input->post('provincia');
-		$attr['pais']				= $this->input->post('pais');
-		$attr['latitud']			= $this->input->post('latitud');
-		$attr['longitud']			= $this->input->post('longitud');
-		$attr['publicar_desde'] 	= $this->input->post('publicar_desde');
-		$attr['participantes_destacados'] = $this->input->post('participantes_destacados');
-		$attr['estado']				= $this->input->post('estado');
+		$attr['nombre']						= $this->input->post('nombre');
+		$attr['descripcion']				= $this->input->post('descripcion');
+		$attr['evento_tipo_id']				= $this->input->post('evento_tipo_id');
+		$attr['fecha']						= $this->input->post('fecha');
+		$attr['lugar']						= $this->input->post('lugar');
+		$attr['inscripciones']				= $this->input->post('inscripciones');
+		$attr['inscripciones_fecha_limite'] = $this->input->post('inscripciones_fecha_limite');
+		$attr['inscripciones_cupo'] 		= $this->input->post('inscripciones_cupo');
+
+		$attr['numero_casa']				= $this->input->post('numero_casa');
+		$attr['calle']						= $this->input->post('calle');
+		$attr['ciudad']						= $this->input->post('ciudad');
+		$attr['departamento']				= $this->input->post('departamento');
+		$attr['provincia']					= $this->input->post('provincia');
+		$attr['pais']						= $this->input->post('pais');
+		$attr['latitud']					= $this->input->post('latitud');
+		$attr['longitud']					= $this->input->post('longitud');
+		$attr['publicar_desde'] 			= $this->input->post('publicar_desde');
+		$attr['participantes_destacados'] 	= $this->input->post('participantes_destacados');
+		$attr['estado']						= $this->input->post('estado');
 		
 		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
 
