@@ -489,8 +489,6 @@ class App extends My_Controller {
 					'xy_label'		=> 'Distancia/Fecha' ,
 					'plus_y_label'	=> "<small>Agregar distancias</small>",
 					'plus_x_label'	=> "<small>Agregar periodos de pago</small>",
-					'minus_x_label'	=> NULL,
-					'minus_y_label'	=> NULL,
 					// header fields for x
 					'x' => array(
 						array(

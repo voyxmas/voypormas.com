@@ -290,6 +290,10 @@ function inputSwitch ($input) {
     $input['inputtable']['plus_x_label']	= isset($input['inputtable']['plus_x_label']) ? $input['inputtable']['plus_x_label'] : NULL;
     $input['inputtable']['minus_y_label']	= isset($input['inputtable']['minus_y_label']) ? $input['inputtable']['minus_y_label'] : NULL;
     $input['inputtable']['plus_y_label']	= isset($input['inputtable']['plus_y_label']) ? $input['inputtable']['plus_y_label'] : NULL;
+    $input['inputtable']['plus_x_title']	= isset($input['inputtable']['plus_x_label']) ? $input['inputtable']['plus_x_label'] : 'Agregar';
+    $input['inputtable']['plus_y_title']	= isset($input['inputtable']['plus_y_label']) ? $input['inputtable']['plus_y_label'] : 'Agregar';
+    $input['inputtable']['minus_x_title']	= isset($input['inputtable']['minus_x_label']) ? $input['inputtable']['minus_x_label'] : 'Quitar';
+    $input['inputtable']['minus_y_title']	= isset($input['inputtable']['minus_y_label']) ? $input['inputtable']['minus_y_label'] : 'Quitar';
     
     if(isset($input["label"]))
       echo '<label class="control-label">'.$input["label"].'</label>';
@@ -353,10 +357,10 @@ function inputSwitch ($input) {
       {
         echo '</div> <!-- fin .table-cell -->
         <div class="table-cell">
-            <a data-addtoid="price-schedule" class="add-column btn btn-lg default">
+            <a data-addtoid="price-schedule" class="add-column btn btn-lg default" title="'.strip_tags($input['inputtable']['plus_x_title']).'">
               '.$input['inputtable']['plus_x_icon'].' '.$input['inputtable']['plus_x_label'].'
             </a> 
-            <a data-remtoid="price-schedule" class="rem-column btn btn-lg default">
+            <a data-remtoid="price-schedule" class="rem-column btn btn-lg default" title="'.strip_tags($input['inputtable']['minus_x_title']).'">
               '.$input['inputtable']['minus_x_icon'].' '.$input['inputtable']['minus_x_label'].'
             </a>
           </div> <!-- fin .table-cell boton -->
@@ -368,10 +372,10 @@ function inputSwitch ($input) {
       {
         echo '<div clas="table-row">
           <div class="table-cell">
-            <a data-addtoid="price-schedule" class="add-row btn btn-lg default">
+            <a data-addtoid="price-schedule" class="add-row btn btn-lg default" title="'.strip_tags($input['inputtable']['plus_y_title']).'">
               '.$input['inputtable']['plus_y_icon'].' '.$input['inputtable']['plus_y_label'].'
             </a> 
-            <a data-remtoid="price-schedule" class="rem-row btn btn-lg default">
+            <a data-remtoid="price-schedule" class="rem-row btn btn-lg default" title="'.strip_tags($input['inputtable']['minus_y_title']).'">
               '.$input['inputtable']['minus_y_icon'].' '.$input['inputtable']['minus_y_label'].'
             </a>
           </div>
