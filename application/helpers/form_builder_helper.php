@@ -84,9 +84,9 @@ function echo_input($input,$group = FALSE)
   // labels
   if(isset($input["label"]))
   {
-    echo '<label class="control-label"><span>'.$input["label"].'</span> <span>'.($input["required"] ? '*' : '').'</span>';
+    echo '<label class="control-label '.$input["name"].'"><span>'.$input["label"].'</span> <span>'.($input["required"] ? '*' : '').'</span>';
     // si se permite agregar otro elemento del mismo tipo, cargar el boton
-    echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn default btn-sm" data-name="'.$input["name"].'"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
+    echo $input["add_one_more"] ? ' <a class="form_builder_helper_add_one_more btn default btn-sm '.$input["name"].'" data-name="'.$input["name"].'"><i class="fa fa-plus-circle" aria-hidden="true"></i></a> <a class="form_builder_helper_add_one_less btn default btn-sm"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>' : '';
 
     echo '</label>';
   }
@@ -240,7 +240,7 @@ function echo_input_general($input)
 
 // define si es un grupo, tabla de inputs o simplemente el input
 function inputSwitch ($input) {
-  echo '<div class="form-group '. (isset($input['class'])? $input['class'] : NULL) .'">'; // input wraper
+  echo '<div class="form-group '. (isset($input['class']) ? $input['class'] : NULL) .'">'; // input wraper
   if(isset($input['group']))
   {
     if(is_array($input['group']) AND !empty($input['group']))
@@ -430,7 +430,8 @@ function explode_espacios($str)
   return array_merge($array,$explodes);
 }
 
-function clean_special_chars($string) {
+function clean_special_chars($string) 
+{
   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
  
   return preg_replace('/[^A-Za-z0-9\-\.\_]/', '', $string); // Removes special chars.

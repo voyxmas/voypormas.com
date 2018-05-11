@@ -34,7 +34,6 @@ $(document).on('click','.add-premio',function(){
     // creo el el boton
     popup.children('label').append('<div class="closebtn btn green btn-sm">Cerrar</div>');
   }
-  
 });
 
 // cuando cambia el nombre de una varian  te llevarla al label de los premios en timepo real keyUp()
@@ -46,14 +45,18 @@ $(document).on('keyup','.vdistancia',function(){
 
 // close popupclosebtn
 $(document).on('click','.premios > label > .closebtn ',function(){
+  // contenedor general
   var contenedor = $(this).parent().parent();
+  // contenedor en donde estan los premios
   var premios = contenedor.find('.input-group-z'); 
+  // contar los premios
   var numero = premios.length;
-
-  setHideState(contenedor); // cierro el pop up
-  // tomar el indice
-  var index = contenedor.index('.popup.premios') ;
-
+  // defino el campo del contador
+  var contador   = contenedor.find('input.premios_cnt');
+  // guardar la referencia en el formulario para el pasarla al controlador
+  contador.val(numero);
+  // cierro el pop up
+  setHideState(contenedor); 
 });
 
 function setHideState(jElement)

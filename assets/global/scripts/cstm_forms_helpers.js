@@ -181,8 +181,6 @@ $(document).ready(function() {
     
     if(itemslenght - 1 == 1)
       $(this).fadeOut();
-    
-    console.log(itemslenght-1);
 
   });
 

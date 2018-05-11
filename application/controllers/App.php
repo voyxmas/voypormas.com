@@ -562,6 +562,10 @@ class App extends My_Controller {
 						)
 					),
 					array(
+						'type'			=> 'hidden',
+						'name'			=> 'premios_cnt[]'
+					),
+					array(
 						'label' 		=> 'Lugar de entrega de kit',
 						'type'			=> 'text',
 						'name'			=> 'kit_lugar[]',

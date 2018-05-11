@@ -137,7 +137,7 @@ class Eventos_ajax extends My_Controller {
 				$save_variantes['evento_id'] 	= $evento_id; 
 				$save_variantes['distancia'] 	= $vdistancia[$key_variante]; 
 				$save_variantes['info'] 		= $vinfo[$key_variante]; 
-				$save_variantes['fechahora'] 	= cstm_get_datetime($vfecha[$key_variante].' '.$vhora[$key_variante],SYS_DATETIMEFULL_FORMAT); 
+				$save_variantes['fechahora'] 	= $vhora[$key_variante]; 
 				$save_variantes['lugar_largada']= $vlugar[$key_variante]; 
 				$save_variantes['kit_lugar']	= $vkitlugar[$key_variante]; 
 				$save_variantes['kit_hora']		= $vkithora[$key_variante]; 
@@ -150,8 +150,7 @@ class Eventos_ajax extends My_Controller {
 					$e[] = 'No se pudo asociar una variante al evento '.$this->db->last_query() ;
 					continue;
 				}
-				
-				
+
 				// asocio a cada variante los montos definidos por las columnas de las fechas
 				// el key de los fields se corresponde con el key1 del array de vmonto_split (fila)
 				// cada elemento en cada array de vmonto_split tiene un key2 que se corresponde con el key de la fecha (columna), que es el monto para esa variante para esa fecha
@@ -375,7 +374,7 @@ class Eventos_ajax extends My_Controller {
 		$attr['longitud']					= $this->input->post('longitud');
 		$attr['publicar_desde'] 			= $this->input->post('publicar_desde');
 		$attr['participantes_destacados'] 	= $this->input->post('participantes_destacados');
-		$attr['estado']						= $this->input->post('estado');
+		$attr['estado']						= !empty($this->input->post('estado')) ? $this->input->post('estado') : 0;
 		
 		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
 
