@@ -50,7 +50,7 @@ class Eventos_ajax extends My_Controller {
 		$save['latitud'] 					= $this->input->post('latitud');
 		$save['longitud'] 					= $this->input->post('longitud');
 		$save['participantes_destacados'] 	= implode(',',$this->input->post('participantes_destacados'));
-		$save['estado'] 					= $this->input->post('estado');
+		$save['estado'] 					= $this->input->post('estado') ? $this->input->post('estado') : 0;
 
 		if(isset($_FILES) AND is_array($_FILES) AND !empty($_FILES))
 		{
@@ -375,7 +375,7 @@ class Eventos_ajax extends My_Controller {
 		$attr['longitud']					= $this->input->post('longitud');
 		$attr['publicar_desde'] 			= $this->input->post('publicar_desde');
 		$attr['participantes_destacados'] 	= $this->input->post('participantes_destacados');
-		$attr['estado']						= !empty($this->input->post('estado')) ? $this->input->post('estado') : 0;
+		$attr['estado']						= $this->input->post('estado') ? $this->input->post('estado') : 0;
 		
 		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);
 

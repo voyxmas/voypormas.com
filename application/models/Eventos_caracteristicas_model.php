@@ -16,6 +16,7 @@ class Eventos_caracteristicas_model extends MY_Model
 		if($evento_id === NULL) return FALSE;
 
 		$query['cond']['evento_id'] = $evento_id;
+		$query['results'] = 1000;
 
 		return $this->get($query);
 

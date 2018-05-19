@@ -6,7 +6,16 @@
     <img src="<?php echo base_url().$evento['imagen'] ?>" alt="">
     <?php endif ?>
     <h2><?php echo $evento['nombre'] ?></h2>
-    <p><?php echo $evento['tipo'] ?></p>
+    <?php if (count($evento['caracteristicas']) > 0 ) : ?>
+
+    <div class="caracteristicasLista">
+        <?php foreach ($evento['caracteristicas'] AS $caracteristicaItem ) : ?>
+        <img src="<?php echo base_url().$caracteristicaItem['caracteristica_icono'] ?>" alt="<?php echo $caracteristicaItem['caracteristica_nombre'] ?>" title="<?php echo $caracteristicaItem['caracteristica_nombre'] ?>">
+        <?php endforeach ?>
+    </div>
+        
+    <?php endif ?>
+    <p><?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?></p>
     <p><?php echo cstm_get_date($evento['fecha']) ?></p>
     <p><?php echo $evento['lugar'] ?></p>
     <h3>Inscripción</h3>
@@ -44,18 +53,12 @@
         <h3><?php echo $varianteItem['distancia'] ?>Km</h3>
         <p>Lugar de largada: <?php echo $varianteItem['lugar_largada'] ?></p>
         <p>Entrega de kit: <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_date($varianteItem['kit_hora']) ?>)</p>
+        <p>Premios: 
+        <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
+            <?php echo $premio['descripcion'] ?> : <?php echo $premio['premio'] ?>
+        <?php endforeach ?></p>
         <?php endforeach ?>
     </div><!-- Close div#variantes -->
-
-    <?php if (count($evento['caracteristicas']) > 0 ) : ?>
-
-    <div class="caracteristicasLista">
-        <?php foreach ($evento['caracteristicas'] AS $caracteristicaItem ) : ?>
-        <img src="<?php echo base_url().$caracteristicaItem['caracteristica_icono'] ?>" alt="<?php echo $caracteristicaItem['caracteristica_nombre'] ?>" title="<?php echo $caracteristicaItem['caracteristica_nombre'] ?>">
-        <?php endforeach ?>
-    </div>
-        
-    <?php endif ?>
 
     <h3>Organizador</h3>
     <div id="Organizacion" class="row">
@@ -68,13 +71,18 @@
         <?php endif ?>
         <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo urltolink($evento['organizacion'][0]['web']) ?></div>
         <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
+        <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
         <div class="col-sm-12"><span>Redes sociales:</span><br>
+            
             <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
                 <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
             <?php endforeach ?>
         </div>
+        <?php endif ?>
     </div><!-- Close div#Organizacion -->
 
+    <?php if ( is_array($evento['representantes']) AND !empty($evento['representantes']) ) : ?>
+        
     <h3>Representantes</h3>
     <?php foreach ($evento['representantes'] AS $representante ) : ?>
         <?php if ($representante['publico'] == 1 ) : ?>
@@ -85,6 +93,8 @@
         </p>
         <?php endif ?>
     <?php endforeach ?>
+    
+    <?php endif ?>
 
     <?php if ($evento['participantes_destacados']!="") : ?>
     <h3>Corredores destacados</h3>

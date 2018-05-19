@@ -135,6 +135,7 @@ class App extends My_Controller {
 		{
 			// get caracteristicas del evento
 			$query['cond']['evento_id'] = $evento['evento_id'];
+			$query['results'] = 1000;
 			$this->data['eventos'][$key]['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
 			foreach($this->data['eventos'][$key]['caracteristicas'] as $caracteristica)
 			{
@@ -671,10 +672,6 @@ class App extends My_Controller {
 		$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
 		$this->data['evento']['inscripciones_con_links'] = $this->change_urls_to_links($this->data['evento']['inscripciones']);
 
-		// get caracteristicas del evento
-		$query['cond']['evento_id'] = $evento_id;
-		$this->data['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
-
 		// get variantes
 		$query['cond']['evento_id'] = $this->data['evento']['evento_id'];
 		$this->data['evento']['variantes'] = $this->variantes_eventos_model->get($query); unset($query);
@@ -693,6 +690,7 @@ class App extends My_Controller {
 
 		// get caracteristicas
 		$query['cond']['evento_id'] = $evento_id;
+		$query['results'] = 1000;
 		$this->data['evento']['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
 
 		// get organizacion
