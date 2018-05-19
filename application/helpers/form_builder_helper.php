@@ -239,7 +239,8 @@ function echo_input_general($input)
 }
 
 // define si es un grupo, tabla de inputs o simplemente el input
-function inputSwitch ($input) {
+function inputSwitch ($input) 
+{
   echo '<div class="form-group '. (isset($input['class']) ? $input['class'] : NULL) .'">'; // input wraper
   if(isset($input['group']))
   {

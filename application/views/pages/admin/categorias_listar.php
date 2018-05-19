@@ -40,7 +40,13 @@
                                                 <div class="mt-action-row">
                                                     <div class="mt-action-info ">
                                                         <div class="mt-action-details ">
-                                                            <span class="mt-action-author"><?php echo $categoria['nombre'] ?></span>
+                                                            <span><?php echo $categoria['grupo'] ?> / <?php echo $categoria['nombre'] ?></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-action-buttons ">
+                                                        <div class="btn-group btn-group-circle">
+                                                            <a href="<?php echo base_url()?>admin/categorias/editar/<?php echo $categoria['evento_tipo_id'] ?>" class="btn btn-outline blue btn-sm "><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                            <a href="<?php echo base_url()?>ajax/categorias_ajax/eliminar/<?php echo $categoria['evento_tipo_id'] ?>" class="ajax_call btn btn-outline red btn-sm"><i class="fa fa-times" aria-hidden="true"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>

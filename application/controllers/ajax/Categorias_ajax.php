@@ -64,6 +64,81 @@ class Categorias_ajax extends My_Controller {
 		$this->ajax_response($data,$do_after);
 	}
 
+	public function editar($evento_tipo_id=NULL)
+	{
+		if($evento_tipo_id === NULL) $e[]="No se pudo editar el registro";
+		// check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'categorias_editar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		
+		$save_evento_tipo['nombre'] = $this->input->post('nombre');
+		$save_evento_tipo['evento_tipo_grupo_id'] = $this->input->post('evento_tipo_grupo_id');
+			// crear el registro si se creao o no hace falta creat la categoria
+		if(empty($e))
+		{
+			$save_result = $this->categorias_model->save($save_evento_tipo,$evento_tipo_id); unset($save_evento_tipo);
+			if(!$save_result) $e[] = 'No se pudo editar el registro';
+		}
+		else
+		{
+			$save_result = FALSE;
+		}
+
+
+		$data = array();
+		switch ($save_result) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] 	= 500;
+				$do_after['toastr'] 		= 'categoria creada';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
+	public function eliminar($evento_tipo_id=NULL)
+	{
+		if($evento_tipo_id === NULL) $e[]="No se pudo eliminar el registro";
+		// check permission
+		$data['CURRENT_SECTION'] 	= 'admin';
+		$data['CURRENT_PAGE'] 		= 'categorias_eliminar';
+		bouncer($data['CURRENT_SECTION'],$data['CURRENT_PAGE']);
+		
+		if(empty($e))
+		{
+			$save_result = $this->categorias_model->delete($evento_tipo_id);
+			if(!$save_result) $e[] = 'No se pudo eliminar el registro';
+		}
+		else
+		{
+			$save_result = FALSE;
+		}
+
+
+		$data = array();
+		switch ($save_result) {
+			case FALSE:
+				$do_after['toastr'] 		= implode('<br>',$e);
+				$do_after['toastr_type'] 	= 'error';
+				break;
+			
+			default:
+				$do_after['reload'] 		= 1;
+				$do_after['action_delay'] 	= 500;
+				$do_after['toastr'] 		= 'categoria creada';
+				$do_after['toastr_type'] 	= 'success';
+				break;
+		}
+		$this->ajax_response($data,$do_after);
+	}
+
 
 }
 ?>

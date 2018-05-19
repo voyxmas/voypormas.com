@@ -140,7 +140,8 @@ class Admin extends My_Controller {
 					'name' 			=> 'nombre',
 					'placeholder' 	=> 'Nombre de la carrera',
 					'label' 		=> 'Nombre de la carrera',
-					'help'			=> 'Nombre con el que aparece listado el evento'					
+					'help'			=> 'Nombre con el que aparece listado el evento',
+					'required'		=> TRUE				
 				);
 
 				$this->data['form']['inputs'][] = array(
@@ -154,6 +155,7 @@ class Admin extends My_Controller {
 					'name' 			=> 'lugar',
 					'id' 			=> 'lugar',
 					'type' 			=> 'text',
+					'required'		=> TRUE
 					
 				);
 
@@ -201,30 +203,35 @@ class Admin extends My_Controller {
 					'name' 			=> 'fecha',
 					'placeholder' 	=> 'Fecha del evento',
 					'label' 		=> 'Fecha del evento',
-					'type' 			=> 'date'
+					'type' 			=> 'date',
+					'required'		=> TRUE
 				);
-
 
 				$this->data['form']['inputs'][] = array(
 					'name' 			=> 'publicar_desde',
 					'label' 		=> 'Publicar desde',
 					'type' 			=> 'date',
-					'value' 		=> date(SYS_DATE_FORMAT)
+					'value' 		=> date(SYS_DATE_FORMAT),
+					'required'		=> TRUE
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'inscripciones_link',
+					'label' 		=> 'Link de inscripción',
+					'type' 			=> 'text'
 				);
 
 				$this->data['form']['inputs'][] = array(
 					'name' 			=> 'inscripciones',
 					'label' 		=> 'Inscripción',
-					'type' 			=> 'textarea',
-					'required'		=> TRUE
+					'type' 			=> 'textarea'
 				);
 	
 				$this->data['form']['inputs'][] = array(
 					'name' 			=> 'inscripciones_fecha_limite',
 					'label' 		=> 'Fecha Límite',
 					'type' 			=> 'date',
-					'value' 		=> date(SYS_DATE_FORMAT),
-					'required'		=> TRUE
+					'value' 		=> date(SYS_DATE_FORMAT)
 				);
 	
 				$this->data['form']['inputs'][] = array(
@@ -295,7 +302,6 @@ class Admin extends My_Controller {
 					'container'		=> array(
 						array(
 							'label' 		=> 'Premios',
-							'draggable' 	=> TRUE,
 							'add_one_more' 	=> TRUE,
 							'group' 		=> array(
 								array(
@@ -665,6 +671,11 @@ class Admin extends My_Controller {
 			case 'nuevo':
 				$this->categorias_nuevo();
 				break;
+			case 'editar':
+				$this->categorias_editar($categoria_id);
+				break;
+			default:
+				show_404();
 		}
 	}
 		// metodos de categorias
@@ -676,7 +687,8 @@ class Admin extends My_Controller {
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 
 			// buscar los eventos y ordenarlos por fecha de publicacion
-			$attr['order_by'] = 'creado DESC';
+			$attr['order_by'] = 'grupo ASC, nombre ASC';
+			$attr['results'] = 1000;
 
 			$this->data['categorias'] = $this->categorias_model->get($attr); unset($attr);
 
@@ -719,6 +731,50 @@ class Admin extends My_Controller {
 			// cargar la pagina y pasar los datos al view
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 
+		}
+
+		private function categorias_editar ($evento_tipo_id = NULL)
+		{
+			if($evento_tipo_id===NULL) return FALSE;
+
+			$this->data['CURRENT_SECTION'] 		= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'categorias_editar';
+
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+
+			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
+			$query['cond']['evento_tipo_id'] = $evento_tipo_id;
+			$this->data['categorias'] = $this->categorias_model->get($query)[0]; unset($query);
+
+			// cargar formulario
+				$this->data['form']['action'] = base_url().'ajax/categorias_ajax/editar/'.$evento_tipo_id;
+				$this->data['form']['ajax_call'] = 1;
+				// inputs
+
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'nombre',
+					'label' 		=> 'Nombre',
+					'type' 			=> 'text',
+					'value'			=> $this->data['categorias']['nombre']					
+				);
+
+				$this->data['form']['inputs'][] = array(
+					'label' 		=> 'Grupo',
+					'name' 			=> 'evento_tipo_grupo_id',
+					'required' 		=> TRUE,
+					'type' 	   		=> 'select',
+					'value'   		=> $this->data['categorias']['grupo_id'],
+					'options'		=> $this->categorias_grupos_model->get_for_input()
+				);
+				
+				echo "<pre>";
+				print_r ($this->data['categorias']['grupo']);
+				echo "</pre>";
+				
+
+			
+			// cargo el view
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
 	
 	public function settings ($method = NULL, $categoria_id = NULL)

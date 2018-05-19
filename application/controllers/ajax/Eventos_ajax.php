@@ -35,6 +35,7 @@ class Eventos_ajax extends My_Controller {
 		$save['nombre'] 					= $this->input->post('nombre');
 		$save['fecha'] 						= $this->input->post('fecha');
 		$save['descripcion'] 				= $this->input->post('descripcion');
+		$save['inscripciones_link']			= $this->input->post('inscripciones_link');
 		$save['inscripciones'] 				= $this->input->post('inscripciones');
 		$save['inscripciones_fecha_limite'] = $this->input->post('inscripciones_fecha_limite');
 		$save['inscripciones_cupo'] 		= $this->input->post('inscripciones_cupo');
@@ -360,10 +361,10 @@ class Eventos_ajax extends My_Controller {
 		$attr['evento_tipo_id']				= $this->input->post('evento_tipo_id');
 		$attr['fecha']						= $this->input->post('fecha');
 		$attr['lugar']						= $this->input->post('lugar');
+		$save['inscripciones_link']			= $this->input->post('inscripciones_link');
 		$attr['inscripciones']				= $this->input->post('inscripciones');
 		$attr['inscripciones_fecha_limite'] = $this->input->post('inscripciones_fecha_limite');
 		$attr['inscripciones_cupo'] 		= $this->input->post('inscripciones_cupo');
-
 		$attr['numero_casa']				= $this->input->post('numero_casa');
 		$attr['calle']						= $this->input->post('calle');
 		$attr['ciudad']						= $this->input->post('ciudad');

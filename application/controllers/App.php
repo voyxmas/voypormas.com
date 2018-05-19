@@ -456,19 +456,23 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'inscripciones_link',
+				'label' 		=> 'Link de inscripción',
+				'type' 			=> 'text'
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'inscripciones',
-				'label' 		=> 'Inscripción',
+				'label' 		=> 'Instrucciones para la inscripción',
 				'type' 			=> 'textarea',
 				'class'			=> 'col-sm-4',
-				'required'		=> TRUE
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'inscripciones_fecha_limite',
 				'label' 		=> 'Fecha Límite',
 				'type' 			=> 'date',
-				'class'			=> 'col-sm-4',
-				'required'		=> TRUE
+				'class'			=> 'col-sm-4'
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
