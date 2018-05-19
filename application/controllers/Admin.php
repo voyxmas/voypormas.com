@@ -606,6 +606,11 @@ class Admin extends My_Controller {
 			case 'nuevo':
 				$this->caracteristicas_nuevo();
 				break;
+			case 'editar':
+				$this->caracteristicas_editar($caracteristica_id);
+				break;
+			default:
+				show_404();
 		}
 	}
 		// metodos de caracteristicas
@@ -617,8 +622,8 @@ class Admin extends My_Controller {
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 
 			// buscar los eventos y ordenarlos por fecha de publicacion
-			$attr['order_by'] = 'creado DESC';
-			$attr['results'] = 200;
+			$attr['order_by'] = 'nombre ASC';
+			$attr['results'] = 1000;
 
 			$this->data['caracteristicas'] = $this->caracteristicas_model->get($attr); unset($attr);
 
@@ -654,6 +659,34 @@ class Admin extends My_Controller {
 			// cargar la pagina y pasar los datos al view
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 
+		}
+		
+		private function caracteristicas_editar($caracteristica_id = NULL)
+		{
+			if($caracteristica_id===NULL) return FALSE;
+
+			$this->data['CURRENT_SECTION'] 		= 'admin';
+			$this->data['CURRENT_PAGE'] 		= 'caracteristicas_editar';
+
+			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
+
+			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
+			$query['cond']['caracteristica_id'] = $caracteristica_id;
+			$this->data['caracteristicas'] = $this->caracteristicas_model->get($query)[0]; unset($query);
+
+			// cargar formulario
+				$this->data['form']['action'] = base_url().'ajax/caracteristicas_ajax/editar/'.$caracteristica_id;
+				$this->data['form']['ajax_call'] = 1;
+				// inputs
+
+				$this->data['form']['inputs'][] = array(
+					'name' 			=> 'nombre',
+					'label' 		=> 'Nombre',
+					'type' 			=> 'text',
+					'value'			=> $this->data['caracteristicas']['nombre']					
+				);			
+			// cargo el view
+			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
 	
 	// metodos de tipo de eventos
@@ -717,13 +750,15 @@ class Admin extends My_Controller {
 
 				$this->data['form']['inputs'][1]['label'] 		= 'Grupo';
 				$this->data['form']['inputs'][1]['name'] 			= 'evento_tipo_grupo_id';
+				$this->data['form']['inputs'][1]['id'] 			= 'evento_tipo_grupo_id';
 				$this->data['form']['inputs'][1]['placeholder'] 	= 'Grupo';
 				$this->data['form']['inputs'][1]['required'] 		= TRUE;
 				$this->data['form']['inputs'][1]['type'] 	   		= 'select';
 				$this->data['form']['inputs'][1]['options']		= $this->categorias_grupos_model->get_for_input();
 
-				$this->data['form']['inputs'][2]['name'] 			= 'evento_tipo_grupo_nombre';
-				$this->data['form']['inputs'][2]['placeholder'] 	= 'Nombre del nuevo grupo';
+				$this->data['form']['inputs'][2]['name'] 		= 'evento_tipo_grupo_nombre';
+				$this->data['form']['inputs'][2]['id'] 			= 'evento_tipo_grupo_nombre';
+				$this->data['form']['inputs'][2]['placeholder'] = 'Nombre del nuevo grupo';
 				$this->data['form']['inputs'][2]['class'] 		= 'hidden';
 
 			print_r($this->data['form']['inputs'][1]['options']);
@@ -759,20 +794,14 @@ class Admin extends My_Controller {
 				);
 
 				$this->data['form']['inputs'][] = array(
+					'id' 			=> 'evento_tipo_grupo_id',
 					'label' 		=> 'Grupo',
 					'name' 			=> 'evento_tipo_grupo_id',
 					'required' 		=> TRUE,
 					'type' 	   		=> 'select',
 					'value'   		=> $this->data['categorias']['grupo_id'],
-					'options'		=> $this->categorias_grupos_model->get_for_input()
-				);
-				
-				echo "<pre>";
-				print_r ($this->data['categorias']['grupo']);
-				echo "</pre>";
-				
-
-			
+					'options'		=> $this->categorias_grupos_model->get_for_input(array('cond'=>array('evento_tipo_grupo_id !='=>1)))
+				);			
 			// cargo el view
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}

@@ -34,6 +34,8 @@ $config['perm']['admin']['main']                        = TRUE;
   // caracteristicas
   $config['perm']['admin']['caracteristicas_listar']    = TRUE;
   $config['perm']['admin']['caracteristicas_nuevo']     = TRUE;
+  $config['perm']['admin']['caracteristicas_editar']    = TRUE;
+  $config['perm']['admin']['caracteristicas_borrar']    = TRUE;
   // categorias
   $config['perm']['admin']['categorias_listar']         = TRUE;
   $config['perm']['admin']['categorias_nuevo']          = TRUE;
