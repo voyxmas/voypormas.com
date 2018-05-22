@@ -53,6 +53,10 @@
                                 <div class="portlet-body">
                                     <div class="tab-content">
                                         <div id="tab_general" class="tab-pane active">
+                                            <?php if ($evento['imagen'] ) : ?>
+                                                <img src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+                                            <?php endif ?>
+                                            
                                             <?php if(isset($form_general)) array2form($form_general) ?>
                                             
                                             <div class="caracteristicasLista row" >
