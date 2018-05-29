@@ -3,7 +3,6 @@ $(document).on('keyup','textarea',function(){
 	textAreaAdjust(this);
 });
 $(window).load(function(){
-  console.log('onload');
   $('textarea').each(function(){
     textAreaAdjust(this);
   });

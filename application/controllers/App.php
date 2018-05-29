@@ -73,6 +73,7 @@ class App extends My_Controller {
 
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
+		$this->layouts->add_include(base_url().APP_ASSETS_FOLDER.'/global/scripts/helpers_generales.js','foot');
 
 		// get eventos
 		$attr['cond']['estado'] = 1;
@@ -656,8 +657,6 @@ class App extends My_Controller {
 		// includes
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/evento.js','foot');
-
 		// load models
 		$this->load->model('eventos_model');
 		$this->load->model('variantes_eventos_model');

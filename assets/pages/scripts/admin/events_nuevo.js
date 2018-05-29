@@ -23,7 +23,6 @@ $(document).on('click','.add-row',function(){
 
 $(document).on('click','.add-premio',function(){
   // mostrar el pop up
-  console.log('add premio');
   var index = $(this).index('.add-premio');
   var popup = $(".popup.premios").eq(index);
   // hago visible el que intento abrir
