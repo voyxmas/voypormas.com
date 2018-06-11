@@ -137,10 +137,13 @@ class App extends My_Controller {
 			// get caracteristicas del evento
 			$query['cond']['evento_id'] = $evento['evento_id'];
 			$query['results'] = 1000;
-			// agrego las distancias antes de sobreecribir el evento para no perder el agregado
-			$this->data['eventos_results'][$evento['evento_id']] = isset($this->data['eventos_results'][$evento['evento_id']]) ? array_merge($this->data['eventos_results'][$evento['evento_id']],$evento) : NULL;
-			$this->data['eventos_results'][$evento['evento_id']]['distancias'][] = $evento['distancia'];
+
+			$distancias[$evento['evento_id']][$evento['distancia']] = $evento['distancia'];
+
+			$this->data['eventos_results'][$evento['evento_id']] = $evento;
+			$this->data['eventos_results'][$evento['evento_id']]['distancias'] = $distancias[$evento['evento_id']];
 			$this->data['eventos_results'][$evento['evento_id']]['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
+
 			foreach($this->data['eventos_results'][$evento['evento_id']]['caracteristicas'] as $caracteristica)
 			{
 				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_nombre'] = $caracteristica['caracteristica_nombre'];
@@ -163,10 +166,9 @@ class App extends My_Controller {
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
 
 		$this->data['debug'] = $this->data['eventos_results'];
-		$this->data['debug'] = $this->data['eventos'];
 		
 		// get number of results to show
-		$this->data['count'] = isset($this->data['eventos_results']) ? count($this->data['eventos_results']) : 0;
+		$this->data['count'] = isset($this->data['eventos']) ? count($this->data['eventos_results']) : 0;
 
 		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
 	}

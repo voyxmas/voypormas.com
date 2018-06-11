@@ -64,7 +64,6 @@
                         </div>
                         <ul class="todo-tasks-content alternatefill">
                             <?php 
-                            if(isset($eventos_results))
                             foreach($eventos_results as $evento_id => $evento) : ?>
                             <li class="ajax_modal todo-tasks-item evento-item" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
                                     <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
@@ -84,7 +83,7 @@
                             <?php endforeach ?>
                         </ul>
 
-                        <?php echo $this->layouts->paginacion($eventos_results) ?>
+                        <?php echo $this->layouts->paginacion($eventos) ?>
                         </div>
                     </div>
                 </div>
