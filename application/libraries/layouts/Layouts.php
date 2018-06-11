@@ -213,8 +213,8 @@
       $query_string = $_SERVER['QUERY_STRING'];
 
       // ver si es associativo
-        if(isset($resultados[0]['total_results'])) 
-          $resultados_total = $resultados[0]['total_results'];
+        if(isset($resultados[0]['total_results']))
+          $resultados_total = count($resultados);
         elseif(isset($resultados['total_results'])) 
           $resultados_total = 1;
         else
@@ -248,7 +248,7 @@
               // cambiar el numero de pagina en el query_string
             $set_get['p'] = $p ;
             $url = $this->set_query_string($query_string,$set_get);
-            $html .= "<li class='$active_class $liclass'><a href='$url_base?$url'>$p</a></li>";
+            $html .= "<li class='$active_class $liclass'><a href='".base_url()."app/home?$url'>$p</a></li>";
           }
 
         }

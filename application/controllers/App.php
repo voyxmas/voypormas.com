@@ -163,7 +163,7 @@ class App extends My_Controller {
 		$this->data['debug'] = $this->data['eventos'];
 		
 		// get number of results to show
-		$this->data['count'] = isset($this->data['eventos'][0]['total_results']) ? $this->data['eventos'][0]['total_results'] : 0;
+		$this->data['count'] = isset($this->data['eventos_results']) ? count($this->data['eventos_results']) : 0;
 
 		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
 	}
@@ -643,7 +643,7 @@ class App extends My_Controller {
 		
 		// get maxs and mins
 			// price
-		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
+		$this->data['pricelimits'] = $this->eventos_model->minmax('monto');
 				
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
@@ -718,7 +718,7 @@ class App extends My_Controller {
 		
 		// get maxs and mins
 			// price
-		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');		
+		$this->data['pricelimits'] = $this->eventos_model->minmax('monto');		
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
 
@@ -779,7 +779,7 @@ class App extends My_Controller {
 
 		// get maxs and mins
 			// price
-			$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
+			$this->data['pricelimits'] = $this->eventos_model->minmax('monto');
 				
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');

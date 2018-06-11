@@ -84,7 +84,7 @@
                             <?php endforeach ?>
                         </ul>
 
-                        <?php echo $this->layouts->paginacion($eventos) ?>
+                        <?php echo $this->layouts->paginacion($eventos_results) ?>
                         </div>
                     </div>
                 </div>
