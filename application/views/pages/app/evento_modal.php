@@ -57,9 +57,9 @@
                 <p>Lugar de largada: <?php echo $varianteItem['lugar_largada'] ?> (<?php echo cstm_get_date($evento['fecha']) ?> <?php echo cstm_get_time($varianteItem['fechahora']) ?>)</p>
                 <p>Entrega de kit: <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_datetime($varianteItem['kit_hora']) ?>)</p>
                 <?php if ( !empty($varianteItem['premios']) ) : ?>  
-                <p>Premios: 
+                <p>Premios: <br>
                 <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
-                    <?php echo $premio['descripcion'] ?> : <?php echo $premio['premio'] ?> - 
+                    <?php echo $premio['descripcion'] ?> : <?php echo $premio['premio'] ?> <br> 
                 <?php endforeach ?></p>
                 <?php endif ?>
                 <?php if ( !empty($varianteItem['info']) ) : ?>  
@@ -73,18 +73,21 @@
 
     <h3>Organizador</h3>
     <div id="Organizacion" class="row">
-        <div class="col-sm-6 col-md4"><span>Organización:</span> <?php echo $evento['organizacion'][0]['nombre'] ?></div>
+        <div class="col-sm-6 col-md4"><span>Nombre de la organización:</span> <?php echo $evento['organizacion'][0]['nombre'] ?></div>
         <?php if ($evento['organizacion'][0]['email_public'] == 1 ) : ?>
         <div class="col-sm-6 col-md4"><span>Email:</span> <?php echo emailtolink($evento['organizacion'][0]['email']) ?></div>
         <?php endif ?>
         <?php if ($evento['organizacion'][0]['tel_public'] == 1 ) : ?>
         <div class="col-sm-6 col-md4"><span>Teléfono:</span> <?php echo teltolink($evento['organizacion'][0]['tel']) ?></div>
         <?php endif ?>
+        <?php if ($evento['organizacion'][0]['web'] ) : ?>
         <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo urltolink($evento['organizacion'][0]['web']) ?></div>
+        <?php endif ?>
+        <?php if ($evento['organizacion'][0]['inicio_actividades'] ) : ?>
         <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
+        <?php endif ?>
         <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
         <div class="col-sm-12"><span>Redes sociales:</span><br>
-            
             <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
                 <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
             <?php endforeach ?>
@@ -97,10 +100,12 @@
     <h3>Representantes</h3>
     <?php foreach ($evento['representantes'] AS $representante ) : ?>
         <?php if ($representante['publico'] == 1 ) : ?>
-        <p>
-            Nombre: <?php echo $representante['nombre'] ?><br>
-            Teléfono: <?php echo teltolink($representante['tel']) ?><br>
-            Email: <?php echo emailtolink($representante['email']) ?><br>
+        <p class="card">
+            <span class="card-body">
+                Nombre: <?php echo $representante['nombre'] ?><br>
+                Teléfono: <?php echo teltolink($representante['tel']) ?><br>
+                Email: <?php echo emailtolink($representante['email']) ?><br>
+            </span>
         </p>
         <?php endif ?>
     <?php endforeach ?>

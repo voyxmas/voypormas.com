@@ -63,7 +63,9 @@
                             <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
                         </div>
                         <ul class="todo-tasks-content alternatefill">
-                            <?php foreach($eventos as $evento_id => $evento) : ?>
+                            <?php 
+                            if(isset($eventos_results))
+                            foreach($eventos_results as $evento_id => $evento) : ?>
                             <li class="ajax_modal todo-tasks-item evento-item" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
                                     <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
                                     <h4 class="todo-inline">

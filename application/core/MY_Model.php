@@ -313,15 +313,10 @@ class MY_Model extends CI_Model
             else
                 $return[$registro[$this->primary_id]] = $registro[$this->primary_field];
         }
-
-
         return $return;
     }
 
     // get min and max values for a column in de table
-    /*
-        returns: array($campo_min = min, $campo_max = max)
-    */
     public function minmax($fields = NULL)
     {
         if($fields === NULL) return FALSE;

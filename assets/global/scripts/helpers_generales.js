@@ -7,13 +7,14 @@ let columnsMagic = {
         btnPrev: ".move.prev"
     },
     showHideCols: function() {
-        let rangeOffset = $('tbody > tr:first-child > td.fixed').size();
-        let rangeStart = this.settings.colPos + rangeOffset;
-        let rangeEnd = rangeStart + this.settings.colShow - 1; 
-        console.log((rangeStart - rangeOffset) + ' a ' + (rangeEnd - rangeOffset) + ' de ' + this.settings.colCount);
+        this.settings.rangeOffset = $('tbody > tr:first-child > td.fixed').size();
+        this.settings.rangeStart = this.settings.colPos + this.settings.rangeOffset - 1;
+        this.settings.rangeStart + this.settings.colShow - 1; 
+        console.log(this.settings);
         // start + end
         let showSelector = $('tbody > tr:not(.fixed) > td,thead > tr:not(.fixed) > th');
-        let hideSelector = $('tbody > tr:not(.fixed) > td:not(.fixed):nth-child(n+' + (rangeEnd + 1) + '), tbody > tr:not(.fixed) > td:not(.fixed):nth-child(-n+' + (rangeStart - 1) + '), thead > tr:not(.fixed) > th:not(.fixed):nth-child(n+' + (rangeEnd + 1) + '), thead > tr:not(.fixed) > th:not(.fixed):nth-child(-n+' + (rangeStart - 1) + ')');
+        let hideSelector = $('tbody > tr:not(.fixed) > td:not(.fixed):nth-child(n+' + (this.settings.rangeEnd + 1) + '), tbody > tr:not(.fixed) > td:not(.fixed):nth-child(-n+' + (this.settings.rangeStart - 1) + '), thead > tr:not(.fixed) > th:not(.fixed):nth-child(n+' + (this.settings.rangeEnd + 1) + '), thead > tr:not(.fixed) > th:not(.fixed):nth-child(-n+' + (this.settings.rangeStart - 1) + ')');
+
   
         showSelector.show();
         hideSelector.hide();
@@ -39,6 +40,7 @@ let columnsMagic = {
         let containerWidth = $(this.settings.container).width();
         this.settings.colShow = Math.floor(containerWidth / this.settings.colMinWidth);
         let finalColWidth = Math.floor(containerWidth / this.settings.colShow);
+        this.settings.rangeEnd = this.settings.colPos + this.settings.colShow;
         $('tbody > tr > td').width(finalColWidth);
     },
     next: function() {
@@ -57,7 +59,7 @@ let columnsMagic = {
     init: function() {
         // defaults
         this.defineColumns();
-        this.settings.colCount= $('tbody > tr:first-child td:not(.fixed)').size();
+        this.settings.colCount= $(this.settings.container + ' tbody > tr:first-child() td:not(.fixed)').size();
         this.showHideCols(this.settings.colPos, this.settings.colShow);
         this.showHideButtons();
     },

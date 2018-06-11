@@ -128,6 +128,7 @@ body {
 .caracteristicasLista img {
   width: 30px;
   height: 30px;
+  margin: 5px 2px 0 0;
 }
 
 .fitler-item {
@@ -219,7 +220,7 @@ li.ajax_modal {
 }
 
 .ajax_modal.todo-tasks-item.evento-item{
-  height: 93px;
+  min-height: 93px;
 }
 .no-line-break {
   white-space: nowrap;

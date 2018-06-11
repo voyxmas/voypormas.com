@@ -58,12 +58,12 @@
                             <input name="precio1" name="precio1" type="hidden" >
                             <div id="precio1" class="input col-xs-3"></div>
                             <div 
-                                data-min="<?php echo $pricelimits['precio_min'] ?>" 
+                                data-min="<?php echo $pricelimits['monto_min'] ?>" 
                                 data-minInput="precio1" 
-                                data-max="<?php echo $pricelimits['precio_max'] ?>" 
+                                data-max="<?php echo $pricelimits['monto_max'] ?>" 
                                 data-maxInput="precio2" 
-                                data-minselected="<?php echo !empty($this->input->get('precio1')) ? $this->input->get('precio1') : $pricelimits['precio_min'] ?>" 
-                                data-maxselected="<?php echo !empty($this->input->get('precio2')) ? $this->input->get('precio2') : $pricelimits['precio_max'] ?>" 
+                                data-minselected="<?php echo !empty($this->input->get('precio1')) ? $this->input->get('precio1') : $pricelimits['monto_min'] ?>" 
+                                data-maxselected="<?php echo !empty($this->input->get('precio2')) ? $this->input->get('precio2') : $pricelimits['monto_max'] ?>" 
                                 data-name="precio" 
                                 data-prefix="$" 
                                 class='col-xs-6 nouislider'>

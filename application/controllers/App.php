@@ -97,9 +97,9 @@ class App extends My_Controller {
 		if($this->input->get('distancia2'))
 			$attr['cond']['distancia <='] = $this->input->get('distancia2');
 		if($this->input->get('precio1'))
-			$attr['cond']['precio >='] = $this->input->get('precio1');
+			$attr['cond']['monto >='] = $this->input->get('precio1');
 		if($this->input->get('precio2'))
-			$attr['cond']['precio <='] = $this->input->get('precio2');
+			$attr['cond']['monto <='] = $this->input->get('precio2');
 		/* trabajo con las variables de ubicacion */
 		if($this->input->get('numero_casa'))
 			$attr['cond']['numero_casa'] = $this->input->get('numero_casa');
@@ -137,8 +137,9 @@ class App extends My_Controller {
 			// get caracteristicas del evento
 			$query['cond']['evento_id'] = $evento['evento_id'];
 			$query['results'] = 1000;
-			$this->data['eventos'][$key]['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
-			foreach($this->data['eventos'][$key]['caracteristicas'] as $caracteristica)
+			$this->data['eventos_results'][$evento['evento_id']] = $evento;
+			$this->data['eventos_results'][$evento['evento_id']]['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
+			foreach($this->data['eventos_results'][$evento['evento_id']]['caracteristicas'] as $caracteristica)
 			{
 				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_nombre'] = $caracteristica['caracteristica_nombre'];
 				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_icono'] = $caracteristica['caracteristica_icono'];
@@ -155,10 +156,11 @@ class App extends My_Controller {
 		}
 		// get maxs and mins
 			// price
-		$this->data['pricelimits'] = $this->eventos_model->minmax('precio');
-				
+		$this->data['pricelimits'] = $this->eventos_model->minmax('monto');
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
+
+		$this->data['debug'] = $this->data['eventos'];
 		
 		// get number of results to show
 		$this->data['count'] = isset($this->data['eventos'][0]['total_results']) ? $this->data['eventos'][0]['total_results'] : 0;
