@@ -124,6 +124,7 @@ class App extends My_Controller {
 		if($this->input->get('p'))
 			$attr['page'] = $this->input->get('p');
 		
+		$attr['results'] = 10000;
 		$query = $this->eventos_model->get($attr); unset($attr);
 		$this->data['eventos'] = $query ? $query : array() ;
 
@@ -136,7 +137,7 @@ class App extends My_Controller {
 		{
 			// get caracteristicas del evento
 			$query['cond']['evento_id'] = $evento['evento_id'];
-			$query['results'] = 1000;
+			$query['results'] = 10000;
 
 			$distancias[$evento['evento_id']][$evento['distancia']] = $evento['distancia'];
 
@@ -149,26 +150,22 @@ class App extends My_Controller {
 				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_nombre'] = $caracteristica['caracteristica_nombre'];
 				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_icono'] = $caracteristica['caracteristica_icono'];
 				$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['caracteristica_id'] = $caracteristica['caracteristica_id'];
-				if(isset($this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count']))
-				{
+				if(isset($this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count'])) {
 					$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count']++;
-				}
-				else
-				{
+				} else {
 					$this->data['filters']['caracteristicas'][$caracteristica['caracteristica_id']]['count'] = 1;
 				}
 			}
 		}
+		
 		// get maxs and mins
 			// price
 		$this->data['pricelimits'] = $this->eventos_model->minmax('monto');
 			// distancia
 		$this->data['distancialimits'] = $this->eventos_model->minmax('distancia');
-
-		$this->data['debug'] = $this->data['eventos_results'];
 		
 		// get number of results to show
-		$this->data['count'] = isset($this->data['eventos']) ? count($this->data['eventos_results']) : 0;
+		$this->data['count'] = isset($this->data['eventos_results']) ? count($this->data['eventos_results']) : 0;
 
 		$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'app/general');
 	}

@@ -57,13 +57,14 @@
                                     <option <?php echo $this->input->get('order') == 'fecha ASC' ? 'selected' : NULL ?> value="fecha ASC">Fecha</option>
                                     <option <?php echo $this->input->get('order') == 'distancia ASC' ? 'selected' : NULL ?> value="distancia ASC">Distancia</option>
                                     <option <?php echo $this->input->get('order') == 'lugar ASC' ? 'selected' : NULL ?> value="lugar ASC">Lugar</option>
-                                    <option <?php echo $this->input->get('order') == 'precio ASC' ? 'selected' : NULL ?> value="precio ASC">Precio</option>
+                                    <option <?php echo $this->input->get('order') == 'monto ASC' ? 'selected' : NULL ?> value="monto ASC">Precio</option>
                                 </select><button type="submit" form="main_search" class="btn btn-outline-secondary" type="button">Ordenar</button>
                             </div>
                             <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
                         </div>
                         <ul class="todo-tasks-content alternatefill">
                             <?php 
+                            if(isset($eventos_results))
                             foreach($eventos_results as $evento_id => $evento) : ?>
                             <li class="ajax_modal todo-tasks-item evento-item" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
                                     <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">

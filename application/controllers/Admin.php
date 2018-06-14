@@ -394,7 +394,7 @@ class Admin extends My_Controller {
 		private function events_ver($evento_id)
 		{
 			$this->data['CURRENT_SECTION'] 	= 'admin';
-			$this->data['CURRENT_PAGE'] 		= 'events_ver';
+			$this->data['CURRENT_PAGE'] 	= 'events_ver';
 	
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 
@@ -517,10 +517,9 @@ class Admin extends My_Controller {
 				
 				$this->data['form_general']['inputs'][] = array(
 					'name' 			=> 'publicar_desde',
-					'value'			=> $this->data['evento']['publicar_desde'],
+					'value'			=> cstm_get_date($this->data['evento']['publicar_desde'],SYS_DATE_FORMAT),
 					'label' 		=> 'Publicar desde',
-					'type' 			=> 'date',
-					'value' 		=> date(SYS_DATE_FORMAT)
+					'type' 			=> 'date'
 				);
 
 				$this->data['form_general']['inputs'][] = array(

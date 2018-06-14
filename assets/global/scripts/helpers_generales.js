@@ -10,7 +10,6 @@ let columnsMagic = {
         this.settings.rangeOffset = $('tbody > tr:first-child > td.fixed').size();
         this.settings.rangeStart = this.settings.colPos + this.settings.rangeOffset - 1;
         this.settings.rangeStart + this.settings.colShow - 1; 
-        console.log(this.settings);
         // start + end
         let showSelector = $('tbody > tr:not(.fixed) > td,thead > tr:not(.fixed) > th');
         let hideSelector = $('tbody > tr:not(.fixed) > td:not(.fixed):nth-child(n+' + (this.settings.rangeEnd + 1) + '), tbody > tr:not(.fixed) > td:not(.fixed):nth-child(-n+' + (this.settings.rangeStart - 1) + '), thead > tr:not(.fixed) > th:not(.fixed):nth-child(n+' + (this.settings.rangeEnd + 1) + '), thead > tr:not(.fixed) > th:not(.fixed):nth-child(-n+' + (this.settings.rangeStart - 1) + ')');
@@ -55,6 +54,7 @@ let columnsMagic = {
     },
     change: function(){
         this.showHideButtons();
+        console.log(this.settings);
     },
     init: function() {
         // defaults
