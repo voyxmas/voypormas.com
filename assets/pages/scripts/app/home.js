@@ -5,13 +5,14 @@ var Daterange = function(){
         {
             $('input#fecha').daterangepicker({
                 "autoUpdateInput": false,
-                "alwaysShowCalendars": true,
+                "alwaysShowCalendars": false,
                 "ranges": {
                     'Hoy': [moment()],
                     'Mañana': [moment().add('day',1),moment().add('day',1)],
                     'Esta semana': [moment().startOf('week'), moment().endOf('week')],
                     'Este mes': [moment().startOf('monvth'), moment().endOf('month')],
-                    'Proximo mes': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')]
+                    'Proximo mes': [moment().add('month', 1).startOf('month'), moment().add('month', 1).endOf('month')],
+                    'Reset': [moment(), moment().add('year', 5).endOf('year')]
                 },
                 "locale": {
                     "cancelLabel": 'Clear',
@@ -30,9 +31,11 @@ var Daterange = function(){
                 $('input#fecha').val(start.format("DD/MM/YY")+' - '+end.format("DD/MM/YY"));
             });
 
-            $('input#fecha').on('cancel.daterangepicker', function(ev, picker) {
+            $('input#fecha').on('cancel.daterangepicker', function() {
                 $(this).val('');
             })
+
+            $('[data-range-key=Reset]').click(function () {  setTimeout(function(){$('input#fecha').val('')},1)} );
         },
         init: function() 
         {
