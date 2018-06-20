@@ -7,6 +7,10 @@ class App extends My_Controller {
 	{
 		parent::__construct();
 
+		// verificar que tenga acceso temporal
+		$this->load->helper('cookie');
+		$this->temp_access();
+
 		// load helpers
 		$this->load->helper('z_elements');
 		
@@ -891,6 +895,73 @@ class App extends My_Controller {
 		}
 
 		return $date_range;
+	}
+
+	private function temp_access()
+	{
+		// variables
+		$cookie_expire_time = 3; // dias
+		$cookie_expire_time = $cookie_expire_time * 24 * 60 * 60;
+		// get attributs
+		$email = $this->input->get('email');
+		$token = $this->input->get('token');
+
+		// si no mando las credenciasles las busco en la cookie
+		if(!$email AND !$token)
+		{
+			$cookie = get_cookie('temps');
+			if($cookie){
+				$cookie = json_decode($cookie);
+				$email = $cookie->email;
+				$token = $cookie->token;
+			}else{
+				// si no hay una cookie
+				show_404();
+			}
+		}
+
+		// accesos
+		$accesos[] = array(
+			'email' => 'machado.fran@gmail.com',
+			'token' => '8ed358a7da3cc760364909d4aaf7321e',
+			'date'	=> NULL
+		);
+		$accesos[] = array(
+			'email' => 'erikpromero@gmail.com',
+			'token' => '6bbaa57585d4076ca9873bc8c45b43df',
+			'date'	=> NULL
+		);
+		$accesos[] = array(
+			'email' => 'x',
+			'token' => 'a',
+			'date'	=> '2018-06-21'
+		);
+
+		// ver si encuentro el login
+		$found 	= FALSE;
+		$i 		= 0;
+		while($found===FALSE AND $i < count($accesos))
+		{
+			if(
+				$accesos[$i]['email'] == $email 
+				AND $accesos[$i]['token'] == $token
+				AND (
+					$accesos[$i]['date'] == NULL
+					OR date('Y-m-d') <= date('Y-m-d', strtotime($accesos[$i]['date']))
+				)
+			)
+			{
+				$found = TRUE;
+				// si las credenciales se encontraron seteo la cokkie
+				$cookie = json_encode(array( 'email'=>$email, 'token'=>$token ));
+				set_cookie('temps',$cookie,$cookie_expire_time);
+			}
+			$i++;
+		}
+
+		if(!$found){
+			show_404();
+		}
 	}
 
 }
