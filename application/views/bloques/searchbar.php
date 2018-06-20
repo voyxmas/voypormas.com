@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label>Fecha</label>
-                        <input id="fecha" name="fecha" type="text" class="date-picker form-control" value="<?php echo $this->input->get('fecha') ?>">
+                        <input id="fecha" name="fecha" type="text" autocomplete="off" class="date-picker form-control" value="<?php echo $this->input->get('fecha') ?>">
                     </div>
                     <div class="form-group">
                         <label>Lugar</label>
