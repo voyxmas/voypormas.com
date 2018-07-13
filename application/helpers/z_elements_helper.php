@@ -14,18 +14,19 @@ function urltolink($text_input = NULL)
 {
 	if($text_input === NULL) return NULL;
 
-	$expresion_regular  = "/\b";
+	$expresion_regular  = "/";
 	$expresion_regular .= "(?<!\\\"|'|\>)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 	$expresion_regular .= "(http\:\/\/|https\:\/\/)?"; // pude o no tener http/s
 	$expresion_regular .= "([a-zA-Z0-9\-\_]+\.)?"; // posible subdominio
 	$expresion_regular .= "(?<!@)"; // filtrar que no sea un email
-	$expresion_regular .= "([a-zA-Z0-9\-\_]+\.)"; // dominio
-	$expresion_regular .= "([a-zA-Z]{2,10})"; // tld
+	$expresion_regular .= "([a-zA-Z0-9\-\_]+)"; // dominio
+	$expresion_regular .= "(\.[a-zA-Z]{2,10})"; // tld
 	$expresion_regular .= "(\.[a-zA-Z]{2})?"; // local
+	$expresion_regular .= "(\/)?"; // posible trailing slash
 	$expresion_regular .= "(\/[a-zA-Z0-9\-\_\/\.]+)?"; // subdirectorios
 	$expresion_regular .= "(\?[a-zA-Z0-9\-\_\=\%&]+)?"; // get atributes
 	$expresion_regular .= "(?!=\\\"|'|\<|\w|\/)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
-	$expresion_regular .= "\b/";
+	$expresion_regular .= "/";
 	
 	// encontrar los links
 	preg_match_all($expresion_regular, $text_input, $links_encontrados);

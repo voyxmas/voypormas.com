@@ -39,7 +39,6 @@
                                     <img 
                                         src="'.base_url().$filtersItem['caracteristica_icono'].'"> 
                                     <label for="c_'.$filtersItem['caracteristica_id'].'">'.$filtersItem['caracteristica_nombre'].'</label> 
-                                    <span class="badge badge-pill badge-warning">'.$filtersItem['count'].'</span>
                                 </li>' ?>
                             <?php endforeach ?>
                         </ul>
@@ -90,6 +89,8 @@
                 </div>
             </div>
         </div>
+        <?php else: ?>
+        <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
         <?php endif ?>
     </div>
 </div>

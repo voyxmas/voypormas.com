@@ -65,6 +65,7 @@ define('EMAILS_DOMAIN', 	'voypormas.com');
 
 define('ENABLE_SMTP', TRUE);
 // Si se usa SMTP, completar como minimo las requeridas:
+define('EMAIL_SYSTEM',	EMAILS_ADDRESS.'@'.EMAILS_DOMAIN); # requerida
 define('EMAILS_SMTP_HOST',	'mail.voypormas.com'); # requerida
 define('EMAILS_SMTP_USER',	'sistema@voypormas.com'); # requerida
 define('EMAILS_SMTP_PASS',	'3qZs7Mb,MAht'); # requerida

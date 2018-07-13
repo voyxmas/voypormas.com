@@ -385,19 +385,27 @@ class App extends My_Controller {
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'nombre',
 				'placeholder' 	=> 'Nombre con el que aparecerá en el listado de resultados',
-				'label' 		=> 'Nombre con el que aparecerá en el listado de resultados',
+				'label' 		=> 'Nombre de la carrera',
 				'required'		=> TRUE,
 				'help'			=> 'Nombre con el que aparece listado el evento'					
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'Imagen',
+				'label' 		=> 'Logo de la Carrera',
 				'name' 			=> 'image',
 				'type' 			=> 'file'		
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'Lugar',
+				'name' 			=> 'evento_tipo_id',
+				'required'		=> TRUE,
+				'label' 		=> 'Tipo de Carrera',
+				'type' 			=> 'select',
+				'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
+				'label' 		=> '¿Dónde se correrá?',
 				'placeholder'	=> 'lugar',
 				'name' 			=> 'lugar',
 				'id' 			=> 'lugar',
@@ -449,7 +457,7 @@ class App extends My_Controller {
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'fecha',
 				'placeholder' 	=> 'Fecha del evento',
-				'label' 		=> 'Fecha del evento',
+				'label' 		=> '¿Cuándo se correrá?',
 				'type' 			=> 'date',
 				'required'		=> TRUE,
 				'class' 		=> 'col-md-4 no-gutters'
@@ -473,7 +481,7 @@ class App extends My_Controller {
 
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'inscripciones',
-				'label' 		=> 'Instrucciones para la inscripción',
+				'label' 		=> 'Otras formas de inscribirse',
 				'type' 			=> 'textarea',
 				'class'			=> 'col-sm-4',
 			);
@@ -495,7 +503,7 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'Información de la carrera',
+				'label' 		=> 'Info por distancia',
 				'class'			=> 'clear-both',
 				'id' 			=> 'price-schedule',
 				'title'			=> 'Variantes del evento y respectivos costos de inscripcion',
@@ -523,13 +531,6 @@ class App extends My_Controller {
 							'type' 			=> 'number',
 							'sufixbox' 		=> 'kms',
 							'title'			=> 'Distancia en Km de esta variacion del evento'
-						),
-						array(
-							'name' 			=> 'vhora[]',
-							'placeholder'	=> 'Hora de largada',
-							'type' 			=> 'time',
-							'prefixbox' 	=> 'Hora',
-							'title'			=> 'Hora de largada para esta variante del evento'
 						),
 						array(
 							'type'			=> 'button',
@@ -581,13 +582,14 @@ class App extends My_Controller {
 					),
 					array(
 						'label' 		=> 'Lugar de entrega de kit',
+						'placeholder' 	=> 'Lugar de entrega de kit',
 						'type'			=> 'text',
 						'name'			=> 'kit_lugar[]',
 						'class'			=> 'col-sm-6'
 					),
 					array(
-						'label' 		=> 'Hora de entrega de kit',
-						'type'			=> 'time',
+						'label' 		=> 'Fecha y hora de entrega de kit',
+						'type'			=> 'datetime-local',
 						'name'			=> 'kit_hora[]',
 						'class'			=> 'col-sm-6'
 					),
@@ -596,25 +598,25 @@ class App extends My_Controller {
 						'placeholder'	=> 'Lugar de largada',
 						'label'			=> 'Lugar de largada',
 						'type' 			=> 'text',
+						'class'			=> 'col-sm-6',
 						'attr' 			=> array ('maxlength'=>140)
 					),
 					array(
+						'name' 			=> 'vhora[]',
+						'class'			=> 'col-sm-6',
+						'label'			=> 'Fecha y hora de largada',
+						'placeholder'	=> 'Hora de largada',
+						'type' 			=> 'datetime-local',
+						'title'			=> 'Hora de largada para esta variante'
+					),
+					array(
 						'name' 			=> 'vinfo[]',
+						'label'	=> 'Elementos Obligatorios',
 						'placeholder'	=> 'Elementos',
-						'label'	=> 'Elementos',
 						'type'			=> 'text',
 						'title'			=> 'Requisitos que se deben cumplir para poder participar'
 					),
 				)
-			);
-
-			$this->data['form_evento']['inputs'][] = array(
-				'name' 			=> 'evento_tipo_id',
-				'required'		=> TRUE,
-				'label' 		=> 'Tipo de evento',
-				'placeholder' 	=> 'Tipo de evento',
-				'type' 			=> 'select',
-				'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -907,7 +909,7 @@ class App extends My_Controller {
 		$token = $this->input->get('token');
 
 		// si no mando las credenciasles las busco en la cookie
-		if(!$email AND !$token)
+		if((!$email AND !$token) OR !$email AND $token) /* hotfix para que funcione la activacion de la cuenta de organizador con el link enviado por email */
 		{
 			$cookie = get_cookie('temps');
 			if($cookie){
@@ -916,25 +918,32 @@ class App extends My_Controller {
 				$token = $cookie->token;
 			}else{
 				// si no hay una cookie
+				delete_cookie('temps');
 				show_404();
 			}
 		}
 
 		// accesos
+		/* http://demo.zigna.com.ar/voypormas/?email=maiksacco@gmail.com&token=a576bf5d45ba8c8c4576ca9873bb43d0 */
 		$accesos[] = array(
 			'email' => 'machado.fran@gmail.com',
 			'token' => '8ed358a7da3cc760364909d4aaf7321e',
 			'date'	=> NULL
 		);
 		$accesos[] = array(
-			'email' => 'erikpromero@gmail.com',
+			'email' => 'erikp.romero@gmail.com',
 			'token' => '6bbaa57585d4076ca9873bc8c45b43df',
 			'date'	=> NULL
 		);
 		$accesos[] = array(
-			'email' => 'x',
-			'token' => 'a',
-			'date'	=> '2018-06-21'
+			'email' => 'vueltaaltascumbres@gmail.com',
+			'token' => 'baa576b58c8c45b43df5d4076ca9873b',
+			'date'	=> '2018-07-13'
+		);
+		$accesos[] = array(
+			'email' => 'maiksacco@gmail.com',
+			'token' => 'a576bf5d45ba8c8c4576ca9873bb43d0',
+			'date'	=> '2018-07-13'
 		);
 
 		// ver si encuentro el login
@@ -960,6 +969,7 @@ class App extends My_Controller {
 		}
 
 		if(!$found){
+			delete_cookie('temps');
 			show_404();
 		}
 	}

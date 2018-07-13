@@ -64,7 +64,7 @@ class Notificaciones_model extends CI_Model
         $content = $this->load->view($template,$content,TRUE); // los views del template estan en views/emails/general/[templete-name]
       
       // En entorno de produccion despachamos los emails realmente
-      if (ENVIRONMENT == 'production') 
+      if (ENVIRONMENT == 'production' OR ENVIRONMENT == 'testing') 
       {
           $this->load->library('email');
           $this->email->initialize($config);
