@@ -1,1 +1,1 @@
-<a href="<?php echo base_url() ?>" class="col-lg-12 logo"><img src="<?php echo base_url().APP_ASSETS_FOLDER?>/global/imgs/logos/logo_2.gif" alt="voypormas.com" class="logo-voypormas.com" /></a>
+<a class="col-lg-12 logo <?php echo $this->input->get() ? '' : 'home_center_menu' ?>" href="<?php echo base_url() ?>"><img src="<?php echo base_url().APP_ASSETS_FOLDER?>/global/imgs/logos/logo_2.gif" alt="voypormas.com" class="logo-voypormas.com" /></a>

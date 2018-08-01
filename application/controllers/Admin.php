@@ -24,7 +24,7 @@ class Admin extends My_Controller {
 	{
 		// verificar permisos y la sesion para poder continuar
 		$this->data['CURRENT_SECTION'] 	= 'admin';
-		$this->data['CURRENT_PAGE'] 		= 'login';
+		$this->data['CURRENT_PAGE'] 	= 'login';
 		
 		// verificar si ya se logeuo y enviarlo a main, si no contiuar
 		if(check_session()) redirect(base_url().'admin/main');

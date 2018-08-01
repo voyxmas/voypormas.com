@@ -1,11 +1,15 @@
-<div class="modal-header">
-    <button type="button" data-dismiss="modal" aria-hidden="true">x</button>
-</div>
+
 <div class="modal-body">
     <?php if ($evento['imagen'] ) : ?>
-    <img src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+    <img class="evento-imagen" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
     <?php endif ?>
-    <h2><?php echo $evento['nombre'] ?></h2>
+    <h2 class="evento-titulo"><?php echo $evento['nombre'] ?></h2>
+    
+    <p class="evento-bajada"><?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?><br>
+    <?php echo cstm_get_date($evento['fecha']) ?><br>
+    <?php echo $evento['lugar'] ?><br>
+    <?php echo $evento['organizacion'][0]['nombre'] ?></p>
+
     <?php if (count($evento['caracteristicas']) > 0 ) : ?>
 
     <div class="caracteristicasLista">
@@ -15,9 +19,6 @@
     </div>
         
     <?php endif ?>
-    <p><?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?></p>
-    <p><?php echo cstm_get_date($evento['fecha']) ?></p>
-    <p><?php echo $evento['lugar'] ?></p>
     <h3>Inscripción</h3>
     <div id="incripiones" >
         <p><?php echo urltolink($evento['inscripciones_link']) ?></p>

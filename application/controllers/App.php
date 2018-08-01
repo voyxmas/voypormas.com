@@ -465,18 +465,10 @@ class App extends My_Controller {
 			);
 			
 			$this->data['form_evento']['inputs'][] = array(
-				'name' 			=> 'publicar_desde',
-				'label' 		=> 'Publicar desde',
-				'type' 			=> 'date',
-				'required'		=> TRUE,
-				'value' 		=> date(SYS_DATE_FORMAT),
-				'class' 		=> 'col-md-4 no-gutters last'
-			);
-
-			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'inscripciones_link',
 				'label' 		=> 'Link de inscripción',
-				'type' 			=> 'text'
+				'type' 			=> 'text',
+				'class'			=> 'form-group col-md-4'
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -509,8 +501,8 @@ class App extends My_Controller {
 				'title'			=> 'Variantes del evento y respectivos costos de inscripcion',
 				'inputtable'	=> array(
 					'xy_label'		=> 'Distancia/Fecha' ,
-					'plus_y_label'	=> "<small>Agregar distancias</small>",
-					'plus_x_label'	=> "<small>Agregar periodos de pago</small>",
+					'plus_y_label'	=> "<small class='hidden-md-down'>Agregar distancias</small>",
+					'plus_x_label'	=> "<small class='hidden-md-down'>Agregar periodos de pago</small>",
 					// header fields for x
 					'x' => array(
 						array(
@@ -635,6 +627,15 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
+				'name' 			=> 'publicar_desde',
+				'label' 		=> 'Publicar desde',
+				'type' 			=> 'date',
+				'required'		=> TRUE,
+				'value' 		=> date(SYS_DATE_FORMAT),
+				'class' 		=> 'col-md-4 no-gutters last'
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'terminos',
 				'required'		=> TRUE,
 				'label' 		=> 'Terminos y condiciones',
@@ -644,7 +645,7 @@ class App extends My_Controller {
 			
 			$this->data['form_evento']['inputs'][] = array(
 				'type'			=> 'button',
-				'class'			=> 'btn-default',
+				'class'			=> 'btn-default terminos-condiciones',
 				'placeholder'	=> 'Leer términos y condiciones',
 				'data'			=> array('toggle'=>'modal', 'target'=>'#modal_terminos')
 			);
@@ -944,6 +945,11 @@ class App extends My_Controller {
 			'email' => 'maiksacco@gmail.com',
 			'token' => 'a576bf5d45ba8c8c4576ca9873bb43d0',
 			'date'	=> '2018-07-13'
+		);
+		$accesos[] = array(
+			'email' => 'pradoeventos@yahoo.com',
+			'token' => 'ba8c8a5c457bb43d06ca76bf5d459873',
+			'date'	=> '2018-07-18'
 		);
 
 		// ver si encuentro el login

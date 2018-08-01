@@ -30,7 +30,7 @@ $(document).ready(function(){
             // busco provincia
             if(elemento == "administrative_area_level_1") $('[name=provincia]').val(valor);
             // busco pais
-            if(elemento == "country") $('[name=pais]').val(valor);    
+            if(elemento == "country") $('[name=pais]').val(valor);  
         }
 
         // set latitud

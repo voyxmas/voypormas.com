@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="todo-head">
-                            <h3><span class="todo-grey">Eventos:</span> <span class="font-blue-madison"><?php echo $count ?></span></h3>
+                            <h3><span class="todo-grey">Estas carreras encontramos para vos:</span></span></h3>
                             <div class="sort pull-right">
                                 <select name="order" form="main_search" id="order_results" class="select">
                                     <option <?php echo $this->input->get('order') == 'nombre ASC' ? 'selected' : NULL ?> value="nombre ASC">Nombre</option>

@@ -16,11 +16,7 @@
                                 <?php endforeach ?>
                             </select>
                     </div>
-                    <div class="form-group">
-                        <label>Fecha</label>
-                        <input id="fecha" name="fecha" type="text" autocomplete="off" class="date-picker form-control" value="<?php echo $this->input->get('fecha') ?>">
-                    </div>
-                    <div class="form-group">
+                    <div class="form-group col-xs-6">
                         <label>Lugar</label>
                             <input id="lugar" name="lugar" class="form-control" value="<?php echo $this->input->get('lugar') ?>">
                             <input type="hidden" id="numero_casa" name="numero_casa" class="form-control" value="<?php echo $this->input->get('numero_casa') ?>">
@@ -32,7 +28,11 @@
                             <input type="hidden" id="latitud" name="latitud" class="form-control" value="<?php echo $this->input->get('latitud') ?>">
                             <input type="hidden" id="longitud" name="longitud" class="form-control" value="<?php echo $this->input->get('longitud') ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-xs-6">
+                        <label>Fecha</label>
+                        <input id="fecha" name="fecha" type="text" autocomplete="off" class="date-picker form-control" value="<?php echo $this->input->get('fecha') ?>">
+                    </div>
+                    <div class="form-group  col-xs-6">
                         <label>Distancia</label>
                         <div>
                             <input name="distancia1" type="hidden" >
@@ -52,7 +52,7 @@
                             <div id="distancia2" class="input col-xs-3"></div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group  col-xs-6">
                         <label>Precio</label>
                         <div>
                             <input name="precio1" name="precio1" type="hidden" >
@@ -75,8 +75,8 @@
                     <div class="form-group">
                         <label class="hidden-md-down">&nbsp;</label>
                         <div>
-                            <button type="submit" class="col-xs-12 btn btn-square btn-info todo-bold">Buscar</button>
-                            <p class="hidden-md-up">Mientras más filtros uses, mejor será tu resultado</p>
+                            <button type="submit" class="col-xs-12 btn btn-square btn-info todo-bold">Buscar!</button>
                         </div>
+                        <p class="hidden-md-up mas-filtros-mejor">Mientras más filtros uses, mejor será tu resultado</p>
                     </div>
                 </form>

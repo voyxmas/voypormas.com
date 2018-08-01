@@ -3,20 +3,32 @@
     display: block;
     margin-bottom: 30px;
 }
+#main_search {
+    border-bottom: 1px solid #000;
+    overflow: auto;
+    width: 100%;
+}
+
 #main_search > .form-group .input {
     padding: 6px 0;
+    height: 34px;
     text-align: center;
     border: none;
     font-size: 10px;
     line-height: 25px;
     box-sizing: border-box;
 }
+#main_search > .form-group .input,
+#main_search > .form-group button {
+    height: 34px;
+    margin-bottom: 10px;
+}
+#main_search > .form-group:last-child {
+    margin-bottom: 0;
+}
 
 #main_search > .form-group { display: block; float: left; padding: 0 2px;}
 
-.todo-tasks-content.alternatefill > .todo-tasks-item:nth-child(2n) {
-    /* background: #F5F5F5;*/
-}
 .evento-item {
     background: #333;
     padding: 10px !important;
@@ -78,6 +90,28 @@ textarea.form-control,
     box-shadow: initial;
 }
 
+.mas-filtros-mejor {
+    margin: 10px 0;
+    display: block;
+}
+
+.input-group-addon {
+    background-color: #999999 /* gris */;
+}
+
+.add-premio {
+    background: #F1C40F !important /*#amarillo*/;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.add-row, .rem-row, .add-column, .rem-column,.form_builder_helper_add_one_more,.form_builder_helper_add_one_less  {
+    background: #3ba4cf !important /*#celeste*/;
+    color:#FFF !important;
+}
+.terminos-condiciones {
+    background: #F1C40F !important /*#amarillo*/;
+}
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
 }
@@ -112,7 +146,7 @@ textarea.form-control,
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-    #main_search > .form-group { width: calc(100% / 3)}
+    #main_search > .form-group:not(.col-xs-6) { width: calc(100% / 3)}
     #main_search > .form-group:last-child { width: 100%}
 }
 
@@ -124,7 +158,7 @@ textarea.form-control,
 
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 480px) {
-    #main_search > .form-group { width: 100%}
+    #main_search > .form-group:not(.col-xs-6) { width: 100%}
     #main_search > .form-group:last-child { width: 100%}
 }
 

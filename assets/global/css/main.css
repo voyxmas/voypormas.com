@@ -44,8 +44,9 @@
     }
     .input-group-z > label {
       width:30%;
-    } 
-    .input-group-z > input {
+    }
+    .form-group.col-sm-4 {
+      padding-left: 0;padding-right: 0;
     }
   }
   
@@ -57,7 +58,7 @@
     color: #578EBE;
   }
 
-  .input-group-z-element { min-width: 50px;}
+  .input-group-z-element { min-width: 50px; text-align: center}
   .input-group .form-control,
   .input-group-addon, .input-group-btn { width: auto;}
 
@@ -114,10 +115,13 @@
 }
 
 /* tooltip fix */
-.z_tooltip {
-  
+html {
+  height: 100%;
 }
-
+body {
+  height: calc(100% - 60px);
+  box-sizing: border-box;
+}
 body {
   margin-bottom: 60px !important;
 }
@@ -128,14 +132,17 @@ body {
 .caracteristicasLista img {
   width: 30px;
   height: 30px;
-  margin: 5px 2px 0 0;
+}
+div.portlet-body > div > div > div.col-md-9 > ul.todo-tasks-content.alternatefill > li > div.caracteristicasLista > img {
+  margin-bottom: 5px;
 }
 
 .fitler-item {
-  margin-top: 15px;
+  margin-top: 0px;
   list-style: none;
-  line-height: 30px;
+  line-height: 20px;
   position: relative;
+  margin-top: 5px;
 }
 .fitler-item > img {
   margin-right: 10px;
@@ -214,9 +221,24 @@ li.ajax_modal {
   margin: 0 10px 0 0;
 }
 
+.modal-dialog > .modal-content {
+  background: #000;
+  border-radius: 10px !important;
+  color: #FFF;
+}
 .modal-dialog > .modal-content > .modal-body {
   max-height: calc(100% - 120px);
   overflow: auto;
+}
+
+.modal-dialog > .modal-content > .modal-body > .evento-imagen {
+  display: block;
+  margin: auto;
+}
+.modal-dialog > .modal-content > .modal-body > .evento-imagen,
+.modal-dialog > .modal-content > .modal-body > .evento-bajada,
+.modal-dialog > .modal-content > .modal-body > h2.evento-titulo {
+  text-align: center;
 }
 
 .ajax_modal.todo-tasks-item.evento-item{
@@ -238,6 +260,7 @@ li.ajax_modal {
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
+  color: #000;
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
