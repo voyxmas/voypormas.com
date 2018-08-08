@@ -32,7 +32,7 @@
                         <label>Fecha</label>
                         <input id="fecha" name="fecha" type="text" autocomplete="off" class="date-picker form-control" value="<?php echo $this->input->get('fecha') ?>">
                     </div>
-                    <div class="form-group  col-xs-6">
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Distancia</label>
                         <div>
                             <input name="distancia1" type="hidden" >
@@ -52,7 +52,7 @@
                             <div id="distancia2" class="input col-xs-3"></div>
                         </div>
                     </div>
-                    <div class="form-group  col-xs-6">
+                    <div class="form-group col-md-6 col-xs-12">
                         <label>Precio</label>
                         <div>
                             <input name="precio1" name="precio1" type="hidden" >

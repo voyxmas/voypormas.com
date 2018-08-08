@@ -20,8 +20,7 @@
         
     <?php endif ?>
     <h3>Inscripción</h3>
-    <div id="incripiones" >
-        <p><?php echo urltolink($evento['inscripciones_link']) ?></p>
+    <div id="inscripiones" >
         <p><?php echo $evento['inscripciones_con_links'] ?></p>
         <div id="tabla_inscripciones" >
             <table class="table col-sm-12">
@@ -47,7 +46,7 @@
             <input class="move prev btn btn-basic" value="<" type="button" data-direction="prev" />
             <input class="move next btn btn-basic" value=">" type="button" data-direction="next" />
         </div><!-- Close div#tabla_inscripciones -->
-    </div><!-- Close div#incripiones -->
+    </div><!-- Close div#inscripiones -->
 
     <h3>Info por distancia</h3>
     <div id="variantes" >
@@ -87,13 +86,7 @@
         <?php if ($evento['organizacion'][0]['inicio_actividades'] ) : ?>
         <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
         <?php endif ?>
-        <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
-        <div class="col-sm-12"><span>Redes sociales:</span><br>
-            <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
-                <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
-            <?php endforeach ?>
-        </div>
-        <?php endif ?>
+        
     </div><!-- Close div#Organizacion -->
 
     <?php if ( is_array($evento['representantes']) AND !empty($evento['representantes']) ) : ?>
@@ -117,6 +110,26 @@
     <h3>Corredores destacados</h3>
     <p><?php echo $evento['participantes_destacados'] ?></p>
     <?php endif ?>
+
+    <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
+    <div class="redes_sociales_modal">
+        <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
+            <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
+        <?php endforeach ?>
+        <?php if ($evento['organizacion'][0]['tel_public'] == 1 AND !empty($evento['organizacion'][0]['tel']) ) : ?>
+            <a class='fa fa-phone-square' target='_blank' href="tel:<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
+        <?php endif ?>
+        <?php if ($evento['organizacion'][0]['email_public'] == 1 AND !empty($evento['organizacion'][0]['email']) ) : ?>
+            <a class='fa fa-envelope-square' target='_blank' href="mailto:<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
+        <?php endif ?>
+    </div>
+    <?php endif ?>
+    <?php
+    $attr['Texto'] = 'Inscribite!'; 
+    $attr['Class'] = 'Inscripciones'; 
+    $attr['Icono'] = FALSE; 
+    ?>
+    <p><?php echo urltolink($evento['inscripciones_link'],$attr) ?></p>
 
 </div>
 <div class="modal-footer">

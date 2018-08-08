@@ -4,10 +4,12 @@ img.event_photo {
     float: left;
     margin-right: 15px;
 }
+div#tabla_inscripciones > table {
+    background: #FFF;
+}
 div#tabla_inscripciones {
     position: relative;
     overflow: visible;
-    background: #FFF;
     color: #000;
 }
 div#tabla_inscripciones th {
@@ -33,6 +35,15 @@ div#tabla_inscripciones > input.next {right: -15px;}
 .app_home > .col-md-12 > .portlet.light
 {
     min-height: 100%;
+}
+.Inscripciones {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+}
+.redes_sociales_modal > a {
+    font-size: 60px;
+    line-height: 60px;
 }
 
 @media only screen and (min-height: 600px) {

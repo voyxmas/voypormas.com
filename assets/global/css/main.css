@@ -210,8 +210,21 @@ div.portlet-body > div > div > div.col-md-9 > ul.todo-tasks-content.alternatefil
 .evento-perfil-redes-sociales {
   font-size: 32px;
   line-height: 32px !important;
-  color: #000;
+  color: #CCC;
 }
+.evento-perfil-redes-sociales:hover {
+  color: #FFF;  
+}
+
+.evento-perfil-redes-sociales.fa-facebook-square {color: #8b9dc3;}
+.evento-perfil-redes-sociales.fa-google-plus-square {color: #dd4b39;}
+.evento-perfil-redes-sociales.fa-pinterest-square {color: #cb2027;}
+.evento-perfil-redes-sociales.fa-twitter-square {color: #55acee;}
+.evento-perfil-redes-sociales.fa-linkedin-square {color: #007bb5;}
+.evento-perfil-redes-sociales.fa-youtube-square {color: #ff0000;}
+.evento-perfil-redes-sociales.fa-instagram-square {color: #e95950;}
+.evento-perfil-redes-sociales.fa-tumblr-square {color: #32506d;}
+.evento-perfil-redes-sociales.fa-flickr-square {color: #ff0084;}
 
 li.ajax_modal {
   cursor: pointer;
@@ -278,4 +291,15 @@ li.ajax_modal {
 }
 .card-body p {
   margin: 0;
+}
+div.form-group.listaicono > label:first-child { display: block;}
+label.listaicono {
+  text-align: center;
+  display: inline-block;
+  width: 12.5%;
+  min-width: 100px;
+}
+label.listaicono > img {
+  display: block;
+  margin: 0 auto;
 }

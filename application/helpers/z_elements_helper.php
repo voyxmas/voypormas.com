@@ -10,9 +10,14 @@ function change_urls_to_links($text_input = NULL)
 		return $text_output;
 	}
 
-function urltolink($text_input = NULL)
+function urltolink($text_input = NULL, $settings = NULL)
 {
 	if($text_input === NULL) return NULL;
+
+	// chequeo settings
+	$settings['Texto'] = (isset($settings['Texto']) AND !empty($settings['Texto'])) ? $settings['Texto'] : NULL;
+	$settings['Class'] = (isset($settings['Class']) AND !empty($settings['Class'])) ? $settings['Class'] : NULL;
+	$settings['Icono'] = isset($settings['Icono']) ? $settings['Icono'] : NULL;
 
 	$expresion_regular  = "/";
 	$expresion_regular .= "(?<!\\\"|'|\>)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
@@ -38,15 +43,28 @@ function urltolink($text_input = NULL)
 		{
 			// ver si tiene el http
 			$link_http = strpos($link_encontrado,'http') !== FALSE ? $link_encontrado : 'http://'.$link_encontrado;
+			
+			// ver si tengo que cambiar el texto del link
+			if(!empty($settings['Texto'])) {
+				$link_anchor_text = $settings['Texto'];
+			}else{
+				$link_anchor_text = substr($link_encontrado,0,42).(strlen($link_encontrado) > 42 ? '...' : NULL);
+			}
+
 			// creo el link html
-			$link_market_html = '<a title="'.$link_encontrado.'" href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info"><i class="fa fa-external-link-square"></i> '.substr($link_encontrado,0,42).(strlen($link_encontrado) > 42 ? '...' : NULL).'</a>';
+			$link_market_html = '<a title="'.$link_encontrado.'" href="'.$link_http.'" target="_blank" class="btn btn-xs btn-info '.$settings['Class'].'">';
+			// defino si pongo el icono por defecto, uno especifico o si no pongo nada
+			$link_market_html.= ($settings['Icono'] === FALSE) ? NULL : '<i class="'.( $settings['Icono'] === NULL ? 'fa fa-external-link-square' : $settings['Icono'] ).'"></i> ';
+			$link_market_html.= $link_anchor_text.'</a>';
+
 			// reemplazo el texto por el link
 			$text_input = str_replace($link_encontrado,$crum_to_find[$key],$text_input);
 		}
 		$crum_replacer[$key] = $link_market_html;
 	}
-	$text_input = isset($crum_to_find) ? str_replace($crum_to_find,$crum_replacer,$text_input) : $text_input; // si hay algo para reemplazar lo hago
-	return $text_input;
+	$text_output = isset($crum_to_find) ? str_replace($crum_to_find,$crum_replacer,$text_input) : $text_input; // si hay algo para reemplazar lo hago
+	
+	return $text_output;
 }
 
 function emailtolink($text_input = NULL)

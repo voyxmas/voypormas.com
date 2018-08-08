@@ -4,8 +4,6 @@
     margin-bottom: 30px;
 }
 #main_search {
-    border-bottom: 1px solid #000;
-    overflow: auto;
     width: 100%;
 }
 
@@ -146,7 +144,7 @@ textarea.form-control,
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-    #main_search > .form-group:not(.col-xs-6) { width: calc(100% / 3)}
+    #main_search > .form-group:not(.col-xs-6) { width: calc(100% / 2)}
     #main_search > .form-group:last-child { width: 100%}
 }
 

@@ -546,7 +546,7 @@ class App extends My_Controller {
 
 			$this->data['form_evento']['inputs'][] = array(
 				'class' 		=> 'premios hide popup portlet light animated',
-				'label' 		=> '+ INFO',
+				'label' 		=> '+ INFO DE ESTA DISTANCIA',
 				'container'		=> array(
 					array(
 						'label' 		=> 'Premios',
@@ -603,7 +603,7 @@ class App extends My_Controller {
 					),
 					array(
 						'name' 			=> 'vinfo[]',
-						'label'	=> 'Elementos Obligatorios',
+						'label'			=> 'Elementos Obligatorios',
 						'placeholder'	=> 'Elementos',
 						'type'			=> 'text',
 						'title'			=> 'Requisitos que se deben cumplir para poder participar'
@@ -611,12 +611,15 @@ class App extends My_Controller {
 				)
 			);
 
+			$attr_caract['show']['img'] = 'icono';
+			$attr_caract['show']['text'] = 'nombre';
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'caracteristica_id[]',
 				'label' 		=> 'Caracteristicas',
 				'placeholder' 	=> 'Caracteristicas',
 				'type' 			=> 'checkbox',
-				'options'		=> $this->caracteristicas_model->get_for_input(),
+				'class'			=> 'listaicono',
+				'options'		=> $this->caracteristicas_model->get_for_input($attr_caract),
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -631,8 +634,7 @@ class App extends My_Controller {
 				'label' 		=> 'Publicar desde',
 				'type' 			=> 'date',
 				'required'		=> TRUE,
-				'value' 		=> date(SYS_DATE_FORMAT),
-				'class' 		=> 'col-md-4 no-gutters last'
+				'value' 		=> date(SYS_DATE_FORMAT)
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -950,6 +952,16 @@ class App extends My_Controller {
 			'email' => 'pradoeventos@yahoo.com',
 			'token' => 'ba8c8a5c457bb43d06ca76bf5d459873',
 			'date'	=> '2018-07-18'
+		);
+		$accesos[] = array(
+			'email' => 'lobus85@hotmail.com',
+			'token' => 'a8c8a5c4576bbf5d43d06ca598bb4773',
+			'date'	=> '2018-08-09'
+		);
+		$accesos[] = array(
+			'email' => 'noemail',
+			'token' => 'aa5cf5d4773d06ca598b48c8576bbb43',
+			'date'	=> '2018-08-09'
 		);
 
 		// ver si encuentro el login

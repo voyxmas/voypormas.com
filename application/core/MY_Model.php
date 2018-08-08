@@ -308,10 +308,20 @@ class MY_Model extends CI_Model
         // looperar y asociar de cada registro solo el primery text con su id
         foreach ($registros as $registro) 
         {
+            // veo que tengo que mostrar, si show esta definido busco eso, si no voycon el campo primario
+            if(isset($attr['show']))
+            {
+                foreach ($attr['show'] as $key => $value) {
+                    $return_fields[$key] = $registro[$value];
+                }
+            }else{
+                $return_fields=$registro[$this->primary_field];
+            }
+
             if($inputgroup)
-                $return[$registro[$inputgroup]][$registro[$this->primary_id]] = $registro[$this->primary_field];
+                $return[$registro[$inputgroup]][$registro[$this->primary_id]] = $return_fields;
             else
-                $return[$registro[$this->primary_id]] = $registro[$this->primary_field];
+                $return[$registro[$this->primary_id]] = $return_fields;
         }
         return $return;
     }
