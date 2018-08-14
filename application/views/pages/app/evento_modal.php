@@ -1,4 +1,9 @@
 
+<?php if ($evento['suspendido'] == 1 ) : ?>
+<span class="label_evento_suspendido">
+    <span>suspendido</span>
+</span>
+<?php endif ?>
 <div class="modal-body">
     <?php if ($evento['imagen'] ) : ?>
     <img class="evento-imagen" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
@@ -8,7 +13,43 @@
     <p class="evento-bajada"><?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?><br>
     <?php echo cstm_get_date($evento['fecha']) ?><br>
     <?php echo $evento['lugar'] ?><br>
-    <?php echo $evento['organizacion'][0]['nombre'] ?></p>
+    Organización: <a id="more_org_info" data-toggle="collapse" href="#organizador_info" aria-expanded="false" aria-controls="organizador_info" class="collapsed"> <?php echo strtoupper($evento['organizacion'][0]['nombre']) ?></a>
+    </p>
+    <div id="organizador_info" class="collapse">
+        <h3>Organizador</h3>
+        <div id="Organizacion" class="row">
+            <div class="col-sm-6 col-md4"><span>Nombre de la organización:</span> <?php echo $evento['organizacion'][0]['nombre'] ?></div>
+            <?php if ($evento['organizacion'][0]['email_public'] == 1 ) : ?>
+            <div class="col-sm-6 col-md4"><span>Email:</span> <?php echo emailtolink($evento['organizacion'][0]['email']) ?></div>
+            <?php endif ?>
+            <?php if ($evento['organizacion'][0]['tel_public'] == 1 ) : ?>
+            <div class="col-sm-6 col-md4"><span>Teléfono:</span> <?php echo teltolink($evento['organizacion'][0]['tel']) ?></div>
+            <?php endif ?>
+            <?php if ($evento['organizacion'][0]['web'] ) : ?>
+            <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo urltolink($evento['organizacion'][0]['web']) ?></div>
+            <?php endif ?>
+            <?php if ($evento['organizacion'][0]['inicio_actividades'] ) : ?>
+            <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
+            <?php endif ?>
+            
+        </div><!-- Close div#Organizacion -->
+        <?php if ( is_array($evento['representantes']) AND !empty($evento['representantes']) ) : ?>
+        
+            <h3>Representantes</h3>
+            <?php foreach ($evento['representantes'] AS $representante ) : ?>
+                <?php if ($representante['publico'] == 1 ) : ?>
+                <p class="card">
+                    <span class="card-body">
+                        Nombre: <?php echo $representante['nombre'] ?><br>
+                        Teléfono: <?php echo teltolink($representante['tel']) ?><br>
+                        Email: <?php echo emailtolink($representante['email']) ?><br>
+                    </span>
+                </p>
+                <?php endif ?>
+            <?php endforeach ?>
+    
+        <?php endif ?>
+    </div>
 
     <?php if (count($evento['caracteristicas']) > 0 ) : ?>
 
@@ -43,6 +84,7 @@
                     <?php endforeach ?> 
                 </tbody>
             </table>
+            &nbsp;
             <input class="move prev btn btn-basic" value="<" type="button" data-direction="prev" />
             <input class="move next btn btn-basic" value=">" type="button" data-direction="next" />
         </div><!-- Close div#tabla_inscripciones -->
@@ -71,41 +113,6 @@
         <?php endforeach ?>
     </div><!-- Close div#variantes -->
 
-    <h3>Organizador</h3>
-    <div id="Organizacion" class="row">
-        <div class="col-sm-6 col-md4"><span>Nombre de la organización:</span> <?php echo $evento['organizacion'][0]['nombre'] ?></div>
-        <?php if ($evento['organizacion'][0]['email_public'] == 1 ) : ?>
-        <div class="col-sm-6 col-md4"><span>Email:</span> <?php echo emailtolink($evento['organizacion'][0]['email']) ?></div>
-        <?php endif ?>
-        <?php if ($evento['organizacion'][0]['tel_public'] == 1 ) : ?>
-        <div class="col-sm-6 col-md4"><span>Teléfono:</span> <?php echo teltolink($evento['organizacion'][0]['tel']) ?></div>
-        <?php endif ?>
-        <?php if ($evento['organizacion'][0]['web'] ) : ?>
-        <div class="col-sm-6 col-md4"><span>Web:</span> <?php echo urltolink($evento['organizacion'][0]['web']) ?></div>
-        <?php endif ?>
-        <?php if ($evento['organizacion'][0]['inicio_actividades'] ) : ?>
-        <div class="col-sm-6 col-md4"><span>Inicio de actividades:</span> <?php echo cstm_get_date($evento['organizacion'][0]['inicio_actividades']) ?></div>
-        <?php endif ?>
-        
-    </div><!-- Close div#Organizacion -->
-
-    <?php if ( is_array($evento['representantes']) AND !empty($evento['representantes']) ) : ?>
-        
-    <h3>Representantes</h3>
-    <?php foreach ($evento['representantes'] AS $representante ) : ?>
-        <?php if ($representante['publico'] == 1 ) : ?>
-        <p class="card">
-            <span class="card-body">
-                Nombre: <?php echo $representante['nombre'] ?><br>
-                Teléfono: <?php echo teltolink($representante['tel']) ?><br>
-                Email: <?php echo emailtolink($representante['email']) ?><br>
-            </span>
-        </p>
-        <?php endif ?>
-    <?php endforeach ?>
-    
-    <?php endif ?>
-
     <?php if ($evento['participantes_destacados']!="") : ?>
     <h3>Corredores destacados</h3>
     <p><?php echo $evento['participantes_destacados'] ?></p>
@@ -117,10 +124,10 @@
             <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
         <?php endforeach ?>
         <?php if ($evento['organizacion'][0]['tel_public'] == 1 AND !empty($evento['organizacion'][0]['tel']) ) : ?>
-            <a class='fa fa-phone-square' target='_blank' href="tel:<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
+            <a class='fa fa-phone-square' target='_blank' href="tel:<?php echo $evento['organizacion'][0]['tel'] ?>" title="<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
         <?php endif ?>
         <?php if ($evento['organizacion'][0]['email_public'] == 1 AND !empty($evento['organizacion'][0]['email']) ) : ?>
-            <a class='fa fa-envelope-square' target='_blank' href="mailto:<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
+            <a class='fa fa-envelope-square' target='_blank' href="mailto:<?php echo $evento['organizacion'][0]['email'] ?>" title="<?php echo $evento['organizacion'][0]['email'] ?>"></a>
         <?php endif ?>
     </div>
     <?php endif ?>
@@ -133,5 +140,5 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
 </div>

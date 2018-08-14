@@ -38,7 +38,7 @@ class App extends My_Controller {
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
-		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c6fc1f58deed6','foot', 'js');
+		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b72f1d71a0ecd70','foot', 'js');
 		
 		
 
@@ -961,7 +961,7 @@ class App extends My_Controller {
 		$accesos[] = array(
 			'email' => 'noemail',
 			'token' => 'aa5cf5d4773d06ca598b48c8576bbb43',
-			'date'	=> '2018-08-09'
+			'date'	=> NULL
 		);
 
 		// ver si encuentro el login

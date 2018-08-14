@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label class="hidden-md-down">&nbsp;</label>
                         <div>
-                            <button type="submit" class="col-xs-12 btn btn-square btn-info todo-bold">Buscar!</button>
+                            <button type="submit" class="col-xs-12 btn btn-square btn-info todo-bold btn-buscar">Buscar!</button>
                         </div>
                         <p class="hidden-md-up mas-filtros-mejor">Mientras más filtros uses, mejor será tu resultado</p>
                     </div>

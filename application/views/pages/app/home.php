@@ -10,7 +10,7 @@
         </div>
         <?php if ($this->input->get() ) : ?>
         <div class="portlet-body">
-            <div class="todo-container">
+            <div class="todo-container lista-eventos">
                 <div class="row">
                     <div id="filtros" class="col-md-3">
                         <div class="todo-head">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-9">
                         <div class="todo-head">
-                            <h3><span class="todo-grey">Estas carreras encontramos para vos:</span></span></h3>
+                            <h3><span class="texto-azul">Estas carreras encontramos para vos:</span></span></h3>
                             <div class="sort pull-right">
                                 <select name="order" form="main_search" id="order_results" class="select">
                                     <option <?php echo $this->input->get('order') == 'nombre ASC' ? 'selected' : NULL ?> value="nombre ASC">Nombre</option>
@@ -65,7 +65,7 @@
                             <?php 
                             if(isset($eventos_results))
                             foreach($eventos_results as $evento_id => $evento) : ?>
-                            <li class="ajax_modal todo-tasks-item evento-item" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
+                            <li class="ajax_modal todo-tasks-item evento-item <?php echo $evento['suspendido'] == 1 ? 'suspendido' : NULL ?>" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
                                     <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
                                     <h4 class="todo-inline">
                                         <?php echo $evento['nombre'] ?>
@@ -78,7 +78,11 @@
                                         <img src="<?php echo base_url().$caracteristicasItem['caracteristica_icono'] ?>" alt="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>" title="<?php echo $caracteristicasItem['caracteristica_nombre'] ?>">
                                         <?php endforeach ?>
                                     </div><!-- Close div.caracteristicasLista -->
-    
+                                    <?php if ($evento['suspendido'] == 1 ) : ?>
+                                    <span class="label_evento_suspendido">
+                                        <span>suspendido</span>
+                                    </span>
+                                    <?php endif ?>
                             </li>
                             <?php endforeach ?>
                         </ul>

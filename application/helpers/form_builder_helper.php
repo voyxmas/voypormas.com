@@ -52,14 +52,14 @@ function array2form($form = array())
 // input count
 $input_count = 0;
 
-function echo_input($input,$group = FALSE)
+function echo_input($input,$group = FALSE,$sobre_escribir=array())
 {
   global $input_count;
   $input_count++;
   $extra = array();
   // defaults
   $input["type"]          = isset($input["type"]) ? $input["type"] : 'text';
-  $input["name"]          = isset($input["name"]) ? $input["name"] : $input["type"].$input_count;
+  $input["name"]          = isset($input["name"]) ? $input["name"] : 'input'.$input_count;
   $input["id"]            = isset($input["id"]) ? $input["id"] : str_replace('[]','',$input["name"]);
   // $group = $group ? 'input-group-addon' : NULL;
   $input["add_one_more"]  = isset($input["add_one_more"]) ? $input["add_one_more"] : FALSE;
@@ -77,6 +77,14 @@ function echo_input($input,$group = FALSE)
   $input["data"]          = isset($input["data"]) ? $input["data"] : array();
   $input["style"]         = isset($input["style"]) ? 'style="'.$input["style"].'"' : NULL;
   $input["inputs"]        = isset($input["inputs"]) ? $input["inputs"] : array();
+
+  // check overrides
+  if(!empty($sobre_escribir) AND is_array($sobre_escribir))
+  {
+    foreach ($sobre_escribir as $key => $value) {
+      $input[$key] = $value;
+    }
+  }
 
   // defino el valor title para help si esta definido si no title
   $title = $input["help"] ? 'data-toggle="tooltip" title="'.$input["help"].'"' :  'title="'.$input["title"].'"';

@@ -15,7 +15,6 @@
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
                                     <li><a href="<?php echo base_url().'admin/settings' ?>">Administrar</a></li>
-                                    <li><a href="<?php echo base_url().'admin/settings/nuevo' ?>">Cargar</a></li>
                                     <li><a href="javascript:history.go(-1)">Volver</a></li>
                                 </ul>
                             </div>
@@ -36,9 +35,6 @@
                                             <a href="#setting_tab_<?php echo $settingsItem[0]['setting_grupo_id'] ?>" data-toggle="tab" aria-expanded="true"> <?php echo $grupo ?> </a>
                                         </li>
                                         <?php endforeach ?>
-                                        <li>
-                                            <a href="<?php echo base_url() ?>admin/settigns/nuevo_grupo">Nuevo</a>
-                                        </li>
                                     </ul>
                                 </div>
                                 <div class="portlet-body">
@@ -46,9 +42,12 @@
                                         <?php $i=0; foreach ($settings AS $grupo => $settingsItem ) : $i++ ?>
                                         <div class="tab-pane <?php echo $i===1 ? 'active' : NULL ?>" id="setting_tab_<?php echo $settingsItem[0]['setting_grupo_id'] ?>">
                                             <?php foreach ($settingsItem AS $settingsItemItem ) : ?>
-                                                <?php
-                                                echo_input($settingsItemItem);
-                                                ?>
+                                                <form class="ajax_call" action="<?php echo base_url() ?>ajax/settings_ajax/save" method="post">
+                                                <strong><?php echo $settingsItemItem['nombre'] ?></strong>
+                                                <input type="hidden" name="setting_id" value="<?php echo $settingsItemItem['setting_id'] ?>">
+                                                <?php echo_input($settingsItemItem,FALSE,array('name'=>'valor'));  ?>
+                                                <input class="btn btn-default" type="submit" value="guardar cambios">
+                                                </form>
                                             <?php endforeach ?>
                                         </div>
                                         <?php endforeach ?>

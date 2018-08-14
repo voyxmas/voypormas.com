@@ -375,6 +375,7 @@ class Eventos_ajax extends My_Controller {
 		$attr['longitud']					= $this->input->post('longitud');
 		$attr['publicar_desde'] 			= $this->input->post('publicar_desde');
 		$attr['participantes_destacados'] 	= $this->input->post('participantes_destacados');
+		$attr['suspendido']					= $this->input->post('suspendido') ? $this->input->post('suspendido') : 0;
 		$attr['estado']						= $this->input->post('estado') ? $this->input->post('estado') : 0;
 		
 		$respuesta = $this->eventos_model->save($attr, $evento_id);unset($attr);

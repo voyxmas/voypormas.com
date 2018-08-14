@@ -547,6 +547,14 @@ class Admin extends My_Controller {
 					'options'		=> array( 0 => 'Nuevo', 1 => 'Aprobado', 2 => 'Denegado' ),
 				);
 
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'suspendido',
+					'value'			=> $this->data['evento']['suspendido'],
+					'label' 		=> 'Suspendido',
+					'type' 			=> 'radio',
+					'options'		=> array( 0 => 'Activo', 1 => 'Suspendido' ),
+				);
+
 			// tomar caracteristicas del evento
 			$attr['cond']['evento_id'] = $evento_id;
 			$attr['results'] = 1000;
@@ -839,10 +847,13 @@ class Admin extends My_Controller {
 
 			$this->data['settings'] = array();
 
-			foreach ($data['settings'] as $setting) 
+			if(is_array($data['settings'] ))
 			{
-				// definir el key con el nombre del grupo
-				$this->data['settings'][$setting['grupo']][] = $setting;
+				foreach ($data['settings'] as $setting) 
+				{
+					// definir el key con el nombre del grupo
+					$this->data['settings'][$setting['grupo']][] = $setting;
+				}
 			}
 
 			unset($data['settings']);
