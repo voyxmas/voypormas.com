@@ -443,7 +443,7 @@ div#tabla_inscripciones > input.next {right: -15px;}
 .label_evento_reprogramado > span
 {
   top: 15px;
-  right: -55px;
+  right: -50px;
   width: 170px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
