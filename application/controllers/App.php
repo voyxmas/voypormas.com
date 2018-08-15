@@ -664,12 +664,17 @@ class App extends My_Controller {
 
 	public function evento($evento_id, $modal = 1)
 	{
+		// checkeo si es el modal
+		if(!$this->input->is_ajax_request())
+			$modal = 1;
+
 		$this->data['CURRENT_SECTION'] = 'app';
 		$this->data['CURRENT_PAGE'] = 'evento';
 
 		// includes
 		$this->layouts->set_title('Welcome');
 		$this->layouts->set_description('Welcome');
+		$this->layouts->define_meta('canonical', base_url().'app/evento/'.$evento_id);
 		// load models
 		$this->load->model('eventos_model');
 		$this->load->model('variantes_eventos_model');
