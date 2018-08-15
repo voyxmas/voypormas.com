@@ -4,11 +4,16 @@
     <span>suspendido</span>
 </span>
 <?php endif ?>
+<?php if ($evento['reprogramado'] == 1 ) : ?>
+<span class="label_evento_reprogramado">
+    <span>reprogr</span>
+</span>
+<?php endif ?>
 <div class="modal-body">
     <?php if ($evento['imagen'] ) : ?>
     <img class="evento-imagen" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
     <?php endif ?>
-    <h2 class="evento-titulo"><?php echo $evento['nombre'] ?></h2>
+    <h2 class="evento-titulo"><a href="<?php echo base_url() ?>app/evento/<?php echo $evento['evento_id'] ?>"><?php echo $evento['nombre'] ?></a></h2>
     
     <p class="evento-bajada"><?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?><br>
     <?php echo cstm_get_date($evento['fecha']) ?><br>

@@ -431,25 +431,42 @@ div#tabla_inscripciones > input.next {right: -15px;}
   color: #FFF;
 }
 
-.label_evento_suspendido {
+.label_evento_suspendido,
+.label_evento_reprogramado {
   width: 100px; height: 100px;
   position: absolute;
   top: 0;
   right: 0;
   overflow: hidden;
 }
-.label_evento_suspendido > span {
+.label_evento_suspendido > span,
+.label_evento_reprogramado > span
+{
   top: 15px;
   right: -55px;
+  width: 170px;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   padding: 10px 50px;
-  background: #e43;
   position: absolute;
   text-align: center;
   letter-spacing: 1px;
   color: #f0f0f0;
   text-transform: uppercase;
   font-size: 12px;
-  
+}
+
+.label_evento_suspendido > span {
+  background: #e43;
+}
+
+.label_evento_reprogramado > span {
+  background: orange;
+}
+
+.evento-item.reprogramado {
+  background: tan;
+}
+.evento-item.suspendido {
+  background: tomato;
 }

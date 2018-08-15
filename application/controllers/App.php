@@ -21,7 +21,7 @@ class App extends My_Controller {
 		$this->load->model('eventos_caracteristicas_model');
 
 		// includes
-		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','head');
+		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/app_main.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/todo.min.css','head');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/admin/events_nuevo.css','head');		
@@ -737,7 +737,10 @@ class App extends My_Controller {
 		if ($modal == 'modal')
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'].'_modal', $this->data, FALSE);
 		else
+		{
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/helpers_generales.js','foot');
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'], $this->data, 'app/general');
+		}
 
 	}
 

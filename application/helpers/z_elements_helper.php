@@ -28,7 +28,7 @@ function urltolink($text_input = NULL, $settings = NULL)
 	$expresion_regular .= "(\.[a-zA-Z]{2,10})"; // tld
 	$expresion_regular .= "(\.[a-zA-Z]{2})?"; // local
 	$expresion_regular .= "(\/)?"; // posible trailing slash
-	$expresion_regular .= "(\/[a-zA-Z0-9\-\_\/\.]+)?"; // subdirectorios
+	$expresion_regular .= "(\/[a-zA-Z0-9\-\_\/\.\%]+)?"; // subdirectorios
 	$expresion_regular .= "(\?[a-zA-Z0-9\-\_\=\%&]+)?"; // get atributes
 	$expresion_regular .= "(?!=\\\"|'|\<|\w|\/)"; // evito que se reemplacen los textos ya reemplazados, atributos o entre tags
 	$expresion_regular .= "/";

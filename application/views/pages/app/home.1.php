@@ -65,7 +65,7 @@
                             <?php 
                             if(isset($eventos_results))
                             foreach($eventos_results as $evento_id => $evento) : ?>
-                            <li class="ajax_modal todo-tasks-item evento-item <?php echo $evento['suspendido'] == 1 ? 'suspendido' : NULL ?> <?php echo $evento['reprogramado'] == 1 ? 'reprogramado' : NULL ?>" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
+                            <li class="ajax_modal todo-tasks-item evento-item <?php echo $evento['suspendido'] == 1 ? 'suspendido' : NULL ?>" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
                                     <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
                                     <h4 class="todo-inline">
                                         <?php echo $evento['nombre'] ?>
@@ -81,11 +81,6 @@
                                     <?php if ($evento['suspendido'] == 1 ) : ?>
                                     <span class="label_evento_suspendido">
                                         <span>suspendido</span>
-                                    </span>
-                                    <?php endif ?>
-                                    <?php if ($evento['reprogramado'] == 1 ) : ?>
-                                    <span class="label_evento_reprogramado">
-                                        <span>reprogr</span>
                                     </span>
                                     <?php endif ?>
                             </li>

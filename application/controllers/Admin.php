@@ -555,6 +555,14 @@ class Admin extends My_Controller {
 					'options'		=> array( 0 => 'Activo', 1 => 'Suspendido' ),
 				);
 
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'reprogramado',
+					'value'			=> $this->data['evento']['reprogramado'],
+					'label' 		=> 'Reprogramado',
+					'type' 			=> 'radio',
+					'options'		=> array( 0 => 'Sin cambios', 1 => 'Reprogramado' ),
+				);
+
 			// tomar caracteristicas del evento
 			$attr['cond']['evento_id'] = $evento_id;
 			$attr['results'] = 1000;
