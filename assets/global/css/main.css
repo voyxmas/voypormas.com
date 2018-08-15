@@ -413,6 +413,12 @@ div#tabla_inscripciones > input.next {right: -15px;}
   color: #FFF;
   text-decoration: none;
 }
+body.app_evento #more_org_info,
+body.app_evento #more_org_info:not(.collapsed)::after,
+body.app_evento #more_org_info.collapsed::after
+ {
+  color: inherit;
+}
 #organizador_info {
   clear: both;
   padding: 20px 0;
