@@ -85,8 +85,10 @@
   }
   .form-group > label:not(.checkbox-inline):not(.radio-inline) {
     font-weight: bold;
-    color: #3ba4cf;
+    color: #009ADA;
     text-transform: uppercase;
+    text-align: center;
+    width: 100%;
   }
 
   .input-group-z-element { min-width: 50px; text-align: center}
@@ -355,7 +357,7 @@ div#tabla_inscripciones {
   color: #000;
 }
 div#tabla_inscripciones th {
-  color: #3ba4cf /*#azul*/
+  color: #009ADA /*#azul*/
 }
 div#tabla_inscripciones > input.move:disabled { display: none; }
 div#tabla_inscripciones > input.move {
@@ -478,4 +480,17 @@ body.app_evento #more_org_info.collapsed::after
 }
 .evento-item.suspendido {
   background: tomato;
+}
+
+.noUi-horizontal {
+  height: 14px;
+  margin-top: 10px;
+  padding: 0 14px;
+  width: 100% 
+}
+.input.sliderNumbers {
+  position: absolute; bottom:-27px; margin: 0 !important;
+}
+.input.sliderNumbers.pull-right {
+  right: 0;
 }

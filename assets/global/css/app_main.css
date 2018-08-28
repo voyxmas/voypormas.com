@@ -3,13 +3,18 @@
     display: block;
     margin-bottom: 30px;
 }
+.logo img {
+    height: 120px;
+    width: 327px;
+}
 #main_search {
     width: 100%;
+    overflow: auto;
 }
 
 #main_search > .form-group .input {
     padding: 6px 0;
-    height: 34px;
+    width: 34px;
     text-align: center;
     border: none;
     font-size: 10px;
@@ -48,7 +53,7 @@
 }
 
 body > div > .portlet.light > .portlet-body {
-    margin-top: 60px;
+
 }
 input.form-control,
 select.form-control,
@@ -74,10 +79,10 @@ textarea.form-control,
     width: 28px;
     height: 28px;
     left: -14px;
-    top: -6px;
+    top: -8px;
     border-radius: 14px !important;
     border: none;
-    background: #333;
+    background: #303030;
     box-shadow: initial;
 }
 .noUi-horizontal .noUi-handle:after,
@@ -90,8 +95,11 @@ textarea.form-control,
 }
 
 .mas-filtros-mejor {
-    margin: 10px 0;
+    margin-top: -27px;
     display: block;
+    width: 100%;
+    clear: both;
+    text-align: center;
 }
 
 .input-group-addon {
@@ -105,7 +113,7 @@ textarea.form-control,
 }
 
 .add-row, .rem-row, .add-column, .rem-column,.form_builder_helper_add_one_more,.form_builder_helper_add_one_less  {
-    background: #3ba4cf !important /*#celeste*/;
+    background: #009ADA !important /*#celeste*/;
     color:#FFF !important;
 }
 
@@ -116,7 +124,7 @@ textarea.form-control,
     line-height: 25px;
 }
 .texto-azul {
-    color: #3ba4cf;
+    color: #009ADA;
 }
 .lista-eventos {
     border-top: 1px solid #000;
@@ -136,6 +144,40 @@ textarea.form-control,
     position: absolute;
     display: block;
     background: #000;
+}
+
+.organizadores-btn {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+.logo.home_center_menu img,
+.organizadores-btn img {
+    max-width: 100%;
+    height: auto;
+}
+.ordenar span {
+    background: #009ADA;
+    color: #FFF;
+}
+#filtros .filtrar{
+    background: #009ADA;
+    color: #FFF;
+}
+.ordenar .select,
+.ordenar span,
+#filtros .filtrar{
+    height: 28px;
+    padding: 6px 12px;
+    line-height: 16px;
+    text-align: center;
+    border: 1px solid #009ADA;
+    display: inline-block;
+}
+.ordenar .select {
+    border: 1px solid #009ADA;
+    height: 28px;
+    border-radius: 0 5px 5px 0 !important;
 }
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
@@ -173,12 +215,13 @@ textarea.form-control,
 @media only screen and (max-width : 992px) {
     #main_search > .form-group:not(.col-xs-6) { width: calc(100% / 2)}
     #main_search > .form-group:last-child { width: 100%}
+    #filtros {display: none}
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
     .hidden-md-down { display: none;}
-    #filtros {display: none}
+    
 }
 
 /* Extra Small Devices, Phones */ 

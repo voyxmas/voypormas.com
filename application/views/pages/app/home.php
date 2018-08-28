@@ -8,16 +8,24 @@
                 $this->load->view('bloques/searchbar.php',$data);
             ?>
             <?php if (!$this->input->get() ) : ?>
-            <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
+            <a href="<?php echo base_url() ?>app/nuevo" class="organizadores-btn"><img src="<?php echo base_url()?>assets/global/imgs/botones/organizadores.gif" alt="Publica tu evento gratis"></a>
             <?php endif ?>
         </div>
         <?php if ($this->input->get() ) : ?>
         <div class="portlet-body">
             <div class="todo-container lista-eventos">
                 <div class="row">
+                    <label class="ordenar col-sm-12"><span>Ordenar</span><select form="main_search" onchange="this.form.submit()" data-form="main_search" name="order" form="main_search" id="order_results" class="select">
+                        <option <?php echo $this->input->get('order') == 'nombre ASC' ? 'selected' : NULL ?> value="nombre ASC">Nombre</option>
+                        <option <?php echo $this->input->get('order') == 'tipo ASC' ? 'selected' : NULL ?> value="tipo ASC">Tipo</option>
+                        <option <?php echo $this->input->get('order') == 'fecha ASC' ? 'selected' : NULL ?> value="fecha ASC">Fecha</option>
+                        <option <?php echo $this->input->get('order') == 'distancia ASC' ? 'selected' : NULL ?> value="distancia ASC">Distancia</option>
+                        <option <?php echo $this->input->get('order') == 'lugar ASC' ? 'selected' : NULL ?> value="lugar ASC">Lugar</option>
+                        <option <?php echo $this->input->get('order') == 'monto ASC' ? 'selected' : NULL ?> value="monto ASC">Precio</option>
+                    </select></label>
                     <div id="filtros" class="col-md-3">
                         <div class="todo-head">
-                            <h3><span class="todo-grey">Filtros:</span></h3>
+                            <span class="filtrar">Filtrar por:</span>
                         </div>
                         <ul class="todo-tasks-content alternatefill caracteristicasLista row">
                             <?php 
@@ -34,14 +42,14 @@
                                 }
                                     
                                 echo '<li class="fitler-item col-xs-12 col-sm-6 col-md-12">
-                                    <input 
+                                    <label for="c_'.$filtersItem['caracteristica_id'].'"><input 
                                         '.$checked.'
                                         name="c[]" 
                                         value="'.$filtersItem['caracteristica_id'].'" 
                                         form="main_search" type="checkbox" id="c_'.$filtersItem['caracteristica_id'].'">
                                     <img 
                                         src="'.base_url().$filtersItem['caracteristica_icono'].'"> 
-                                    <label for="c_'.$filtersItem['caracteristica_id'].'">'.$filtersItem['caracteristica_nombre'].'</label> 
+                                    '.$filtersItem['caracteristica_nombre'].'</label> 
                                 </li>' ?>
                             <?php endforeach ?>
                         </ul>
@@ -52,16 +60,6 @@
                     <div class="col-md-9">
                         <div class="todo-head">
                             <h3><span class="texto-azul">Estas carreras encontramos para vos:</span></span></h3>
-                            <div class="sort pull-right">
-                                <select name="order" form="main_search" id="order_results" class="select">
-                                    <option <?php echo $this->input->get('order') == 'nombre ASC' ? 'selected' : NULL ?> value="nombre ASC">Nombre</option>
-                                    <option <?php echo $this->input->get('order') == 'tipo ASC' ? 'selected' : NULL ?> value="tipo ASC">Tipo</option>
-                                    <option <?php echo $this->input->get('order') == 'fecha ASC' ? 'selected' : NULL ?> value="fecha ASC">Fecha</option>
-                                    <option <?php echo $this->input->get('order') == 'distancia ASC' ? 'selected' : NULL ?> value="distancia ASC">Distancia</option>
-                                    <option <?php echo $this->input->get('order') == 'lugar ASC' ? 'selected' : NULL ?> value="lugar ASC">Lugar</option>
-                                    <option <?php echo $this->input->get('order') == 'monto ASC' ? 'selected' : NULL ?> value="monto ASC">Precio</option>
-                                </select><button type="submit" form="main_search" class="btn btn-outline-secondary" type="button">Ordenar</button>
-                            </div>
                             <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
                         </div>
                         <ul class="todo-tasks-content alternatefill">

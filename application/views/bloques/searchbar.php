@@ -35,8 +35,7 @@
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Distancia</label>
                         <div>
-                            <input name="distancia1" type="hidden" >
-                            <div id="distancia1" class="input col-xs-3"></div>
+                            
                             <div 
                                 data-min="<?php echo $distancialimits['distancia_min'] ?>" 
                                 data-mininput="distancia1" 
@@ -48,28 +47,30 @@
                                 data-sufix="km" 
                                 class='col-xs-6 nouislider'>
                             </div>
+                            <input name="distancia1" type="hidden" >
+                            <div id="distancia1" class="input sliderNumbers"></div>
                             <input name="distancia2" type="hidden" >
-                            <div id="distancia2" class="input col-xs-3"></div>
+                            <div id="distancia2" class="input sliderNumbers pull-right"></div>
                         </div>
                     </div>
                     <div class="form-group col-md-6 col-xs-12">
                         <label>Precio</label>
                         <div>
-                            <input name="precio1" name="precio1" type="hidden" >
-                            <div id="precio1" class="input col-xs-3"></div>
                             <div 
-                                data-min="<?php echo $pricelimits['monto_min'] ?>" 
-                                data-minInput="precio1" 
-                                data-max="<?php echo $pricelimits['monto_max'] ?>" 
-                                data-maxInput="precio2" 
-                                data-minselected="<?php echo !empty($this->input->get('precio1')) ? $this->input->get('precio1') : $pricelimits['monto_min'] ?>" 
-                                data-maxselected="<?php echo !empty($this->input->get('precio2')) ? $this->input->get('precio2') : $pricelimits['monto_max'] ?>" 
-                                data-name="precio" 
-                                data-prefix="$" 
-                                class='col-xs-6 nouislider'>
+                            data-min="<?php echo $pricelimits['monto_min'] ?>" 
+                            data-minInput="precio1" 
+                            data-max="<?php echo $pricelimits['monto_max'] ?>" 
+                            data-maxInput="precio2" 
+                            data-minselected="<?php echo !empty($this->input->get('precio1')) ? $this->input->get('precio1') : $pricelimits['monto_min'] ?>" 
+                            data-maxselected="<?php echo !empty($this->input->get('precio2')) ? $this->input->get('precio2') : $pricelimits['monto_max'] ?>" 
+                            data-name="precio" 
+                            data-prefix="$" 
+                            class='col-xs-6 nouislider'>
                             </div>
+                            <input name="precio1" name="precio1" type="hidden" >
+                            <div id="precio1" class="input sliderNumbers"></div>
                             <input name="precio2" type="hidden" >
-                            <div id="precio2" class="input col-xs-3"></div>
+                            <div id="precio2" class="input sliderNumbers pull-right"></div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -77,6 +78,8 @@
                         <div>
                             <button type="submit" class="col-xs-12 btn btn-square btn-info todo-bold btn-buscar">Buscar!</button>
                         </div>
-                        <p class="hidden-md-up mas-filtros-mejor">Mientras más filtros uses, mejor será tu resultado</p>
                     </div>
                 </form>
+                <?php if (!$this->input->get() ) : ?>
+                <p class="mas-filtros-mejor">Mientras más filtros uses, mejor será tu resultado</p>
+                <?php endif ?>
