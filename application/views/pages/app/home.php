@@ -1,12 +1,15 @@
 <div class="col-md-12">
-    <div class="portlet light ">
-        <div>
+    <div class="portlet light <?php echo !$this->input->get() ? 'initial' : NULL ?>">
+        <div style="width:100%">
             <?php $this->load->view('bloques/logo.php'); ?>
             <?php
                 $data['distancialimits'] = $distancialimits;
                 $data['pricelimits'] = $pricelimits;
                 $this->load->view('bloques/searchbar.php',$data);
             ?>
+            <?php if (!$this->input->get() ) : ?>
+            <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
+            <?php endif ?>
         </div>
         <?php if ($this->input->get() ) : ?>
         <div class="portlet-body">
@@ -98,8 +101,6 @@
                 </div>
             </div>
         </div>
-        <?php else: ?>
-        <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
         <?php endif ?>
     </div>
 </div>

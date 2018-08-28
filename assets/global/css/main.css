@@ -20,6 +20,12 @@
 }
 
 /* DINAMIC FORM */
+@media (min-width: 600px) {
+  .app_home > .col-md-12 > .portlet.light.initial {
+    display: flex;
+    align-items: center;
+  }
+}
   @media (min-width: 990px) {
     body.app_home {
       padding: 0 50px !important;
@@ -370,7 +376,8 @@ div#tabla_inscripciones > input.next {right: -15px;}
 .app_home > .col-md-12,
 .app_home > .col-md-12 > .portlet.light
 {
-  min-height: 100%;
+  height: 100%;
+  width: 100%;
 }
 .Inscripciones {
   width: 100%;
@@ -399,11 +406,7 @@ div#tabla_inscripciones > input.next {right: -15px;}
 .caracteristicasLista img {
   margin: 2px;
 }
-@media only screen and (min-height: 600px) {
-  .home_center_menu {
-      margin-top: calc(50% - 180px);
-  }
-}
+
 
 .btn-buscar {
   font-size: 18px !important;
