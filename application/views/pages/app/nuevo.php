@@ -11,10 +11,11 @@
         <div class="portlet-body">
             <div class="todo-container">
             <?php if (!$organizador_is_logged_in ) : // si no esta logueado muestro el formulario de logueo ?>
-                <p>Ingresá el email y contraseña que querés usar para publicar.</p>
+                <p>Si es tu primera vez en Voy por Más, ingresá el email y contraseña que querés usar para publicar</p>
                 <?php $this->load->view('bloques/perfil/login',array('form_organizador'=>$form_organizador)) ?>            
             <?php elseif (!$profile_ok) : // si esta logueado y el perfil no esta completo, pido los datos del perfil ?>
-                <p>Tenés que completar tu perfil antes de crear el evento.</p>
+                <p>¡YA CASI SOS PARTE DE VOY POR MÁS!</p>
+                <small>Los datos que tildés como PUBLICOS los podran ver todos, los PRIVADOS solos los veremos nosotros. Los que no tengan esta opcion son PUBLICOS por predeterminado</small>
                 <?php $this->load->view('bloques/perfil/card_01',$organizador) ?>            
                 <?php $this->load->view('bloques/perfil/organizador_add',array('form_organizador'=>$form_organizador_details)) ?>            
             <?php else : // si esta logueado y el perfil de organizador esta completo, pido los datos del evento ?>

@@ -191,6 +191,7 @@
 }
 .fa-envelope-o:before {
   content: "\f003";
+  color: #999;
 }
 .fa-heart:before {
   content: "\f004";
@@ -559,6 +560,7 @@
 }
 .fa-facebook-square:before {
   content: "\f082";
+  color: #3b5998;
 }
 .fa-camera-retro:before {
   content: "\f083";
@@ -614,6 +616,7 @@
 }
 .fa-phone:before {
   content: "\f095";
+  color: #999999;
 }
 .fa-square-o:before {
   content: "\f096";
@@ -623,6 +626,7 @@
 }
 .fa-phone-square:before {
   content: "\f098";
+  color: #999;
 }
 .fa-twitter:before {
   content: "\f099";
@@ -800,6 +804,7 @@
 }
 .fa-envelope:before {
   content: "\f0e0";
+  color:#999;
 }
 .fa-linkedin:before {
   content: "\f0e1";
@@ -929,6 +934,7 @@
 .fa-mobile-phone:before,
 .fa-mobile:before {
   content: "\f10b";
+  color: #999999;
 }
 .fa-circle-o:before {
   content: "\f10c";
@@ -1343,6 +1349,7 @@
 }
 .fa-envelope-square:before {
   content: "\f199";
+  color: #999;
 }
 .fa-wordpress:before {
   content: "\f19a";

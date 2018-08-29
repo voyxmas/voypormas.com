@@ -1,7 +1,7 @@
 <div class="portlet-body">
     <div class="todo-container">
         <div class="todo-head">
-            <h3><span class="todo-grey">Datos del organizador:</span> <span class="font-blue-madison"></span></h3>
+            <h3><span class="todo-grey">Bienvenido!</span> <span class="font-blue-madison"></span></h3>
         </div>
         <div class="todo-body">
             <div class="well well-sm">

@@ -352,7 +352,7 @@ class App extends My_Controller {
 				'type' 			=> 'password',
 				'required'		=> TRUE,
 				'class' 		=> 'col-md-6 col-lg-4 no-gutters',
-				'help'			=> 'Eleje una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
+				'help'			=> 'Elije una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
 			);
 
 			/*
@@ -387,13 +387,15 @@ class App extends My_Controller {
 				'placeholder' 	=> 'Nombre con el que aparecerá en el listado de resultados',
 				'label' 		=> 'Nombre de la carrera',
 				'required'		=> TRUE,
-				'help'			=> 'Nombre con el que aparece listado el evento'					
+				'help'			=> 'Nombre con el que aparece listado el evento',
+				'class' 		=> 'col-md-12'				
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> 'Logo de la Carrera',
 				'name' 			=> 'image',
-				'type' 			=> 'file'		
+				'type' 			=> 'file',
+				'class' 		=> 'col-md-12'		
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -402,6 +404,7 @@ class App extends My_Controller {
 				'label' 		=> 'Tipo de Carrera',
 				'type' 			=> 'select',
 				'options'		=> $this->categorias_model->get_for_input(array('inputgroup'=>'grupo')),
+				'class' 		=> 'col-md-12'
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -411,7 +414,7 @@ class App extends My_Controller {
 				'id' 			=> 'lugar',
 				'type' 			=> 'text',
 				'required'		=> TRUE,
-				'class' 		=> 'col-md-4 no-gutters first'				
+				'class' 		=> 'col-md-12'				
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -460,7 +463,7 @@ class App extends My_Controller {
 				'label' 		=> '¿Cuándo se correrá?',
 				'type' 			=> 'date',
 				'required'		=> TRUE,
-				'class' 		=> 'col-md-4 no-gutters'
+				'class' 		=> 'col-md-12 no-gutters'
 				
 			);
 			
@@ -468,14 +471,14 @@ class App extends My_Controller {
 				'name' 			=> 'inscripciones_link',
 				'label' 		=> 'Link de inscripción',
 				'type' 			=> 'text',
-				'class'			=> 'form-group col-md-4'
+				'class'			=> 'form-group col-md-12'
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'inscripciones',
 				'label' 		=> 'Otras formas de inscribirse',
 				'type' 			=> 'textarea',
-				'class'			=> 'col-sm-4',
+				'class'			=> 'col-sm-12',
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -495,8 +498,8 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'Info por distancia',
-				'class'			=> 'clear-both',
+				'label' 		=> 'INFORMACIÓN DE LA CARRERA',
+				'class'			=> 'clear-both col-sm-12',
 				'id' 			=> 'price-schedule',
 				'title'			=> 'Variantes del evento y respectivos costos de inscripcion',
 				'inputtable'	=> array(
@@ -615,10 +618,10 @@ class App extends My_Controller {
 			$attr_caract['show']['text'] = 'nombre';
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'caracteristica_id[]',
-				'label' 		=> 'Caracteristicas',
+				'label' 		=> 'CARACTERÍSTICAS DE LA CARRERA',
 				'placeholder' 	=> 'Caracteristicas',
 				'type' 			=> 'checkbox',
-				'class'			=> 'listaicono',
+				'class'			=> 'listaicono col-sm-12',
 				'options'		=> $this->caracteristicas_model->get_for_input($attr_caract),
 			);
 
@@ -626,7 +629,8 @@ class App extends My_Controller {
 				'name' 			=> 'participantes_destacados[]',
 				'label' 		=> 'Corredores destacados',
 				'add_one_more' 	=> TRUE,
-				'placeholder' 	=> 'Participantes destacados'
+				'placeholder' 	=> 'Participantes destacados',
+				'class'			=> 'col-sm-12'
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -634,7 +638,8 @@ class App extends My_Controller {
 				'label' 		=> 'Publicar desde',
 				'type' 			=> 'date',
 				'required'		=> TRUE,
-				'value' 		=> date(SYS_DATE_FORMAT)
+				'value' 		=> date(SYS_DATE_FORMAT),
+				'class'			=> 'col-sm-12'
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
@@ -642,12 +647,13 @@ class App extends My_Controller {
 				'required'		=> TRUE,
 				'label' 		=> 'Terminos y condiciones',
 				'type'			=> 'checkbox',
-				'options'		=> array(1=>'Acepto los terminos')
+				'options'		=> array(1=>'Acepto los terminos'),
+				'class'			=> 'col-sm-12'
 			);
 			
 			$this->data['form_evento']['inputs'][] = array(
 				'type'			=> 'button',
-				'class'			=> 'btn-default terminos-condiciones',
+				'class'			=> 'btn-default terminos-condiciones col-sm-12',
 				'placeholder'	=> 'Leer términos y condiciones',
 				'data'			=> array('toggle'=>'modal', 'target'=>'#modal_terminos')
 			);

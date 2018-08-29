@@ -94,24 +94,29 @@
             <input class="move next btn btn-basic" value=">" type="button" data-direction="next" />
         </div><!-- Close div#tabla_inscripciones -->
     </div><!-- Close div#inscripiones -->
-
+    <?php
+    $attr['Texto'] = 'Inscribite!'; 
+    $attr['Class'] = 'Inscripciones'; 
+    $attr['Icono'] = FALSE; 
+    ?>
+    <p><?php echo urltolink($evento['inscripciones_link'],$attr) ?></p>
     <h3>Info por distancia</h3>
     <div id="variantes" >
         <?php foreach ($evento['variantes'] AS $varianteItem ) : ?>
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title"><?php echo $varianteItem['distancia'] ?>Km</h3>
-                <p>Lugar de largada: <?php echo $varianteItem['lugar_largada'] ?> (<?php echo cstm_get_date($evento['fecha']) ?> <?php echo cstm_get_time($varianteItem['fechahora']) ?>)</p>
-                <p>Entrega de kit: <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_datetime($varianteItem['kit_hora']) ?>)</p>
+                <p class="separador"><strong>Largada:</strong> <?php echo $varianteItem['lugar_largada'] ?> (<?php echo cstm_get_date($evento['fecha']) ?> <?php echo cstm_get_time($varianteItem['fechahora']) ?>)</p>
+                <p class="separador"><strong>Entrega de kit:</strong> <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_datetime($varianteItem['kit_hora']) ?>)</p>
                 <?php if ( !empty($varianteItem['premios']) ) : ?>  
-                <p>Premios: <br>
-                <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
-                    <?php echo $premio['descripcion'] ?> : <?php echo $premio['premio'] ?> <br> 
-                <?php endforeach ?></p>
-                <?php endif ?>
                 <?php if ( !empty($varianteItem['info']) ) : ?>  
-                <p>Elementos obligatorios: 
+                <p class="separador">Elementos obligatorios: 
                     <?php echo $varianteItem['info'] ?>
+                <?php endif ?>
+                <p class="separador">Premios: <br>
+                <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
+                    <?php echo $premio['descripcion'] ?> : <span class="montos"><?php echo $premio['premio'] ?></span> <br> 
+                <?php endforeach ?></p>
                 <?php endif ?>
             </div>
         </div>
@@ -120,11 +125,14 @@
 
     <?php if ($evento['participantes_destacados']!="") : ?>
     <h3>Corredores destacados</h3>
-    <p><?php echo $evento['participantes_destacados'] ?></p>
+    <?php foreach (explode(',',$evento['participantes_destacados']) AS $participante ) : ?>
+    <p class="participante"><?php echo $participante ?></p>
+    <?php endforeach ?>
     <?php endif ?>
 
     <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
     <div class="redes_sociales_modal">
+        <h3>Mas sobre esta carrera</h3>
         <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
             <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
         <?php endforeach ?>
@@ -136,12 +144,7 @@
         <?php endif ?>
     </div>
     <?php endif ?>
-    <?php
-    $attr['Texto'] = 'Inscribite!'; 
-    $attr['Class'] = 'Inscripciones'; 
-    $attr['Icono'] = FALSE; 
-    ?>
-    <p><?php echo urltolink($evento['inscripciones_link'],$attr) ?></p>
+    
 
 </div>
 <div class="modal-footer">

@@ -1,3 +1,6 @@
+h1, h2, h3, h4 {
+    text-transform: uppercase;
+}
 .logo {
     text-align: center;
     display: block;
@@ -46,7 +49,7 @@
     line-height: 14px;
 } 
 .evento-item > .caracteristicasLista {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 .todo-container .todo-head {
     overflow: auto;
@@ -103,9 +106,10 @@ textarea.form-control,
 }
 
 .input-group-addon {
+    color: #FFF;
+    font-weight: 700;
     background-color: #999999 /* gris */;
 }
-
 .add-premio {
     background: #F1C40F !important /*#amarillo*/;
     font-weight: bold;
@@ -178,6 +182,33 @@ textarea.form-control,
     border: 1px solid #009ADA;
     height: 28px;
     border-radius: 0 5px 5px 0 !important;
+}
+
+.centrar-vertical {
+    display: flex;
+    align-items: center;
+}
+
+.card .card-title,
+.card .montos {
+    color: #009ADA;
+}
+.participante {
+    background: #FFF;
+    color: #009ADA;
+    text-transform: uppercase;
+    margin: 0 0 3px 0;
+    padding: 12px 6px;
+}
+body.app_nuevo .input-group-z:not(:first-of-type):before,
+body.app_nuevo .input-group-z-element.participantes_destacados:not(:first-of-type):before,
+.separador:not(:first-of-type):before {
+    content: "";
+    display: block;
+    background: #000;
+    height: 1px;
+    width: 60%;
+    margin: 15px auto;
 }
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {

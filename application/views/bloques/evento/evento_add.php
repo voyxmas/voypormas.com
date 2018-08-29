@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="todo-head">
-                    <h3><span class="todo-grey">Cargar un evento nuevo:</span> <span class="font-blue-madison"></span></h3>
+                    <h3><span class="todo-grey">CARGA TU CARRERA GRATIS!</span> <span class="font-blue-madison"></span></h3>
                 </div>
                 <div id="formContainer" >
                     <?php array2form($form_evento) ?>

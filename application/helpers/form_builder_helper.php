@@ -196,15 +196,14 @@ function echo_input($input,$group = FALSE,$sobre_escribir=array())
           foreach ($input["options"] as $value => $text) 
           {
             // en el caso de que text sea un array en el que paso otros elementos
-            if(is_array($text))
+            if(is_array($text) AND !empty($text))
             {
               // espero ciertos keys como text, img, span
               $text_post = '';
               foreach ($text as $key1 => $value1) {
                 switch ($key1) {
-                  case 'span':  $text_post .= "<span>$value1<span>"; break;
                   case 'img':  $text_post .= "<img src='".base_url()."$value1'>"; break;
-                  default:      $text_post .= $value1; break;
+                  default:  $text_post .= "<span class='$key1'>$value1</span>"; break;
                 }
               }
               $text = $text_post;

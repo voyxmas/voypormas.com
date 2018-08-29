@@ -42,14 +42,16 @@
                                 }
                                     
                                 echo '<li class="fitler-item col-xs-12 col-sm-6 col-md-12">
-                                    <label for="c_'.$filtersItem['caracteristica_id'].'"><input 
+                                    <input 
                                         '.$checked.'
                                         name="c[]" 
                                         value="'.$filtersItem['caracteristica_id'].'" 
                                         form="main_search" type="checkbox" id="c_'.$filtersItem['caracteristica_id'].'">
-                                    <img 
+                                    <label for="c_'.$filtersItem['caracteristica_id'].'">
+                                        <img 
                                         src="'.base_url().$filtersItem['caracteristica_icono'].'"> 
-                                    '.$filtersItem['caracteristica_nombre'].'</label> 
+                                        '.$filtersItem['caracteristica_nombre'].'
+                                    </label> 
                                 </li>' ?>
                             <?php endforeach ?>
                         </ul>
@@ -72,7 +74,7 @@
                                         <?php echo $evento['nombre'] ?>
                                     </h4>
                                     <div>
-                                        <?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?> ● <?php echo $evento['lugar'] ?> ● <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km ● <?php echo cstm_get_date($evento['fecha']) ?>
+                                        <?php echo $evento['tipo_grupo'] ?>: <?php echo $evento['tipo'] ?> - <?php echo $evento['lugar'] ?> - <?php echo implode('km, ',explode(',',$evento['distancias_concat'])) ?>Km - <?php echo cstm_get_date($evento['fecha']) ?>
                                     </div>
                                     <div class="caracteristicasLista" >
                                         <?php foreach ($evento['caracteristicas'] AS $caracteristicasItem ) : ?>

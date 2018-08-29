@@ -79,7 +79,9 @@
       padding-left: 0;padding-right: 0;
     }
   }
-  
+  a:hover {
+    text-decoration: none;
+  }
   .form-group {
     margin-bottom: 30px;
   }
@@ -283,13 +285,18 @@ li.ajax_modal {
 }
 
 .modal-dialog > .modal-content > .modal-body > .evento-imagen {
-  display: block;
-  margin: auto;
+  display: block; 
+  margin-right: 20px;
+}
+.modal-dialog > .modal-content > .modal-body > h2.evento-titulo,
+.modal-dialog > .modal-content > .modal-body > h2.evento-titulo a {
+  text-transform: uppercase;
+  color: #FFF
 }
 .modal-dialog > .modal-content > .modal-body > .evento-imagen,
 .modal-dialog > .modal-content > .modal-body > .evento-bajada,
 .modal-dialog > .modal-content > .modal-body > h2.evento-titulo {
-  text-align: center;
+  text-align: left;
 }
 
 .ajax_modal.todo-tasks-item.evento-item{
@@ -332,14 +339,26 @@ li.ajax_modal {
 }
 div.form-group.listaicono > label:first-child { display: block;}
 label.listaicono {
-  text-align: center;
+  text-align: left;
   display: inline-block;
   width: 12.5%;
   min-width: 100px;
+  min-height: 140px;
+}
+.listaicono span.text {
+  display: block;
+  padding: 6px 12px;
+  background: #333;
+  color: #FFF;
+  margin: 3px;
+  text-align: center;
 }
 label.listaicono > img {
   display: block;
   margin: 0 auto;
+}
+label.listaicono > input {
+  margin: 0 !important;
 }
 
 img.event_photo {
@@ -347,6 +366,10 @@ img.event_photo {
   max-height: 72px;
   float: left;
   margin-right: 15px;
+}
+div#tabla_inscripciones {
+  padding: 0 20px;
+  background: #FFF;
 }
 div#tabla_inscripciones > table {
   background: #FFF;
@@ -357,20 +380,21 @@ div#tabla_inscripciones {
   color: #000;
 }
 div#tabla_inscripciones th {
-  color: #009ADA /*#azul*/
+  color: #009ADA; /*#azul*/
+  text-transform: uppercase;
 }
 div#tabla_inscripciones > input.move:disabled { display: none; }
 div#tabla_inscripciones > input.move {
   position: absolute;
-  top: 0; bottom: 39px;
+  top: 0; bottom: 0;
   padding: 5px;
   min-height: 30px;
   font-size: 10px;
   color: #FFF;
   background: orange;
 }
-div#tabla_inscripciones > input.prev {left: -15px;}
-div#tabla_inscripciones > input.next {right: -15px;}
+div#tabla_inscripciones > input.prev {left: 0px;}
+div#tabla_inscripciones > input.next {right: 0px;}
 
 .app_home > .col-md-12 > .portlet.light {
   margin-bottom: 60px;
@@ -386,9 +410,12 @@ div#tabla_inscripciones > input.next {right: -15px;}
   padding: 15px;
   font-size: 20px;
 }
-.redes_sociales_modal > a {
+.redes_sociales_modal{
+  overflow: auto;
+}
+.redes_sociales_modal > a:before {
   font-size: 60px;
-  line-height: 60px;
+  line-height: 60px !important;
 }
 
 .modal-body h3,
