@@ -59,7 +59,7 @@ class App extends My_Controller {
 		// bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 
 		// set title
-		$this->layouts->set_title('Welcome');
+		$this->layouts->set_title('VxM');
 		$this->layouts->set_description('Welcome');
 
 		// definir includes en el head del documento
@@ -183,8 +183,8 @@ class App extends My_Controller {
 		$this->load->model('caracteristicas_model');
 		$this->load->model('settings_model');
 
-		$this->layouts->set_title('Welcome');
-		$this->layouts->set_description('Welcome');
+		$this->layouts->set_title('CARGA TU CARRERA GRATIS!');
+		$this->layouts->set_description('CARGA TU CARRERA GRATIS!');
 
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
@@ -620,7 +620,7 @@ class App extends My_Controller {
 
 			$attr_caract['show']['img'] = 'icono';
 			$attr_caract['show']['text'] = 'nombre';
-			$attr_caract['order_by'] = 'order ASC';
+			$attr_caract['order_by'] = 'orden ASC';
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'caracteristica_id[]',
 				'label' 		=> 'CARACTERÍSTICAS DE LA CARRERA',
@@ -682,10 +682,6 @@ class App extends My_Controller {
 		$this->data['CURRENT_SECTION'] = 'app';
 		$this->data['CURRENT_PAGE'] = 'evento';
 
-		// includes
-		$this->layouts->set_title('Welcome');
-		$this->layouts->set_description('Welcome');
-		$this->layouts->define_meta('canonical', base_url().'app/evento/'.$evento_id);
 		// load models
 		$this->load->model('eventos_model');
 		$this->load->model('variantes_eventos_model');
@@ -694,14 +690,19 @@ class App extends My_Controller {
 		$this->load->model('eventos_caracteristicas_model');
 		$this->load->model('organizaciones_model');
 		$this->load->model('organizadores_model');
-
-
+		
+		
 		// get categorias
 		$this->data['categorias'] = $this->categorias_model->get_for_input();
-
+		
 		// get event
 		$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
 		$this->data['evento']['inscripciones_con_links'] = change_urls_to_links($this->data['evento']['inscripciones']);
+		
+		// metas
+		$this->layouts->set_title($this->data['evento']['nombre']);
+		$this->layouts->set_description('Welcome');
+		$this->layouts->define_meta('canonical', base_url().'app/evento/'.$evento_id);
 
 		// get variantes
 		$query['cond']['evento_id'] = $this->data['evento']['evento_id'];

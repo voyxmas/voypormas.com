@@ -125,7 +125,7 @@ class Admin extends My_Controller {
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 			
 			// definir titulos y crumbs
-			$this->layouts->set_title('Cargar un evento nuevo');
+			$this->layouts->set_title('CARGA TU CARRERA GRATIS!');
 			
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
 			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
