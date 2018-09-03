@@ -616,6 +616,7 @@ class App extends My_Controller {
 
 			$attr_caract['show']['img'] = 'icono';
 			$attr_caract['show']['text'] = 'nombre';
+			$attr_caract['order_by'] = 'order ASC';
 			$this->data['form_evento']['inputs'][] = array(
 				'name' 			=> 'caracteristica_id[]',
 				'label' 		=> 'CARACTERÍSTICAS DE LA CARRERA',
@@ -718,7 +719,6 @@ class App extends My_Controller {
 		$query['cond']['evento_id'] = $evento_id;
 		$query['results'] = 1000;
 		$this->data['evento']['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
-
 		// get organizacion
 		$this->data['evento']['organizacion'] = $this->organizaciones_model->get($this->data['evento']['organizador_id']);
 		$this->data['evento']['organizacion'][0]['redes_sociales'] = $this->print_redes_socailes($this->data['evento']['organizacion'][0]['redes_sociales']); 
