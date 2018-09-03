@@ -208,6 +208,7 @@ class App extends My_Controller {
 			{
 				$this->data['profile_ok'] = FALSE;
 				$this->data['form_organizador_details']['action'] = base_url().'ajax/organizadores_ajax/add_profile';
+				$this->data['form_organizador_details']['submit_button_class'] = 'btn btn-xs btn-info Inscripciones';
 				$this->data['form_organizador_details']['ajax_call'] = 1;
 				// inputs
 				$this->data['form_organizador_details']['inputs'][] = array(
@@ -371,6 +372,7 @@ class App extends My_Controller {
 		// definir el formulario del evento
 			$this->data['form_evento']['action'] = base_url().'ajax/eventos_ajax/nuevo';
 			$this->data['form_evento']['ajax_call'] = 1;
+			$this->data['form_evento']['submit_button_class'] = 'btn btn-xs btn-info Inscripciones';;
 			// inputs
 				// si el organizador esta logeado cargo los datos en el form como un hidden field
 			if($this->data['organizador_is_logged_in'])
@@ -553,6 +555,7 @@ class App extends My_Controller {
 				'container'		=> array(
 					array(
 						'label' 		=> 'Premios',
+						'class' 		=> 'col-sm-12',
 						'draggable' 	=> TRUE,
 						'add_one_more' 	=> TRUE,
 						'group' 		=> array(
@@ -606,6 +609,7 @@ class App extends My_Controller {
 					),
 					array(
 						'name' 			=> 'vinfo[]',
+						'class' 		=> 'col-sm-12',
 						'label'			=> 'Elementos Obligatorios',
 						'placeholder'	=> 'Elementos',
 						'type'			=> 'text',
