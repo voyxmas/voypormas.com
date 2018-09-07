@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" style="min-height: 100%; display: flex; align-items: center;">
     <div class="portlet light ">
         <div class="portlet-title tabbable-line">
             <?php $this->load->view('bloques/logo.php'); ?>
@@ -11,7 +11,6 @@
         <div class="portlet-body">
             <div class="todo-container">
             <?php if (!$organizador_is_logged_in ) : // si no esta logueado muestro el formulario de logueo ?>
-                <p>Si es tu primera vez en Voy por Más, ingresá el email y contraseña que querés usar para publicar</p>
                 <?php $this->load->view('bloques/perfil/login',array('form_organizador'=>$form_organizador)) ?>            
             <?php elseif (!$profile_ok) : // si esta logueado y el perfil no esta completo, pido los datos del perfil ?>
                 <p>¡YA CASI SOS PARTE DE VOY POR MÁS!</p>

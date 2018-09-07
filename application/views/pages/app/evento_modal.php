@@ -115,7 +115,7 @@
                 <?php endif ?>
                 <p class="separador">Premios: <br>
                 <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
-                    <?php echo $premio['descripcion'] ?> : <span class="montos"><?php echo $premio['premio'] ?></span> <br> 
+                    <span class="criterio"><?php echo $premio['descripcion'] ?> :</span><span class="montos"><?php echo $premio['premio'] ?></span> <br> 
                 <?php endforeach ?></p>
                 <?php endif ?>
             </div>

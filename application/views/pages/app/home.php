@@ -69,7 +69,9 @@
                             if(isset($eventos_results))
                             foreach($eventos_results as $evento_id => $evento) : ?>
                             <li class="ajax_modal todo-tasks-item evento-item <?php echo $evento['suspendido'] == 1 ? 'suspendido' : NULL ?> <?php echo $evento['reprogramado'] == 1 ? 'reprogramado' : NULL ?>" data-href="<?php echo base_url().'app/evento/'.$evento['evento_id'] ?>/modal">
-                                    <img class="event_photo" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+                                    <div class="event_photo" >
+                                        <img src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+                                    </div>
                                     <h4 class="todo-inline">
                                         <?php echo $evento['nombre'] ?>
                                     </h4>

@@ -336,12 +336,13 @@ class App extends My_Controller {
 			// tomar los datos para el login o para crear un organizador nuevo
 			$this->data['form_organizador']['action'] = base_url().'ajax/organizadores_ajax/identify';
 			$this->data['form_organizador']['ajax_call'] = 1;
+			$this->data['form_organizador']['submit_button_text'] = 'INSCRIBITE';
 			// inputs
 			$this->data['form_organizador']['inputs'][] = array(
 				'name' 			=> 'email',
 				'placeholder' 	=> 'Email',
 				'label' 		=> 'Email',
-				'class' 		=> 'col-md-6 col-lg-4 no-gutters first',
+				'class' 		=> 'col-md-6 col-lg-4 ',
 				'required'		=> TRUE,			
 				'help'			=> 'Direccion de correo electrónico a la que tengas acceso para verificar la publicación.'					
 			);
@@ -352,8 +353,14 @@ class App extends My_Controller {
 				'label' 		=> 'Contraseña',
 				'type' 			=> 'password',
 				'required'		=> TRUE,
-				'class' 		=> 'col-md-6 col-lg-4 no-gutters',
+				'class' 		=> 'col-md-6 col-lg-4',
 				'help'			=> 'Elije una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
+			);
+
+			$this->data['form_organizador']['inputs'][] = array(
+				'placeholder' 	=> 'Si es tu primera vez en Voy por Más, ingresá el email y contraseña que querés usar para publicar',
+				'type' 			=> 'div',
+				'class' 		=> 'col-md-12 no-border'					
 			);
 
 			/*

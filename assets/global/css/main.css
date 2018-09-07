@@ -361,11 +361,17 @@ label.listaicono > input {
   margin: 0 !important;
 }
 
-img.event_photo {
-  max-width: 100px;
-  max-height: 72px;
+.event_photo {
+  width: 80px;
+  height: 80px;
+  line-height: 80px !important;
   float: left;
+  text-align: center;
   margin-right: 15px;
+}
+.event_photo > img{
+  max-width: 80px;
+  max-height: 80px;
 }
 div#tabla_inscripciones {
   padding: 0 20px;
