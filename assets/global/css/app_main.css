@@ -7,8 +7,9 @@ h1, h2, h3, h4 {
     margin-bottom: 30px;
 }
 .logo img {
-    height: 120px;
-    width: 327px;
+    max-width: 100%;
+    width: 300px;
+    height: auto;
 }
 #main_search {
     width: 100%;
@@ -35,6 +36,9 @@ h1, h2, h3, h4 {
 
 #main_search > .form-group { display: block; float: left; padding: 0 2px;}
 
+.ajax_modal.todo-tasks-item.evento-item {
+    text-align: left;
+}
 .evento-item {
     background: #333;
     padding: 10px !important;
@@ -53,6 +57,10 @@ h1, h2, h3, h4 {
 }
 .todo-container .todo-head {
     overflow: auto;
+}
+.todo-container #resultados {
+    text-align: center;
+    line-height: 32px;
 }
 
 body > div > .portlet.light > .portlet-body {
@@ -93,12 +101,11 @@ textarea.form-control,
     display: none;
 }
 .noUi-connect {
-    background: #F1C40F;
+    background: #FFCC00;
     box-shadow: initial;
 }
 
 .mas-filtros-mejor {
-    margin-top: -27px;
     display: block;
     width: 100%;
     clear: both;
@@ -111,7 +118,7 @@ textarea.form-control,
     background-color: #999999 /* gris */;
 }
 .add-premio {
-    background: #F1C40F !important /*#amarillo*/;
+    background: #FFCC00 !important /*#amarillo*/;
     font-weight: bold;
     line-height: 25px;
 }
@@ -122,7 +129,7 @@ textarea.form-control,
 }
 
 .terminos-condiciones {
-    background: #F1C40F !important /*#amarillo*/;
+    background: #FFCC00 !important /*#amarillo*/;
     text-transform: uppercase;
     font-weight: bold;
     line-height: 25px;
@@ -255,6 +262,13 @@ body.app_nuevo .input-group-z-element.participantes_destacados:not(:first-of-typ
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
     .hidden-md-down { display: none;}
+    .form-group {
+        margin-bottom: 10px;
+    }
+    .todo-container #resultados h3{
+        font-size: 200%;
+        padding-top: 10px;
+    }
     
 }
 

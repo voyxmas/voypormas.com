@@ -59,7 +59,7 @@
                             <button type="submit" form="main_search" class="btn btn-square todo-bold">Aplicar filtros</button>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div id="resultados" class="col-md-9">
                         <div class="todo-head">
                             <h3><span class="texto-azul">Estas carreras encontramos para vos:</span></span></h3>
                             <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
