@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * CodeIgniter Helper extensions
+ * @package	CodeIgniter
+ * @author	Fracisco Javier Machado
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 function change_urls_to_links($text_input = NULL)
 	{
 		if($text_input === NULL) return NULL;

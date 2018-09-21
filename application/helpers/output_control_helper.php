@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * CodeIgniter Helper extensions
+ * @package	CodeIgniter
+ * @author	Fracisco Javier Machado
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
 function xml_enconde($array, SimpleXMLElement $xml, $child_name)
 {
     foreach ($array as $k => $v) {

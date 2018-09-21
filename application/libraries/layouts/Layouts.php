@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * CodeIgniter Layouts handler extensions
+ * @package	CodeIgniter
+ * @author	Fracisco Javier Machado
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
   class Layouts
   {
     // hold CI instance and variables
