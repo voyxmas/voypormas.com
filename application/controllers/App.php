@@ -75,8 +75,8 @@ class App extends My_Controller {
 		$this->data['CURRENT_SECTION'] = 'app';
 		$this->data['CURRENT_PAGE'] = 'home';
 
-		$this->layouts->set_title('Welcome');
-		$this->layouts->set_description('Welcome');
+		$this->layouts->set_title('Voy por más!');
+		$this->layouts->set_description('VoyPorMas.com - Directorio de carreras de ciclismo y maratones');
 		$this->layouts->add_include(base_url().APP_ASSETS_FOLDER.'/global/scripts/helpers_generales.js','foot');
 
 		// get eventos
