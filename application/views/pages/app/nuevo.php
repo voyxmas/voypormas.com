@@ -26,6 +26,7 @@
         </div>
 
     </div>
+    <a href="<?php echo base_url() ?>app/nuevo" class="organizadores-btn"><img src="<?php echo base_url()?>assets/global/imgs/botones/organizadores.gif" alt="Publica tu evento gratis"></a>  
 </div>
 
 <!-- Modal -->
