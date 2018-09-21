@@ -60,7 +60,7 @@ class App extends My_Controller {
 
 		// set title
 		$this->layouts->set_title('VxM');
-		$this->layouts->set_description('Welcome');
+		$this->layouts->set_description('VoyPorMas.com encontrá eventos de ciclismo, maratones');
 
 		// definir includes en el head del documento
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/css/login.css','head');
