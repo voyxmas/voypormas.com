@@ -507,7 +507,7 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'label' 		=> 'INFORMACIÓN DE LA CARRERA',
+				'label' 		=> 'INFORMACION DE LA CARRERA Y PERÍODOS DE INSCRIPCION',
 				'class'			=> 'clear-both col-sm-12',
 				'id' 			=> 'price-schedule',
 				'title'			=> 'Variantes del evento y respectivos costos de inscripcion',

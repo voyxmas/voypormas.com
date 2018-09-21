@@ -31,7 +31,7 @@ $(document).on('click','.add-premio',function(){
   if(popup.find('.closebtn').length == 0)
   {
     // creo el el boton
-    popup.children('label').append('<div class="closebtn btn green btn-sm">Cerrar</div>');
+    popup.children('label').append('<div class="closebtn btn default btn-sm">Cerrar</div>');
   }
 });
 
