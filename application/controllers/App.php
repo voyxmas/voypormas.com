@@ -9,7 +9,7 @@ class App extends My_Controller {
 
 		// verificar que tenga acceso temporal
 		$this->load->helper('cookie');
-		$this->temp_access();
+		// $this->temp_access();
 
 		// load helpers
 		$this->load->helper('z_elements');
