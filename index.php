@@ -324,6 +324,14 @@ if( ! ini_get('date.timezone') )
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+	$isSecure = false;
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+		$isSecure = true;
+	}elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+		$isSecure = true;
+	}
+	define('HTTP_PROTOCOL', $isSecure ? 'https://' : 'http://');
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

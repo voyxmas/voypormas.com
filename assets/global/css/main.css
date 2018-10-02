@@ -285,7 +285,7 @@ li.ajax_modal {
 }
 
 .modal-dialog > .modal-content > .modal-body > .evento-imagen {
-  display: block; 
+  display: inline-block; 
   margin-right: 20px;
 }
 .modal-dialog > .modal-content > .modal-body > h2.evento-titulo,
@@ -296,7 +296,7 @@ li.ajax_modal {
 .modal-dialog > .modal-content > .modal-body > .evento-imagen,
 .modal-dialog > .modal-content > .modal-body > .evento-bajada,
 .modal-dialog > .modal-content > .modal-body > h2.evento-titulo {
-  text-align: left;
+  text-align: center;
 }
 
 .ajax_modal.todo-tasks-item.evento-item{
@@ -428,10 +428,6 @@ div#tabla_inscripciones > input.next {right: 0px;}
 .modal-body div,
 .modal-body p {
  text-align: center; 
-}
-
-.evento-imagen {
-  float: left;
 }
 
 .modal-body .caracteristicasLista {

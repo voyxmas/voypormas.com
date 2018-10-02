@@ -4,17 +4,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 switch ($_SERVER['SERVER_NAME']) 
 {
 	case LOCAL_DOMAIN:
-		$config['base_url']  = 'http://'.LOCAL_DOMAIN_PATH;
+		$config['base_url']  = HTTP_PROTOCOL.LOCAL_DOMAIN_PATH;
 		break;
 	case LIVE_DOMAIN:
-		$config['base_url']  = 'http://'.LIVE_DOMAIN_PATH;
+		$config['base_url']  = HTTP_PROTOCOL.LIVE_DOMAIN_PATH;
 		break;
 	case DEMO_DOMAIN:
-		$config['base_url']  = 'http://'.DEMO_DOMAIN_PATH;
+		$config['base_url']  = HTTP_PROTOCOL.DEMO_DOMAIN_PATH;
 		break;
     default:
         // si esta en otro entorno usar el dominio actual como base_url
-        $config['base_url']  = 'http://'.$_SERVER['SERVER_NAME'];
+        $config['base_url']  = HTTP_PROTOCOL.$_SERVER['SERVER_NAME'];
         break;
 }
 $config['index_page'] 				= 'main.php';

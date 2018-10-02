@@ -11,7 +11,9 @@
 <?php endif ?>
 <div class="modal-body">
     <?php if ($evento['imagen'] ) : ?>
-    <img class="evento-imagen" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+    <div>
+        <img class="evento-imagen" src="<?php echo base_url().$evento['imagen'] ?>" alt="">
+    </div>
     <?php endif ?>
     <h2 class="evento-titulo"><a href="<?php echo base_url() ?>app/evento/<?php echo $evento['evento_id'] ?>"><?php echo $evento['nombre'] ?></a></h2>
     

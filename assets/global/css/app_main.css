@@ -160,11 +160,13 @@ textarea.form-control,
     text-align: center;
     width: 100%;
     display: block;
+    padding-top: 30px;
 }
 .logo.home_center_menu img,
 .organizadores-btn img {
     max-width: 100%;
     height: auto;
+    width: 300px;
 }
 .ordenar span {
     background: #009ADA;

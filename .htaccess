@@ -1,11 +1,17 @@
 <IfModule mod_rewrite.c>
     Options +FollowSymLinks
     RewriteEngine on
+    RewriteBase /
+
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} ^www\.
+    RewriteRule ^ https://voypormas.com%{REQUEST_URI} [NC,L,R=301,NE]
 		# agrego el direcotrio en el que esta instalado CI
     # RewriteBase /hcciv # lo comento para que ande cuando no hace falta
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?$1 [L]
+
 </IfModule>
 
 <IfModule !mod_rewrite.c>
