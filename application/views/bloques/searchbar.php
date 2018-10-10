@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="hidden-md-down">&nbsp;</label>
+                        <label class="">&nbsp;</label>
                         <div>
                             <button type="submit" class="col-xs-12 btn btn-square btn-info todo-bold btn-buscar">Buscar!</button>
                         </div>
