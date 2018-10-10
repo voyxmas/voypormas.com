@@ -318,6 +318,19 @@ body.app_nuevo .form-group.col-md-6.col-lg-4  {
         font-size: 200%;
         padding-top: 10px;
     }
+    .evento-item {
+        text-align: center !important;
+    }
+    .evento-item .event_photo {
+        display: block; width: 100%; clear: both; height: auto; overflow: auto;
+    }
+    .evento-item .event_photo > img {
+        max-width: 300px;
+        max-height: 300px;
+    }
+    .evento-item h4 {
+        
+    }
     
 }
 
