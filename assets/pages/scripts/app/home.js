@@ -109,4 +109,10 @@ $(document).ready(function(){
         // actualizoel estado actual segun minselected y maxselected
         
     }
+    // filtros
+    $(document).on('change','.fitler-item input',function(){
+        // count checked inputs
+        let c_count = $('.fitler-item input:checked').length;
+        $('#filtros_btn span').text(c_count);
+    });
 });

@@ -25,7 +25,7 @@
                     </select></label>
                     <div id="filtros" class="col-md-3">
                         <div class="todo-head">
-                            <span class="filtrar">Filtrar por:</span>
+                            <span class="filtrar">Filtrar por:</span><button type="submit" form="main_search" id="filtros_btn">aplicar <span></span> filtros</button>
                         </div>
                         <ul class="todo-tasks-content alternatefill caracteristicasLista row">
                             <?php 
@@ -55,9 +55,6 @@
                                 </li>' ?>
                             <?php endforeach ?>
                         </ul>
-                        <div class="row">
-                            <button type="submit" form="main_search" class="btn btn-square todo-bold">Aplicar filtros</button>
-                        </div>
                     </div>
                     <div id="resultados" class="col-md-9">
                         <div class="todo-head">
