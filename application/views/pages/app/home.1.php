@@ -59,7 +59,7 @@
                                     <option <?php echo $this->input->get('order') == 'monto ASC' ? 'selected' : NULL ?> value="monto ASC">Precio</option>
                                 </select><button type="submit" form="main_search" class="btn btn-outline-secondary" type="button">Ordenar</button>
                             </div>
-                            <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
+
                         </div>
                         <ul class="todo-tasks-content alternatefill">
                             <?php 

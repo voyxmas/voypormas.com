@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="portlet light <?php echo !$this->input->get() ? 'initial' : NULL ?>">
+    <div id="contenido-main" class="portlet light <?php echo !$this->input->get() ? 'initial' : NULL ?>">
         <div style="width:100%">
             <?php $this->load->view('bloques/logo.php'); ?>
             <?php
@@ -62,7 +62,6 @@
                     <div id="resultados" class="col-md-9">
                         <div class="todo-head">
                             <h3><span class="texto-azul">Estas carreras encontramos para vos:</span></span></h3>
-                            <a href="<?php echo base_url() ?>app/nuevo" class="btn btn-square btn-sm btn-default pull-right">Publicar <span class="hidden-md-down">mi evento</span></a>
                         </div>
                         <ul class="todo-tasks-content alternatefill">
                             <?php 
@@ -100,7 +99,7 @@
                         <?php echo $this->layouts->paginacion($eventos) ?>
 
                         <?php if ($this->input->get() ) : ?>
-                        <a href="<?php echo base_url() ?>app/nuevo" class="organizadores-btn"><img src="<?php echo base_url()?>assets/global/imgs/botones/organizadores.gif" alt="Publica tu evento gratis"></a>    
+                                <?php $this->load->view('bloques/footer.php'); ?>    
                         <?php endif ?>
                         </div>
                     </div>

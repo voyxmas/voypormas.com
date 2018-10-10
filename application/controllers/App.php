@@ -336,7 +336,7 @@ class App extends My_Controller {
 			// tomar los datos para el login o para crear un organizador nuevo
 			$this->data['form_organizador']['action'] = base_url().'ajax/organizadores_ajax/identify';
 			$this->data['form_organizador']['ajax_call'] = 1;
-			$this->data['form_organizador']['submit_button_text'] = 'INSCRIBITE';
+			$this->data['form_organizador']['submit_button_text'] = 'INGRESAR';
 			// inputs
 			$this->data['form_organizador']['inputs'][] = array(
 				'name' 			=> 'email',
@@ -874,31 +874,31 @@ class App extends My_Controller {
 			switch ($redes_sociales_return[$key]['red']) 
 			{
 				case 'facebook':
-					$redes_sociales_return[$key]['icono-class'] = "fa-facebook-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-facebook";
 					break;
 				case 'google':
-					$redes_sociales_return[$key]['icono-class'] = "fa-google-plus-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-google-plus";
 					break;
 				case 'pinterest':
-					$redes_sociales_return[$key]['icono-class'] = "fa-pinterest-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-pinterest";
 					break;
 				case 'twitter':
-					$redes_sociales_return[$key]['icono-class'] = "fa-twitter-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-twitter";
 					break;
 				case 'linkedin':
-					$redes_sociales_return[$key]['icono-class'] = "fa-linkedin-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-linkedin";
 					break;
 				case 'youtube':
-					$redes_sociales_return[$key]['icono-class'] = "fa-youtube-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-youtube";
 					break;
 				case 'instagram':
-					$redes_sociales_return[$key]['icono-class'] = "fa-instagram-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-instagram";
 					break;
 				case 'tumblr':
-					$redes_sociales_return[$key]['icono-class'] = "fa-tumblr-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-tumblr";
 					break;
 				case 'flickr':
-					$redes_sociales_return[$key]['icono-class'] = "fa-flickr-square";
+					$redes_sociales_return[$key]['icono-class'] = "fa-flickr";
 					break;
 				default:
 					$redes_sociales_return[$key]['icono-class'] = NULL;

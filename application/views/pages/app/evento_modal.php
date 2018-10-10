@@ -69,7 +69,6 @@
     <?php endif ?>
     <h3>Inscripción</h3>
     <div id="inscripiones" >
-        <p><?php echo $evento['inscripciones_con_links'] ?></p>
         <div id="tabla_inscripciones" >
             <table class="table col-sm-12">
                 <thead>
@@ -102,6 +101,7 @@
     $attr['Icono'] = FALSE; 
     ?>
     <p><?php echo urltolink($evento['inscripciones_link'],$attr) ?></p>
+    <?php echo $evento['inscripciones_con_links'] ? "<p>Otras formas de inscripcion: ".$evento['inscripciones_con_links']."</p>" : NULL?>
     <h3>Info por distancia</h3>
     <div id="variantes" >
         <?php foreach ($evento['variantes'] AS $varianteItem ) : ?>
@@ -134,16 +134,22 @@
 
     <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
     <div class="redes_sociales_modal">
-        <h3>Mas sobre esta carrera</h3>
-        <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
-            <?php echo "<a class='evento-perfil-redes-sociales fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
-        <?php endforeach ?>
-        <?php if ($evento['organizacion'][0]['tel_public'] == 1 AND !empty($evento['organizacion'][0]['tel']) ) : ?>
-            <a class='fa fa-phone-square' target='_blank' href="tel:<?php echo $evento['organizacion'][0]['tel'] ?>" title="<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
-        <?php endif ?>
-        <?php if ($evento['organizacion'][0]['email_public'] == 1 AND !empty($evento['organizacion'][0]['email']) ) : ?>
-            <a class='fa fa-envelope-square' target='_blank' href="mailto:<?php echo $evento['organizacion'][0]['email'] ?>" title="<?php echo $evento['organizacion'][0]['email'] ?>"></a>
-        <?php endif ?>
+        <h3>Compratí este evento</h3>
+        <a class="social-button fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
+        <a class="social-button fa fa-twitter" href="https://twitter.com/home?status=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
+        <a class="social-button fa fa-google-plus" href="https://plus.google.com/share?url=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
+        <h3>Mas sobre esta carrera <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">+</a></h3>
+        <div id="collapseExample" class="collapse">
+            <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
+                <?php echo "<a class='social-button fa ".$red['icono-class']."' href='".$red['link']."' title='".$red['red']."' target='_blank'></a>" ?>
+            <?php endforeach ?>
+            <?php if ($evento['organizacion'][0]['tel_public'] == 1 AND !empty($evento['organizacion'][0]['tel']) ) : ?>
+                <a class='fa fa-phone social-button' target='_blank' href="tel:<?php echo $evento['organizacion'][0]['tel'] ?>" title="<?php echo $evento['organizacion'][0]['tel'] ?>"></a>
+            <?php endif ?>
+            <?php if ($evento['organizacion'][0]['email_public'] == 1 AND !empty($evento['organizacion'][0]['email']) ) : ?>
+                <a class='fa fa-envelope social-button' target='_blank' href="mailto:<?php echo $evento['organizacion'][0]['email'] ?>" title="<?php echo $evento['organizacion'][0]['email'] ?>"></a>
+            <?php endif ?>
+        </div>
     </div>
     <?php endif ?>
     
