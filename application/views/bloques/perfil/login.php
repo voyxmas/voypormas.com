@@ -1,7 +1,7 @@
 <div class="portlet-body">
     <div class="todo-container">
         <div class="todo-head">
-            <h3><span class="todo-grey">Bienvenido!</span> <span class="font-blue-madison"></span></h3>
+            <span class="titulo-grande-liviano">Bienvenido!</span> <span class="font-blue-madison"></span>
         </div>
         <div id="formContainer" >
             <?php array2form($form_organizador) ?>

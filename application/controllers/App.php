@@ -337,6 +337,7 @@ class App extends My_Controller {
 			$this->data['form_organizador']['action'] = base_url().'ajax/organizadores_ajax/identify';
 			$this->data['form_organizador']['ajax_call'] = 1;
 			$this->data['form_organizador']['submit_button_text'] = 'INGRESAR';
+			$this->data['form_organizador']['submit_button_class'] = 'btn btn-xs btn-info Inscripciones';
 			// inputs
 			$this->data['form_organizador']['inputs'][] = array(
 				'name' 			=> 'email',
