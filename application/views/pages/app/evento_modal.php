@@ -112,7 +112,7 @@
                 <p class="separador"><strong>Entrega de kit:</strong> <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_datetime($varianteItem['kit_hora']) ?>)</p>
                 <?php if ( !empty($varianteItem['premios']) ) : ?>  
                 <?php if ( !empty($varianteItem['info']) ) : ?>  
-                <p class="separador">Elementos obligatorios: 
+                <p class="separador elementos_obligatorios">Elementos obligatorios: 
                     <?php echo $varianteItem['info'] ?>
                 <?php endif ?>
                 <p class="separador">Premios: <br>

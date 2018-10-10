@@ -115,4 +115,32 @@ $(document).ready(function(){
         let c_count = $('.fitler-item input:checked').length;
         $('#filtros_btn span').text(c_count);
     });
+
+    $(document).on('click','p.elementos_obligatorios a.showMoreText', function (e) { 
+        e.preventDefault();
+        let index = $(this).parent().index('.elementos_obligatorios');
+        $(this).parent().text(texts[index].fullText);
+    });
 });
+
+ajax_modal_afterload = () => {
+    let text_to_shorten = $('p.elementos_obligatorios');
+    texts = [];
+    $.each(text_to_shorten, function (indexInArray, valueOfElement) { 
+        texts[indexInArray] = {
+            fullText : valueOfElement.innerText,
+            shortText : valueOfElement.innerText.substring(0,140)
+        };
+
+        if(valueOfElement.innerText.length > 139){
+            // add button if necesary
+            let button = $('<a></a>')
+                .text(' ... mas')
+                .addClass('showMoreText');
+            let texthold = $('p.elementos_obligatorios').eq(indexInArray);
+            texthold.text(texts[indexInArray].shortText);
+            texthold.append(button);
+            // shorten text if necesary
+        }
+    });
+}
