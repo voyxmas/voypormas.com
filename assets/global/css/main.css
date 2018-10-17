@@ -386,7 +386,6 @@ div#tabla_inscripciones {
   color: #000;
 }
 div#tabla_inscripciones th {
-  color: #009ADA; /*#azul*/
   text-transform: uppercase;
 }
 div#tabla_inscripciones > input.move:disabled { display: none; }
@@ -522,4 +521,8 @@ body.app_evento #more_org_info.collapsed::after
 }
 .input.sliderNumbers.pull-right {
   right: 0;
+}
+
+.azul {
+  color: #009ADA; /*#azul*/
 }

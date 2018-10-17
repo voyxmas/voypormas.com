@@ -73,11 +73,11 @@
             <table class="table col-sm-12">
                 <thead>
                     <tr>
-                        <th rowspan="2" class="fixed">Distancias</th>
-                        <th colspan="<?php echo count($evento['variantes'][0]['inscripcion']) ?>">Periodos de inscripción</th>
+                        <th class="fixed"></th>
+                        <th class="fixed" colspan="<?php echo count($evento['variantes'][0]['inscripcion']) ?>">Periodos de inscripcion</th>
                     </tr>
                     <tr>
-                        
+                        <th class="fixed">Distancias</th>
                         <?php foreach ($evento['variantes'][0]['inscripcion'] AS $item ) : ?>
                         <th>desde <?php echo cstm_get_date($item['fecha']) ?></th>
                         <?php endforeach ?>
