@@ -502,7 +502,7 @@ class App extends My_Controller {
 				'name' 			=> 'inscripciones_cupo',
 				'label' 		=> 'Cupo',
 				'type' 			=> 'checkbox',
-				'class'			=> 'col-sm-4 no-line-break',
+				'class'			=> 'col-sm-4',
 				'value'			=> 0,
 				'options'		=> array( 1 => 'Hasta agotar cupo')
 			);
