@@ -74,10 +74,10 @@
                 <thead>
                     <tr>
                         <th class="fixed"></th>
-                        <th class="fixed" colspan="<?php echo count($evento['variantes'][0]['inscripcion']) ?>">Periodos de inscripcion</th>
+                        <th class="fixed azul" colspan="<?php echo count($evento['variantes'][0]['inscripcion']) ?>">Periodos de inscripcion</th>
                     </tr>
                     <tr>
-                        <th class="fixed">Distancias</th>
+                        <th class="fixed azul">Distancias</th>
                         <?php foreach ($evento['variantes'][0]['inscripcion'] AS $item ) : ?>
                         <th>desde <?php echo cstm_get_date($item['fecha']) ?></th>
                         <?php endforeach ?>
@@ -88,7 +88,7 @@
                         <tr>
                             <td class="fixed"><?php echo $varriantesItem['distancia'] ?>Km</td>
                             <?php foreach ($varriantesItem['inscripcion'] AS $inscripcion ) : ?>
-                            <td>$<?php echo $inscripcion['monto'] ?></td>
+                            <td class="azul">$<?php echo $inscripcion['monto'] ?></td>
                             <?php endforeach ?>
                         </tr>
                     <?php endforeach ?> 
