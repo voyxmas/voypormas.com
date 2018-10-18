@@ -256,7 +256,11 @@ div.portlet-body > div > div > div.col-md-9 > ul.todo-tasks-content.alternatefil
   color: #FFF;  
 }
 
-.modal-content .fa:before {color: #FFF}
+.modal-content .fa:before {
+  color: #FFF;
+  top: -1px;
+  position: relative;
+}
 
 .evento-perfil-redes-sociales.fa-facebook-square {color: #8b9dc3;}
 .evento-perfil-redes-sociales.fa-google-plus-square {color: #dd4b39;}
@@ -460,6 +464,7 @@ body.app_evento #more_org_info.collapsed::after
   background-color: rgba(255,255,255,.1)
 }
 #organizador_info .card { background: none; text-align: left; }
+#organizador_info .btn-xs{padding: 3px 5px 1px 5px}
 #organizador_info .card { border-bottom: 1px solid rgba(255,255,255,.3);}
 #organizador_info .card:last-child { border-bottom: none;}
 
