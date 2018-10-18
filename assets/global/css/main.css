@@ -457,7 +457,16 @@ body.app_evento #more_org_info.collapsed::after
 #organizador_info {
   clear: both;
   padding: 20px 0;
+  background-color: rgba(255,255,255,.1)
 }
+#organizador_info .card { background: none; text-align: left; }
+#organizador_info .card { border-bottom: 1px solid rgba(255,255,255,.3);}
+#organizador_info .card:last-child { border-bottom: none;}
+
+#organizador_info .card .nombre,
+#organizador_info .card .telefono,
+#organizador_info .card .email { background: white; margin-bottom: 2px;}
+
 #more_org_info::after {
   margin-left: 5px;
 }

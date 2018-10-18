@@ -47,9 +47,16 @@
                 <?php if ($representante['publico'] == 1 ) : ?>
                 <p class="card">
                     <span class="card-body">
-                        Nombre: <?php echo $representante['nombre'] ?><br>
-                        Teléfono: <?php echo teltolink($representante['tel']) ?><br>
-                        Email: <?php echo emailtolink($representante['email']) ?><br>
+                        <span class="nombre btn btn-xs">Nombre: <?php echo $representante['nombre'] ?></span><br>
+                        <span class="telefono btn btn-xs">Teléfono:</span> <span class="telefono"><?php echo teltolink($representante['tel']) ?></span>
+                        <span class="email btn btn-xs">Email:</span> <span class="email"><?php echo emailtolink($representante['email']) ?></span><br>
+                    </span>
+                </p>
+                <p class="card">
+                    <span class="card-body">
+                        <span class="nombre btn btn-xs">Nombre: <?php echo $representante['nombre'] ?></span><br>
+                        <span class="telefono btn btn-xs">Teléfono:</span> <span class="telefono"><?php echo teltolink($representante['tel']) ?></span>
+                        <span class="email btn btn-xs">Email:</span> <span class="email"><?php echo emailtolink($representante['email']) ?></span><br>
                     </span>
                 </p>
                 <?php endif ?>
