@@ -38,9 +38,7 @@ class App extends My_Controller {
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/app/home.js','foot');
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
-		$this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b72f1d71a0ecd70','foot', 'js');
-		
-		
+		// $this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b72f1d71a0ecd70','foot', 'js');
 
 		// get datos del searchbar
 		$this->data['categorias'] =$this->categorias_model->get_for_input(array('inputgroup'=>'grupo'));

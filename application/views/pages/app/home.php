@@ -95,9 +95,6 @@
 
                         <?php echo $this->layouts->paginacion($eventos) ?>
 
-                        <?php if ($this->input->get() ) : ?>
-                                <?php $this->load->view('bloques/footer.php'); ?>    
-                        <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -106,3 +103,7 @@
         <?php endif ?>
     </div>
 </div>
+
+<?php if ($this->input->get() ) : ?>
+        <?php $this->load->view('bloques/footer.php'); ?>    
+<?php endif ?>
