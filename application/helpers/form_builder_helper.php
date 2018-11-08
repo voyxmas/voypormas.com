@@ -69,6 +69,7 @@ function echo_input($input, $group = false, $sobre_escribir = array())
 	$input["add_one_more"] = isset($input["add_one_more"]) ? $input["add_one_more"] : false;
 	$input["value"] = isset($input["value"]) ? $input["value"] : null;
 	$input["placeholder"] = isset($input["placeholder"]) ? $input["placeholder"] : null;
+	$input["content"] = isset($input["content"]) ? $input["content"] : $input["placeholder"];
 	$input["class"] = isset($input["class"]) ? $input["class"] : null;
 	$input["class"] .= ' ' . str_replace('[]', '', $input["name"]);
 	$input["prefixbox"] = isset($input["prefixbox"]) ? $input["prefixbox"] : null;
@@ -213,7 +214,13 @@ function echo_input($input, $group = false, $sobre_escribir = array())
 
 			break;
 		default:
-			echo '<' . $input["type"] . ' ' . $common_attr_minimal . '>' . $input["placeholder"] . '</a>';
+			// busco cuando empiezan por tag:
+			if(strstr ($input["type"],'tag:')){
+				$tag = explode(':', $input["type"])[1];
+				echo '<' . $tag . ' ' . $common_attr_minimal . '>' . $input["placeholder"] . '</' . $tag . '>';
+			}else{
+				echo '<' . $input["type"] . ' ' . $common_attr_minimal . '>' . $input["placeholder"] . '</' . $input["type"] . '>';
+			}
 	}
 
 	if ($input['sufixbox']) {

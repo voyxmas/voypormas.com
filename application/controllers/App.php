@@ -416,6 +416,12 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
+				'type' 			=> 'tag:h3',
+				'placeholder'	=> 'Inscripcion',
+				'class' 		=> 'col-md-12 todo-grey'				
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> '¿Dónde se correrá?',
 				'placeholder'	=> 'lugar',
 				'name' 			=> 'lugar',
@@ -757,9 +763,13 @@ class App extends My_Controller {
 
 		// veo se cargo el evento en su pagina o como modal
 		if ($modal == 'modal')
+		{
+			$this->data['is_modal'] = TRUE;
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'].'_modal', $this->data, FALSE);
+		}
 		else
 		{
+			$this->data['is_modal'] = FALSE;
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/helpers_generales.js','foot');
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'], $this->data, 'app/general');
 		}

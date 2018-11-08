@@ -167,5 +167,9 @@
 
 </div>
 <div class="modal-footer">
+    <?php if ($is_modal) : ?>
     <button type="button" class="btn default" data-dismiss="modal">Cerrar</button>
+    <?php else: ?>
+    <a href="<?php echo base_url() ?>" class="btn default" data-dismiss="modal">Volver</a>
+    <?php endif ?>
 </div>

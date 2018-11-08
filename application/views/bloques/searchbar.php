@@ -1,6 +1,6 @@
 <form id="main_search" action="<?php echo base_url().'app/home' ?>" method="get">
                     <div class="form-group">
-                        <label>Nombre </label>
+                        <label>Nombre <span class="hidden-lg hidden-md">de la Carrera</span></label>
                         <input id="name" name="nombre" type="text" class="selectpicker form-control" value="<?php echo $this->input->get('nombre') ?>">
                     </div>
                     <div class="form-group">

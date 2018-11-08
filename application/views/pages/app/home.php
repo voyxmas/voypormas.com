@@ -7,9 +7,6 @@
                 $data['pricelimits'] = $pricelimits;
                 $this->load->view('bloques/searchbar.php',$data);
             ?>
-            <?php if (!$this->input->get() ) : ?>
-            <a href="<?php echo base_url() ?>app/nuevo" class="organizadores-btn"><img src="<?php echo base_url()?>assets/global/imgs/botones/organizadores.gif" alt="Publica tu evento gratis"></a>
-            <?php endif ?>
         </div>
         <?php if ($this->input->get() ) : ?>
         <div class="portlet-body">
@@ -104,6 +101,4 @@
     </div>
 </div>
 
-<?php if ($this->input->get() ) : ?>
-        <?php $this->load->view('bloques/footer.php'); ?>    
-<?php endif ?>
+<?php $this->load->view('bloques/footer.php'); ?>
