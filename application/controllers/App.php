@@ -347,7 +347,7 @@ class App extends My_Controller {
 				'name' 			=> 'email',
 				'placeholder' 	=> 'Email',
 				'label' 		=> 'Email',
-				'class' 		=> 'col-md-6 col-lg-4 ',
+				'class' 		=> 'col-md-6 col-lg-6 ',
 				'required'		=> TRUE,			
 				'help'			=> 'Direccion de correo electrónico a la que tengas acceso para verificar la publicación.'					
 			);
@@ -358,7 +358,7 @@ class App extends My_Controller {
 				'label' 		=> 'Contraseña',
 				'type' 			=> 'password',
 				'required'		=> TRUE,
-				'class' 		=> 'col-md-6 col-lg-4',
+				'class' 		=> 'col-md-6 col-lg-6',
 				'help'			=> 'Elije una contraseña nueva si no tiens una cuenta o ingresa una que ya hayas usado en otra publicación'					
 			);
 
@@ -721,7 +721,7 @@ class App extends My_Controller {
 		$this->layouts->set_title($this->data['evento']['nombre']);
 		$this->layouts->set_description($this->data['evento']['inscripciones']);
 		$this->layouts->define_meta('canonical', base_url().'app/evento/'.$evento_id);
-		$this->layouts->define_meta('thumb', base_url().$this->data['evento']['imagen']);
+		$this->layouts->define_meta('thumb', base_url().substr($this->data['evento']['imagen'],2));
 
 		// get variantes
 		$query['cond']['evento_id'] = $this->data['evento']['evento_id'];

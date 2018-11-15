@@ -278,6 +278,15 @@ body.app_nuevo .form-group.col-md-6.col-lg-4  {
     width: 100%;
     text-transform: uppercase;
 }
+.titulo-grande-pesado {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #009ADA;
+    display: block;
+    width: 100%;
+    text-transform: uppercase;
+}
 
 label.listaicono {
     min-width: 170px;
