@@ -142,13 +142,14 @@
     <p class="participante"><?php echo $participante ?></p>
     <?php endforeach ?>
     <?php endif ?>
-
-    <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
     <div class="redes_sociales_modal">
         <h3>Compratí este evento</h3>
         <a class="social-button fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
         <a class="social-button fa fa-twitter" href="https://twitter.com/home?status=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
         <a class="social-button fa fa-google-plus" href="https://plus.google.com/share?url=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
+    </div>
+    <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
+    <div class="redes_sociales_modal">
         <h3>Mas sobre esta carrera <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">+</a></h3>
         <div id="collapseExample" class="collapse">
             <?php foreach ($evento['organizacion'][0]['redes_sociales'] AS $red ) : ?>
