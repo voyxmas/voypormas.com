@@ -719,8 +719,9 @@ class App extends My_Controller {
 		
 		// metas
 		$this->layouts->set_title($this->data['evento']['nombre']);
-		$this->layouts->set_description('Welcome');
+		$this->layouts->set_description($this->data['evento']['inscripciones']);
 		$this->layouts->define_meta('canonical', base_url().'app/evento/'.$evento_id);
+		$this->layouts->define_meta('thumb', base_url().$this->data['evento']['imagen']);
 
 		// get variantes
 		$query['cond']['evento_id'] = $this->data['evento']['evento_id'];

@@ -143,13 +143,13 @@
     {
       foreach($this->metas as $meta => $value)
       {
-        if      ($meta === 'title') echo '<title>'.$value.'</title>';
-        elseif  ($meta === 'charset')  echo '<meta charset="'.$value.'">';
-        elseif  ($meta === 'canonical')  echo '<link rel="canonical" href="'.$value.'">';
-        elseif  ($meta === 'favicon')  echo '<link rel="shortcut icon" href="'.$value.'" type="image/x-icon"><link rel="icon" href="'.$value.'" type="image/x-icon">';
-        elseif  (preg_match('/(^og:)|(^fb:)/',$meta)) echo '<meta property="'.$meta.'" content="'.$value.'" />';
-        elseif  (preg_match('/(^itemprop:)/',$meta)) echo '<meta itemprop="'.$meta.'" content="'.preg_replace('/(^itemprop:)/','',$mvalueeta).'" />';
-        else echo '<meta name="'.$meta.'" content="'.$value.'" />';
+        if      ($meta === 'title') {echo '<title>'.$value.'</title>';}
+        elseif  ($meta === 'charset') {echo '<meta charset="'.$value.'">';}
+        elseif  ($meta === 'canonical') {echo '<link rel="canonical" href="'.$value.'">';}
+        elseif  ($meta === 'favicon') {echo '<link rel="shortcut icon" href="'.$value.'" type="image/x-icon"><link rel="icon" href="'.$value.'" type="image/x-icon">';}
+        elseif  (preg_match('/(^og:)|(^fb:)/',$meta))  {echo '<meta property="'.$meta.'" content="'.$value.'" />';}
+        elseif  (preg_match('/(^itemprop:)/',$meta))  {echo '<meta itemprop="'.$meta.'" content="'.preg_replace('/(^itemprop:)/','',$mvalueeta).'" />';}
+        else  {echo '<meta name="'.$meta.'" content="'.$value.'" />';}
         echo "\r\n";
       }
       // si no se define_meta en metas el favicon y si el archvio existe en el root mostrar el favicon
