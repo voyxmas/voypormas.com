@@ -19,6 +19,7 @@ class App extends My_Controller {
 		$this->load->model('categorias_grupos_model');
 		$this->load->model('eventos_model');
 		$this->load->model('eventos_caracteristicas_model');
+		$this->load->model('settings_model');
 
 		// includes
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/plugins/css/animate.css','foot');
@@ -39,6 +40,11 @@ class App extends My_Controller {
 		$this->layouts->add_include(APP_ASSETS_FOLDER.'/pages/scripts/admin/events_nuevo.js','foot');
 		$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
 		// $this->layouts->add_include('https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b72f1d71a0ecd70','foot', 'js');
+
+		// get redes sociales de settings
+		$query['cond']['setting_id'] = 3;
+		$redes_vxm = $this->settings_model->get($query);
+		$this->data['redes_socales_vxm'] = print_redes_socailes($redes_vxm[0]['value']);
 
 		// get datos del searchbar
 		$this->data['categorias'] =$this->categorias_model->get_for_input(array('inputgroup'=>'grupo'));
@@ -738,7 +744,7 @@ class App extends My_Controller {
 		$this->data['evento']['caracteristicas'] = $this->eventos_caracteristicas_model->get($query); unset($query);
 		// get organizacion
 		$this->data['evento']['organizacion'] = $this->organizaciones_model->get($this->data['evento']['organizador_id']);
-		$this->data['evento']['organizacion'][0]['redes_sociales'] = $this->print_redes_socailes($this->data['evento']['organizacion'][0]['redes_sociales']); 
+		$this->data['evento']['organizacion'][0]['redes_sociales'] = print_redes_socailes($this->data['evento']['organizacion'][0]['redes_sociales']); 
 
 		// get representantes
 		$attr['cond']['organizacion_id'] = $this->data['evento']['organizador_id'];
@@ -859,63 +865,6 @@ class App extends My_Controller {
 		$return['min'] = count($target) > 0 ? min($target)  : 0;
 
 		return $return;
-	}
-
-	private function print_redes_socailes($redes_sociales=NULL)
-	{
-		if($redes_sociales === NULL) return false;
-		
-		if(!is_array($redes_sociales))
-			$redes_sociales = explode(',',$redes_sociales);
-		
-		
-		// check for domain
-		$re = '/(https\:\/\/|http\:\/\/)((\w+)\.)?(((\w+)\.(com|net|org)))/';
-
-		foreach ($redes_sociales as $key => $link) 
-		{
-			$matches;
-			preg_match($re, $link, $matches);
-
-			$redes_sociales_return[$key]['link'] 	= $link;
-			$redes_sociales_return[$key]['red']		= isset($matches[6]) ? $matches[6] : NULL;
-
-			switch ($redes_sociales_return[$key]['red']) 
-			{
-				case 'facebook':
-					$redes_sociales_return[$key]['icono-class'] = "fa-facebook";
-					break;
-				case 'google':
-					$redes_sociales_return[$key]['icono-class'] = "fa-google-plus";
-					break;
-				case 'pinterest':
-					$redes_sociales_return[$key]['icono-class'] = "fa-pinterest";
-					break;
-				case 'twitter':
-					$redes_sociales_return[$key]['icono-class'] = "fa-twitter";
-					break;
-				case 'linkedin':
-					$redes_sociales_return[$key]['icono-class'] = "fa-linkedin";
-					break;
-				case 'youtube':
-					$redes_sociales_return[$key]['icono-class'] = "fa-youtube";
-					break;
-				case 'instagram':
-					$redes_sociales_return[$key]['icono-class'] = "fa-instagram";
-					break;
-				case 'tumblr':
-					$redes_sociales_return[$key]['icono-class'] = "fa-tumblr";
-					break;
-				case 'flickr':
-					$redes_sociales_return[$key]['icono-class'] = "fa-flickr";
-					break;
-				default:
-					$redes_sociales_return[$key]['icono-class'] = NULL;
-					break;
-			}
-		}
-
-		return $redes_sociales_return;
 	}
 
 	private function scape_regex_special_chars($string) 

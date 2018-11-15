@@ -52,8 +52,40 @@
                                         </div>
                                         <?php endforeach ?>
                                         
+                                        
                                     </div>
                                 </div>
                             </div><!-- Close div#portlet -->
+
+
+                            <div id="portlet" class="portlet light ">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption">
+                                        <span class="caption-subject font-dark bold uppercase">Nuevo Setting</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+
+                                    <form class="ajax_call row" action="<?php echo base_url() ?>ajax/settings_ajax/new_setting" method="post">
+                                        <label class="col-sm-3"> Nombre del setting
+                                            <input class="col-sm-12 form-control" type="text" name="setting_name">
+                                        </label>
+                                        <label class="col-sm-3"> Valor a guardar
+                                            <input class="col-sm-12 form-control" type="text" name="setting_value">
+                                        </label>
+                                        <label class="col-sm-3"> Tipo de valor
+                                            <select name="setting_type" class="form-control">
+                                                <option value="input">Texto corto</option>
+                                                <option value="textarea">Texto largo</option>
+                                                <option value="check">Checkbox</option>
+                                                <option value="radio">Radio</option>
+                                            </select>
+                                        </label>
+                                        <label class="col-sm-3"> &nbsp;
+                                            <input class="btn btn-default form-control" type="submit" value="guardar cambios">
+                                        </label>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>

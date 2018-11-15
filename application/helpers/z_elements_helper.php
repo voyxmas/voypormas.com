@@ -135,4 +135,64 @@ function teltolink($text_input = NULL)
 	$text_input = isset($crum_to_find) ? str_replace($crum_to_find,$crum_replacer,$text_input) : $text_input; // si hay algo para reemplazar lo hago
 	return $text_input;
 }
+
+function print_redes_socailes($redes_sociales=NULL)
+{
+	if($redes_sociales === NULL) return false;
+	
+	if(!is_array($redes_sociales))
+		$redes_sociales = explode(',',$redes_sociales);
+	
+	
+	// check for domain
+	$re = '/(https\:\/\/|http\:\/\/)((\w+)\.)?(((\w+)\.(com|net|org)))/';
+
+	foreach ($redes_sociales as $key => $link) 
+	{
+		$redes_sociales_return 	= NULL;
+		if(empty($link)) continue;
+		
+		$matches;
+		preg_match($re, $link, $matches);
+
+		$redes_sociales_return[$key]['link'] 	= $link;
+		$redes_sociales_return[$key]['red']		= isset($matches[6]) ? $matches[6] : NULL;
+
+		switch ($redes_sociales_return[$key]['red']) 
+		{
+			case 'facebook':
+				$redes_sociales_return[$key]['icono-class'] = "fa-facebook";
+				break;
+			case 'google':
+				$redes_sociales_return[$key]['icono-class'] = "fa-google-plus";
+				break;
+			case 'pinterest':
+				$redes_sociales_return[$key]['icono-class'] = "fa-pinterest";
+				break;
+			case 'twitter':
+				$redes_sociales_return[$key]['icono-class'] = "fa-twitter";
+				break;
+			case 'linkedin':
+				$redes_sociales_return[$key]['icono-class'] = "fa-linkedin";
+				break;
+			case 'youtube':
+				$redes_sociales_return[$key]['icono-class'] = "fa-youtube";
+				break;
+			case 'instagram':
+				$redes_sociales_return[$key]['icono-class'] = "fa-instagram";
+				break;
+			case 'tumblr':
+				$redes_sociales_return[$key]['icono-class'] = "fa-tumblr";
+				break;
+			case 'flickr':
+				$redes_sociales_return[$key]['icono-class'] = "fa-flickr";
+				break;
+			default:
+				$redes_sociales_return[$key]['icono-class'] = NULL;
+				break;
+		}
+	}
+
+	return $redes_sociales_return;
+}
 ?>
