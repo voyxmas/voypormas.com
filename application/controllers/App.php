@@ -79,7 +79,7 @@ class App extends My_Controller {
 		$this->data['CURRENT_SECTION'] = 'app';
 		$this->data['CURRENT_PAGE'] = 'home';
 
-		$this->layouts->set_title('Voy por más!');
+		$this->layouts->set_title('VoyporMás!');
 		$this->layouts->set_description('Todas las carreras en un mismo lugar - si te apasiona el running o el ciclismo, ésta es tu página.');
 		$this->layouts->add_include(base_url().APP_ASSETS_FOLDER.'/global/scripts/helpers_generales.js','foot');
 

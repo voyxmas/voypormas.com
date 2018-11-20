@@ -1,8 +1,6 @@
 <div class="portlet-body col-sm-12">
     <div class="todo-container">
-        <div class="todo-head">
-            <span class="titulo-grande-pesado">Bienvenido!</span> <span class="font-blue-madison"></span>
-        </div>
+
         <div class="todo-body">
             <div class="well well-sm">
                 <div class="media">
