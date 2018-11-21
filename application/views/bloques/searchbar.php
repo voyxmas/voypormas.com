@@ -1,10 +1,10 @@
 <form id="main_search" action="<?php echo base_url().'app/home' ?>" method="get">
                     <div class="form-group">
-                        <label>Nombre <span class="hidden-lg hidden-md">de la Carrera</span></label>
+                        <label>¿Cuál<span class="hidden-lg hidden-md"> carrera</span> buscás?</label>
                         <input id="name" name="nombre" type="text" class="selectpicker form-control" value="<?php echo $this->input->get('nombre') ?>">
                     </div>
                     <div class="form-group">
-                        <label>Tipo</label>
+                        <label>Formato<span class="hidden-lg hidden-md"> de la carrera</span></label>
                             <select id="evento_tipo_id" name="evento_tipo_id" class="selectpicker form-control" data-live-search="true">
                                 <option value="-1">Todos</option>
                                 <?php foreach($categorias as $segmento => $categoria_items): ?>
@@ -17,7 +17,7 @@
                             </select>
                     </div>
                     <div class="form-group col-xs-6">
-                        <label>Lugar</label>
+                        <label>¿Dónde<span class="hidden-lg hidden-md"> querés correr</span>?</label>
                             <input id="lugar" name="lugar" class="form-control" value="<?php echo $this->input->get('lugar') ?>">
                             <input type="hidden" id="numero_casa" name="numero_casa" class="form-control" value="<?php echo $this->input->get('numero_casa') ?>">
                             <input type="hidden" id="calle" name="calle" class="form-control" value="<?php echo $this->input->get('calle') ?>">
@@ -29,7 +29,7 @@
                             <input type="hidden" id="longitud" name="longitud" class="form-control" value="<?php echo $this->input->get('longitud') ?>">
                     </div>
                     <div class="form-group col-xs-6">
-                        <label>Fecha</label>
+                        <label>¿Cuando<span class="hidden-lg hidden-md"> querés correr</span>?</label>
                         <input id="fecha" name="fecha" type="text" autocomplete="off" class="date-picker form-control" value="<?php echo $this->input->get('fecha') ?>">
                     </div>
                     <div class="form-group col-md-6 col-xs-12">
