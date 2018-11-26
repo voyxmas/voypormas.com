@@ -56,7 +56,7 @@ class Eventos_ajax extends My_Controller {
 		{
 			$config['upload_path']          = './assets/uploads/';
 			$config['allowed_types']        = 'gif|jpg|jpeg|png';
-			$config['max_size']             = 800;
+			$config['max_size']             = 4096;
 			$config['max_width']            = 3024;
 			$config['max_height']           = 3024;
 			
