@@ -7,6 +7,8 @@ define('LOCAL_DOMAIN','voypormas.zigna');
 define('DEMO_DOMAIN','demo.zigna.com.ar');
 define('DEMO_DIRECOTRY','voypormas');
 define('LIVE_DOMAIN','voypormas.com');
+	// constantes terceros
+define('GOOGLE_ANALYTICS','UA-129006471-1');
 	// defino el directorio en el que sta la instalacion de CI
 define('LOCAL_DOMAIN_PATH',LOCAL_DOMAIN);
 define('DEMO_DOMAIN_PATH',DEMO_DOMAIN.'/'.DEMO_DIRECOTRY);
