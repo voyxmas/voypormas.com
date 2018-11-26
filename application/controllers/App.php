@@ -409,7 +409,7 @@ class App extends My_Controller {
 				'label' 		=> 'Logo de la Carrera',
 				'name' 			=> 'image',
 				'type' 			=> 'file',
-				'help'			=> 'Debe ser una imagen en formato JPG, GIF o PNG y no puede ser más grande que 4Mb',
+				'help'			=> 'Debe ser una imagen en formato JPG, GIF o PNG y menor de 4Mb de tamaño',
 				'class' 		=> 'col-md-12'		
 			);
 
