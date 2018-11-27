@@ -82,8 +82,8 @@ class Eventos_ajax extends My_Controller {
 						$config_resize['image_library'] = 'gd2';
 						$config_resize['source_image'] = $upload_data['full_path'];
 						$config_resize['maintain_ratio'] = TRUE;
-						$config_resize['width']     = 200;
-						$config_resize['height']   = 200;
+						$config_resize['width']     = 600;
+						$config_resize['height']   = 600;
 				
 						$this->load->library('image_lib', $config_resize); 
 				
