@@ -109,25 +109,37 @@
                                                                     <label class="control-label">
                                                                         <span>Distancia</span>
                                                                     </label>
-                                                                    <input name="distancia" class="form-control input-group-z-element distancia z_tooltip" type="text" value="<?php echo $varianteItem['distancia'] ?>">
+                                                                    <input name="distancia" class="form-control input-group-z-element distancia" type="text" value="<?php echo $varianteItem['distancia'] ?>">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="control-label">
                                                                         <span>Lugar de largada</span>
                                                                     </label>
-                                                                    <input name="lugar_largada" class="form-control input-group-z-element lugar_largada z_tooltip" type="text" value="<?php echo $varianteItem['lugar_largada'] ?>">
+                                                                    <input name="lugar_largada" class="form-control input-group-z-element lugar_largada" type="text" value="<?php echo $varianteItem['lugar_largada'] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>FECHA Y HORA DE LARGADA</span>
+                                                                    </label>
+                                                                    <input name="fechahora" class="form-control input-group-z-element fechahora" type="text" value="<?php echo str_replace(' ','T',$varianteItem['fechahora']) ?>" onfocus="(this.type='datetime-local')" onblur="(this.type='text')">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>LUGAR DE ENTREGA DE KIT</span>
+                                                                    </label>
+                                                                    <input name="kit_lugar" class="form-control input-group-z-element kit_lugar" type="text" value="<?php echo $varianteItem['kit_lugar'] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="control-label">
+                                                                        <span>FECHA Y HORA DE ENTREGA DE KIT</span>
+                                                                    </label>
+                                                                    <input name="kit_hora" class="form-control input-group-z-element kit_hora" type="text" value="<?php echo str_replace(' ','T',$varianteItem['kit_hora']) ?>" onfocus="(this.type='datetime-local')" onblur="(this.type='text')">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="control-label">
                                                                         <span>Elementos</span>
                                                                     </label>
-                                                                    <input name="info" class="form-control input-group-z-element info z_tooltip" type="text" value="<?php echo $varianteItem['info'] ?>">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="control-label">
-                                                                        <span>Hora</span>
-                                                                    </label>
-                                                                    <input name="fechahora" class="form-control input-group-z-element fechahora z_tooltip" type="text" value="<?php echo $varianteItem['fechahora'] ?>">
+                                                                    <input name="info" class="form-control input-group-z-element info" type="text" value="<?php echo $varianteItem['info'] ?>">
                                                                 </div>
                                                                 <button class="btn btn-info" type="submit">Guardar Cambios</button>
                                                             </form>
