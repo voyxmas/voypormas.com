@@ -23,7 +23,7 @@ define('INFO_TERMINOS',2);
 // constantes propias
 define('APP_SECRET_TOKEN','9bd6b5ef63e6d92d7e22099a9333bce');
 define('APP_RESULTS_PER_PAGE',20);
-define('APP_SESSION_EXPIRE',60*30); // duracion de la session en segundos
+define('APP_SESSION_EXPIRE',60*60*24); // duracion de la session en segundos
 
 // constantes modelos defaults
 define('MODEL_DEFAULT_ORWHERE', FALSE); // FALSE = AND - TRUE = OR

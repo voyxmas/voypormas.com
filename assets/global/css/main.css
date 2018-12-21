@@ -290,9 +290,9 @@ li.ajax_modal {
   overflow: auto;
 }
 
-.modal-dialog > .modal-content > .modal-body > .evento-imagen {
+.modal-body > div > .evento-imagen {
   display: inline-block; 
-  margin-right: 20px;
+  max-width: 100% !important;
 }
 .modal-dialog > .modal-content > .modal-body > h2.evento-titulo,
 .modal-dialog > .modal-content > .modal-body > h2.evento-titulo a {
