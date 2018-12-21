@@ -423,12 +423,6 @@ class App extends My_Controller {
 			);
 
 			$this->data['form_evento']['inputs'][] = array(
-				'type' 			=> 'tag:h3',
-				'placeholder'	=> 'Inscripcion',
-				'class' 		=> 'col-md-12 todo-grey'				
-			);
-
-			$this->data['form_evento']['inputs'][] = array(
 				'label' 		=> '¿Dónde se correrá?',
 				'placeholder'	=> 'lugar',
 				'name' 			=> 'lugar',
@@ -486,6 +480,12 @@ class App extends My_Controller {
 				'required'		=> TRUE,
 				'class' 		=> 'col-md-12 no-gutters'
 				
+			);
+
+			$this->data['form_evento']['inputs'][] = array(
+				'type' 			=> 'tag:h3',
+				'placeholder'	=> 'Inscripcion',
+				'class' 		=> 'col-md-12 todo-grey'				
 			);
 			
 			$this->data['form_evento']['inputs'][] = array(
@@ -571,6 +571,7 @@ class App extends My_Controller {
 			$this->data['form_evento']['inputs'][] = array(
 				'class' 		=> 'premios hide popup portlet light animated',
 				'label' 		=> '+ INFO DE ESTA DISTANCIA',
+				'close_btn_text'=> 'CERRAR / GUARDAR',
 				'container'		=> array(
 					array(
 						'label' 		=> 'Premios',
