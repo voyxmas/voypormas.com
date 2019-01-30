@@ -56,7 +56,9 @@
                                     </div>
 
                                 </div>
-
+                                <div class="portlet-footer">
+                                    <?php $this->load->view('layout/blocks/menues/pagination', $pagination_data) ?>
+                                </div>
                             </div>
                         </div>
                     </div>

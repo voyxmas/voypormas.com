@@ -96,6 +96,11 @@ class Admin extends My_Controller {
 			$attr['page'] = $this->input->get('p');
 
 			$this->data['eventos_nuevos'] = $this->eventos_model->get($attr); unset($attr);
+			$this->data['pagination_data'] = array(
+				'total_results'=>$this->data['eventos_nuevos'][0]['total_results'], 
+				'page'=>$this->input->get('p'),
+				'ref_url'=>'admin/eventos'
+			);
 
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
@@ -637,9 +642,14 @@ class Admin extends My_Controller {
 
 			// buscar los eventos y ordenarlos por fecha de publicacion
 			$attr['order_by'] = 'nombre ASC';
-			$attr['results'] = 1000;
+			$attr['page'] = $this->input->get('p');
 
 			$this->data['caracteristicas'] = $this->caracteristicas_model->get($attr); unset($attr);
+			$this->data['pagination_data'] = array(
+				'total_results'=>$this->data['caracteristicas'][0]['total_results'], 
+				'page'=>$this->input->get('p'),
+				'ref_url'=>'admin/caracteristicas'
+			);
 
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
@@ -735,9 +745,14 @@ class Admin extends My_Controller {
 
 			// buscar los eventos y ordenarlos por fecha de publicacion
 			$attr['order_by'] = 'grupo ASC, nombre ASC';
-			$attr['results'] = 1000;
+			$attr['page'] = $this->input->get('p');
 
 			$this->data['categorias'] = $this->categorias_model->get($attr); unset($attr);
+			$this->data['pagination_data'] = array(
+				'total_results'=>$this->data['categorias'][0]['total_results'], 
+				'page'=>$this->input->get('p'),
+				'ref_url'=>'admin/categorias'
+			);
 
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
@@ -936,6 +951,11 @@ class Admin extends My_Controller {
 			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
 			$query['order_by'] = 'nombre ASC';
 			$this->data['organizaciones'] = $this->organizaciones_model->get($query); unset($query);
+			$this->data['pagination_data'] = array(
+				'total_results'=>$this->data['organizaciones'][0]['total_results'], 
+				'page'=>$this->input->get('p'),
+				'ref_url'=>'admin/organizaciones'
+			);
 
 			$this->layouts->view($this->data['CURRENT_SECTION'].'/'.$this->data['CURRENT_PAGE'],$this->data,'admin/general');
 		}
