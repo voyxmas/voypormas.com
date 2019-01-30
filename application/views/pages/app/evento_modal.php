@@ -124,7 +124,7 @@
                 <?php if ( !empty($varianteItem['premios']) ) : ?>  
                 <?php if ( !empty($varianteItem['info']) ) : ?>  
                 <p class="separador elementos_obligatorios">Elementos obligatorios: 
-                    <?php echo $varianteItem['info'] ?>
+                    <?php echo nl2br($varianteItem['info']) ?>
                 <?php endif ?>
                 <p class="separador">Premios: <br>
                 <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
