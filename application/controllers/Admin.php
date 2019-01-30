@@ -408,8 +408,8 @@ class Admin extends My_Controller {
 			// cargar includes
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/components.min.css','head');
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/cstm_forms_helpers.js','foot');
-			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 			$this->layouts->add_include('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDaDtH2arGzUFc_wrBN1VgvlZ_xOmRJiCY','foot','js');
+			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/scripts/autocompletarlugar.js','foot');
 
 			// cargar el evento
 			$this->data['evento'] = $this->eventos_model->get($evento_id)[0];
@@ -430,10 +430,11 @@ class Admin extends My_Controller {
 				);
 
 				$this->data['form_general']['inputs'][] = array(
-					'label' 		=> 'Lugar',
 					'value'			=> $this->data['evento']['lugar'],
 					'name' 			=> 'lugar',
+					'id' 			=> 'lugar',
 					'type' 			=> 'text',
+					'required'		=> TRUE
 					
 				);
 
