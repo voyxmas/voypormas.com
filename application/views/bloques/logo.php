@@ -1,1 +1,1 @@
-<a class="col-lg-12 logo <?php echo ($CURRENT_PAGE == 'home' AND empty($this->input->get()) ) ? 'home_center_menu' : NULL ?>" href="<?php echo base_url() ?>"><img src="<?php echo base_url().APP_ASSETS_FOLDER?>/global/imgs/logos/logo_2.gif" alt="voypormas.com" class="logo-voypormas.com" /></a>
+<a class="logo <?php echo ($CURRENT_PAGE == 'home' AND empty($this->input->get()) ) ? 'home_center_menu' : NULL ?>" href="<?php echo base_url() ?>"><img src="<?php echo base_url().APP_ASSETS_FOLDER?>/global/imgs/logos/logo_2.gif" alt="voypormas.com" class="logo-voypormas.com" /></a>

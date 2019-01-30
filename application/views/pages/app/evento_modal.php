@@ -147,6 +147,7 @@
         <a class="social-button fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
         <a class="social-button fa fa-twitter" href="https://twitter.com/home?status=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
         <a class="social-button fa fa-google-plus" href="https://plus.google.com/share?url=voypormas.com/app/evento/<?php echo $evento['evento_id'] ?>" target="_blank"></a>
+        <a class="social-button fa fa-whatsapp" href="https://wa.me/?text=<?php echo urlencode(base_url().'app/evento/'.$evento['evento_id'])?>" target="_blank"></a>
     </div>
     <?php if (is_array($evento['organizacion'][0]['redes_sociales']) AND !empty($evento['organizacion'][0]['redes_sociales']) ) : ?>
     <div class="redes_sociales_modal">

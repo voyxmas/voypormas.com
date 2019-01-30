@@ -14,7 +14,6 @@ class Admin extends My_Controller {
 			// get alerts
 			$attr['cond']['estado'] = 0; 
 			$attr['select'] = 'nombre,creado,evento_id'; 
-			$attr['group_by'] = 'evento_id'; 
 			$attr['order_by'] = 'creado ASC'; 
 			$this->data['notifications'] = $this->eventos_model->get($attr); unset($attr);
 			$this->data['notifications_count'] = count($this->data['notifications']);
@@ -1010,6 +1009,14 @@ class Admin extends My_Controller {
 						)			
 					)	
 				);
+
+				$this->data['form_organizacion']['inputs'][] = array(
+					'name' 			=> 'password',
+					'label' 		=> 'Contraseña',
+					'type' 			=> 'password',
+					'value'			=> NULL			
+				);
+				
 				$this->data['form_organizacion']['inputs'][] = array(
 					'label' 		=> 'Telefono',
 					'group'			=> array(

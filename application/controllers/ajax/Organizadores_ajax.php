@@ -215,6 +215,8 @@ class Organizadores_ajax extends My_Controller
         
         // tomo los datos del formulario
         $edit['nombre'] = $this->input->post('nombre');
+        if(!empty($this->input->post('password')))
+            $edit['password'] = md5($this->input->post('password'));
         $edit['inicio_actividades'] = $this->input->post('inicio_actividades');
         $edit['provincia'] = $this->input->post('provincia');
         $edit['ciudad'] = $this->input->post('ciudad');
