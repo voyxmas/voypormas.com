@@ -255,6 +255,8 @@ body.app_nuevo .input-group-z-element.participantes_destacados:not(:first-of-typ
     width: 60%;
     margin: 15px auto;
 }
+#variantes .criterio { text-align: right}
+#variantes .montos { text-align: left}
 #variantes .criterio,
 #variantes .montos { display: inline-block; min-width: 200px; border-bottom: 1px solid #CCC; padding: 5px 0;}
 .no-border { border: none !important;}

@@ -486,6 +486,12 @@ class Admin extends My_Controller {
 					'type' 			=> 'hidden'
 				);
 
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'inscripciones_link',
+					'label' 		=> 'Link de inscripción',
+					'type' 			=> 'text',
+					'value'			=> $this->data['evento']['inscripciones_link'],
+				);
 
 				$this->data['form_general']['inputs'][] = array(
 					'name' 			=> 'inscripciones',

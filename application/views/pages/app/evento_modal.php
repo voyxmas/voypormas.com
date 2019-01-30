@@ -112,7 +112,8 @@
     $attr['Icono'] = FALSE; 
     ?>
     <p><?php echo urltolink($evento['inscripciones_link'],$attr) ?></p>
-    <?php echo $evento['inscripciones_con_links'] ? "<p>Otras formas de inscripcion: ".$evento['inscripciones_con_links']."</p>" : NULL?>
+    <?php echo $evento['inscripciones_con_links'] ? "<p>Otras formas de inscripcion: ".nl2br($evento['inscripciones_con_links'])."</p>" : NULL?>
+    <?php echo $evento['inscripciones_fecha_limite'] ? "<p>Fecha límite de inscripción: ".cstm_get_datetime($evento['inscripciones_fecha_limite'])."</p>" : NULL?>
     <h3>Info por distancia</h3>
     <div id="variantes" >
         <?php foreach ($evento['variantes'] AS $varianteItem ) : ?>
@@ -123,10 +124,10 @@
                 <p class="separador"><strong>Entrega de kit:</strong> <?php echo $varianteItem['kit_lugar'] ?> (<?php echo cstm_get_datetime($varianteItem['kit_hora']) ?>)</p>
                 <?php if ( !empty($varianteItem['premios']) ) : ?>  
                 <?php if ( !empty($varianteItem['info']) ) : ?>  
-                <p class="separador elementos_obligatorios">Elementos obligatorios: 
+                <p class="separador elementos_obligatorios"><strong>Elementos obligatorios:</strong> 
                     <?php echo nl2br($varianteItem['info']) ?>
                 <?php endif ?>
-                <p class="separador">Premios: <br>
+                <p class="separador"><strong>Premios:</strong> <br>
                 <?php foreach ($varianteItem['premios'] AS $premio ) : ?>
                     <span class="criterio"><?php echo $premio['descripcion'] ?> :</span><span class="montos"><?php echo $premio['premio'] ?></span> <br> 
                 <?php endforeach ?></p>
