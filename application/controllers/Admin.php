@@ -430,6 +430,12 @@ class Admin extends My_Controller {
 				);
 
 				$this->data['form_general']['inputs'][] = array(
+					'label' 		=> 'Imagen',
+					'name' 			=> 'image',
+					'type' 			=> 'file'		
+				);
+
+				$this->data['form_general']['inputs'][] = array(
 					'value'			=> $this->data['evento']['lugar'],
 					'name' 			=> 'lugar',
 					'id' 			=> 'lugar',

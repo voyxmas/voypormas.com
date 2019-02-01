@@ -363,6 +363,43 @@ class Eventos_ajax extends My_Controller
 		$attr['reprogramado'] = $this->input->post('reprogramado') ? $this->input->post('reprogramado') : 0;
 		$attr['estado'] = $this->input->post('estado') ? $this->input->post('estado') : 0;
 
+		if (isset($_FILES) and is_array($_FILES) and !empty($_FILES)) {
+			$config['upload_path'] = './assets/uploads/';
+			$config['allowed_types'] = 'gif|jpg|jpeg|png';
+			$config['max_size'] = 4096;
+			$config['max_width'] = 3024;
+			$config['max_height'] = 3024;
+
+			foreach ($_FILES as $name => $file) {
+				if ($file['name']) {
+
+					$filename = clean_special_chars($file['name']);
+					$config['file_name'] = $filename;
+					$this->load->library('upload', $config);
+					if (!$this->upload->do_upload($name)) {
+						$e[] = $this->upload->display_errors();
+					} else {
+						// tomo los datos cargados
+						$upload_data = $this->upload->data();
+
+						//resize:
+
+						$config_resize['image_library'] = 'gd2';
+						$config_resize['source_image'] = $upload_data['full_path'];
+						$config_resize['maintain_ratio'] = true;
+						$config_resize['width'] = 600;
+						$config_resize['height'] = 600;
+
+						$this->load->library('image_lib', $config_resize);
+
+						$this->image_lib->resize();
+						// agrego el full path a savepara guardar la referencia a la imagen
+						$attr['imagen'] = $config['upload_path'] . clean_special_chars($upload_data['file_name']);
+					}
+				}
+			}
+		} 
+
 		$respuesta = $this->eventos_model->save($attr, $evento_id);
 		unset($attr);
 

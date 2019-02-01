@@ -1,0 +1,41 @@
+ADMIN
+x No puedo cargar mas corredores destacados 
+  Se ponen los nombres separados por comas
+*En  “premios” e “Inscripcion” el botón NUEVO no crea otro renglon sino que guarda los cambios
+  No deberia hacer eso, lo que hace es guardar los que pusiste ne los campos a la iz del boton como un premio nuevo, si recargas la pagina vas a verlo cargado, tendria que ir agregandolo a la lista a medida que se agregan, esto faltaria de hacer
+*No se ve el casillero “link de inscripción” (se ve solo el de otras formas de inscribirse.
+  Corregido
+*Foto de evento: Poder cambiarla
+  Falta
+*No se ven todas las carreras cargadas y ya aprobadas en “VER EVENTOS”
+  Corregido
+
+
+ADMIN y ORGANIZADOR
+*En “+INFO” Botón para copiar  los datos cargados en la distancia anterior (o que se autocomplete. En este caso deberia tener otro color la tipografi autocopiada, para distinguir  a sumple vista que datos se modificaron y cuales no.
+  Falta
+*Casillero donde poder agregar Redes sociales o web oficial, puntualmente de la carrera.
+  Falta
+*Entrega de kits: poder sumar casilleros para poner otros días y horarios de entregas si existiese.
+  Falta - habria que definir omo vamos a hacer con este campo, si lo mantenemos como esta y agregamos los grupos o simplificamos el formulario con un campo de texto libre
+*Otras formas de inscribirse: Que lo que se muestra en el resultado, respete la forma en que se lo escribió, es decir, Mayusculas, enter y abajo,. 
+  Hecho
+*Casillero opcional para poner detalle de cada distancia, (Que diga en gris “Ej: Postas, Kids, Km Vertical…” y que tenga un máximo de escritura de  12 caracteres.
+  Falta
+*Boton “+INFO”: que sea obligatorio minimo 1 dato de todos, y que notifique de esto cuando se quiera guardar el evento sin cargar nada.
+  Falta - como es parte del formulario dinamico tengo que ver como implementarlo
+
+RESULTADOS
+*Cambio de formato en pantalla inicial. 
+  Hecho
+*Negritas en lo títulos: Elementos oblig. Y Premios
+  Hecho
+*Alinear el resultado de “Premios”: Los datos de PUESTO, alineado a la derecha y los del PREMIO a la izquierda.
+  Hecho
+*Fecha HASTA, no se figura en resultados.
+  Hecho
+
+
+PROBLEMA:
+Por favor, que el filtro “¿Dónde?” de opciones y filtre solo por provincias enteras. Es decir, que no de la opción de buscar por “cosquin” sino “Cordoba” (xq sino es muy difícil encontrar un resultado buscando por zona, el dato es muy fino. (pero si conservar en la carga el dato de la ciudad, provincia y país, como esta))
+  Falta, Tengo que ver como resolverlo, probablemente sea mejor dejar que busquen tanto como quieran y si yo no encuentro resultados para una segmentacion busco en la de orden superio hasta encontrar resultados
