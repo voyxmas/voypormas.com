@@ -8,6 +8,7 @@ $(document).ready(function(){
     google.maps.event.addListener(ubicacion, 'place_changed', function () 
     {
     
+        var input_val = input.value;
         var place = ubicacion.getPlace();
         var address_components = place.address_components;
 
@@ -32,6 +33,20 @@ $(document).ready(function(){
             // busco pais
             if(elemento == "country") $('[name=pais]').val(valor);  
         }
+
+        // veo si mando provincia,pais para evitar que busque la ciudad cuando se buscan solo dos elementos y la ciudad y la provincia tienen el mismo nombre
+        let geo = input_val.split(', ');
+        if(
+            geo.length == 2 &
+            $('[name=provincia]').val() == geo[0] &&
+            $('[name=pais]').val() == geo[1] &&
+            $('[name=provincia]').val() == $('[name=ciudad]').val()
+        ){
+            $('[name=numero_casa]').val(null);
+            $('[name=calle]').val(null);
+            $('[name=ciudad]').val(null);
+            $('[name=departamento]').val(null);
+        } 
 
         // set latitud
         if( typeof place.geometry.location.lat != undefined) $('[name=latitud]').val(place.geometry.location.lat); 
