@@ -404,6 +404,7 @@ class Admin extends My_Controller {
 
 			// load models
 			$this->load->model('caracteristicas_model');
+			$this->load->model('organizaciones_model');
 			$this->load->model('variantes_eventos_premios_model');
 			// cargar includes
 			$this->layouts->add_include(APP_ASSETS_FOLDER.'/global/css/components.min.css','head');
@@ -427,6 +428,16 @@ class Admin extends My_Controller {
 					'placeholder' 	=> 'Nombre de la carrera',
 					'label' 		=> 'Nombre de la carrera',
 					'help'			=> 'Nombre con el que aparece listado el evento'					
+				);
+
+				$this->data['form_general']['inputs'][] = array(
+					'name' 			=> 'organizador',
+					'value'			=> $this->data['evento']['organizador_id'],
+					'type' 			=> 'select',
+					'options'		=> $this->organizaciones_model->get_for_input(),
+					'placeholder' 	=> 'organizador de la carrera',
+					'label' 		=> 'organizador de la carrera',
+					'help'			=> 'organizador con el que aparece listado el evento'					
 				);
 
 				$this->data['form_general']['inputs'][] = array(

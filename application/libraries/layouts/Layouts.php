@@ -66,7 +66,7 @@
       //defino si es js o css
       if($type === NULL)
       {
-        if (preg_match('/js$/', $path))
+        if (preg_match('/js([\?\d]+)?$/', $path))
           $type = 'js';
         else
           $type = 'css';
