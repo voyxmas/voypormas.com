@@ -9,7 +9,7 @@ class Caracteristicas_ajax extends My_Controller {
 
 		if (!$this->input->is_ajax_request()) 
 		{
-		   exit('No direct script access allowed');
+			exit('No direct script access allowed');
 		}
 		$this->load->model('caracteristicas_model');
 		$this->load->model('eventos_caracteristicas_model');
@@ -201,4 +201,3 @@ class Caracteristicas_ajax extends My_Controller {
 		$this->ajax_response($data,$do_after);
 	}
 }
-?>

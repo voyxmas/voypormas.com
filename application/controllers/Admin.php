@@ -973,11 +973,12 @@ class Admin extends My_Controller {
 			bouncer($this->data['CURRENT_SECTION'],$this->data['CURRENT_PAGE']);
 
 			// tomar registros y agruparlos por segun su grupo para poder hacer los tabs
-			$query['order_by'] = 'nombre ASC';
+			$query['order_by'] = 'creado DESC';
+			$query['page'] = $this->input->get('p');
 			$this->data['organizaciones'] = $this->organizaciones_model->get($query); unset($query);
 			$this->data['pagination_data'] = array(
 				'total_results'=>$this->data['organizaciones'][0]['total_results'], 
-				'page'=>$this->input->get('p'),
+				'page'=>$query['page'],
 				'ref_url'=>'admin/organizaciones'
 			);
 

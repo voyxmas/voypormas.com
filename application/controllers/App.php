@@ -132,7 +132,7 @@ class App extends My_Controller {
 		if($this->input->get('p'))
 			$attr['page'] = $this->input->get('p');
 		
-		$attr['results'] = 50;
+		$attr['results'] = 1000;
 		$query = $this->eventos_model->get($attr); unset($attr);
 		$this->data['eventos'] = $query ? $query : array() ;
 

@@ -48,11 +48,11 @@ function cstm_get_date($datetime = null, $format = APP_DATE_FORMAT)
 
 function cstm_get_datetime($datetime = null, $format = APP_DATETIME_FORMAT)
 {
-  if ($datetime) {
-    return date($format, strtotime($datetime));
-  } else {
-    return date($format);
-  }
+    if ($datetime!="" AND $datetime!="0000-00-00 00:00:00" AND $datetime!="0000-00-00T00:00:00") {
+      return date($format, strtotime($datetime));
+    } else {
+      return FALSE;
+    }
 }
 
 function cstm_today($format = APP_DATE_FORMAT)
